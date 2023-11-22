@@ -10,6 +10,7 @@
         android:id="@+id/courseView"
         android:layout_width="409dp"
         android:layout_height="729dp"
+        android:background="@color/background_white"
         android:padding="10dp"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="1dp"

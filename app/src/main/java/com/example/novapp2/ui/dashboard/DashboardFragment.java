@@ -36,11 +36,15 @@ public class DashboardFragment extends Fragment {
         RecyclerView courseView = root.findViewById(R.id.courseView);
 
         List<Course> courseList = new ArrayList<Course>();
-        courseList.add(new Course("John wick","bla bla bla", R.drawable.a));
-        courseList.add(new Course("John wick","bla bla bla", R.drawable.a));
-        courseList.add(new Course("John wick","bla bla bla", R.drawable.a));
-        courseList.add(new Course("John wick","bla bla bla", R.drawable.a));
-        courseList.add(new Course("John wick","bla bla bla", R.drawable.a));
+        courseList.add(new Course("John wick", "bla bla bla", R.drawable.a));
+        courseList.add(new Course("Robert j", "bla bla bla", R.drawable.a));
+        courseList.add(new Course("James Gunn", "bla bla bla", R.drawable.a));
+        courseList.add(new Course("Ricky tales", "bla bla bla", R.drawable.a));
+        courseList.add(new Course("Micky mose", "bla bla bla", R.drawable.a));
+        courseList.add(new Course("Pick War", "bla bla bla", R.drawable.a));
+        courseList.add(new Course("Leg piece", "bla bla bla", R.drawable.a));
+        courseList.add(new Course("Apple Mac", "bla bla bla", R.drawable.a));
+
 
         // Configura il LinearLayoutManager e l'Adapter per il RecyclerView
         courseView.setLayoutManager(new LinearLayoutManager(requireContext()));
