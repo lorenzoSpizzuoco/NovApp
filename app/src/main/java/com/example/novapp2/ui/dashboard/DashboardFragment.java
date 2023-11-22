@@ -9,8 +9,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.novapp2.Course;
+import com.example.novapp2.CourseAdapter;
+import com.example.novapp2.R;
 import com.example.novapp2.databinding.FragmentDashboardBinding;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DashboardFragment extends Fragment {
 
@@ -24,8 +32,20 @@ public class DashboardFragment extends Fragment {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textDashboard;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        // Ottieni un riferimento al RecyclerView dal file layout XML
+        RecyclerView courseView = root.findViewById(R.id.courseView);
+
+        List<Course> courseList = new ArrayList<Course>();
+        courseList.add(new Course("John wick","bla bla bla", R.drawable.a));
+        courseList.add(new Course("John wick","bla bla bla", R.drawable.a));
+        courseList.add(new Course("John wick","bla bla bla", R.drawable.a));
+        courseList.add(new Course("John wick","bla bla bla", R.drawable.a));
+        courseList.add(new Course("John wick","bla bla bla", R.drawable.a));
+
+        // Configura il LinearLayoutManager e l'Adapter per il RecyclerView
+        courseView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        courseView.setAdapter(new CourseAdapter(requireContext(), courseList));
+
         return root;
     }
 
