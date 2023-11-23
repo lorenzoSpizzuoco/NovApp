@@ -1,4 +1,4 @@
-package com.example.novapp2;
+package com.example.novapp2.ui.course;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.novapp2.Course;
-import com.example.novapp2.CourseViewHolder;
 import com.example.novapp2.R;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.novapp2;
+package com.example.novapp2.ui.course;
 
 public class Course {
 

@@ -12,4 +12,5 @@
     <color name="main_grey">#5A636C</color>
     <color name="main_blue">#0579BE</color>
     <color name="background_white">#FCFBFB</color>
+    <color name="background_gray">#DBDDDF</color>
 </resources>
