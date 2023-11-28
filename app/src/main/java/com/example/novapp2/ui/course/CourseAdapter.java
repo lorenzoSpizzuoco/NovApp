@@ -38,4 +38,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseViewHolder> {
     public int getItemCount() {
         return courseList.size();
     }
+
+
 }
