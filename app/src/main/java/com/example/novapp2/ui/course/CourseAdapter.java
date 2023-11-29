@@ -42,4 +42,12 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseViewHolder> {
     }
 
 
+    public List<Course> getCourseList() {
+        return courseList;
+    }
+
+    public void setCourseList(List<Course> courseList) {
+        this.courseList = courseList;
+        notifyDataSetChanged();
+    }
 }

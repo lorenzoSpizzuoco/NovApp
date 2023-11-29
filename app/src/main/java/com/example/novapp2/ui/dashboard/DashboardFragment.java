@@ -31,6 +31,7 @@ public class DashboardFragment extends Fragment {
     private SearchView courseSearchView;
     private RecyclerView courseView;
 
+    private CourseAdapter courseAdapter;
     private List<Course> courseList;
     private List<Course> filteredList;
 
@@ -46,7 +47,9 @@ public class DashboardFragment extends Fragment {
         courseView = root.findViewById(R.id.courseView);
         addItemsToList();
         courseView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        courseView.setAdapter(new CourseAdapter(requireContext(), courseList));
+
+        courseAdapter = new CourseAdapter(requireContext(), courseList);
+        courseView.setAdapter(courseAdapter);
 
         //courseSearchView
         courseSearchView = root.findViewById(R.id.courseSearchView);
@@ -63,7 +66,7 @@ public class DashboardFragment extends Fragment {
                 if(filteredList.isEmpty()){
                     Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
                 }
-                courseView.setAdapter(new CourseAdapter(requireContext(), filteredList));
+                courseAdapter.setCourseList(filteredList);
                 return false;
             }
         });
