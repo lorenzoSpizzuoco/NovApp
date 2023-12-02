@@ -5,12 +5,22 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.novapp2.R;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
+
+import org.apache.commons.validator.routines.EmailValidator;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,54 +29,72 @@ import com.example.novapp2.R;
  */
 public class LoginFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    final private String TAG = LoginFragment.class.getSimpleName();
+    private TextInputLayout textInputLayoutEmail;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private TextInputLayout textInputLayoutPassword;
 
     public LoginFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment LoginFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static LoginFragment newInstance(String param1, String param2) {
+    public static LoginFragment newInstance() {
         LoginFragment fragment = new LoginFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_login, container, false);
+
+
     }
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
-        //super.onViewCreated(view.savedInstanceState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        super.onViewCreated(view, savedInstanceState);
+
+        textInputLayoutEmail = view.findViewById(R.id.text_input_layout_email);
+        textInputLayoutPassword = view.findViewById(R.id.text_input_layout_password);
+        final Button buttonLogin = view.findViewById(R.id.button_login);
+
+        buttonLogin.setOnClickListener(v -> {
+
+            String email = textInputLayoutEmail.getEditText().getText().toString();
+            String password = textInputLayoutPassword.getEditText().getText().toString();
+
+            // Start login if email and password are ok
+            if (isEmailOk(email)) {
+                Log.d(TAG, "Email and password are ok");
+                try {
+                    Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_mainActivity2);
+                }
+                catch(IllegalStateException e){
+                    Log.e(TAG, e.toString());
+                }
+                catch(IllegalArgumentException e){
+                    Log.e(TAG, e.toString());
+                }
+            }
+        });
+    }
+
+    private boolean isEmailOk(String email) {
+        // Check if the email is valid through the use of this library:
+        // https://commons.apache.org/proper/commons-validator/
+        if (!EmailValidator.getInstance().isValid((email))) {
+            textInputLayoutEmail.setError(getString(R.string.email_error));
+            return false;
+        } else {
+            textInputLayoutEmail.setError(null);
+            return true;
+        }
     }
 }
