@@ -23,7 +23,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.027"
-        app:queryHint="Search ..." />
+        app:queryHint="Search ..."
+        app:searchIcon="@drawable/baseline_search_24" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/courseView"
