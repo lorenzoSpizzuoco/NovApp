@@ -4,7 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.dashboard.DashboardFragment">
+    tools:context=".ui.dashboard.DashboardFragment"
+    android:background="@color/background_white"
+    >
+
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/courseSearchView"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/course_search_view_bg"
+        app:goIcon="?android:attr/actionModeWebSearchDrawable"
+        app:iconifiedByDefault="false"
+        app:layout_constraintBaseline_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.027"
+        app:queryHint="Search ..."
+        app:searchIcon="@drawable/baseline_search_24" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/courseView"
@@ -12,10 +33,13 @@
         android:layout_height="0dp"
         android:background="@color/background_white"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp"
         android:paddingTop="0dp"
+        android:paddingRight="10dp"
         android:paddingBottom="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseSearchView"
+        app:layout_constraintVertical_bias="1.0"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp" />
+        tools:layout_editor_absoluteX="-1dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
