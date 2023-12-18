@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.core.content.ContextCompat;
 
 import com.example.novapp2.ui.course.Course;
 import com.example.novapp2.ui.course.CourseAdapter;
@@ -43,6 +45,16 @@ public class DashboardFragment extends Fragment {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        // Ottieni il riferimento alla barra di ricerca
+        courseSearchView = root.findViewById(R.id.courseSearchView);
+
+        // Imposta il colore del testo nella barra di ricerca
+        EditText searchText = courseSearchView.findViewById(androidx.appcompat.R.id.search_src_text);
+        searchText.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black));
+
+        // Resto del tuo codice...
+        // ...
+
         //course RecycleView
         courseView = root.findViewById(R.id.courseView);
         addItemsToList();
@@ -52,7 +64,6 @@ public class DashboardFragment extends Fragment {
         courseView.setAdapter(courseAdapter);
 
         //courseSearchView
-        courseSearchView = root.findViewById(R.id.courseSearchView);
         courseSearchView.clearFocus();
         courseSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -63,14 +74,13 @@ public class DashboardFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 filteredList = Utils.sortCourseByString(courseList, newText);
-                if(filteredList.isEmpty()){
+                if (filteredList.isEmpty()) {
                     Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
                 }
                 courseAdapter.setCourseList(filteredList);
                 return false;
             }
         });
-
 
         return root;
     }
@@ -81,7 +91,7 @@ public class DashboardFragment extends Fragment {
         binding = null;
     }
 
-    public void addItemsToList(){
+    public void addItemsToList() {
         courseList = new ArrayList<Course>();
         courseList.add(new Course("Web Development Basics", "Learn the essentials of building websites and web applications.", R.drawable.libri));
         courseList.add(new Course("Photography Fundamentals", "Master the art of capturing stunning photographs with your camera.", R.drawable.analisi));
@@ -106,6 +116,4 @@ public class DashboardFragment extends Fragment {
 
         Utils.sortCourseByName(courseList);
     }
-
-
 }
