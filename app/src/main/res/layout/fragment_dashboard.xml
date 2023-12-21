@@ -24,6 +24,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.027"
         app:queryHint="Search ..."
+        android:textColor="#000000"
         app:searchIcon="@drawable/baseline_search_24" />
 
 
