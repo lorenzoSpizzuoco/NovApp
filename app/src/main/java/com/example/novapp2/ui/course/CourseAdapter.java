@@ -1,6 +1,7 @@
 package com.example.novapp2.ui.course;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,6 +65,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
      * (custom ViewHolder)
      */
     public static class CourseViewHolder extends RecyclerView.ViewHolder {
+        public static final String TAG = "CourseViewHolder";
         public ImageView imageView;
         public TextView titleView;
         public TextView descView;
@@ -80,8 +82,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
             courseView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
-                    // Handle item click here
-                    // You can access your data using courseList.get(position)
+                    Log.i(TAG, "onClick: " + titleView.getText());
                 }
             });
         }
