@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1098547570591",
+    "project_id": "novapp-faf69",
+    "storage_bucket": "novapp-faf69.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1098547570591:android:9f6792e7080c06ac24bfaa",
+        "android_client_info": {
+          "package_name": "com.example.novapp2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDNyrfhA1izNBfh82MRfAg6E8pzbij404"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
