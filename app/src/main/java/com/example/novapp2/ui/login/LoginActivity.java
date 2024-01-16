@@ -1,4 +1,4 @@
-package com.example.novapp2.ui;
+package com.example.novapp2.ui.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 

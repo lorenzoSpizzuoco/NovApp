@@ -50,6 +50,7 @@ android {
 
 dependencies {
 
+    implementation("com.google.firebase:firebase-auth:22.3.0")
     val nav_version = "2.7.6"
     implementation("androidx.navigation:navigation-fragment:$nav_version")
     implementation("androidx.navigation:navigation-ui:$nav_version")
@@ -57,6 +58,12 @@ dependencies {
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-database")
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
+
+    // Auth
+    implementation("androidx.credentials:credentials:1.3.0-alpha01")
+
 
     // Feature module Support
     implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")

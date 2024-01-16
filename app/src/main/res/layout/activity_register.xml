@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.login.LoginActivity">
+    tools:context=".ui.register.RegisterActivity">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/login_fragment_container_view"
+        android:id="@+id/register_fragment_container_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:defaultNavHost = "true"
