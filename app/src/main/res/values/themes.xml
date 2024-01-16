@@ -17,6 +17,9 @@
         <!-- Text color. -->
         <item name="android:textColorPrimary">@android:color/black</item>
 
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
 
     </style>
 </resources>
