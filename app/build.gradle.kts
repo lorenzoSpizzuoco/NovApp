@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("androidx.navigation.safeargs")
     id("com.google.gms.google-services")
 }
 
@@ -25,8 +26,8 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
             )
         }
     }
@@ -38,8 +39,11 @@ android {
         viewBinding = true
         compose = true
     }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = "1.5.0"
     }
     packaging {
         resources {
@@ -50,8 +54,10 @@ android {
 
 dependencies {
 
-    implementation("com.google.firebase:firebase-auth:22.3.0")
     val nav_version = "2.7.6"
+    val room_version = "2.6.1"
+
+    implementation("com.google.firebase:firebase-auth:22.3.0")
     implementation("androidx.navigation:navigation-fragment:$nav_version")
     implementation("androidx.navigation:navigation-ui:$nav_version")
 
@@ -63,6 +69,8 @@ dependencies {
 
     // Auth
     implementation("androidx.credentials:credentials:1.3.0-alpha01")
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
 
 
     // Feature module Support
@@ -72,6 +80,7 @@ dependencies {
     androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
 
     // Jetpack Compose Integration
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("androidx.navigation:navigation-compose:$nav_version")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")

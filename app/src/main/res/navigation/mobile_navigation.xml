@@ -6,12 +6,6 @@
     app:startDestination="@+id/navigation_home">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.novapp2.ui.dashboard.DashboardFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
         android:id="@+id/navigation_chat"
         android:name="com.example.novapp2.ui.chat.FragmentChat"
         android:label="@string/title_home"
@@ -34,4 +28,47 @@
         android:name="com.example.novapp2.ui.user.UserFragment"
         android:label="fragment_chat"
         tools:layout="@layout/fragment_chat" />
+
+    <fragment
+        android:id="@+id/adDetailsFragment"
+        android:name="com.example.novapp2.ui.home.adDetailsFragment"
+        android:label="adDetailsFragment"
+        tools:layout="@layout/ad_details_fragment">
+
+
+        <argument
+            android:name="AdObject"
+            app:argType="com.example.novapp2.ui.ad.Ad" />
+    </fragment>
+    <fragment
+        android:id="@+id/newAdFragment"
+        android:name="com.example.novapp2.ui.home.NewAdFragment"
+        android:label="fragment_new_ad"
+        tools:layout="@layout/fragment_new_ad" >
+        <action
+            android:id="@+id/action_newAdFragment_to_loadingFragment"
+            app:destination="@id/loadingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loadingFragment"
+        android:name="com.example.novapp2.ui.LoadingFragment"
+        android:label="fragment_loading"
+        tools:layout="@layout/fragment_loading" >
+        <action
+            android:id="@+id/action_loadingFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.novapp2.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_adDetailsFragment"
+            app:destination="@id/adDetailsFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_newAdFragment"
+            app:destination="@id/newAdFragment" />
+    </fragment>
 </navigation>

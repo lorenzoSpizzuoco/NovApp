@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/adCardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginBottom="5dp"
+    app:cardCornerRadius="8dp"
+
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="@color/background_white">
+
+    <RelativeLayout
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:selectableItemBackground"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/AdImageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginRight="15dp"
+            android:outlineAmbientShadowColor="@color/background_gray" />
+
+        <TextView
+            android:id="@+id/AdTitleView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/AdImageView"
+            android:textColor="@color/main_blue"
+            android:textSize="20sp"
+            tools:text="Title" />
+
+        <TextView
+            android:id="@+id/AdDescView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/AdTitleView"
+            android:layout_toEndOf="@id/AdImageView"
+            android:textColor="@color/main_grey"
+            tools:text="Desc" />
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

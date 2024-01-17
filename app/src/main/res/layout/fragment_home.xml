@@ -1,113 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/HomeFragment"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <androidx.constraintlayout.utils.widget.MockView
-        android:id="@+id/mockView1"
-        android:layout_width="314dp"
-        android:layout_height="92dp"
-        android:layout_marginTop="42dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mockView7" />
 
-    <androidx.constraintlayout.utils.widget.MockView
-        android:id="@+id/mockView2"
-        android:layout_width="314dp"
-        android:layout_height="92dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mockView1" />
+    <androidx.recyclerview.widget.RecyclerView
 
-    <androidx.constraintlayout.utils.widget.MockView
-        android:id="@+id/mockView3"
-        android:layout_width="314dp"
-        android:layout_height="92dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mockView2" />
+        android:id="@+id/AdRecyclerView"
+        android:layout_width="match_parent"
+        app:borderWidth="1dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/background_white"
+        android:paddingLeft="10dp"
+        android:paddingTop="0dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-37dp" />
 
-    <androidx.constraintlayout.utils.widget.MockView
-        android:id="@+id/mockView4"
-        android:layout_width="314dp"
-        android:layout_height="92dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mockView3" />
-
-    <SearchView
-        android:id="@+id/searchView"
-        android:layout_width="318dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="32dp"
-        android:background="#DFD9D9"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.utils.widget.MockView
-        android:id="@+id/mockView5"
-        android:layout_width="73dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView" />
-
-    <androidx.constraintlayout.utils.widget.MockView
-        android:id="@+id/mockView6"
-        android:layout_width="73dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="22dp"
-        app:layout_constraintStart_toEndOf="@+id/mockView7"
-        app:layout_constraintTop_toBottomOf="@+id/searchView" />
-
-    <androidx.constraintlayout.utils.widget.MockView
-        android:id="@+id/mockView7"
-        android:layout_width="73dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toEndOf="@+id/mockView5"
-        app:layout_constraintTop_toBottomOf="@+id/searchView" />
-
-    <androidx.constraintlayout.utils.widget.MockView
-        android:id="@+id/mockView9"
-        android:layout_width="32dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="22dp"
-        android:layout_marginEnd="44dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.891"
-        app:layout_constraintStart_toEndOf="@+id/mockView6"
-        app:layout_constraintTop_toBottomOf="@+id/searchView" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="78dp"
-        android:layout_height="57dp"
-        android:layout_marginBottom="96dp"
-        android:text="+"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/newAdButton"
+        style="?attr/floatingActionButtonLargeStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/fab_content_desc"
+        android:tint="@android:color/white"
+        app:backgroundTint="@color/main_red"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.925"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:srcCompat="@drawable/baseline_add_24" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
