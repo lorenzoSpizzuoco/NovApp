@@ -79,7 +79,7 @@ public class AdDetailsFragment extends Fragment {
 
         // getting clicked ad
 
-        Ad ad = adDetailsFragmentArgs.fromBundle(getArguments()).getAdObject();
+        Ad ad = AdDetailsFragmentArgs.fromBundle(getArguments()).getAdObject();
 
         // setting fragment elements with selected ad data
 
