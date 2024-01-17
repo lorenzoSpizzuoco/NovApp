@@ -29,4 +29,19 @@
         android:name="com.example.novapp2.MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
+    <activity
+        android:id="@+id/activityNotification"
+        android:name="com.example.novapp2.ui.mockup.ActivityNotification"
+        android:label="activity_notification"
+        tools:layout="@layout/activity_notification" />
+    <activity
+        android:id="@+id/activityUser"
+        android:name="com.example.novapp2.ui.mockup.ActivityUser"
+        android:label="activity_user"
+        tools:layout="@layout/activity_user" />
+    <activity
+        android:id="@+id/activityChat"
+        android:name="com.example.novapp2.ui.mockup.ActivityChat"
+        android:label="activity_chat"
+        tools:layout="@layout/to_delete_chat" />
 </navigation>

@@ -38,10 +38,10 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
-        myTextView = view.findViewById(R.id.text_home);
+/*        myTextView = view.findViewById(R.id.text_home);
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        myTextView.setText(currentUser.getEmail());
+        myTextView.setText(currentUser.getEmail()); */
     }
 
 }
