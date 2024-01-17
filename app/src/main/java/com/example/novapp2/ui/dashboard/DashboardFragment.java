@@ -52,9 +52,6 @@ public class DashboardFragment extends Fragment {
         EditText searchText = courseSearchView.findViewById(androidx.appcompat.R.id.search_src_text);
         searchText.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black));
 
-        // Resto del tuo codice...
-        // ...
-
         //course RecycleView
         courseView = root.findViewById(R.id.courseView);
         addItemsToList();
