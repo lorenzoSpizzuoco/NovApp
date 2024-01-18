@@ -21,14 +21,17 @@ public class Post implements Parcelable{
 
     private String content;
 
+    private int category;
+
     private int image;
 
     protected Post(Parcel in) {
         author = in.readString();
-        title = in.readString();
         content = in.readString();
-        image = in.readInt();
         date = in.readString();
+        category = in.readInt();
+        title = in.readString();
+        image = in.readInt();
     }
 
     public static final Parcelable.Creator<Post> CREATOR = new Parcelable.Creator<Post>() {
@@ -89,19 +92,18 @@ public class Post implements Parcelable{
         this.date = date;
     }
 
-    public String getCategory() {
+    public int getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(int category) {
         this.category = category;
     }
 
 
 
     // post category
-    private String category;
-    public Post(String title, String author, int image, String content, String category, String date) {
+    public Post(String title, String author, int image, String content, int category, String date) {
         this.title = title;
         this.author = author;
         this.content = content;
@@ -119,7 +121,7 @@ public class Post implements Parcelable{
         dest.writeString(author);
         dest.writeString(content);
         dest.writeString(date);
-        dest.writeString(category);
+        dest.writeInt(category);
         dest.writeString(title);
         dest.writeInt(image);
     }

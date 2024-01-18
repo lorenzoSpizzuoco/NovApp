@@ -3,6 +3,7 @@ package com.example.novapp2.database;
 import static com.example.novapp2.utils.Constants.AD_DATABASE_NAME;
 import static com.example.novapp2.utils.Constants.DATABASE_VERSION;
 import static com.example.novapp2.utils.Constants.POST_DATABASE_NAME;
+import static com.example.novapp2.utils.Constants.POST_DATABASE_VERSION;
 
 import android.content.Context;
 import android.util.Log;
@@ -27,7 +28,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Post.class}, version = DATABASE_VERSION)
+@Database(entities = {Post.class}, version = POST_DATABASE_VERSION)
 public abstract class PostRoomDatabase extends RoomDatabase {
 
 
@@ -46,7 +47,7 @@ public abstract class PostRoomDatabase extends RoomDatabase {
             synchronized (PostRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            PostRoomDatabase.class, POST_DATABASE_NAME).addCallback(sRoomDatabaseCallback).build();
+                            PostRoomDatabase.class, POST_DATABASE_NAME).addCallback(sRoomDatabaseCallback).fallbackToDestructiveMigration().build();
                 }
             }
         }
@@ -68,15 +69,15 @@ public abstract class PostRoomDatabase extends RoomDatabase {
 
                 postDao.deleteAll();
 
-                postDao.insert(new Post("something crazy", "Lorenzo", R.drawable.analisi, "earn 1M a month", "job offer", "today"));
-                postDao.insert(new Post("something crazy2", "spiz404", R.drawable.analisi, "earn 1M a month", "job offer", "today"));
-                postDao.insert(new Post("something crazy", "antonello venditti", R.drawable.analisi, "earn 1M a month", "job offer", "today"));
-                postDao.insert(new Post("new song", "massimo troisi", R.drawable.analisi, "just dropped a hit", "event", "today"));
-                postDao.insert(new Post("something crazy", "Lorenzo", R.drawable.analisi, "earn 1M a month", "job offer", "today"));
-                postDao.insert(new Post("something crazy", "Lorenzo", R.drawable.analisi, "earn 1M a month", "job offer", "today"));
-                postDao.insert(new Post("something crazy", "Lorenzo", R.drawable.analisi, "earn 1M a month", "job offer", "today"));
-                postDao.insert(new Post("something crazy", "Lorenzo", R.drawable.analisi, "earn 1M a month", "job offer", "today"));
-                postDao.insert(new Post("something crazy", "Lorenzo", R.drawable.analisi, "earn 1M a month", "job offer", "today"));
+                postDao.insert(new Post("something crazy", "Lorenzo", R.drawable.analisi, "earn 1M a month", 2, "today"));
+                postDao.insert(new Post("something crazy2", "spiz404", R.drawable.analisi, "earn 1M a month", 3, "today"));
+                postDao.insert(new Post("something crazy", "antonello venditti", R.drawable.analisi, "earn 1M a month", 3, "today"));
+                postDao.insert(new Post("new song", "massimo troisi", R.drawable.analisi, "just dropped a hit", 1, "today"));
+                postDao.insert(new Post("something crazy", "Lorenzo", R.drawable.analisi, "earn 1M a month", 2, "today"));
+                postDao.insert(new Post("something crazy", "Lorenzo", R.drawable.analisi, "earn 1M a month", 4, "today"));
+                postDao.insert(new Post("something crazy", "Lorenzo", R.drawable.analisi, "earn 1M a month", 4, "today"));
+                postDao.insert(new Post("something crazy", "Lorenzo", R.drawable.analisi, "earn 1M a month", 4, "today"));
+                postDao.insert(new Post("something crazy", "Lorenzo", R.drawable.analisi, "earn 1M a month", 4, "today"));
             });
         }
     };

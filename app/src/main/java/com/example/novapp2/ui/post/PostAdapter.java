@@ -3,6 +3,7 @@ package com.example.novapp2.ui.post;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,6 @@ import com.example.novapp2.ui.post.Post;
 
 import java.util.List;
 
-// RecyclerView.Adapter<PostAdapter.PostViewHolder>
 public class PostAdapter extends  RecyclerView.Adapter{
 
 
@@ -44,32 +44,23 @@ public class PostAdapter extends  RecyclerView.Adapter{
 
     @NonNull
     @Override
-    /*
-    public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        View view = LayoutInflater.from(context).inflate(R.layout.course_view, parent, false);;
-
-        switch (viewType) {
-            case 1:
-                LayoutInflater.from(context).inflate(R.layout.event_view, parent, false);
-                break;
-
-
-        }
-
-        return new PostAdapter.PostViewHolder(view);
-    }
-
-     */
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         switch (viewType) {
             case 1:
-                view = LayoutInflater.from(context).inflate(R.layout.event_view, parent, false);
-                return new EventViewHolder(view);
-            default:
                 view = LayoutInflater.from(context).inflate(R.layout.course_view, parent, false);
-                return new PostViewHolder(view);
+                return new EventViewHolder(view);
+            case 2:
+                view = LayoutInflater.from(context).inflate(R.layout.course_view, parent, false);
+                return new UniInfoViewHolder(view);
+            case 3:
+                view = LayoutInflater.from(context).inflate(R.layout.course_view, parent, false);
+                return new RipetizioniViewHolder(view);
+            case 4:
+                view = LayoutInflater.from(context).inflate(R.layout.course_view, parent, false);
+                return new GroupViewHolder(view);
+            default:
+                return null;
         }
     }
 
@@ -80,19 +71,23 @@ public class PostAdapter extends  RecyclerView.Adapter{
             case 1:
                 ((EventViewHolder) holder).bindView(position);
                 break;
-            default:
-                ((PostViewHolder) holder).bindView(position);
+            case 2:
+                ((UniInfoViewHolder) holder).bindView(position);
+                break;
+            case 3:
+                ((RipetizioniViewHolder) holder).bindView(position);
+                break;
+            case 4:
+                ((GroupViewHolder) holder).bindView(position);
 
         }
-        //holder.courseCardView.setAnimation(AnimationUtils.loadAnimation(holder.courseCardView.getContext(), R.anim.fall_down_animation));
+
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (postList.get(position).getCategory().equals("event")) {
-            return 1;
-        }
-        return 0;
+        Log.d("PostAdapter", "" + postList.get(position).getCategory());
+        return postList.get(position).getCategory();
     }
 
     @Override
@@ -109,43 +104,8 @@ public class PostAdapter extends  RecyclerView.Adapter{
         notifyDataSetChanged();
     }
 
-    // implements View.OnClickListener
-    public class PostViewHolder extends RecyclerView.ViewHolder {
-        public ImageView imageView;
-        public TextView titleView;
-        public TextView descView;
-        public CardView courseCardView;
-
-        public PostViewHolder(@NonNull View itemView) {
-
-            super(itemView);
-            imageView = itemView.findViewById(R.id.imageview);
-            titleView = itemView.findViewById(R.id.title);
-            descView = itemView.findViewById(R.id.desc);
-            courseCardView = itemView.findViewById(R.id.courseCardView);
-
-            View postView = itemView.findViewById(R.id.courseView);
-
-            //postView.setOnClickListener(this);
-        }
-
-        /*
-        @Override
-        public void onClick(View v) {
-            onItemClickListener.onPostItemClick(postList.get(getAdapterPosition()));
-        }
-
-         */
-
-
-        public void bindView(int position) {
-            titleView.setText(postList.get(position).getTitle());
-            descView.setText(postList.get(position).getContent());
-            imageView.setImageResource(postList.get(position).getImage());
-        }
-    }
-
-    public class EventViewHolder extends RecyclerView.ViewHolder {
+    // event view holder
+    public class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public ImageView imageView;
         public TextView titleView;
         public TextView descView;
@@ -170,12 +130,111 @@ public class PostAdapter extends  RecyclerView.Adapter{
             descView.setText(postList.get(position).getContent());
         }
 
-    /*
-    @Override
-    public void onClick(View v) {
-        onItemClickListener.onPostItemClick(postList.get(getAdapterPosition()));
-    }
-    */
+        @Override
+        public void onClick(View v) {
+            onItemClickListener.onPostItemClick(postList.get(getAdapterPosition()));
+        }
 
     }
+
+    // uni info viewHolder
+    public class UniInfoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        public ImageView imageView;
+        public TextView titleView;
+        public TextView descView;
+        public CardView courseCardView;
+
+        public UniInfoViewHolder(@NonNull View itemView) {
+
+            super(itemView);
+            imageView = itemView.findViewById(R.id.imageview);
+            titleView = itemView.findViewById(R.id.title);
+            descView = itemView.findViewById(R.id.desc);
+            courseCardView = itemView.findViewById(R.id.courseCardView);
+
+            View postView = itemView.findViewById(R.id.courseView);
+
+            //postView.setOnClickListener(this);
+        }
+
+        public void bindView(int position) {
+            imageView.setImageResource(postList.get(position).getImage());
+            titleView.setText(postList.get(position).getTitle());
+            descView.setText(postList.get(position).getContent());
+        }
+
+
+        @Override
+        public void onClick(View v) {
+            onItemClickListener.onPostItemClick(postList.get(getAdapterPosition()));
+        }
+
+    }
+
+    public class RipetizioniViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        public ImageView imageView;
+        public TextView titleView;
+        public TextView descView;
+        public CardView courseCardView;
+
+        public RipetizioniViewHolder(@NonNull View itemView) {
+
+            super(itemView);
+            imageView = itemView.findViewById(R.id.imageview);
+            titleView = itemView.findViewById(R.id.title);
+            descView = itemView.findViewById(R.id.desc);
+            courseCardView = itemView.findViewById(R.id.courseCardView);
+
+            View postView = itemView.findViewById(R.id.courseView);
+
+            //postView.setOnClickListener(this);
+        }
+
+        public void bindView(int position) {
+            imageView.setImageResource(postList.get(position).getImage());
+            titleView.setText(postList.get(position).getTitle());
+            descView.setText(postList.get(position).getContent());
+        }
+
+
+        @Override
+        public void onClick(View v) {
+            onItemClickListener.onPostItemClick(postList.get(getAdapterPosition()));
+        }
+
+    }
+
+    public class GroupViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        public ImageView imageView;
+        public TextView titleView;
+        public TextView descView;
+        public CardView courseCardView;
+
+        public GroupViewHolder(@NonNull View itemView) {
+
+            super(itemView);
+            imageView = itemView.findViewById(R.id.imageview);
+            titleView = itemView.findViewById(R.id.title);
+            descView = itemView.findViewById(R.id.desc);
+            courseCardView = itemView.findViewById(R.id.courseCardView);
+
+            View postView = itemView.findViewById(R.id.courseView);
+
+            //postView.setOnClickListener(this);
+        }
+
+        public void bindView(int position) {
+            imageView.setImageResource(postList.get(position).getImage());
+            titleView.setText(postList.get(position).getTitle());
+            descView.setText(postList.get(position).getContent());
+        }
+
+
+        @Override
+        public void onClick(View v) {
+            onItemClickListener.onPostItemClick(postList.get(getAdapterPosition()));
+        }
+
+    }
+
 }
