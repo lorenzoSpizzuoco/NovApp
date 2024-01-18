@@ -17,6 +17,8 @@ public class Post implements Parcelable{
     private String author;
     private String title;
 
+    private String date;
+
     private String content;
 
     private int image;
@@ -41,6 +43,12 @@ public class Post implements Parcelable{
         }
     };
 
+    public void setId(long id) {
+        this.id = id;
+    }
+    public long getId() {
+        return id;
+    }
     public String getAuthor() {
         return author;
     }
@@ -89,15 +97,16 @@ public class Post implements Parcelable{
         this.category = category;
     }
 
-    private String date;
+
 
     // post category
     private String category;
-    public Post(String title, String author, int image, String content, String category) {
+    public Post(String title, String author, int image, String content, String category, String date) {
         this.title = title;
         this.author = author;
         this.content = content;
         this.category = category;
+        this.date = date;
     }
 
     @Override

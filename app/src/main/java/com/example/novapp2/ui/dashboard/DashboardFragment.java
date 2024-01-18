@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -16,11 +17,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.core.content.ContextCompat;
 
+import com.example.novapp2.ui.ad.Ad;
+import com.example.novapp2.ui.ad.AdViewModel;
 import com.example.novapp2.ui.course.Course;
 import com.example.novapp2.ui.course.CourseAdapter;
 import com.example.novapp2.R;
 import com.example.novapp2.databinding.FragmentDashboardBinding;
+import com.example.novapp2.ui.post.Post;
+import com.example.novapp2.ui.post.PostAdapter;
+import com.example.novapp2.ui.post.PostViewModel;
 import com.example.novapp2.utils.Utils;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +37,20 @@ public class DashboardFragment extends Fragment {
     private static final String TAG = "DashboardFragment";
     private FragmentDashboardBinding binding;
 
-    private SearchView courseSearchView;
+    private SearchView postSearchView;
     private RecyclerView courseView;
 
-    private CourseAdapter courseAdapter;
-    private List<Course> courseList;
-    private List<Course> filteredList;
+    private PostViewModel postViewModel;
+    private PostAdapter postAdapter;
+    //private List<Course> courseList;
+    private List<Post> postList;
+    private List<Post> filteredList;
 
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
+        postList = new ArrayList<>();
+    }
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         DashboardViewModel dashboardViewModel =
@@ -45,24 +59,34 @@ public class DashboardFragment extends Fragment {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        return root;
+    }
+
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
+
         // Ottieni il riferimento alla barra di ricerca
-        courseSearchView = root.findViewById(R.id.courseSearchView);
+        postSearchView = view.findViewById(R.id.courseSearchView);
 
         // Imposta il colore del testo nella barra di ricerca
-        EditText searchText = courseSearchView.findViewById(androidx.appcompat.R.id.search_src_text);
+        EditText searchText = postSearchView.findViewById(androidx.appcompat.R.id.search_src_text);
         searchText.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black));
 
         //course RecycleView
-        courseView = root.findViewById(R.id.courseView);
-        addItemsToList();
+        courseView = view.findViewById(R.id.courseView);
+        //addItemsToList();
         courseView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        courseAdapter = new CourseAdapter(requireContext(), courseList);
-        courseView.setAdapter(courseAdapter);
+        postAdapter = new PostAdapter(requireContext(), postList, new PostAdapter.OnItemClickListener() {
+            @Override
+            public void onPostItemClick(Post post) {
+                Snackbar.make(view, "click on " + post.getTitle().toString(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
+        courseView.setAdapter(postAdapter);
 
         //courseSearchView
-        courseSearchView.clearFocus();
-        courseSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        postSearchView.clearFocus();
+        postSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
@@ -70,47 +94,30 @@ public class DashboardFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                filteredList = Utils.sortCourseByString(courseList, newText);
+                filteredList = Utils.sortCourseByString(postList, newText);
                 if (filteredList.isEmpty()) {
-                    Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(getView(), "no data found", Snackbar.LENGTH_SHORT).show();
                 }
-                courseAdapter.setCourseList(filteredList);
+                postAdapter.setPostList(filteredList);
                 return false;
             }
         });
 
-        return root;
+        // observing viewModel
+        postViewModel.getAllPost().observe(getViewLifecycleOwner(), posts -> {
+            this.postList.addAll(posts);
+
+            postAdapter.notifyItemChanged(0, posts.size());
+        });
     }
 
-    @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
 
     public void addItemsToList() {
-        courseList = new ArrayList<Course>();
-        courseList.add(new Course("Web Development Basics", "Learn the essentials of building websites and web applications.", R.drawable.libri));
-        courseList.add(new Course("Photography Fundamentals", "Master the art of capturing stunning photographs with your camera.", R.drawable.analisi));
-        courseList.add(new Course("Java Programming Mastery", "Deepen your understanding of Java programming and application development.", R.drawable.matematica));
-        courseList.add(new Course("Exploring World Cultures", "Discover diverse cultures and traditions from around the globe.", R.drawable.libri));
-        courseList.add(new Course("Machine Learning Essentials", "Dive into the foundations of machine learning and artificial intelligence.", R.drawable.matematica));
-        courseList.add(new Course("Graphic Design Workshop", "Unleash your creativity through hands-on graphic design projects.", R.drawable.analisi));
-        courseList.add(new Course("Fitness and Wellness Journey", "Embark on a holistic journey to enhance your fitness and well-being.", R.drawable.matematica));
-        courseList.add(new Course("Space Exploration History", "Explore the history of space exploration and scientific discoveries.", R.drawable.analisi));
-        courseList.add(new Course("Mobile App Development", "Build mobile applications for Android and iOS platforms.", R.drawable.libri));
-        courseList.add(new Course("Creative Cooking Techniques", "Learn innovative cooking techniques and experiment with flavors.", R.drawable.analisi));
-        courseList.add(new Course("Mindfulness Meditation", "Cultivate mindfulness and enhance your mental well-being through meditation.", R.drawable.matematica));
-        courseList.add(new Course("Financial Literacy Essentials", "Develop essential financial skills for managing personal finances.", R.drawable.analisi));
-        courseList.add(new Course("Environmental Sustainability", "Explore solutions for a sustainable and eco-friendly future.", R.drawable.matematica));
-        courseList.add(new Course("Introduction to Psychology", "Understand the basics of psychology and human behavior.", R.drawable.libri));
-        courseList.add(new Course("Digital Marketing Strategies", "Master the strategies and tools for effective digital marketing.", R.drawable.matematica));
-        courseList.add(new Course("Artificial Intelligence Ethics", "Examine ethical considerations in the field of artificial intelligence.", R.drawable.libri));
-        courseList.add(new Course("Effective Communication Skills", "Enhance your communication skills for personal and professional success.", R.drawable.analisi));
-        courseList.add(new Course("Music Production Basics", "Learn the fundamentals of music production and audio engineering.", R.drawable.matematica));
-        courseList.add(new Course("Health and Nutrition Science", "Explore the science behind health and nutrition for a balanced life.", R.drawable.analisi));
-        courseList.add(new Course("Introduction to Cryptocurrency", "Understand the basics of cryptocurrencies and blockchain technology.", R.drawable.matematica));
 
-        Utils.sortCourseByName(courseList);
+        Utils.sortCourseByName(postList);
     }
 }
