@@ -13,7 +13,7 @@ public class User {
     public String bio;
     public List<String> groupChats;
     public List<String> favourites;
-    public Boolean isBiccoccaUser;
+    public Boolean isBicoccaUser;
     public String profileImg;
     public String password;
     public List<String> notifications;
@@ -29,7 +29,7 @@ public class User {
         this.bio = bio;
         this.groupChats = groupChats;
         this.favourites = favourites;
-        this.isBiccoccaUser = isBiccoccaUser;
+        this.isBicoccaUser = isBiccoccaUser;
         this.profileImg = profileImg;
         this.password = password;
         this.notifications = notifications;
@@ -44,7 +44,7 @@ public class User {
                 ", bio='" + bio + '\'' +
                 ", groupChats=" + groupChats +
                 ", favourites=" + favourites +
-                ", isBiccoccaUser=" + isBiccoccaUser +
+                ", isBiccoccaUser=" + isBicoccaUser +
                 ", profileImg='" + profileImg + '\'' +
                 ", password='" + password + '\'' +
                 ", notifications=" + notifications +
@@ -100,11 +100,11 @@ public class User {
     }
 
     public Boolean getBiccoccaUser() {
-        return isBiccoccaUser;
+        return isBicoccaUser;
     }
 
     public void setBiccoccaUser(Boolean biccoccaUser) {
-        isBiccoccaUser = biccoccaUser;
+        isBicoccaUser = biccoccaUser;
     }
 
     public String getProfileImg() {
