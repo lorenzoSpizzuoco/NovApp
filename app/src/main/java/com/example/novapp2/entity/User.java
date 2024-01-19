@@ -7,6 +7,7 @@ import java.util.List;
 @IgnoreExtraProperties
 public class User {
 
+    public String userId;
     public String name;
     public String email;
     public String surname;
@@ -22,33 +23,26 @@ public class User {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String name, String email, String surname, String bio, List<String> groupChats, List<String> favourites, Boolean isBiccoccaUser, String profileImg, String password, List<String> notifications) {
+    public User(String userId, String name, String email, String surname, String bio, List<String> groupChats, List<String> favourites, Boolean isBicoccaUser, String profileImg, String password, List<String> notifications) {
+        this.userId = userId;
         this.name = name;
         this.email = email;
         this.surname = surname;
         this.bio = bio;
         this.groupChats = groupChats;
         this.favourites = favourites;
-        this.isBicoccaUser = isBiccoccaUser;
+        this.isBicoccaUser = isBicoccaUser;
         this.profileImg = profileImg;
         this.password = password;
         this.notifications = notifications;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", surname='" + surname + '\'' +
-                ", bio='" + bio + '\'' +
-                ", groupChats=" + groupChats +
-                ", favourites=" + favourites +
-                ", isBiccoccaUser=" + isBicoccaUser +
-                ", profileImg='" + profileImg + '\'' +
-                ", password='" + password + '\'' +
-                ", notifications=" + notifications +
-                '}';
+    public String getID() {
+        return userId;
+    }
+
+    public void setID(String userId) {
+        this.userId = userId;
     }
 
     public String getName() {

@@ -1,8 +1,10 @@
 package com.example.novapp2;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.novapp2.entity.User;
+import com.example.novapp2.service.UserService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +17,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.novapp2.databinding.ActivityMainBinding;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.IgnoreExtraProperties;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,7 +39,5 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(binding.navView, navController);
-
     }
-
 }
