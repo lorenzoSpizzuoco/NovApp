@@ -2,16 +2,19 @@ package com.example.novapp2;
 
 import android.os.Bundle;
 
+import com.example.novapp2.entity.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import com.google.firebase.database.DatabaseReference;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.novapp2.databinding.ActivityMainBinding;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.IgnoreExtraProperties;
 
 public class MainActivity extends AppCompatActivity {
 
