@@ -1,7 +1,7 @@
 package com.example.novapp2.ui.post;
 
 
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,16 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.novapp2.R;
 import com.example.novapp2.ui.ad.Ad;
 import com.example.novapp2.ui.post.Post;
+import com.google.android.material.chip.Chip;
 
 import java.util.List;
 
@@ -47,15 +50,23 @@ public class PostAdapter extends  RecyclerView.Adapter{
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         switch (viewType) {
+
+                // event layout
             case 1:
-                view = LayoutInflater.from(context).inflate(R.layout.course_view, parent, false);
+                view = LayoutInflater.from(context).inflate(R.layout.event_view, parent, false);
                 return new EventViewHolder(view);
+
+                // uni info layout
             case 2:
                 view = LayoutInflater.from(context).inflate(R.layout.course_view, parent, false);
                 return new UniInfoViewHolder(view);
+
+                // ripetizioni layout
             case 3:
                 view = LayoutInflater.from(context).inflate(R.layout.course_view, parent, false);
                 return new RipetizioniViewHolder(view);
+
+                // group layout
             case 4:
                 view = LayoutInflater.from(context).inflate(R.layout.course_view, parent, false);
                 return new GroupViewHolder(view);
@@ -86,7 +97,6 @@ public class PostAdapter extends  RecyclerView.Adapter{
 
     @Override
     public int getItemViewType(int position) {
-        Log.d("PostAdapter", "" + postList.get(position).getCategory());
         return postList.get(position).getCategory();
     }
 
@@ -102,32 +112,52 @@ public class PostAdapter extends  RecyclerView.Adapter{
     public void setPostList(List<Post> postList) {
         this.postList = postList;
         notifyDataSetChanged();
+
     }
 
     // event view holder
     public class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public ImageView imageView;
         public TextView titleView;
-        public TextView descView;
-        public CardView courseCardView;
+        //public TextView descView;
+
+        public Chip typechip;
+
+        public TextView dateView;
+
+
+        public CardView eventCardView;
+
 
         public EventViewHolder(@NonNull View itemView) {
 
             super(itemView);
-            imageView = itemView.findViewById(R.id.imageview);
-            titleView = itemView.findViewById(R.id.title);
-            descView = itemView.findViewById(R.id.desc);
-            courseCardView = itemView.findViewById(R.id.courseCardView);
+            eventCardView = itemView.findViewById(R.id.eventCardView);
+            imageView = itemView.findViewById(R.id.eventimageview);
+            titleView = itemView.findViewById(R.id.eventTitle);
+            //descView = itemView.findViewById(R.id.desc);
 
-            View postView = itemView.findViewById(R.id.courseView);
+            typechip = itemView.findViewById(R.id.eventTypeChip);
+            //eventCardView.setOnClickListener(this);
+            //View eventView = itemView.findViewById(R.id.eventView);
 
-            //postView.setOnClickListener(this);
+            //eventView.setOnClickListener(this);
         }
 
         public void bindView(int position) {
-            imageView.setImageResource(postList.get(position).getImage());
-            titleView.setText(postList.get(position).getTitle());
-            descView.setText(postList.get(position).getContent());
+            Log.d("EVENT VIEW HOLDER", "inside bindView");
+            try {
+                imageView.setImageResource(postList.get(position).getImage());
+                titleView.setText(postList.get(position).getTitle());
+                typechip.setText("evento");
+                typechip.setBackgroundColor(ContextCompat.getColor(context, R.color.main_red));
+                dateView.setText(postList.get(position).getDate());
+            }
+            catch(NullPointerException e) {
+                Log.e("EVENT VIEW HOLDER", e.getMessage());
+            }
+
+            //descView.setText(postList.get(position).getContent());
         }
 
         @Override
