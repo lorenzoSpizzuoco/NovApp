@@ -71,9 +71,25 @@
             android:id="@+id/action_navigation_home_to_newAdFragment"
             app:destination="@id/newAdFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.example.novapp2.ui.dashboard.DashboardFragment"
         android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_navigation_dashboard_to_postDetailsFragment"
+            app:destination="@id/postDetailsFragmentFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/postDetailsFragmentFragment"
+        android:name="com.example.novapp2.ui.dashboard.PostDetailsFragment"
+        android:label="fragment_post_details_fragment"
+        tools:layout="@layout/fragment_post_details_fragment" >
+        <argument
+            android:name="post"
+            app:argType="com.example.novapp2.ui.post.Post" />
+    </fragment>
 </navigation>

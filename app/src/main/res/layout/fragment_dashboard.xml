@@ -82,11 +82,11 @@
                 android:text="@string/button_sg" />
 
             <Button
-                android:id="@+id/button_other"
+                android:id="@+id/button_ripetizioni"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/button_other" />
+                android:text="@string/button_ripetizioni" />
         </LinearLayout>
     </HorizontalScrollView>
 
