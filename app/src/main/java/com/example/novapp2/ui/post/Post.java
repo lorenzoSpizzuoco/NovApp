@@ -7,8 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.example.novapp2.ui.ad.Ad;
-
 @Entity(tableName = "post_table")
 public class Post implements Parcelable{
 
@@ -21,6 +19,8 @@ public class Post implements Parcelable{
 
     private String content;
 
+    private String place;
+
     private int category;
 
     private int image;
@@ -29,6 +29,7 @@ public class Post implements Parcelable{
         author = in.readString();
         content = in.readString();
         date = in.readString();
+        place = in.readString();
         category = in.readInt();
         title = in.readString();
         image = in.readInt();
@@ -46,6 +47,9 @@ public class Post implements Parcelable{
         }
     };
 
+    public void setPlace(String place){this.place = place;}
+
+    public String getPlace(){return this.place;}
     public void setId(long id) {
         this.id = id;
     }
@@ -103,13 +107,14 @@ public class Post implements Parcelable{
 
 
     // post category
-    public Post(String title, String author, int image, String content, int category, String date) {
+    public Post(String title, String author, int image, String content, int category, String date, String place) {
         this.title = title;
         this.author = author;
         this.image = image;
         this.content = content;
         this.category = category;
         this.date = date;
+        this.place = place;
     }
 
     @Override
@@ -122,6 +127,7 @@ public class Post implements Parcelable{
         dest.writeString(author);
         dest.writeString(content);
         dest.writeString(date);
+        dest.writeString(place);
         dest.writeInt(category);
         dest.writeString(title);
         dest.writeInt(image);

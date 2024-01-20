@@ -1,30 +1,19 @@
 package com.example.novapp2.database;
 
-import static com.example.novapp2.utils.Constants.AD_DATABASE_NAME;
-import static com.example.novapp2.utils.Constants.DATABASE_VERSION;
 import static com.example.novapp2.utils.Constants.POST_DATABASE_NAME;
 import static com.example.novapp2.utils.Constants.POST_DATABASE_VERSION;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
-import androidx.room.DatabaseConfiguration;
-import androidx.room.InvalidationTracker;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
-import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
 import com.example.novapp2.R;
 import com.example.novapp2.ui.post.Post;
-import com.example.novapp2.utils.Constants.*;
 
-import com.example.novapp2.ui.ad.Ad;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -69,15 +58,15 @@ public abstract class PostRoomDatabase extends RoomDatabase {
 
                 postDao.deleteAll();
 
-                postDao.insert(new Post("something crazy", "Lorenzo", R.drawable.analisi, "earn 1M a month", 2, "today"));
-                postDao.insert(new Post("something crazy2", "spiz404", R.drawable.analisi, "earn 1M a month", 3, "today"));
-                postDao.insert(new Post("something crazy", "antonello venditti", R.drawable.analisi, "earn 1M a month", 3, "today"));
-                postDao.insert(new Post("new song", "massimo troisi", R.drawable.analisi, "just dropped a hit", 1, "today"));
-                postDao.insert(new Post("something crazy", "Lorenzo", R.drawable.analisi, "earn 1M a month", 2, "today"));
-                postDao.insert(new Post("something crazy", "Lorenzo", R.drawable.analisi, "earn 1M a month", 4, "today"));
-                postDao.insert(new Post("something crazy", "Lorenzo", R.drawable.analisi, "earn 1M a month", 4, "today"));
-                postDao.insert(new Post("something crazy", "Lorenzo", R.drawable.analisi, "earn 1M a month", 4, "today"));
-                postDao.insert(new Post("something crazy", "Lorenzo", R.drawable.analisi, "earn 1M a month", 4, "today"));
+                postDao.insert(new Post("innaugurazione anno accademico", "Rettore Bicocca", R.drawable.analisi, "Innaugurazionea anno accademico", 2, "today", "Milano"));
+                postDao.insert(new Post("something crazy2", "spiz404", R.drawable.analisi, "earn 1M a month", 3, "today", "Milano"));
+                postDao.insert(new Post("something crazy", "antonello venditti", R.drawable.analisi, "earn 1M a month", 3, "today", "Milano"));
+                postDao.insert(new Post("Hackaton", "mario giordano", R.drawable.analisi, "ai hackaton!", 1, "13/02/2024", "Milano"));
+                postDao.insert(new Post("Riapertura bar u3", "Staff Bicocca", R.drawable.analisi, "riapertura bar u3 alle 11", 2, "22/01/2024", "Milano"));
+                postDao.insert(new Post("Gruppo studio", "Lorenzo", R.drawable.analisi, "Gruppo studio analisi 2", 4, "today", "Milano"));
+                postDao.insert(new Post("something crazy", "Lorenzo", R.drawable.analisi, "earn 1M a month", 4, "today", "Milano"));
+                postDao.insert(new Post("something crazy", "Lorenzo", R.drawable.analisi, "earn 1M a month", 4, "today", "Milano"));
+                postDao.insert(new Post("something crazy", "Lorenzo", R.drawable.analisi, "earn 1M a month", 4, "today", "Milano"));
             });
         }
     };

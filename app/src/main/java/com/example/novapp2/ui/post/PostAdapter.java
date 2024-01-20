@@ -128,6 +128,8 @@ public class PostAdapter extends  RecyclerView.Adapter{
         public TextView descView;
         public CardView eventCardView;
 
+        public TextView placeView;
+
 
         public EventViewHolder(@NonNull View itemView) {
 
@@ -138,6 +140,7 @@ public class PostAdapter extends  RecyclerView.Adapter{
             dateView = itemView.findViewById(R.id.eventDate);
             descView = itemView.findViewById(R.id.eventDesc);
             typechip = itemView.findViewById(R.id.eventTypeChip);
+            placeView = itemView.findViewById(R.id.eventPlace);
             eventCardView.setOnClickListener(this);
         }
 
@@ -150,6 +153,7 @@ public class PostAdapter extends  RecyclerView.Adapter{
             typechip.setBackgroundColor(ContextCompat.getColor(context, R.color.main_red));
             dateView.setText(postList.get(position).getDate());
             descView.setText(postList.get(position).getContent());
+            placeView.setText(postList.get(position).getPlace());
 
         }
 
