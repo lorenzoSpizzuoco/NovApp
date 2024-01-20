@@ -3,7 +3,10 @@ package com.example.novapp2.utils;
 public class Constants {
     public static final int DATABASE_VERSION = 1;
 
+    public static final int POST_DATABASE_VERSION = 3;
     public static final String AD_DATABASE_NAME = "ad_db";
+
+    public static final String POST_DATABASE_NAME = "post_db";
 
     public static final String PROFANITY_API_BASE_URL = "https://www.purgomalum.com/";
 

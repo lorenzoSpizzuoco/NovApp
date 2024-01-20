@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_dashboard">
 
     <fragment
         android:id="@+id/navigation_chat"
@@ -71,4 +71,9 @@
             android:id="@+id/action_navigation_home_to_newAdFragment"
             app:destination="@id/newAdFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.example.novapp2.ui.dashboard.DashboardFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
 </navigation>
