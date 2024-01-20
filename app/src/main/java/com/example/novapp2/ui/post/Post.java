@@ -106,6 +106,7 @@ public class Post implements Parcelable{
     public Post(String title, String author, int image, String content, int category, String date) {
         this.title = title;
         this.author = author;
+        this.image = image;
         this.content = content;
         this.category = category;
         this.date = date;

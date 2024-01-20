@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/eventCardView"
+    android:id="@+id/groupCardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="5dp"
@@ -15,69 +15,66 @@
     app:cardBackgroundColor="@color/background_white">
 
     <RelativeLayout
-        android:id="@+id/eventView"
+        android:id="@+id/groupView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
 
         <ImageView
-            android:id="@+id/eventimageview"
+            android:id="@+id/groupimageview"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginRight="15dp"
             android:outlineAmbientShadowColor="@color/background_gray" />
 
         <TextView
-            android:id="@+id/eventTitle"
+            android:id="@+id/groupTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/eventimageview"
+            android:layout_toEndOf="@id/groupimageview"
             android:textColor="@color/main_blue"
             android:textSize="20sp"
             tools:text="Title" />
 
         <TextView
-            android:id="@+id/eventDate"
+            android:id="@+id/groupDate"
             android:layout_width="133dp"
-            android:textFontWeight="@integer/google_play_services_version"
             android:layout_height="wrap_content"
-            android:layout_below="@id/eventTitle"
-            android:layout_toEndOf="@id/eventimageview"
+            android:layout_below="@id/groupTitle"
+            android:layout_toEndOf="@id/groupimageview"
             android:textColor="@color/main_grey"
             tools:text="Date" />
 
         <TextView
-            android:id="@+id/eventPlace"
-            android:textFontWeight="@integer/google_play_services_version"
+            android:id="@+id/groupPlace"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/eventTitle"
+            android:layout_below="@id/groupTitle"
             android:layout_marginStart="1dp"
             android:layout_marginTop="0dp"
-            android:layout_toEndOf="@id/eventDate"
+            android:layout_toEndOf="@id/groupDate"
             android:textColor="@color/main_grey"
             tools:text="Place" />
         <TextView
-            android:id="@+id/eventDesc"
+            android:id="@+id/groupDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/eventDate"
+            android:layout_below="@id/groupDate"
             android:layout_marginTop="0dp"
             android:textSize="11dp"
-            android:layout_toEndOf="@id/eventimageview"
+            android:layout_toEndOf="@id/groupimageview"
             android:textColor="@color/main_grey"
             tools:text="Desc" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/eventTypeChip"
+            android:id="@+id/groupTypeChip"
             style="@style/Widget.Material3.Chip.Suggestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/eventimageview"
-            android:layout_alignBottom="@id/eventimageview"
-            android:text="type"
-            android:layout_marginBottom="-12dp"
+            android:layout_toEndOf="@+id/groupimageview"
+            android:layout_alignBottom="@id/groupimageview"
             android:textSize="11sp"
+            android:layout_marginBottom="-12dp"
             app:chipMinHeight="20dp"
             app:chipStrokeWidth="0dp">
 

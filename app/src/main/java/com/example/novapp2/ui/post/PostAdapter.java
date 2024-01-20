@@ -58,17 +58,17 @@ public class PostAdapter extends  RecyclerView.Adapter{
 
                 // uni info layout
             case 2:
-                view = LayoutInflater.from(context).inflate(R.layout.course_view, parent, false);
+                view = LayoutInflater.from(context).inflate(R.layout.info_view, parent, false);
                 return new UniInfoViewHolder(view);
 
                 // ripetizioni layout
             case 3:
-                view = LayoutInflater.from(context).inflate(R.layout.course_view, parent, false);
+                view = LayoutInflater.from(context).inflate(R.layout.ripetizioni_view, parent, false);
                 return new RipetizioniViewHolder(view);
 
                 // group layout
             case 4:
-                view = LayoutInflater.from(context).inflate(R.layout.course_view, parent, false);
+                view = LayoutInflater.from(context).inflate(R.layout.group_view, parent, false);
                 return new GroupViewHolder(view);
             default:
                 return null;
@@ -125,7 +125,7 @@ public class PostAdapter extends  RecyclerView.Adapter{
 
         public TextView dateView;
 
-
+        public TextView descView;
         public CardView eventCardView;
 
 
@@ -135,29 +135,22 @@ public class PostAdapter extends  RecyclerView.Adapter{
             eventCardView = itemView.findViewById(R.id.eventCardView);
             imageView = itemView.findViewById(R.id.eventimageview);
             titleView = itemView.findViewById(R.id.eventTitle);
-            //descView = itemView.findViewById(R.id.desc);
-
+            dateView = itemView.findViewById(R.id.eventDate);
+            descView = itemView.findViewById(R.id.eventDesc);
             typechip = itemView.findViewById(R.id.eventTypeChip);
-            //eventCardView.setOnClickListener(this);
-            //View eventView = itemView.findViewById(R.id.eventView);
-
-            //eventView.setOnClickListener(this);
+            eventCardView.setOnClickListener(this);
         }
 
         public void bindView(int position) {
             Log.d("EVENT VIEW HOLDER", "inside bindView");
-            try {
-                imageView.setImageResource(postList.get(position).getImage());
-                titleView.setText(postList.get(position).getTitle());
-                typechip.setText("evento");
-                typechip.setBackgroundColor(ContextCompat.getColor(context, R.color.main_red));
-                dateView.setText(postList.get(position).getDate());
-            }
-            catch(NullPointerException e) {
-                Log.e("EVENT VIEW HOLDER", e.getMessage());
-            }
 
-            //descView.setText(postList.get(position).getContent());
+            imageView.setImageResource(postList.get(position).getImage());
+            titleView.setText(postList.get(position).getTitle());
+            typechip.setText("evento");
+            typechip.setBackgroundColor(ContextCompat.getColor(context, R.color.main_red));
+            dateView.setText(postList.get(position).getDate());
+            descView.setText(postList.get(position).getContent());
+
         }
 
         @Override
@@ -168,29 +161,31 @@ public class PostAdapter extends  RecyclerView.Adapter{
     }
 
     // uni info viewHolder
-    public class UniInfoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class UniInfoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView imageView;
         public TextView titleView;
         public TextView descView;
-        public CardView courseCardView;
+        public CardView infoCardView;
 
+        public Chip typechip;
         public UniInfoViewHolder(@NonNull View itemView) {
 
             super(itemView);
-            imageView = itemView.findViewById(R.id.imageview);
-            titleView = itemView.findViewById(R.id.title);
-            descView = itemView.findViewById(R.id.desc);
-            courseCardView = itemView.findViewById(R.id.courseCardView);
+            imageView = itemView.findViewById(R.id.infoimageview);
+            titleView = itemView.findViewById(R.id.infoTitle);
+            descView = itemView.findViewById(R.id.infodesc);
+            infoCardView = itemView.findViewById(R.id.infoUniCardView);
+            typechip = itemView.findViewById(R.id.infoTypeChip);
 
-            View postView = itemView.findViewById(R.id.courseView);
-
-            //postView.setOnClickListener(this);
+            infoCardView.setOnClickListener(this);
         }
 
         public void bindView(int position) {
             imageView.setImageResource(postList.get(position).getImage());
             titleView.setText(postList.get(position).getTitle());
             descView.setText(postList.get(position).getContent());
+            //descView.setText(postList.get(position).getContent());
+            typechip.setText("Info universitarie");
         }
 
 
@@ -201,29 +196,30 @@ public class PostAdapter extends  RecyclerView.Adapter{
 
     }
 
-    public class RipetizioniViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class RipetizioniViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView imageView;
         public TextView titleView;
         public TextView descView;
         public CardView courseCardView;
 
+        public Chip ripetizioniChip;
+
         public RipetizioniViewHolder(@NonNull View itemView) {
 
             super(itemView);
-            imageView = itemView.findViewById(R.id.imageview);
-            titleView = itemView.findViewById(R.id.title);
-            descView = itemView.findViewById(R.id.desc);
-            courseCardView = itemView.findViewById(R.id.courseCardView);
-
-            View postView = itemView.findViewById(R.id.courseView);
-
-            //postView.setOnClickListener(this);
+            imageView = itemView.findViewById(R.id.ripetizioniimageview);
+            titleView = itemView.findViewById(R.id.ripetizioniTitle);
+            descView = itemView.findViewById(R.id.ripetizionidesc);
+            courseCardView = itemView.findViewById(R.id.ripetizioniCardView);
+            ripetizioniChip = itemView.findViewById(R.id.ripetizioniTypeChip);
+            courseCardView.setOnClickListener(this);
         }
 
         public void bindView(int position) {
             imageView.setImageResource(postList.get(position).getImage());
             titleView.setText(postList.get(position).getTitle());
             descView.setText(postList.get(position).getContent());
+            ripetizioniChip.setText("ripetizioni");
         }
 
 
@@ -238,25 +234,28 @@ public class PostAdapter extends  RecyclerView.Adapter{
         public ImageView imageView;
         public TextView titleView;
         public TextView descView;
-        public CardView courseCardView;
+
+        //public TextView dateView;
+        public CardView groupCardView;
+
+        public Chip groupChip;
 
         public GroupViewHolder(@NonNull View itemView) {
 
             super(itemView);
-            imageView = itemView.findViewById(R.id.imageview);
-            titleView = itemView.findViewById(R.id.title);
-            descView = itemView.findViewById(R.id.desc);
-            courseCardView = itemView.findViewById(R.id.courseCardView);
-
-            View postView = itemView.findViewById(R.id.courseView);
-
-            //postView.setOnClickListener(this);
+            imageView = itemView.findViewById(R.id.groupimageview);
+            titleView = itemView.findViewById(R.id.groupTitle);
+            descView = itemView.findViewById(R.id.groupDesc);
+            groupChip = itemView.findViewById(R.id.groupTypeChip);
+            groupCardView = itemView.findViewById(R.id.groupCardView);
+            groupCardView.setOnClickListener(this);
         }
 
         public void bindView(int position) {
             imageView.setImageResource(postList.get(position).getImage());
             titleView.setText(postList.get(position).getTitle());
             descView.setText(postList.get(position).getContent());
+            groupChip.setText("gruppo studio");
         }
 
 
