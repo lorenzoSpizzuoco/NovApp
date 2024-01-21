@@ -47,12 +47,14 @@
         android:id="@+id/horizontalScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/courseSearchView">
+        app:layout_constraintTop_toBottomOf="@+id/courseSearchView"
+        tools:layout_editor_absoluteX="30dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:orientation="horizontal"
+            android:paddingTop="5dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             app:layout_constraintTop_toBottomOf="@+id/courseSearchView">
@@ -92,6 +94,7 @@
                 style="@style/Widget.Material3.Button.Icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
                 android:text="@string/button_sg"
@@ -113,6 +116,7 @@
                 app:backgroundTint="@color/main_blue"
                 app:icon="@drawable/btn_3"
                 app:iconTint="@color/white" />
+
             <Button
                 android:id="@+id/button_other"
                 style="@style/Widget.Material3.Button.Icon"
