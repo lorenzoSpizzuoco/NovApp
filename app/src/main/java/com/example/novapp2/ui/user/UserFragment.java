@@ -2,13 +2,18 @@ package com.example.novapp2.ui.user;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.novapp2.R;
+import com.example.novapp2.databinding.FragmentNotificationsBinding;
+import com.example.novapp2.databinding.FragmentUserBinding;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,9 +27,12 @@ public class UserFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private FragmentUserBinding binding;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private View root;
 
     public UserFragment() {
         // Required empty public constructor
@@ -61,6 +69,21 @@ public class UserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user, container, false);
+
+        binding = FragmentUserBinding.inflate(inflater, container, false);
+        root = binding.getRoot();
+        return root;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Button settingsButton = this.root.findViewById(R.id.user_settings_button);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View settingsButton) {
+                settingsButton.setEnabled(!settingsButton.isEnabled());
+            }
+        });
+        super.onViewCreated(view, savedInstanceState);
     }
 }
