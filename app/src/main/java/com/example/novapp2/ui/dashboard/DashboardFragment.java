@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
 
 public class DashboardFragment extends Fragment {
 
-    private static final String TAG = "DashboardFragment";
+    private static final String TAG = DashboardFragment.class.getSimpleName();
     private FragmentDashboardBinding binding;
 
     private SearchView postSearchView;
@@ -79,6 +79,8 @@ public class DashboardFragment extends Fragment {
         gsButton = view.findViewById(R.id.button_gs);
         ripetizioniButton = view.findViewById(R.id.button_ripetizioni);
 
+        // filtering buttons onClick listeners
+
         eventsButton.setOnClickListener(v -> {
             filterPostList(1);
         });
@@ -94,6 +96,7 @@ public class DashboardFragment extends Fragment {
         ripetizioniButton.setOnClickListener(v -> {
             filterPostList(4);
         });
+
         // top search bar configuration
         postSearchView = view.findViewById(R.id.courseSearchView);
         EditText searchText = postSearchView.findViewById(androidx.appcompat.R.id.search_src_text);
@@ -126,6 +129,7 @@ public class DashboardFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                //Log.d(TAG, "onQueryTextChange call");
                 filteredList = Utils.sortCourseByString(postList, newText);
                 if (filteredList.isEmpty()) {
                     Snackbar.make(getView(), "no data found", Snackbar.LENGTH_SHORT).show();
@@ -135,6 +139,7 @@ public class DashboardFragment extends Fragment {
             }
         });
 
+        // adapter for the recyclerView
         // observing viewModel
         postViewModel.getAllPost().observe(getViewLifecycleOwner(), posts -> {
             this.postList.clear();

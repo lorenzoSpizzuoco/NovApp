@@ -20,5 +20,4 @@ public class Utils {
                 .collect(Collectors.toList());
         return filteredList;
     }
-
 }

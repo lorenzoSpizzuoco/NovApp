@@ -87,7 +87,7 @@
         android:id="@+id/postDetailsFragmentFragment"
         android:name="com.example.novapp2.ui.dashboard.PostDetailsFragment"
         android:label="fragment_post_details_fragment"
-        tools:layout="@layout/fragment_post_details_fragment" >
+        tools:layout="@layout/fragment_post_details" >
         <argument
             android:name="post"
             app:argType="com.example.novapp2.ui.post.Post" />
