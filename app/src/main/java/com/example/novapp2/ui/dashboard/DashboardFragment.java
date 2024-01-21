@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -13,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.core.content.ContextCompat;
@@ -31,20 +33,28 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DashboardFragment extends Fragment {
 
-    private static final String TAG = "DashboardFragment";
+    private static final String TAG = DashboardFragment.class.getSimpleName();
     private FragmentDashboardBinding binding;
 
     private SearchView postSearchView;
-    private RecyclerView courseView;
+    private RecyclerView postView;
 
     private PostViewModel postViewModel;
     private PostAdapter postAdapter;
-    //private List<Course> courseList;
     private List<Post> postList;
     private List<Post> filteredList;
+
+    private Button eventsButton;
+
+    private Button gsButton;
+
+    private Button infoButton;
+
+    private Button ripetizioniButton;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,27 +74,52 @@ public class DashboardFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
 
-        // Ottieni il riferimento alla barra di ricerca
-        postSearchView = view.findViewById(R.id.courseSearchView);
+        eventsButton = view.findViewById(R.id.button_event);
+        infoButton = view.findViewById(R.id.button_ui);
+        gsButton = view.findViewById(R.id.button_gs);
+        ripetizioniButton = view.findViewById(R.id.button_ripetizioni);
 
-        // Imposta il colore del testo nella barra di ricerca
+        // filtering buttons onClick listeners
+
+        eventsButton.setOnClickListener(v -> {
+            filterPostList(1);
+        });
+
+        infoButton.setOnClickListener(v -> {
+            filterPostList(2);
+        });
+
+        gsButton.setOnClickListener(v -> {
+            filterPostList(3);
+        });
+
+        ripetizioniButton.setOnClickListener(v -> {
+            filterPostList(4);
+        });
+
+        // top search bar configuration
+        postSearchView = view.findViewById(R.id.courseSearchView);
         EditText searchText = postSearchView.findViewById(androidx.appcompat.R.id.search_src_text);
         searchText.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black));
 
-        //course RecycleView
-        courseView = view.findViewById(R.id.courseView);
-        //addItemsToList();
-        courseView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        //post RecycleView
+        postView = view.findViewById(R.id.courseView);
+        postView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
+        // creating recyclerView adapter
         postAdapter = new PostAdapter(requireContext(), postList, new PostAdapter.OnItemClickListener() {
+            // navigation to post details fragment
             @Override
             public void onPostItemClick(Post post) {
-                Snackbar.make(view, "click on " + post.getTitle().toString(), Snackbar.LENGTH_SHORT).show();
+                // navigation to details fragment
+                DashboardFragmentDirections.ActionNavigationDashboardToPostDetailsFragment action =
+                        DashboardFragmentDirections.actionNavigationDashboardToPostDetailsFragment(post);
+                Navigation.findNavController(view).navigate(action);
             }
         });
-        courseView.setAdapter(postAdapter);
 
-        //courseSearchView
+        postView.setAdapter(postAdapter);
+
         postSearchView.clearFocus();
         postSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -94,6 +129,7 @@ public class DashboardFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                //Log.d(TAG, "onQueryTextChange call");
                 filteredList = Utils.sortCourseByString(postList, newText);
                 if (filteredList.isEmpty()) {
                     Snackbar.make(getView(), "no data found", Snackbar.LENGTH_SHORT).show();
@@ -103,12 +139,24 @@ public class DashboardFragment extends Fragment {
             }
         });
 
+        // adapter for the recyclerView
         // observing viewModel
         postViewModel.getAllPost().observe(getViewLifecycleOwner(), posts -> {
+            this.postList.clear();
             this.postList.addAll(posts);
-
             postAdapter.notifyItemChanged(0, posts.size());
         });
+    }
+
+    private void filterPostList(int category) {
+
+        List<Post> newFilteredList = postList.stream()
+                .filter(post -> post.getCategory() == category)
+                .collect(Collectors.toList());
+
+
+        this.postAdapter.setPostList(newFilteredList);
+        postAdapter.notifyItemChanged(0, newFilteredList.size());
     }
 
     public void onDestroyView() {
