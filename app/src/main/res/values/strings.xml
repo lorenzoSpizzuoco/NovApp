@@ -24,6 +24,10 @@
     <string name="title_activity_register">RegisterActivity</string>
     <string name="fab_content_desc">New Ad</string>
     <string name="checking_content">We are checking you\'re new content</string>
+
+    <string name="button_ripetizioni">Ripetizioni</string>
+
     <string name="my_posts">I Miei Posts</string>
+
     <!-- Strings used for fragments for navigation -->
 </resources>
