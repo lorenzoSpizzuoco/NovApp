@@ -1,6 +1,6 @@
-package com.example.novapp2.repository;
+package com.example.novapp2.repository.notification;
 
-import com.example.novapp2.entity.User;
+import com.example.novapp2.entity.Notification;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.database.DataSnapshot;
@@ -12,33 +12,32 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserRepositoryImpl implements IUserRepository{
+public class NotificationRepositoryImpl implements INotificationRepository{
 
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
     @Override
-    public Task<Void> insertUser(User user){
-        return mDatabase.child("users").child(user.getID()).setValue(user);
+    public Task<Void> insertNotification(Notification notification) {
+        return mDatabase.child("notifications").child(notification.getID()).setValue(notification);
     }
 
     @Override
-    public Task<List<User>> getAllUsers() {
-        TaskCompletionSource<List<User>> taskCompletionSource = new TaskCompletionSource<>();
+    public Task<List<Notification>> getAllNotifications() {
+        TaskCompletionSource<List<Notification>> taskCompletionSource = new TaskCompletionSource<>();
 
-        mDatabase.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child("notifications").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<User> users = new ArrayList<>();
+                List<Notification> notifications = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    User user = snapshot.getValue(User.class);
-                    users.add(user);
+                    Notification notification = snapshot.getValue(Notification.class);
+                    notifications.add(notification);
                 }
-                taskCompletionSource.setResult(users);
+                taskCompletionSource.setResult(notifications);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                // Gestire eventuali errori di lettura dal database
                 taskCompletionSource.setException(databaseError.toException());
             }
         });
@@ -47,23 +46,22 @@ public class UserRepositoryImpl implements IUserRepository{
     }
 
     @Override
-    public Task<User> getUserById(String userId) {
-        TaskCompletionSource<User> taskCompletionSource = new TaskCompletionSource<>();
+    public Task<Notification> getNotificationById(String notificationId) {
+        TaskCompletionSource<Notification> taskCompletionSource = new TaskCompletionSource<>();
 
-        mDatabase.child("users").orderByChild("id").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child("notifications").orderByChild("id").equalTo(notificationId).addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                User user = new User();
+                Notification notification = new Notification();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    user = snapshot.getValue(User.class);
+                    notification = snapshot.getValue(Notification.class);
                 }
-                taskCompletionSource.setResult(user);
+                taskCompletionSource.setResult(notification);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                // Gestire eventuali errori di lettura dal database
                 taskCompletionSource.setException(databaseError.toException());
             }
         });
@@ -72,34 +70,29 @@ public class UserRepositoryImpl implements IUserRepository{
     }
 
     @Override
-    public Task<Void> updateUserById(String userId, User updatedUser) {
+    public Task<Void> updateNotificationById(String notificationId, Notification updatedNotification) {
         TaskCompletionSource<Void> taskCompletionSource = new TaskCompletionSource<>();
 
-        // Assuming mDatabase is your DatabaseReference instance
-        DatabaseReference userRef = mDatabase.child("users").child(userId);
+        DatabaseReference notificationRef = mDatabase.child("notifications").child(notificationId);
 
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        notificationRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    // The user with the given userId exists, update the user
-                    userRef.setValue(updatedUser)
+                    notificationRef.setValue(updatedNotification)
                             .addOnSuccessListener(aVoid -> taskCompletionSource.setResult(null))
                             .addOnFailureListener(e -> taskCompletionSource.setException(e));
                 } else {
-                    // User with the given userId does not exist
-                    taskCompletionSource.setException(new Exception("User not found"));
+                    taskCompletionSource.setException(new Exception("Notification not found"));
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                // Handle any database error
                 taskCompletionSource.setException(databaseError.toException());
             }
         });
 
         return taskCompletionSource.getTask();
     }
-
 }

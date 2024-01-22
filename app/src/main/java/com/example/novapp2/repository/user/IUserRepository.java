@@ -1,4 +1,4 @@
-package com.example.novapp2.repository;
+package com.example.novapp2.repository.user;
 
 import com.example.novapp2.entity.User;
 import com.google.android.gms.tasks.Task;

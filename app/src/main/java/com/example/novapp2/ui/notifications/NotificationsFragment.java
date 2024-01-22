@@ -38,13 +38,6 @@ public class NotificationsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Button setingsButton = root.findViewById(R.id.user_settings_button);
-        setingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View settingsButton) {
-                settingsButton.setEnabled(!settingsButton.isEnabled());
-            }
-        });
         super.onViewCreated(view, savedInstanceState);
     }
 

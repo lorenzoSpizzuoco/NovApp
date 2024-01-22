@@ -27,7 +27,11 @@
         android:id="@+id/navigation_profile"
         android:name="com.example.novapp2.ui.user.UserFragment"
         android:label="fragment_chat"
-        tools:layout="@layout/fragment_chat" />
+        tools:layout="@layout/fragment_chat" >
+        <action
+            android:id="@+id/action_navigation_profile_to_postDetailsFragmentFragment"
+            app:destination="@id/postDetailsFragmentFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/adDetailsFragment"

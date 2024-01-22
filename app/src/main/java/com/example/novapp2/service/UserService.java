@@ -1,7 +1,7 @@
 package com.example.novapp2.service;
 
 import com.example.novapp2.entity.User;
-import com.example.novapp2.repository.UserRepositoryImpl;
+import com.example.novapp2.repository.user.UserRepositoryImpl;
 import com.google.android.gms.tasks.Task;
 
 import java.util.Arrays;
