@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.example.novapp2.R;
 import com.example.novapp2.ui.post.Post;
 import com.example.novapp2.ui.post.PostViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.w3c.dom.Text;
 
@@ -39,7 +40,7 @@ public class PostDetailsFragment extends Fragment {
 
     private TextView place;
 
-    private ImageView favoriteIcon;
+    private FloatingActionButton favoriteIcon;
 
     private PostViewModel postViewModel;
 
@@ -85,7 +86,7 @@ public class PostDetailsFragment extends Fragment {
 
         // colors for icon filtering
         int red = ContextCompat.getColor(this.getContext(), android.R.color.holo_red_dark);
-        int black = ContextCompat.getColor(this.getContext(), android.R.color.black);
+        int white = ContextCompat.getColor(this.getContext(), android.R.color.white);
 
         // setting livedata value to 1 if post is listed as favorite
         if (p.getFavorite() == 1) {
@@ -102,7 +103,7 @@ public class PostDetailsFragment extends Fragment {
             }
             else {
                 favoriteIcon.setImageResource(R.drawable.baseline_favorite_border_24);
-                favoriteIcon.setColorFilter(black);
+                favoriteIcon.setColorFilter(white);
             }
             p.setFavorite(favorite);
         });
