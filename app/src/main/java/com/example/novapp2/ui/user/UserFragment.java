@@ -45,9 +45,10 @@ public class UserFragment extends Fragment {
     private String mParam2;
     private View root;
     private SavedPostAdapter savedPostAdapter;
-
     private PostViewModel postViewModel;
+
     private RecyclerView mySavedView;
+    private RecyclerView myPostsView;
 
     private List<Post> postList;
 
@@ -100,11 +101,18 @@ public class UserFragment extends Fragment {
         mySavedView = view.findViewById(R.id.mySavedPosts);
         mySavedView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
+        //elementi postati
+        myPostsView = view.findViewById(R.id.myPosts);
+        myPostsView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
         RecyclerView mySavedPostsRecyclerView = root.findViewById(R.id.mySavedPosts);
+        RecyclerView myPostsRecyclerView = root.findViewById(R.id.myPosts);
 
         // Impostazione dell'orientamento orizzontale
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         mySavedPostsRecyclerView.setLayoutManager(layoutManager);
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+        myPostsRecyclerView.setLayoutManager(layoutManager2);
 
         savedPostAdapter = new SavedPostAdapter(requireContext(), postList, new PostAdapter.OnItemClickListener() {
             // navigation to post details fragment
@@ -120,8 +128,13 @@ public class UserFragment extends Fragment {
             }
 
         });
+
         mySavedView.setAdapter(savedPostAdapter);
         mySavedView.clearFocus();
+
+        myPostsView.setAdapter(savedPostAdapter);
+        myPostsView.clearFocus();
+
         postViewModel.getAllPost().observe(getViewLifecycleOwner(), posts -> {
             this.postList.clear();
             this.postList.addAll(posts);
