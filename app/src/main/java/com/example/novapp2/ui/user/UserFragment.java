@@ -4,7 +4,12 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +17,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.novapp2.R;
-import com.example.novapp2.databinding.FragmentNotificationsBinding;
 import com.example.novapp2.databinding.FragmentUserBinding;
+import com.example.novapp2.ui.post.Post;
+import com.example.novapp2.ui.post.PostAdapter;
+import com.example.novapp2.ui.post.PostViewModel;
+import com.example.novapp2.ui.post.SavedPostAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +44,12 @@ public class UserFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private View root;
+    private SavedPostAdapter savedPostAdapter;
+
+    private PostViewModel postViewModel;
+    private RecyclerView mySavedView;
+
+    private List<Post> postList;
 
     public UserFragment() {
         // Required empty public constructor
@@ -59,6 +76,8 @@ public class UserFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
+        postList = new ArrayList<>();
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -77,6 +96,38 @@ public class UserFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        //elementi salvati
+        mySavedView = view.findViewById(R.id.mySavedPosts);
+        mySavedView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        RecyclerView mySavedPostsRecyclerView = root.findViewById(R.id.mySavedPosts);
+
+        // Impostazione dell'orientamento orizzontale
+        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+        mySavedPostsRecyclerView.setLayoutManager(layoutManager);
+
+        savedPostAdapter = new SavedPostAdapter(requireContext(), postList, new PostAdapter.OnItemClickListener() {
+            // navigation to post details fragment
+            @Override
+            public void onPostItemClick(Post post) {
+                // Naviga verso il dettaglio del post solo se c'è una View valida
+                if (getView() != null) {
+                    // navigation to details fragment using Safe Args
+                    UserFragmentDirections.ActionNavigationProfileToPostDetailsFragmentFragment action =
+                            UserFragmentDirections.actionNavigationProfileToPostDetailsFragmentFragment(post);
+                    Navigation.findNavController(getView()).navigate(action);
+                }
+            }
+
+        });
+        mySavedView.setAdapter(savedPostAdapter);
+        mySavedView.clearFocus();
+        postViewModel.getAllPost().observe(getViewLifecycleOwner(), posts -> {
+            this.postList.clear();
+            this.postList.addAll(posts);
+            savedPostAdapter.notifyItemChanged(0, posts.size());
+        });
+
         Button settingsButton = this.root.findViewById(R.id.user_settings_button);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
