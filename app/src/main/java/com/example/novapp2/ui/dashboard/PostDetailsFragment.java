@@ -83,16 +83,18 @@ public class PostDetailsFragment extends Fragment {
         place.setText(p.getPlace());
         description.setText(p.getContent());
 
+        // colors for icon filtering
         int red = ContextCompat.getColor(this.getContext(), android.R.color.holo_red_dark);
         int black = ContextCompat.getColor(this.getContext(), android.R.color.black);
+
+        // setting livedata value to 1 if post is listed as favorite
         if (p.getFavorite() == 1) {
             favoriteIcon.setImageResource(R.drawable.ic_favorite_24);
             favoriteIcon.setColorFilter(red);
-            postViewModel.setFavorite(p.getTitle(), 1);
+            postViewModel.setFavorite(p.getId(), 1);
         }
 
-
-
+        // observing livedata
         postViewModel.getIsFavorite().observe(getViewLifecycleOwner(), favorite -> {
             if (favorite == 1) {
                 favoriteIcon.setImageResource(R.drawable.ic_favorite_24);
@@ -102,19 +104,18 @@ public class PostDetailsFragment extends Fragment {
                 favoriteIcon.setImageResource(R.drawable.baseline_favorite_border_24);
                 favoriteIcon.setColorFilter(black);
             }
+            p.setFavorite(favorite);
         });
 
-
-
-
+        // click listener
         favoriteIcon.setOnClickListener(v -> {
             if (p.getFavorite() == 1) {
-                p.setFavorite(0);
-                postViewModel.setFavorite(p.getTitle(), 0);
+                //p.setFavorite(0);
+                postViewModel.setFavorite(p.getId(), 0);
             }
             else {
-                p.setFavorite(1);
-                postViewModel.setFavorite(p.getTitle(), 1);
+                //p.setFavorite(1);
+                postViewModel.setFavorite(p.getId(), 1);
             }
 
 

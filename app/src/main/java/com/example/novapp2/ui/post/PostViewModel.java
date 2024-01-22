@@ -47,9 +47,9 @@ public class PostViewModel extends AndroidViewModel {
         return isFavorite;
     }
 
-    public  void setFavorite(String title, int fav) {
+    public  void setFavorite(long id, int fav) {
         isFavorite.setValue(fav);
-        postRepository.setFavorite(title, fav);
+        postRepository.setFavorite(id, fav);
     }
 
     public LiveData<Boolean> getIsLoading() {
