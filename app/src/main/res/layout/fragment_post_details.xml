@@ -29,7 +29,7 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/imageview_favorite_news"
+            android:id="@+id/imageview_favorite_post"
             android:layout_width="wrap_content"
             android:layout_below="@id/PostdetailsImageView"
             android:layout_toRightOf="@id/postTitle"

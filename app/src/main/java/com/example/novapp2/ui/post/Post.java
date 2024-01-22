@@ -25,6 +25,9 @@ public class Post implements Parcelable{
 
     private int image;
 
+    private int favorite;
+
+
     protected Post(Parcel in) {
         author = in.readString();
         content = in.readString();
@@ -33,6 +36,7 @@ public class Post implements Parcelable{
         category = in.readInt();
         title = in.readString();
         image = in.readInt();
+        favorite = in.readInt();
     }
 
     public static final Parcelable.Creator<Post> CREATOR = new Parcelable.Creator<Post>() {
@@ -47,6 +51,13 @@ public class Post implements Parcelable{
         }
     };
 
+
+    public void setFavorite(int favorite) {
+        this.favorite = favorite;
+    }
+    public int getFavorite(){
+        return this.favorite;
+    }
     public void setPlace(String place){this.place = place;}
 
     public String getPlace(){return this.place;}
@@ -107,7 +118,7 @@ public class Post implements Parcelable{
 
 
     // post category
-    public Post(String title, String author, int image, String content, int category, String date, String place) {
+    public Post(String title, String author, int image, String content, int category, String date, String place, int favorite) {
         this.title = title;
         this.author = author;
         this.image = image;
@@ -115,6 +126,7 @@ public class Post implements Parcelable{
         this.category = category;
         this.date = date;
         this.place = place;
+        this.favorite = favorite;
     }
 
     @Override
@@ -131,5 +143,6 @@ public class Post implements Parcelable{
         dest.writeInt(category);
         dest.writeString(title);
         dest.writeInt(image);
+        dest.writeInt(favorite);
     }
 }

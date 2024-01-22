@@ -46,6 +46,10 @@ public class PostViewModel extends AndroidViewModel {
 
     public LiveData<List<Post>> getAllPost() {return allPost; }
 
+    public void setFavorite(String title, int fav) {
+        postRepository.setFavorite(title, fav);
+    }
+
     public void insert(Post post) {
 
         //isLoading.setValue(true);

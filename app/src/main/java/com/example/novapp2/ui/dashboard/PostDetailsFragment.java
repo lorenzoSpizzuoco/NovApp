@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 
 import com.example.novapp2.R;
 import com.example.novapp2.ui.post.Post;
+import com.example.novapp2.ui.post.PostViewModel;
 
 import org.w3c.dom.Text;
 
@@ -35,6 +37,11 @@ public class PostDetailsFragment extends Fragment {
     private TextView date;
 
     private TextView place;
+
+    private ImageView favoriteIcon;
+
+    private PostViewModel postViewModel;
+
     public PostDetailsFragment() {
         // Required empty public constructor
     }
@@ -48,9 +55,7 @@ public class PostDetailsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-
-        }
+        postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
     }
 
     @Override
@@ -70,6 +75,12 @@ public class PostDetailsFragment extends Fragment {
         date = view.findViewById(R.id.postDate);
         place = view.findViewById(R.id.postPlace);
         description = view.findViewById(R.id.postDescription);
+        favoriteIcon = view.findViewById(R.id.imageview_favorite_post);
+
+        if (p.getFavorite() == 1) {
+            favoriteIcon.setImageResource(R.drawable.ic_favorite_24);
+            favoriteIcon.setColorFilter(R.color.main_red);
+        }
 
         image.setImageResource(p.getImage());
         title.setText(p.getTitle());
@@ -77,24 +88,16 @@ public class PostDetailsFragment extends Fragment {
         place.setText(p.getPlace());
         description.setText(p.getContent());
 
-        /*
-        requireActivity().addMenuProvider(new MenuProvider() {
-            @Override
-            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
-                menuInflater.inflate(R.menu.topmenu, menu);
+        favoriteIcon.setOnClickListener(v -> {
+            if (p.getFavorite() == 0) {
+                postViewModel.setFavorite(p.getTitle(), 1);
+            }
+            else {
+                postViewModel.setFavorite(p.getTitle(), 0);
             }
 
-            @Override
-            public boolean onMenuItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == android.R.id.home) {
-                    Navigation.findNavController(requireView()).navigateUp();
-                    return true;
-                }
-                return false;
-            }
-        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
 
-         */
+        });
 
     }
 }
