@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
@@ -69,7 +70,6 @@ public class PostDetailsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle bundle) {
 
         Post p = PostDetailsFragmentArgs.fromBundle(getArguments()).getPost();
-
         image = view.findViewById(R.id.PostdetailsImageView);
         title = view.findViewById(R.id.postTitle);
         date = view.findViewById(R.id.postDate);
@@ -77,23 +77,44 @@ public class PostDetailsFragment extends Fragment {
         description = view.findViewById(R.id.postDescription);
         favoriteIcon = view.findViewById(R.id.imageview_favorite_post);
 
-        if (p.getFavorite() == 1) {
-            favoriteIcon.setImageResource(R.drawable.ic_favorite_24);
-            favoriteIcon.setColorFilter(R.color.main_red);
-        }
-
         image.setImageResource(p.getImage());
         title.setText(p.getTitle());
         date.setText(p.getDate());
         place.setText(p.getPlace());
         description.setText(p.getContent());
 
-        favoriteIcon.setOnClickListener(v -> {
-            if (p.getFavorite() == 0) {
-                postViewModel.setFavorite(p.getTitle(), 1);
+        int red = ContextCompat.getColor(this.getContext(), android.R.color.holo_red_dark);
+        int black = ContextCompat.getColor(this.getContext(), android.R.color.black);
+        if (p.getFavorite() == 1) {
+            favoriteIcon.setImageResource(R.drawable.ic_favorite_24);
+            favoriteIcon.setColorFilter(red);
+            postViewModel.setFavorite(p.getTitle(), 1);
+        }
+
+
+
+        postViewModel.getIsFavorite().observe(getViewLifecycleOwner(), favorite -> {
+            if (favorite == 1) {
+                favoriteIcon.setImageResource(R.drawable.ic_favorite_24);
+                favoriteIcon.setColorFilter(red);
             }
             else {
+                favoriteIcon.setImageResource(R.drawable.baseline_favorite_border_24);
+                favoriteIcon.setColorFilter(black);
+            }
+        });
+
+
+
+
+        favoriteIcon.setOnClickListener(v -> {
+            if (p.getFavorite() == 1) {
+                p.setFavorite(0);
                 postViewModel.setFavorite(p.getTitle(), 0);
+            }
+            else {
+                p.setFavorite(1);
+                postViewModel.setFavorite(p.getTitle(), 1);
             }
 
 

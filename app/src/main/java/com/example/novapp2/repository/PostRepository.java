@@ -40,9 +40,10 @@ public class PostRepository {
         });
     }
 
-    public void setFavorite(String title, int fav) {
+    public LiveData<List<Post>> setFavorite(String title, int fav) {
         PostRoomDatabase.databaseWriteExecutor.execute(() -> {
             postDao.setFavorite(title, fav);
         });
+        return getAllPost();
     }
 }
