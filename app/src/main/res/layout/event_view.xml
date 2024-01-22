@@ -71,11 +71,15 @@
         <com.google.android.material.chip.Chip
             android:id="@+id/eventTypeChip"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/eventimageview"
-            android:layout_alignBottom="@id/eventimageview"
-            android:text="type"
+            android:layout_height="51dp"
+            android:layout_below="@id/eventDesc"
+
+
+            android:layout_marginTop="0dp"
+
             android:layout_marginBottom="-12dp"
+            android:layout_toEndOf="@+id/eventimageview"
+            android:text="type"
             android:textSize="11sp"
             app:chipMinHeight="20dp"
             app:chipStrokeWidth="0dp">
@@ -85,3 +89,5 @@
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
+
+
