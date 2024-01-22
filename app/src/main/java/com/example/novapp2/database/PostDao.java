@@ -22,6 +22,9 @@ public interface PostDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Post post);
 
+    @Query("UPDATE post_table SET favorite=:fav WHERE id= :id")
+    void setFavorite(long id, int fav);
+
     // just for testing
 
     @Query("DELETE FROM post_table")

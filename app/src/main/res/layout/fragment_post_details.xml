@@ -20,13 +20,25 @@
 
         <TextView
             android:id="@+id/postTitle"
-            android:layout_below="@id/PostdetailsImageView"
-            android:layout_width="match_parent"
+            android:layout_width="332dp"
             android:layout_height="wrap_content"
+            android:layout_below="@id/PostdetailsImageView"
             android:padding="10dp"
             android:text="title"
             android:textSize="18sp"
             android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageview_favorite_post"
+            android:layout_width="wrap_content"
+            android:layout_below="@id/PostdetailsImageView"
+            android:layout_toRightOf="@id/postTitle"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:focusable="true"
+            android:padding="12dp"
+            android:src="@drawable/baseline_favorite_border_24" />
 
         <LinearLayout
                 android:id="@+id/postInfosBlock"
@@ -41,12 +53,15 @@
                     android:id="@+id/postDate"
                     android:layout_width="0dp"
                     android:text="data"
+                    android:textColor="@color/main_grey"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.2"
                     android:textSize="14sp" />
 
                 <TextView
                     android:text="place"
+                    android:textStyle="bold"
+                    android:textColor="@color/main_grey"
                     android:id="@+id/postPlace"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

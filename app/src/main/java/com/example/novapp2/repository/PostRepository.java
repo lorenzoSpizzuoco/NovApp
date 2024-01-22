@@ -35,11 +35,15 @@ public class PostRepository {
     }
 
     public void insert(Post post) {
-        AdRoomDatabase.databaseWriteExecutor.execute(() -> {
+        PostRoomDatabase.databaseWriteExecutor.execute(() -> {
             postDao.insert(post);
         });
     }
 
-
-
+    public LiveData<List<Post>> setFavorite(long id, int fav) {
+        PostRoomDatabase.databaseWriteExecutor.execute(() -> {
+            postDao.setFavorite(id, fav);
+        });
+        return getAllPost();
+    }
 }

@@ -4,9 +4,11 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -20,6 +22,7 @@ import android.widget.TextView;
 
 import com.example.novapp2.R;
 import com.example.novapp2.ui.post.Post;
+import com.example.novapp2.ui.post.PostViewModel;
 
 import org.w3c.dom.Text;
 
@@ -35,6 +38,11 @@ public class PostDetailsFragment extends Fragment {
     private TextView date;
 
     private TextView place;
+
+    private ImageView favoriteIcon;
+
+    private PostViewModel postViewModel;
+
     public PostDetailsFragment() {
         // Required empty public constructor
     }
@@ -48,9 +56,7 @@ public class PostDetailsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-
-        }
+        postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
     }
 
     @Override
@@ -64,12 +70,12 @@ public class PostDetailsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle bundle) {
 
         Post p = PostDetailsFragmentArgs.fromBundle(getArguments()).getPost();
-
         image = view.findViewById(R.id.PostdetailsImageView);
         title = view.findViewById(R.id.postTitle);
         date = view.findViewById(R.id.postDate);
         place = view.findViewById(R.id.postPlace);
         description = view.findViewById(R.id.postDescription);
+        favoriteIcon = view.findViewById(R.id.imageview_favorite_post);
 
         image.setImageResource(p.getImage());
         title.setText(p.getTitle());
@@ -77,24 +83,43 @@ public class PostDetailsFragment extends Fragment {
         place.setText(p.getPlace());
         description.setText(p.getContent());
 
-        /*
-        requireActivity().addMenuProvider(new MenuProvider() {
-            @Override
-            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
-                menuInflater.inflate(R.menu.topmenu, menu);
+        // colors for icon filtering
+        int red = ContextCompat.getColor(this.getContext(), android.R.color.holo_red_dark);
+        int black = ContextCompat.getColor(this.getContext(), android.R.color.black);
+
+        // setting livedata value to 1 if post is listed as favorite
+        if (p.getFavorite() == 1) {
+            favoriteIcon.setImageResource(R.drawable.ic_favorite_24);
+            favoriteIcon.setColorFilter(red);
+            postViewModel.setFavorite(p.getId(), 1);
+        }
+
+        // observing livedata
+        postViewModel.getIsFavorite().observe(getViewLifecycleOwner(), favorite -> {
+            if (favorite == 1) {
+                favoriteIcon.setImageResource(R.drawable.ic_favorite_24);
+                favoriteIcon.setColorFilter(red);
+            }
+            else {
+                favoriteIcon.setImageResource(R.drawable.baseline_favorite_border_24);
+                favoriteIcon.setColorFilter(black);
+            }
+            p.setFavorite(favorite);
+        });
+
+        // click listener
+        favoriteIcon.setOnClickListener(v -> {
+            if (p.getFavorite() == 1) {
+                //p.setFavorite(0);
+                postViewModel.setFavorite(p.getId(), 0);
+            }
+            else {
+                //p.setFavorite(1);
+                postViewModel.setFavorite(p.getId(), 1);
             }
 
-            @Override
-            public boolean onMenuItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == android.R.id.home) {
-                    Navigation.findNavController(requireView()).navigateUp();
-                    return true;
-                }
-                return false;
-            }
-        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
 
-         */
+        });
 
     }
 }
