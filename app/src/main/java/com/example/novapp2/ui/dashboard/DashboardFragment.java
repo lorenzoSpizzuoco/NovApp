@@ -90,11 +90,11 @@ public class DashboardFragment extends Fragment {
         });
 
         gsButton.setOnClickListener(v -> {
-            filterPostList(3);
+            filterPostList(4);
         });
 
         ripetizioniButton.setOnClickListener(v -> {
-            filterPostList(4);
+            filterPostList(3);
         });
 
         // top search bar configuration

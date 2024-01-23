@@ -22,8 +22,8 @@
 
         <ImageView
             android:id="@+id/eventimageview"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_marginRight="15dp"
             android:outlineAmbientShadowColor="@color/background_gray" />
 
@@ -69,7 +69,10 @@
             tools:text="Desc" />
 
         <com.google.android.material.chip.Chip
+            android:textAllCaps="true"
+            android:textColor="@color/event_chip_text_color"
             android:clickable="false"
+            android:backgroundTint="@color/event_chip_background"
             android:id="@+id/eventTypeChip"
             android:layout_width="wrap_content"
             android:layout_height="51dp"

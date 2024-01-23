@@ -1,5 +1,6 @@
 package com.example.novapp2.ui.dashboard;
 
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,12 +25,14 @@ import android.widget.TextView;
 import com.example.novapp2.R;
 import com.example.novapp2.ui.post.Post;
 import com.example.novapp2.ui.post.PostViewModel;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.w3c.dom.Text;
 
 public class PostDetailsFragment extends Fragment {
 
+    private static final String TAG = PostDetailsFragment.class.getSimpleName();
 
     private ImageView image;
 
@@ -45,6 +49,8 @@ public class PostDetailsFragment extends Fragment {
     private FloatingActionButton favoriteIcon;
 
     private PostViewModel postViewModel;
+
+    private Chip postChip;
 
     public PostDetailsFragment() {
         // Required empty public constructor
@@ -80,7 +86,32 @@ public class PostDetailsFragment extends Fragment {
         description = view.findViewById(R.id.postDescription);
         favoriteIcon = view.findViewById(R.id.imageview_favorite_post);
         username = view.findViewById(R.id.user_name_post);
+        postChip = view.findViewById(R.id.postDetailChip);
 
+        switch(p.getCategory()) {
+            case 1:
+                postChip.setText(R.string.button_event);
+                postChip.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this.getContext(), R.color.event_chip_background)));
+                postChip.setTextColor(ContextCompat.getColor(this.getContext(), R.color.event_chip_text_color));
+                break;
+            case 2:
+                postChip.setText(R.string.button_info);
+                postChip.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this.getContext(), R.color.info_chip_background)));
+                postChip.setTextColor(ContextCompat.getColor(this.getContext(), R.color.main_blue));
+                break;
+            case 3:
+                postChip.setText(R.string.button_ripetizioni);
+                postChip.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this.getContext(), R.color.ripetizioni_chip_background)));
+                postChip.setTextColor(ContextCompat.getColor(this.getContext(), R.color.main_red));
+                break;
+            case 4:
+                postChip.setText(R.string.button_sg);
+                postChip.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this.getContext(), R.color.gs_background_color)));
+                postChip.setTextColor(ContextCompat.getColor(this.getContext(), R.color.gs_text_color));
+                break;
+            default:
+                Log.d(TAG, "no match");
+        }
         username.setText(p.getAuthor());
         image.setImageResource(p.getImage());
         title.setText(p.getTitle());

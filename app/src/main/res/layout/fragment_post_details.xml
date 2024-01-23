@@ -43,8 +43,25 @@
             android:padding="30dp"
             android:layout_marginTop="350dp">
 
+            <com.google.android.material.chip.Chip
+                android:id="@+id/postDetailChip"
+                android:layout_width="wrap_content"
 
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:text="qualcosa"
+                android:textAllCaps="true"
+                app:chipCornerRadius="3dp"
+                app:chipStartPadding="8dp"
+                app:chipEndPadding="8dp"
+
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:chipMinHeight="20dp"
+                app:chipStrokeWidth="0dp" />
             <TextView
+                android:layout_below="@id/postDetailChip"
+                android:layout_marginTop="8dp"
                 android:id="@+id/postTitle"
                 android:layout_width="332dp"
                 android:layout_height="wrap_content"
@@ -78,17 +95,15 @@
                         android:scaleType="centerCrop"
                         android:src="@drawable/analisi" />
 
-
-
-                <TextView
-                    android:id="@+id/user_name_post"
-                    android:textStyle="bold"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textAlignment="center" />
+                    <TextView
+                        android:id="@+id/user_name_post"
+                        android:textStyle="bold"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20dp"
+                        android:textAlignment="center" />
             </LinearLayout>
 
             <LinearLayout
@@ -133,6 +148,8 @@
                     android:layout_height="wrap_content"
 
                     android:textSize="16sp" />
+
+
 
         </RelativeLayout>
 

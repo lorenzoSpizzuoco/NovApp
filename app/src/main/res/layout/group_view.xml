@@ -22,8 +22,8 @@
 
         <ImageView
             android:id="@+id/groupimageview"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_marginRight="15dp"
             android:outlineAmbientShadowColor="@color/background_gray" />
 
@@ -68,6 +68,10 @@
 
         <com.google.android.material.chip.Chip
             android:clickable="false"
+            android:backgroundTint="@color/gs_background_color"
+            android:textColor="@color/gs_text_color"
+            android:textStyle="bold"
+            android:textAllCaps="true"
             android:id="@+id/groupTypeChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

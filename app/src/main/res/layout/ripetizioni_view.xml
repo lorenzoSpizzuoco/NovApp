@@ -22,8 +22,8 @@
 
         <ImageView
             android:id="@+id/ripetizioniimageview"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_marginRight="15dp"
             android:outlineAmbientShadowColor="@color/background_gray" />
 
@@ -68,6 +68,12 @@
 
 
         <com.google.android.material.chip.Chip
+
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:textFontWeight="@integer/material_motion_duration_medium_2"
+            android:backgroundTint="@color/ripetizioni_chip_background"
+            android:textColor="@color/main_red"
             android:id="@+id/ripetizioniTypeChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,8 +81,9 @@
             android:clickable="false"
             android:layout_marginBottom="-12dp"
             android:layout_toEndOf="@+id/ripetizioniimageview"
-            android:text="type"
-            android:textSize="11sp"
+            android:text="@string/button_ripetizioni"
+            android:textSize="12sp"
+            android:padding="4dp"
             app:chipMinHeight="20dp"
             app:chipStrokeWidth="0dp">
 
