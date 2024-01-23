@@ -40,6 +40,8 @@ public class PostDetailsFragment extends Fragment {
 
     private TextView place;
 
+    private TextView username;
+
     private FloatingActionButton favoriteIcon;
 
     private PostViewModel postViewModel;
@@ -77,7 +79,9 @@ public class PostDetailsFragment extends Fragment {
         place = view.findViewById(R.id.postPlace);
         description = view.findViewById(R.id.postDescription);
         favoriteIcon = view.findViewById(R.id.imageview_favorite_post);
+        username = view.findViewById(R.id.user_name_post);
 
+        username.setText(p.getAuthor());
         image.setImageResource(p.getImage());
         title.setText(p.getTitle());
         date.setText(p.getDate());
