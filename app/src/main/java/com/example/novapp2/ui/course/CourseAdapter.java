@@ -13,16 +13,17 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.novapp2.R;
+import com.example.novapp2.ui.post.Post;
 
 import java.util.List;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseViewHolder> {
 
     Context context;
-    List<Course> courseList;
+    List<Post> postList;
 
-    public CourseAdapter(Context context, List<Course> courseList){
-        this.courseList = courseList;
+    public CourseAdapter(Context context, List<Post> postList){
+        this.postList = postList;
         this.context = context;
     }
 
@@ -38,24 +39,24 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
 
     @Override
     public void onBindViewHolder(@NonNull CourseViewHolder holder, int position) {
-        holder.titleView.setText(courseList.get(position).getTitle());
-        holder.descView.setText(courseList.get(position).getDesc());
-        holder.imageView.setImageResource(courseList.get(position).getImg());
+        holder.titleView.setText(postList.get(position).getTitle());
+        holder.descView.setText(postList.get(position).getContent());
+        holder.imageView.setImageResource(postList.get(position).getImage());
         holder.courseCardView.setAnimation(AnimationUtils.loadAnimation(holder.courseCardView.getContext(), R.anim.fall_down_animation));
     }
 
     @Override
     public int getItemCount() {
-        return courseList.size();
+        return postList.size();
     }
 
 
-    public List<Course> getCourseList() {
-        return courseList;
+    public List<Post> getPostList() {
+        return postList;
     }
 
-    public void setCourseList(List<Course> courseList) {
-        this.courseList = courseList;
+    public void setCourseList(List<Post> postList) {
+        this.postList = postList;
         notifyDataSetChanged();
     }
 
