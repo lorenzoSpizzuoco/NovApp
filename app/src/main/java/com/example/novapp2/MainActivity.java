@@ -1,6 +1,7 @@
 package com.example.novapp2;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -12,6 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.novapp2.databinding.ActivityMainBinding;
+
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,5 +1,6 @@
 package com.example.novapp2.ui.register;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +10,11 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.credentials.CreateCredentialResponse;
+import androidx.credentials.CreatePasswordRequest;
+import androidx.credentials.CredentialManager;
+import androidx.credentials.CredentialManagerCallback;
+import androidx.credentials.exceptions.CreateCredentialException;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -32,6 +38,7 @@ public class RegisterFragment extends Fragment {
     private TextInputLayout textInputLayoutPassword;
     private TextInputLayout textInputLayoutPasswordConfirm;
     private FirebaseAuth mAuth;
+    private CredentialManager credentialManager;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -46,6 +53,8 @@ public class RegisterFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
+        credentialManager = CredentialManager.create(requireContext());
+
     }
 
     @Override
@@ -86,6 +95,8 @@ public class RegisterFragment extends Fragment {
                     // Handle failure, for example, show an error message
                 }
             });
+
+            registerPassword(email, password);
         });
 
     }
@@ -94,6 +105,36 @@ public class RegisterFragment extends Fragment {
         void onRegisterSuccess();
         void onRegisterFailure();
     }
+
+    void registerPassword(String username, String password) {
+        // Initialize a CreatePasswordRequest object.
+        CreatePasswordRequest createPasswordRequest =
+                new CreatePasswordRequest(username, password);
+
+
+        // Register the username and password.
+        credentialManager.createCredentialAsync(
+                // Use an activity-based context to avoid undefined
+                // system UI launching behavior
+                requireActivity(),
+                createPasswordRequest,
+                null,
+                AsyncTask.THREAD_POOL_EXECUTOR,
+                new CredentialManagerCallback<CreateCredentialResponse, CreateCredentialException>() {
+                    @Override
+                    public void onResult(CreateCredentialResponse result) {
+                        Log.e(TAG, "Handle result");
+                    }
+
+                    @Override
+                    public void onError(CreateCredentialException e) {
+                        Log.e(TAG, "Handle failure");
+                    }
+                }
+        );
+    }
+
+
 
     // TODO: waiting screen, register requires time //
     public void registerUser(String email, String password, RegisterCallback callback) {

@@ -1,6 +1,7 @@
 package com.example.novapp2.ui.login;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -73,7 +74,6 @@ public class LoginFragment extends Fragment {
 
         final Button buttonLogin = view.findViewById(R.id.button_login);
         final Button toRegisterPage = view.findViewById(R.id.button_register);
-        final Button googleLoginButton = view.findViewById(R.id.google_button);
 
         buttonLogin.setOnClickListener(v -> {
 
@@ -84,6 +84,8 @@ public class LoginFragment extends Fragment {
             signIn(email, password, new SignInCallback() {
                 @Override
                 public void onSignInSuccess() {
+
+
                     // Handle success, for example, navigate to the next activity
                     Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_mainActivity2);
                 }
@@ -99,18 +101,6 @@ public class LoginFragment extends Fragment {
             Log.i(TAG, "Clicked");
             Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_registerFragment);
         });
-    }
-
-    private boolean isEmailOk(String email) {
-        // Check if the email is valid through the use of this library:
-        // https://commons.apache.org/proper/commons-validator/
-        if (!EmailValidator.getInstance().isValid((email))) {
-            textInputLayoutEmail.setError(getString(R.string.email_error));
-            return false;
-        } else {
-            textInputLayoutEmail.setError(null);
-            return true;
-        }
     }
 
 
