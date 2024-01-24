@@ -10,6 +10,7 @@ import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavBackStackEntry;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 import com.example.novapp2.R;
 import com.example.novapp2.ui.post.Post;
 import com.example.novapp2.ui.post.PostViewModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -156,6 +158,16 @@ public class PostDetailsFragment extends Fragment {
 
 
         });
+
+        NavBackStackEntry navBackStackEntry = Navigation.
+                findNavController(view).getPreviousBackStackEntry();
+
+        // selecting right bottombar icon
+        if (navBackStackEntry != null &&
+                navBackStackEntry.getDestination().getId() == R.id.navigation_dashboard) {
+            ((BottomNavigationView) requireActivity().findViewById(R.id.nav_view)).
+                    getMenu().findItem(R.id.navigation_dashboard).setChecked(true);
+        }
 
     }
 }
