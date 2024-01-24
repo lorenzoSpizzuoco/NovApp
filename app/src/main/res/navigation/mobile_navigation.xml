@@ -15,7 +15,20 @@
         android:id="@+id/navigation_add"
         android:name="com.example.novapp2.ui.add.AddFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_navigation_add_to_newEventFragment"
+            app:destination="@id/newEventFragment" />
+        <action
+            android:id="@+id/action_navigation_add_to_newRipetizioniFragment"
+            app:destination="@id/newRipetizioniFragment" />
+        <action
+            android:id="@+id/action_navigation_add_to_newInfoFragment"
+            app:destination="@id/newInfoFragment" />
+        <action
+            android:id="@+id/action_navigation_add_to_newGsFragment"
+            app:destination="@id/newGsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_notifications"
@@ -96,4 +109,24 @@
             android:name="post"
             app:argType="com.example.novapp2.ui.post.Post" />
     </fragment>
+    <fragment
+        android:id="@+id/newEventFragment"
+        android:name="com.example.novapp2.ui.add.NewEventFragment"
+        android:label="fragment_new_event"
+        tools:layout="@layout/fragment_new_event" />
+    <fragment
+        android:id="@+id/newRipetizioniFragment"
+        android:name="com.example.novapp2.ui.add.NewRipetizioniFragment"
+        android:label="fragment_new_ripetizioni"
+        tools:layout="@layout/fragment_new_ripetizioni" />
+    <fragment
+        android:id="@+id/newGsFragment"
+        android:name="com.example.novapp2.ui.add.NewGsFragment"
+        android:label="fragment_new_gs"
+        tools:layout="@layout/fragment_new_gs" />
+    <fragment
+        android:id="@+id/newInfoFragment"
+        android:name="com.example.novapp2.ui.add.NewInfoFragment"
+        android:label="fragment_new_info"
+        tools:layout="@layout/fragment_new_info" />
 </navigation>
