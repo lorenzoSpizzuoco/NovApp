@@ -63,7 +63,8 @@ public class AddFragment extends Fragment {
         });
 
         newEvent.setOnClickListener(v -> {
-            Navigation.findNavController(view).navigate(R.id.action_navigation_add_to_newEventFragment);
+            //Navigation.findNavController(view).navigate(R.id.action_navigation_add_to_newEventFragment);
+            new NewEventDialog().show(getChildFragmentManager(), null);
         });
 
         newInfo.setOnClickListener(v -> {
