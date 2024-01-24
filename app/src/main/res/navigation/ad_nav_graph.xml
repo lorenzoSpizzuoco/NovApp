@@ -35,7 +35,7 @@
 
     <fragment
         android:id="@+id/adDetailsFragment"
-        android:name="com.example.novapp2.ui.home.AdDetailsFragment"
+        android:name="com.example.novapp2.ui.ad.AdDetailsFragment"
         android:label="adDetailsFragment"
         tools:layout="@layout/ad_details_fragment">
 
@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/newAdFragment"
-        android:name="com.example.novapp2.ui.home.NewAdFragment"
+        android:name="com.example.novapp2.ui.ad.NewAdFragment"
         android:label="fragment_new_ad"
         tools:layout="@layout/fragment_new_ad" >
         <action

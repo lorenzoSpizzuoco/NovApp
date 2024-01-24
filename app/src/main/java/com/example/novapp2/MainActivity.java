@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 R.id.navigation_dashboard, R.id.navigation_chat, R.id.navigation_add, R.id.navigation_notifications, R.id.navigation_profile)
                 .build();
 
+        // state hoisting
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(binding.navView, navController);
     }

@@ -1,6 +1,6 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Up button (back arrow) -->
+    <!-- Up succ_button (back arrow) -->
     <item
         android:id="@android:id/home"
         android:icon="@drawable/ic_home_black_24dp"

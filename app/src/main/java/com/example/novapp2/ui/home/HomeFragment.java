@@ -75,7 +75,7 @@ public class HomeFragment extends Fragment {
         newAdButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Snackbar.make(view, "new ad button", Snackbar.LENGTH_SHORT).show();
+                //Snackbar.make(view, "new ad succ_button", Snackbar.LENGTH_SHORT).show();
                 Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_newAdFragment);
             }
         });

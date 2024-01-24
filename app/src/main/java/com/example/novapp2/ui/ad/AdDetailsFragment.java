@@ -1,4 +1,4 @@
-package com.example.novapp2.ui.home;
+package com.example.novapp2.ui.ad;
 
 import android.os.Bundle;
 
@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,9 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.novapp2.R;
 import com.example.novapp2.databinding.AdDetailsFragmentBinding;
-import com.example.novapp2.ui.ad.Ad;
 
 
 public class AdDetailsFragment extends Fragment {
@@ -58,7 +55,7 @@ public class AdDetailsFragment extends Fragment {
         super.onViewCreated(view, savedInstaceState);
 
 
-        // setting back button
+        // setting back succ_button
 
         requireActivity().addMenuProvider(new MenuProvider() {
             @Override
