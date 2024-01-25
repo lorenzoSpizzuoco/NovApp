@@ -2,6 +2,7 @@ package com.example.novapp2.ui.carousel;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.content.Intent;
 
@@ -24,8 +26,9 @@ import com.example.novapp2.ui.login.LoginFragment;
 
 public class CarouselActivity extends AppCompatActivity {
 
-    private Button precButton;
-    private Button succButton;
+    private ImageView precButton;
+    private ImageView succButton;
+    private Button loginButton;
     // 0 -> start, 1 -> middle, 2 -> end
     private int state;
 
@@ -42,8 +45,9 @@ public class CarouselActivity extends AppCompatActivity {
 
         precButton = this.findViewById(R.id.prec_button);
         succButton = this.findViewById(R.id.succ_button);
-        succButton.setBackgroundColor(Color.BLUE);
-        precButton.setBackgroundColor(Color.BLUE);
+        loginButton = this.findViewById(R.id.login_button);
+
+        loginButton.setVisibility(View.GONE);
 
 
         if (savedInstanceState == null) {
@@ -63,11 +67,8 @@ public class CarouselActivity extends AppCompatActivity {
                 case 1:
                     replaceFragment(ThirdPageCarouselFragment.class);
                     state += 1;
-                    succButton.setText("Login");
-                    succButton.setBackgroundColor(Color.RED);
-                    break;
-                case 2:
-                    toLoginPage();
+                    succButton.setVisibility(View.GONE);
+                    loginButton.setVisibility(View.VISIBLE);
                     break;
             }
         });
@@ -84,11 +85,13 @@ public class CarouselActivity extends AppCompatActivity {
                 case 2:
                     replaceFragment(SecondPageCarouselFragment.class);
                     state -= 1;
-                    succButton.setText("Button");
-                    succButton.setBackgroundColor(Color.BLUE);
+                    succButton.setVisibility(View.VISIBLE);
+                    loginButton.setVisibility(View.GONE);
                     break;
             }
         });
+
+        loginButton.setOnClickListener(v -> toLoginPage());
     }
 
     private void replaceFragment(Class fragment) {

@@ -4,7 +4,6 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="login"> Login </string>
     <string name="new_account"> Don\'t have an account? </string>
     <string name="register">Register</string>
     <string name="forgot_password">Forgot Password?</string>
@@ -30,4 +29,13 @@
     <string name="fab_content_desc">New Ad</string>
     <string name="checking_content">We are checking you\'re new content</string>
     <string name="button_ripetizioni">Ripetizioni</string>
+
+    <!-- Login strings -->
+    <string name="login">Accedi</string>
+
+    <!-- Carousel strings -->
+    <string name="first_carousel_txt">BiClub è l\'applicazione che permette di vivere a 360 gradi quello che l\'università Bicocca ha da offrire.</string>
+    <string name="second_carousel_txt">Con BiClub potrai rimanere aggiornato sulla vita universitaria e trovare il tuo gruppo studio preferito, creato su misura per le tue esigenze.</string>
+    <string name="third_carousel_txt">Che cosa aspetti? \nUnisciti alla community, entra nel Club!</string>
+
 </resources>
