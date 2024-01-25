@@ -140,15 +140,6 @@
                 app:navGraph="@navigation/main_nav_graph"
                 app:rippleColor="@color/main_red" />
 
-            <Button
-                android:id="@+id/google_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Google"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button_register" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

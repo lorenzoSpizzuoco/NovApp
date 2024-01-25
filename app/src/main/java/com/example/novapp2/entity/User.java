@@ -16,14 +16,13 @@ public class User {
     public List<String> favourites;
     public Boolean isBicoccaUser;
     public String profileImg;
-    public String password;
     public List<String> notifications;
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String userId, String name, String email, String surname, String bio, List<String> groupChats, List<String> favourites, Boolean isBicoccaUser, String profileImg, String password, List<String> notifications) {
+    public User(String userId, String name, String email, String surname, String bio, List<String> groupChats, List<String> favourites, Boolean isBicoccaUser, String profileImg, List<String> notifications) {
         this.userId = userId;
         this.name = name;
         this.email = email;
@@ -33,7 +32,6 @@ public class User {
         this.favourites = favourites;
         this.isBicoccaUser = isBicoccaUser;
         this.profileImg = profileImg;
-        this.password = password;
         this.notifications = notifications;
     }
 
@@ -107,14 +105,6 @@ public class User {
 
     public void setProfileImg(String profileImg) {
         this.profileImg = profileImg;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public List<String> getNotifications() {

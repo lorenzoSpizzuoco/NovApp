@@ -1,5 +1,6 @@
 package com.example.novapp2.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Layout;
 import android.util.Log;
@@ -19,11 +20,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.novapp2.R;
 import com.example.novapp2.databinding.FragmentHomeBinding;
+import com.example.novapp2.entity.User;
+import com.example.novapp2.service.UserService;
 import com.example.novapp2.ui.ad.Ad;
 import com.example.novapp2.ui.ad.AdViewAdapter;
 import com.example.novapp2.ui.ad.AdViewModel;
+import com.example.novapp2.ui.carousel.CarouselActivity;
+import com.example.novapp2.ui.login.LoginActivity;
+import com.example.novapp2.ui.register.FullRegisterActivity;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -33,6 +41,8 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private AdViewModel adViewModel;
+    private FirebaseAuth mAuth;
+    private User activeUser;
 
     private List<Ad> ads;
 
@@ -46,7 +56,36 @@ public class HomeFragment extends Fragment {
 
         ads = new ArrayList<>();
 
+        mAuth = FirebaseAuth.getInstance();
+        if (mAuth.getCurrentUser() != null) {
+            Task<User> activeUserTask = UserService.getUserById(mAuth.getCurrentUser().getUid());
+            activeUserTask.addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        User activeUser = task.getResult();
+                    } else {
+                        // TODO Handle the error
+                    }
+            });
+
+            if (!userFullyRegistered(activeUser)){
+                Intent intent = new Intent(requireContext(), FullRegisterActivity.class);
+                Log.i("Main", "FullRegisterActivity");
+                startActivity(intent);
+            }
+        } else {
+            Intent intent = new Intent(requireContext(), LoginActivity.class);
+            Log.i("Main", "LoginActivity");
+            startActivity(intent);
+        }
     }
+
+    private boolean userFullyRegistered(User user) {
+        // TODO: implementare sta cosa
+        if (user.name.equals(""))
+            return false;
+        else return true;
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel =
