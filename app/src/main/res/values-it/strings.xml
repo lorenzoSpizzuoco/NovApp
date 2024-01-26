@@ -31,4 +31,9 @@
     <string name="button_ripetizioni">Ripetizioni</string>
     <string name="new_post">Che contenuto vuoi creare?</string>
     <string name="Save"> Salva </string>
+    <string name="event_title_hint">Nome Evento</string>
+    <string name="event_date_picker_hint"> Scegli la data dell\'evento</string>
+    <string name="event_date_button"> Scegli una data</string>
+    <string name="event_place_text"> Inserisci il luogo dell\'evento</string>
+    <string name="event_desc">Descrivi il tuo evento</string>
 </resources>

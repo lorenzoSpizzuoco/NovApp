@@ -31,6 +31,11 @@
     <string name="open">Apri</string>
     <string name="add_to_favourite">Aggiungi ai preferiti</string>
     <string name="Save"> Save </string>
+    <string name="event_title_hint">Event Name</string>
+    <string name="event_date_button">Pick a date</string>
+    <string name="event_desc">Describe your event</string>
+    <string name="event_place_text"> Write event place</string>
 
+    <string name="event_date_picker_hint"> Pick event date</string>
     <!-- Strings used for fragments for navigation -->
 </resources>

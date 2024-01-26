@@ -46,17 +46,79 @@
 
         </TextView>
     </LinearLayout>
-    <FrameLayout
+    <RelativeLayout
+        android:layout_gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.FilledBox"
+            android:id="@+id/new_event_title"
+            android:layout_width="300dp"
+            android:layout_centerHorizontal="true"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Hello I am a dialog!" />
+            android:layout_marginTop="100dp"
+            android:hint="@string/event_title_hint"
+            android:inputType="textEmailAddress"
+            android:textColorHighlight="@color/main_red">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    </FrameLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.FilledBox"
+            android:id="@+id/date_picker_input_text"
+            android:layout_width="300dp"
+            android:layout_below="@id/new_event_desc"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:hint="@string/event_date_button"
+            android:inputType="textEmailAddress"
+            android:textColorHighlight="@color/main_red">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/date_input_text_inner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.FilledBox"
+            android:id="@+id/new_event_place"
+            android:layout_width="300dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/new_event_title"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:hint="@string/event_place_text"
+            android:inputType="textEmailAddress"
+            android:textColorHighlight="@color/main_red">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.FilledBox"
+            android:id="@+id/new_event_desc"
+            android:layout_width="300dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/new_event_place"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:hint="@string/event_desc"
+            android:inputType="textEmailAddress"
+            android:textColorHighlight="@color/main_red">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+    </RelativeLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
