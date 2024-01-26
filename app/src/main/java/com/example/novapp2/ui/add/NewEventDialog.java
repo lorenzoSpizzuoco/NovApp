@@ -3,18 +3,30 @@ package com.example.novapp2.ui.add;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.FragmentManager;
+import android.content.ContentResolver;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.compose.ui.graphics.ImageBitmap;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import android.renderscript.ScriptGroup;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -25,6 +37,7 @@ import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClic
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -38,7 +51,15 @@ public class NewEventDialog extends DialogFragment {
 
     private TextInputLayout eventDateText;
 
+    private ImageView eventImage;
+
+    private Bitmap eventPhoto;
+
     private TextInputEditText eventDateTextInner;
+
+    private MaterialButton photoButton;
+
+    private ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
 
     public NewEventDialog() {
         // Required empty public constructor
@@ -55,7 +76,30 @@ public class NewEventDialog extends DialogFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
+       pickMedia =
+                registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
+                    // Callback is invoked after the user selects a media item or closes the
+                    // photo picker.
+                    if (uri != null) {
+                        Log.d("PhotoPicker", "Selected URI: " + uri);
+                        //eventImage.setImageURI(uri);
+                        ImageView ev = new ImageView(getContext());
+                        ev.setImageURI(uri);
+                        BitmapDrawable draw = (BitmapDrawable) ev.getDrawable();
+                        //BitmapDrawable draw = (BitmapDrawable) eventImage.getDrawable();
+                        // image bitmap (don't know what to do with it tho)
+                        eventPhoto = draw.getBitmap();
+                        Log.d(TAG, eventPhoto.toString());
+                        //eventImage.setImageBitmap(eventPhoto);
+
+
+                    } else {
+                        Log.d("PhotoPicker", "No media selected");
+                    }
+                });
     }
 
     @Override
@@ -67,11 +111,22 @@ public class NewEventDialog extends DialogFragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+
         super.onViewCreated(view, savedInstanceState);
         toolbar = view.findViewById(R.id.toolbar);
         eventDateText = view.findViewById(R.id.date_picker_input_text);
         eventDateTextInner = view.findViewById(R.id.date_input_text_inner);
+        photoButton = view.findViewById(R.id.event_photo_button);
+        eventImage = view.findViewById(R.id.event_photo_view);
         eventDateTextInner.setInputType(InputType.TYPE_NULL);
+
+
+        photoButton.setOnClickListener(v -> {
+
+            pickMedia.launch(new PickVisualMediaRequest.Builder()
+                    .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
+                    .build());
+        });
         eventDateTextInner.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             @Override
@@ -95,12 +150,6 @@ public class NewEventDialog extends DialogFragment {
                 }
             }
         });
-
-
-
-
-
-
 
         toolbar.setNavigationOnClickListener(v -> dismiss());
 

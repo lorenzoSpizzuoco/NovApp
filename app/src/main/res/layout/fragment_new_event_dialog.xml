@@ -67,27 +67,6 @@
                 android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.Material3.TextInputLayout.FilledBox"
-            android:id="@+id/date_picker_input_text"
-            android:layout_width="300dp"
-            android:layout_below="@id/new_event_desc"
-            android:layout_centerHorizontal="true"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20sp"
-            android:hint="@string/event_date_button"
-            android:inputType="textEmailAddress"
-            android:textColorHighlight="@color/main_red">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/date_input_text_inner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.Material3.TextInputLayout.FilledBox"
             android:id="@+id/new_event_place"
@@ -119,6 +98,50 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.FilledBox"
+            android:id="@+id/date_picker_input_text"
+            android:layout_width="300dp"
+            android:layout_below="@id/new_event_desc"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:hint="@string/event_date_button"
+            android:inputType="textEmailAddress"
+            android:textColorHighlight="@color/main_red">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/date_input_text_inner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/event_photo_button"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="20sp"
+            android:layout_centerHorizontal="true"
+            android:text="@string/event_photo_button"
+            android:layout_below="@id/date_picker_input_text"
+            android:layout_height="wrap_content">
+
+        </com.google.android.material.button.MaterialButton>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_below="@id/event_photo_button"
+            android:id="@+id/event_photo_view"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20sp"
+            android:layout_height="wrap_content">
+
+        </ImageView>
+
+
+
+
+
+
     </RelativeLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

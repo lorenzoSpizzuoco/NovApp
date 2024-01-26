@@ -37,5 +37,6 @@
     <string name="event_place_text"> Write event place</string>
 
     <string name="event_date_picker_hint"> Pick event date</string>
+    <string name="event_photo_button">Pick a photo</string>
     <!-- Strings used for fragments for navigation -->
 </resources>
