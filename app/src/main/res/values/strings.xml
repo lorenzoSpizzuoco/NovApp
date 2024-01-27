@@ -17,6 +17,7 @@
     <string name="saved_elements"> Elementi Salvati </string>
     <string name="button_event"> Eventi </string>
     <string name="button_sg"> Gruppi Studio </string>
+    <string name="new_post">Which content you want to create?</string>
     <string name="button_info"> Info Universitarie </string>
     <string name="button_other"> Altro </string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -29,6 +30,48 @@
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</string>
     <string name="open">Apri</string>
     <string name="add_to_favourite">Aggiungi ai preferiti</string>
+    <string name="Save"> Salva </string>
 
-    <!-- Strings used for fragments for navigation -->
+    <!-- NEW EVENT STRINGS -->
+
+    <string name="event_title_hint">Event Name</string>
+    <string name="event_date_button">Pick a date</string>
+    <string name="event_desc">Describe your event</string>
+    <string name="event_place_text"> Write event place</string>
+    <string name="photo_delete"> You want to delete this photo? </string>
+    <string name="event_date_picker_hint"> Pick event date</string>
+    <string name="event_photo_button">Pick a photo</string>
+    <string name="dialog_close"> Close </string>
+    <string name="event_photo">event photo</string>
+    <string name="dialog_ok_event_photo_delete"> Delete </string>
+    <string name="image_delete_snackbar">Photo deleted</string>
+    <string name="new_event_toolbar"> New Event</string>
+
+    <!-- NEW GS STRINGS -->
+
+    <string name="gs_title_hint">Event Name</string>
+    <string name="gs_date_button">Pick a date</string>
+    <string name="gs_desc">Describe your event</string>
+    <string name="gs_place_text"> Write event place</string>
+    <string name="gs_photo">study group photo</string>
+    <string name="new_gs_toolbar"> New Study Group</string>
+
+    <!-- NEW RIPET STRINGS -->
+
+    <string name="ripet_title_hint"> Repetitions Title</string>
+    <string name="ripet_date_button">Pick a date</string>
+    <string name="ripet_desc">Which is the topic?</string>
+    <string name="ripet_place_text"> Write repetetions place</string>
+    <string name="ripet_photo">study group photo</string>
+    <string name="new_ripet_toolbar"> New Repetitions</string>
+
+    <!-- NEW INFOS STRINGS -->
+
+    <string name="info_title_hint"> Infos Title </string>
+    <string name="info_date_button">Pick a date</string>
+    <string name="info_desc">Infos Descriptions</string>
+    <string name="info_place_text"> Pick a place</string>
+    <string name="info_photo">infos photo </string>
+    <string name="new_info_toolbar"> New Infos</string>
+
 </resources>

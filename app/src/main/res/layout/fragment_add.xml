@@ -1,14 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/add_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentAdd">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    tools:context="AddFragment">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/new_post_image_view"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            android:src="@drawable/business_decision_making_palette" />
+
+        <TextView
+            android:id="@+id/new_post_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/new_post_image_view"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/new_post"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/first_row_new_post"
+            android:layout_below="@id/new_post_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="0dp"
+                android:id="@+id/new_event_button"
+                android:layout_weight="1"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="5dp"
+                android:text="@string/button_event"
+                android:layout_height="wrap_content">
+
+            </Button>
+
+            <Button
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:id="@+id/new_ripetizioni_button"
+                android:layout_height="match_parent"
+                android:text="@string/button_ripetizioni"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="30dp"
+                >
+
+            </Button>
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:orientation="horizontal"
+            android:id="@+id/second_row_new_post"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/first_row_new_post"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="0dp"
+                android:id="@+id/new_gs_button"
+                android:layout_weight="1"
+                android:text="@string/button_sg"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="5dp"
+                android:layout_height="wrap_content">
+
+            </Button>
+
+            <Button
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:id="@+id/new_info_button"
+                android:layout_height="match_parent"
+                android:text="@string/button_info"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="30dp"
+                >
+
+            </Button>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
 
 </FrameLayout>

@@ -79,6 +79,12 @@ dependencies {
     // Testing Navigation
     androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
 
+    implementation("androidx.compose.material3:material3:1.1.2")
+    implementation ("androidx.compose.material3:material3-window-size-class:1.1.2")
+    implementation ("androidx.compose.material3:material3-adaptive:1.0.0-alpha04")
+    implementation ("androidx.compose.material3:material3-adaptive-navigation-suite:1.0.0-alpha02")
+
+
     // Jetpack Compose Integration
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("androidx.navigation:navigation-compose:$nav_version")
