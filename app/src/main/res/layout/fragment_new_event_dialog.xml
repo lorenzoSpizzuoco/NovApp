@@ -2,52 +2,56 @@
 
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:scrollbars="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
+
 
 
     <com.google.android.material.appbar.AppBarLayout
-        android:backgroundTint="@color/white"
-        android:layout_weight="1"
-        android:layout_width="wrap_content"
+
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         app:elevation="0dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:backgroundTint="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:paddingStart="6dp"
+                android:paddingEnd="16dp"
+                app:contentInsetStartWithNavigation="0dp"
+                app:navigationIcon="@drawable/x_close"
 
-            android:layout_width="210dp"
-            android:layout_height="?attr/actionBarSize"
-            android:paddingStart="6dp"
-            android:paddingEnd="16dp"
-            app:contentInsetStartWithNavigation="0dp"
-            app:navigationIcon="@drawable/x_close"
+                app:title="@string/new_event_toolbar"
+                app:titleMarginStart="10dp" />
 
-            app:title="new event"
-            app:titleMarginStart="10dp" />
-
+            <TextView
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="40dp"
+                android:layout_centerVertical="true"
+                android:id="@+id/save_button_event"
+                android:gravity="center"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/purple_500"
+                android:layout_width="wrap_content"
+                android:textSize="16sp"
+                android:layout_alignEnd="@id/toolbar"
+                android:layout_height="match_parent"
+                android:text="@string/Save"
+                />
+        </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
-        <TextView
-            android:id="@+id/save_button_event"
-            android:gravity="center"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/purple_500"
-            android:layout_width="wrap_content"
-            android:textSize="16sp"
-            android:layout_weight="0.4"
-            android:layout_height="match_parent"
-            android:text="@string/Save"
-            >
 
-        </TextView>
-    </LinearLayout>
     <RelativeLayout
+
         android:layout_gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -120,22 +124,28 @@
         <RelativeLayout
             android:layout_below="@id/event_photo_button"
             android:layout_centerHorizontal="true"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_marginTop="20sp"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/event_photo_view"
-                android:scaleType="centerCrop"
-                android:layout_width="200dp"
-                android:layout_height="200dp" />
+            android:layout_height="300dp">
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:visibility="gone"
                 android:id="@+id/fab_delete_photo"
                 android:backgroundTint="@color/main_red"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="20dp"
                 android:src="@drawable/x_close"
-                android:layout_alignEnd="@id/event_photo_view"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+            <ImageView
+                android:layout_marginTop="25dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/event_photo_view"
+                android:scaleType="centerCrop"
+                android:layout_width="200dp"
+                android:layout_height="200dp" />
+
+
         </RelativeLayout>
 
         <com.google.android.material.button.MaterialButton

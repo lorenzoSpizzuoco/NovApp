@@ -106,6 +106,8 @@ public class NewEventDialog extends DialogFragment {
                         Log.d("PhotoPicker", "No media selected");
                     }
                 });
+
+       setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_NovApp2_Slide);
     }
 
     @Override
@@ -128,14 +130,12 @@ public class NewEventDialog extends DialogFragment {
         eventImage = view.findViewById(R.id.event_photo_view);
         eventDateTextInner.setInputType(InputType.TYPE_NULL);
 
-
         photoButton.setOnClickListener(v -> {
 
             pickMedia.launch(new PickVisualMediaRequest.Builder()
                     .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
                     .build());
         });
-
 
         delPhoto.setOnClickListener(v -> {
             if (eventImage.getDrawable() != null) {
@@ -155,8 +155,6 @@ public class NewEventDialog extends DialogFragment {
                 builder.show();
             }
         });
-
-
 
         eventDateTextInner.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 

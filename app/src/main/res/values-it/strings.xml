@@ -42,4 +42,5 @@
     <string name="event_photo">Immagine evento</string>
     <string name="dialog_ok_event_photo_delete"> Elimina </string>
     <string name="image_delete_snackbar">Immagine eliminata</string>
+    <string name="new_event_toolbar"> Nuovo Evento </string>
 </resources>
