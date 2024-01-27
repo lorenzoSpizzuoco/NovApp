@@ -1,18 +1,25 @@
 package com.example.novapp2.ui.login;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.novapp2.R;
 import com.example.novapp2.ui.register.RegisterActivity;
@@ -26,6 +33,9 @@ import org.apache.commons.validator.routines.EmailValidator;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,26 +83,36 @@ public class LoginFragment extends Fragment {
 
         final Button buttonLogin = view.findViewById(R.id.button_login);
         final Button toRegisterPage = view.findViewById(R.id.button_register);
-        final Button googleLoginButton = view.findViewById(R.id.google_button);
+
+        Animation animation = AnimationUtils.loadAnimation(requireContext(), R.anim.shake);
 
         buttonLogin.setOnClickListener(v -> {
 
             String email = textInputLayoutEmail.getEditText().getText().toString();
             String password = textInputLayoutPassword.getEditText().getText().toString();
 
-            // Start login if email and password are ok
-            signIn(email, password, new SignInCallback() {
-                @Override
-                public void onSignInSuccess() {
-                    // Handle success, for example, navigate to the next activity
-                    Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_mainActivity2);
-                }
+            if (!isValidEmail(email)){
+                Toast.makeText(requireContext(), "Wrong email format", Toast.LENGTH_SHORT).show();
+                textInputLayoutEmail.startAnimation(animation);
+            } else if (!isValidPassword(password)){
+                Toast.makeText(requireContext(), "Wrong password format", Toast.LENGTH_SHORT).show();
+                textInputLayoutPassword.startAnimation(animation);
+            } else {
+                // Start login if email and password are ok
+                signIn(email, password, new SignInCallback() {
+                    @Override
+                    public void onSignInSuccess() {
+                        // Handle success, for example, navigate to the next activity
+                        Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_mainActivity2);
+                    }
 
-                @Override
-                public void onSignInFailure() {
-                    // Handle failure, for example, show an error message
-                }
-            });
+                    @Override
+                    public void onSignInFailure() {
+                        // Handle failure, for example, show an error message
+                        Toast.makeText(requireContext(), "An error occurred!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
         });
 
         toRegisterPage.setOnClickListener(v -> {
@@ -101,20 +121,24 @@ public class LoginFragment extends Fragment {
         });
     }
 
-    private boolean isEmailOk(String email) {
-        // Check if the email is valid through the use of this library:
-        // https://commons.apache.org/proper/commons-validator/
-        if (!EmailValidator.getInstance().isValid((email))) {
-            textInputLayoutEmail.setError(getString(R.string.email_error));
-            return false;
-        } else {
-            textInputLayoutEmail.setError(null);
-            return true;
-        }
+    // VALIDATION
+    public static boolean isValidEmail(CharSequence target) {
+        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
+    }
+
+    public static boolean isValidPassword(final String password) {
+
+        Pattern pattern;
+        Matcher matcher;
+        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+
+        return matcher.matches();
     }
 
 
-    // SIGN IN PROCESS //
+    // SIGN IN PROCESS using AUTH - FIREBASE//
     // Use of callbacks because mAuth is async
     public interface SignInCallback {
         void onSignInSuccess();

@@ -9,7 +9,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="698dp"
         android:layout_marginTop="?attr/actionBarSize"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -56,7 +56,7 @@
                 android:id="@+id/text_input_layout_email"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
                 app:endIconMode="clear_text"
                 app:errorEnabled="true"
@@ -124,7 +124,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="12dp"
                 android:layout_marginEnd="24dp"
                 android:backgroundTint="@color/main_red"
                 android:text="@string/register"
@@ -133,12 +133,13 @@
                 app:defaultNavHost="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password"
-                app:layout_constraintVertical_bias="0.653"
+                app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password_confirm"
+                app:layout_constraintVertical_bias="0.0"
                 app:navGraph="@navigation/main_nav_graph"
                 app:rippleColor="@color/main_red" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
