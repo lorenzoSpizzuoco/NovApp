@@ -1,27 +1,21 @@
-package com.example.novapp2.ui.add;
+package com.example.novapp2.ui.carousel;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavBackStackEntry;
-import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.novapp2.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link NewEventFragment#newInstance} factory method to
+ * Use the {@link ThirdPageCarouselFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NewEventFragment extends Fragment {
+public class ThirdPageCarouselFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,8 +26,7 @@ public class NewEventFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private static final String TAG = NewEventFragment.class.getSimpleName();
-    public NewEventFragment() {
+    public ThirdPageCarouselFragment() {
         // Required empty public constructor
     }
 
@@ -43,11 +36,11 @@ public class NewEventFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment NewEventFragment.
+     * @return A new instance of fragment ThirdPageCarouselFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NewEventFragment newInstance(String param1, String param2) {
-        NewEventFragment fragment = new NewEventFragment();
+    public static ThirdPageCarouselFragment newInstance(String param1, String param2) {
+        ThirdPageCarouselFragment fragment = new ThirdPageCarouselFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -68,20 +61,6 @@ public class NewEventFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_new_event, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle bundle) {
-
-        NavBackStackEntry navBackStackEntry = Navigation.
-                findNavController(view).getPreviousBackStackEntry();
-
-        // selecting right bottombar icon
-        if (navBackStackEntry != null &&
-                navBackStackEntry.getDestination().getId() == R.id.navigation_add) {
-            ((BottomNavigationView) requireActivity().findViewById(R.id.nav_view)).
-                    getMenu().findItem(R.id.navigation_add).setChecked(true);
-        }
+        return inflater.inflate(R.layout.fragment_third_page_carousel, container, false);
     }
 }

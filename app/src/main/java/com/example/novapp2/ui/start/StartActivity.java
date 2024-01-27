@@ -8,6 +8,7 @@ import android.os.Handler;
 
 import com.example.novapp2.MainActivity;
 import com.example.novapp2.R;
+import com.example.novapp2.ui.carousel.CarouselActivity;
 import com.example.novapp2.ui.login.LoginActivity;
 
 public class StartActivity extends AppCompatActivity {
@@ -20,7 +21,7 @@ public class StartActivity extends AppCompatActivity {
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                Intent intent = new Intent(StartActivity.this, LoginActivity.class);
+                Intent intent = new Intent(StartActivity.this, CarouselActivity.class);
                 startActivity(intent);
             }
         }, 1500);

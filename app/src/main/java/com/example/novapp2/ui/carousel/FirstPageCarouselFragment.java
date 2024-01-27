@@ -1,26 +1,21 @@
-package com.example.novapp2.ui.add;
+package com.example.novapp2.ui.carousel;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavBackStackEntry;
-import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.novapp2.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link NewRipetizioniFragment#newInstance} factory method to
+ * Use the {@link FirstPageCarouselFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NewRipetizioniFragment extends Fragment {
+public class FirstPageCarouselFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,7 +26,7 @@ public class NewRipetizioniFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public NewRipetizioniFragment() {
+    public FirstPageCarouselFragment() {
         // Required empty public constructor
     }
 
@@ -41,11 +36,11 @@ public class NewRipetizioniFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment NewRipetizioniFragment.
+     * @return A new instance of fragment FirstPageCarouselFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NewRipetizioniFragment newInstance(String param1, String param2) {
-        NewRipetizioniFragment fragment = new NewRipetizioniFragment();
+    public static FirstPageCarouselFragment newInstance(String param1, String param2) {
+        FirstPageCarouselFragment fragment = new FirstPageCarouselFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -66,20 +61,6 @@ public class NewRipetizioniFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_new_ripetizioni, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle bundle) {
-
-        NavBackStackEntry navBackStackEntry = Navigation.
-                findNavController(view).getPreviousBackStackEntry();
-
-        // selecting right bottombar icon
-        if (navBackStackEntry != null &&
-                navBackStackEntry.getDestination().getId() == R.id.navigation_add) {
-            ((BottomNavigationView) requireActivity().findViewById(R.id.nav_view)).
-                    getMenu().findItem(R.id.navigation_add).setChecked(true);
-        }
+        return inflater.inflate(R.layout.fragment_first_page_carousel, container, false);
     }
 }
