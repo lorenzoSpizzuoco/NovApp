@@ -55,20 +55,19 @@ public class AddFragment extends Fragment {
         newInfo = view.findViewById(R.id.new_info_button);
 
         newGs.setOnClickListener(v -> {
-            Navigation.findNavController(view).navigate(R.id.action_navigation_add_to_newGsFragment);
+            new NewGsDialog().show(getChildFragmentManager(), null);
         });
 
         newRipet.setOnClickListener(v -> {
-            Navigation.findNavController(view).navigate(R.id.action_navigation_add_to_newRipetizioniFragment);
+            new NewRipetDialog().show(getChildFragmentManager(), null);
         });
 
         newEvent.setOnClickListener(v -> {
-            //Navigation.findNavController(view).navigate(R.id.action_navigation_add_to_newEventFragment);
             new NewEventDialog().show(getChildFragmentManager(), null);
         });
 
         newInfo.setOnClickListener(v -> {
-            Navigation.findNavController(view).navigate(R.id.action_navigation_add_to_newInfoFragment);
+            new NewInfoDialog().show(getChildFragmentManager(), null);
         });
     }
 }

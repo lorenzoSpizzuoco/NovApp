@@ -43,4 +43,31 @@
     <string name="dialog_ok_event_photo_delete"> Elimina </string>
     <string name="image_delete_snackbar">Immagine eliminata</string>
     <string name="new_event_toolbar"> Nuovo Evento </string>
+
+    <!-- NEW GS STRINGS -->
+
+    <string name="gs_title_hint">Nome Gruppo Studio</string>
+    <string name="gs_date_button">Scegli la data del gruppo studio</string>
+    <string name="gs_desc">Descrivi il tuo gruppo studio</string>
+    <string name="gs_place_text"> Inserisci il luogo del gruppo di studio</string>
+    <string name="gs_photo">Foto gruppo studio</string>
+    <string name="new_gs_toolbar"> Nuovo Gruppo Studio</string>
+
+    <!-- NEW RIPET STRINGS -->
+
+    <string name="ripet_title_hint"> Titolo Ripetizioni </string>
+    <string name="ripet_date_button">Scegli una data</string>
+    <string name="ripet_desc">Qual è l\'argomento?</string>
+    <string name="ripet_place_text"> Dove farai le ripetizioni</string>
+    <string name="ripet_photo">Aggiungi una foto</string>
+    <string name="new_ripet_toolbar"> Nuove ripetizioni</string>
+
+    <!-- NEW INFOS STRINGS -->
+
+    <string name="info_title_hint"> Titolo Informazione </string>
+    <string name="info_date_button">Scegli una data</string>
+    <string name="info_desc">Descrizione informazione universitaria</string>
+    <string name="info_place_text"> Luogo</string>
+    <string name="info_photo">Aggiungi una foto</string>
+    <string name="new_info_toolbar"> Nuova Info</string>
 </resources>
