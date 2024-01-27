@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.FragmentManager;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -27,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -34,6 +36,9 @@ import com.example.novapp2.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -59,6 +64,11 @@ public class NewEventDialog extends DialogFragment {
 
     private MaterialButton photoButton;
 
+    private FloatingActionButton delPhoto;
+
+    private TextView saveEvent;
+
+
     private ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
 
     public NewEventDialog() {
@@ -81,20 +91,16 @@ public class NewEventDialog extends DialogFragment {
 
        pickMedia =
                 registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
-                    // Callback is invoked after the user selects a media item or closes the
-                    // photo picker.
                     if (uri != null) {
                         Log.d("PhotoPicker", "Selected URI: " + uri);
-                        //eventImage.setImageURI(uri);
                         ImageView ev = new ImageView(getContext());
                         ev.setImageURI(uri);
                         BitmapDrawable draw = (BitmapDrawable) ev.getDrawable();
-                        //BitmapDrawable draw = (BitmapDrawable) eventImage.getDrawable();
                         // image bitmap (don't know what to do with it tho)
                         eventPhoto = draw.getBitmap();
-                        Log.d(TAG, eventPhoto.toString());
-                        //eventImage.setImageBitmap(eventPhoto);
-
+                        eventImage.setImageBitmap(eventPhoto);
+                        delPhoto.setVisibility(View.VISIBLE);
+                        delPhoto.setColorFilter(ContextCompat.getColor(this.getContext(), android.R.color.white));
 
                     } else {
                         Log.d("PhotoPicker", "No media selected");
@@ -113,6 +119,8 @@ public class NewEventDialog extends DialogFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
+        saveEvent = view.findViewById(R.id.save_button_event);
+        delPhoto = view.findViewById(R.id.fab_delete_photo);
         toolbar = view.findViewById(R.id.toolbar);
         eventDateText = view.findViewById(R.id.date_picker_input_text);
         eventDateTextInner = view.findViewById(R.id.date_input_text_inner);
@@ -127,6 +135,29 @@ public class NewEventDialog extends DialogFragment {
                     .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
                     .build());
         });
+
+
+        delPhoto.setOnClickListener(v -> {
+            if (eventImage.getDrawable() != null) {
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getParentFragment().getActivity()).setTitle(R.string.event_photo)
+                        .setMessage(R.string.photo_delete)
+                        .setPositiveButton(R.string.dialog_ok_event_photo_delete, (di, i) -> {
+                            eventImage.setImageBitmap(null);
+                            eventPhoto = null;
+                            delPhoto.setVisibility(View.GONE);
+                            Snackbar.make(view, R.string.image_delete_snackbar, Snackbar.LENGTH_SHORT).show();
+                        })
+                        .setNegativeButton(R.string.dialog_close, (di, i) -> {
+
+                        });
+
+                builder.create();
+                builder.show();
+            }
+        });
+
+
+
         eventDateTextInner.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             @Override
@@ -158,6 +189,9 @@ public class NewEventDialog extends DialogFragment {
             return true;
         });
 
+        saveEvent.setOnClickListener(v -> {
+
+        });
     }
 
     @Override
@@ -172,6 +206,8 @@ public class NewEventDialog extends DialogFragment {
         }
     }
 
-
-
 }
+
+
+
+

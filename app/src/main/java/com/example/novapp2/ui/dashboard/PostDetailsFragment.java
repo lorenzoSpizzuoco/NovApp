@@ -48,6 +48,7 @@ public class PostDetailsFragment extends Fragment {
 
     private TextView username;
 
+
     private FloatingActionButton favoriteIcon;
 
     private PostViewModel postViewModel;

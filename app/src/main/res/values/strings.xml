@@ -35,8 +35,11 @@
     <string name="event_date_button">Pick a date</string>
     <string name="event_desc">Describe your event</string>
     <string name="event_place_text"> Write event place</string>
-
+    <string name="photo_delete"> You want to delete this photo? </string>
     <string name="event_date_picker_hint"> Pick event date</string>
     <string name="event_photo_button">Pick a photo</string>
-    <!-- Strings used for fragments for navigation -->
+    <string name="dialog_close"> Close </string>
+    <string name="event_photo">event photo</string>
+    <string name="dialog_ok_event_photo_delete"> Delete </string>
+    <string name="image_delete_snackbar">Photo deleted</string>
 </resources>
