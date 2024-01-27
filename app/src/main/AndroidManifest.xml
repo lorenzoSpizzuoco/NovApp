@@ -15,12 +15,12 @@
         <activity
             android:name=".ui.start.StartActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.register.FullRegisterActivity"
+            android:exported="false" />
 
         <activity
             android:name=".ui.carousel.CarouselActivity"
@@ -33,7 +33,11 @@
             android:exported="true"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.NovApp2">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ui.register.RegisterActivity"
