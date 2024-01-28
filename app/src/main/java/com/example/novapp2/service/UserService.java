@@ -8,23 +8,22 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+
 public class UserService {
 
     private static UserRepositoryImpl userRepositoryImpl = new UserRepositoryImpl();
-    public static Task<Void> createUser() {
+    public static Task<Void> createUser(String UID, String email) {
         // Static values for the user
-        String name = "Alice";
-        String email = "alice@example.com";
-        String surname = "Wonderland";
-        String bio = "Hi, I'm Alice from Wonderland!";
-        List<String> groupChats = Arrays.asList("WonderGroup1", "WonderGroup2");
-        List<String> favourites = Arrays.asList("FavPlace1", "FavPlace2");
+        String name = "";
+        String surname = "";
+        String bio = "";
+        List<String> groupChats = null;
+        List<String> favourites = null;
         Boolean isBiccoccaUser = false; // Non è un utente di Biccocca
-        String profileImg = "alice_profile_image_url";
-        String password = "securepassword123";
-        List<String> notifications = Arrays.asList("NotificationA", "NotificationB");
+        String profileImg = "";
+        List<String> notifications = null;
 
-        return userRepositoryImpl.insertUser(new User(UUID.randomUUID().toString(), name, email, surname, bio, groupChats, favourites, isBiccoccaUser, profileImg, password, notifications));
+        return userRepositoryImpl.insertUser(new User(UID, name, email, surname, bio, groupChats, favourites, isBiccoccaUser, profileImg, notifications));
     }
 
     public static Task<List<User>> getUsers() {

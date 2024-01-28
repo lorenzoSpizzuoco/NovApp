@@ -3,7 +3,7 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="login"> Login </string>
+
     <string name="new_account"> Don\'t have an account? </string>
     <string name="register">Register</string>
     <string name="forgot_password">Forgot Password?</string>
@@ -74,10 +74,20 @@
     <string name="info_photo">infos photo </string>
     <string name="new_info_toolbar"> New Infos</string>
 
+
     <!-- ERROR STRINGS -->
 
     <string name="title_error">Insert name</string>
     <string name="place_error">Insert place</string>
     <string name="date_error">Insert date</string>
     <string name="desc_error">Insert description</string>
+
+    <!-- Login strings -->
+    <string name="login">Login</string>
+
+    <!-- Carousel strings -->
+    <string name="first_carousel_txt">BiClub is the application that allows you to experience 360 degrees of what Bicocca University has to offer.</string>
+    <string name="second_carousel_txt">With BiClub, you can stay updated on university life and find your favorite study group, tailored to your needs.</string>
+    <string name="third_carousel_txt">What are you waiting for? \n<b>Join the community, enter the Club!</b></string>
+
 </resources>
