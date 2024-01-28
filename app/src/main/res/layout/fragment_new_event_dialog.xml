@@ -36,6 +36,9 @@
             <TextView
                 android:layout_centerHorizontal="true"
                 android:layout_marginRight="40dp"
+                android:elevation="30dp"
+                android:clickable="true"
+                android:focusable="true"
                 android:layout_centerVertical="true"
                 android:id="@+id/save_button_event"
                 android:gravity="center"
@@ -45,8 +48,7 @@
                 android:textSize="16sp"
                 android:layout_alignEnd="@id/toolbar"
                 android:layout_height="match_parent"
-                android:text="@string/Save"
-                />
+                android:text="@string/Save"/>
         </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -58,8 +60,9 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.Material3.TextInputLayout.FilledBox"
             android:id="@+id/new_event_title"
+            app:errorEnabled="true"
+            app:endIconMode="clear_text"
             android:layout_width="300dp"
             android:layout_centerHorizontal="true"
             android:layout_height="wrap_content"
@@ -68,14 +71,16 @@
             android:inputType="textEmailAddress"
             android:textColorHighlight="@color/main_red">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/event_title_inner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.Material3.TextInputLayout.FilledBox"
             android:id="@+id/new_event_place"
             android:layout_width="300dp"
+            app:errorEnabled="true"
+            app:endIconMode="clear_text"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/new_event_title"
             android:layout_height="wrap_content"
@@ -84,15 +89,17 @@
             android:inputType="textEmailAddress"
             android:textColorHighlight="@color/main_red">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/event_place_inner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.Material3.TextInputLayout.FilledBox"
             android:id="@+id/new_event_desc"
             android:layout_width="300dp"
+            app:endIconMode="clear_text"
             android:layout_centerHorizontal="true"
+            app:errorEnabled="true"
             android:layout_below="@id/new_event_place"
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
@@ -100,18 +107,20 @@
             android:inputType="textEmailAddress"
             android:textColorHighlight="@color/main_red">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/event_desc_inner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.Material3.TextInputLayout.FilledBox"
             android:id="@+id/date_picker_input_text"
             android:layout_width="300dp"
             android:layout_below="@id/new_event_desc"
+            app:errorEnabled="true"
             android:layout_centerHorizontal="true"
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
+            app:startIconDrawable="@drawable/calendar"
             android:hint="@string/event_date_button"
             android:inputType="textEmailAddress"
             android:textColorHighlight="@color/main_red">

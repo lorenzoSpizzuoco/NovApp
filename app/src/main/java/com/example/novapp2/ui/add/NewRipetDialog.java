@@ -55,6 +55,12 @@ public class NewRipetDialog extends DialogFragment {
 
     private TextView saveEvent;
 
+    private TextInputEditText ripetTitle;
+
+    private TextInputEditText ripetDesc;
+
+    private TextInputEditText ripetPlace;
+
 
     private ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
 
@@ -108,6 +114,9 @@ public class NewRipetDialog extends DialogFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
+        ripetPlace = view.findViewById(R.id.new_ripet_place_inner);
+        ripetDesc = view.findViewById(R.id.new_ripet_desc_inner);
+        ripetTitle = view.findViewById(R.id.new_ripet_title_inner);
         saveEvent = view.findViewById(R.id.save_button_ripet);
         delPhoto = view.findViewById(R.id.fab_delete_photo);
         toolbar = view.findViewById(R.id.toolbar_ripet);
@@ -147,8 +156,8 @@ public class NewRipetDialog extends DialogFragment {
 
             @Override
             public void onFocusChange(View v, boolean sel) {
-                Log.d("tagtag", "faccio qualcosa nella mia vita");
-                if(v.getId() == R.id.date_input_text_inner  && sel) {
+
+                if(v.getId() == R.id.date_input_text_inner_ripet  && sel) {
                     MaterialDatePicker<Long> dp = MaterialDatePicker.Builder.datePicker()
                             .setTitleText("Seleziona la data dell'evento")
                             .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
@@ -175,7 +184,7 @@ public class NewRipetDialog extends DialogFragment {
         });
 
         saveEvent.setOnClickListener(v -> {
-
+            checkModal();
         });
     }
 
@@ -189,6 +198,53 @@ public class NewRipetDialog extends DialogFragment {
             dialog.getWindow().setLayout(width, height);
             dialog.getWindow().setWindowAnimations(R.style.Theme_NovApp2_Slide);
         }
+    }
+
+    private void checkModal() {
+        boolean valid = true;
+
+        // checking event modal
+        if (eventDateTextInner.getText().toString().compareTo("") == 0) {
+            valid = false;
+            eventDateTextInner.setError(ContextCompat.getString(getContext(), R.string.date_error));
+        }
+        else {
+            eventDateTextInner.setError(null);
+        }
+
+        if (ripetTitle.getText().toString().compareTo("") == 0){
+            valid = false;
+            ripetTitle.setError(ContextCompat.getString(getContext(), R.string.title_error));
+        }
+        else {
+            ripetTitle.setError(null);
+        }
+
+        if(ripetPlace.getText().toString().compareTo("") == 0) {
+            valid = false;
+            ripetPlace.setError(ContextCompat.getString(getContext(), R.string.place_error));
+        }
+        else {
+            ripetPlace.setError(null);
+        }
+
+
+        if(ripetDesc.getText().toString().compareTo("") == 0) {
+            valid = false;
+            ripetDesc.setError(ContextCompat.getString(getContext(), R.string.desc_error));
+        }
+        else {
+            ripetDesc.setError(null);
+        }
+
+        if(eventPhoto == null) {
+            valid = false;
+        }
+
+        if (valid) {
+            // insert event
+        }
+
     }
 
 }

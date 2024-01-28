@@ -70,4 +70,11 @@
     <string name="info_place_text"> Luogo</string>
     <string name="info_photo">Aggiungi una foto</string>
     <string name="new_info_toolbar"> Nuova Info</string>
+
+    <!-- ERROR STRINGS -->
+
+    <string name="place_error">Inserire un luogo</string>
+    <string name="date_error">Inserire una data</string>
+    <string name="title_error">Inserire un nome</string>
+    <string name="desc_error">Inserire una descrizione</string>
 </resources>

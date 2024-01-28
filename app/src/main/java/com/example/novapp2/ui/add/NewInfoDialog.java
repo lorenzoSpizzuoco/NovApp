@@ -55,6 +55,11 @@ public class NewInfoDialog extends DialogFragment {
 
     private TextView saveEvent;
 
+    private TextInputEditText infoTitle;
+    private TextInputEditText infoPlace;
+    private TextInputEditText infoDesc;
+
+
 
     private ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
 
@@ -76,24 +81,6 @@ public class NewInfoDialog extends DialogFragment {
 
         super.onCreate(savedInstanceState);
 
-        pickMedia =
-                registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
-                    if (uri != null) {
-                        Log.d("PhotoPicker", "Selected URI: " + uri);
-                        ImageView ev = new ImageView(getContext());
-                        ev.setImageURI(uri);
-                        BitmapDrawable draw = (BitmapDrawable) ev.getDrawable();
-                        // image bitmap (don't know what to do with it tho)
-                        eventPhoto = draw.getBitmap();
-                        eventImage.setImageBitmap(eventPhoto);
-                        delPhoto.setVisibility(View.VISIBLE);
-                        delPhoto.setColorFilter(ContextCompat.getColor(this.getContext(), android.R.color.white));
-
-                    } else {
-                        Log.d("PhotoPicker", "No media selected");
-                    }
-                });
-
         setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_NovApp2_Slide);
     }
 
@@ -108,6 +95,9 @@ public class NewInfoDialog extends DialogFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
+        infoTitle = view.findViewById(R.id.new_info_title_inner);
+        infoDesc = view.findViewById(R.id.new_info_desc_inner);
+        infoPlace = view.findViewById(R.id.new_info_place_inner);
         saveEvent = view.findViewById(R.id.save_button_info);
         toolbar = view.findViewById(R.id.toolbar_info);
         eventDateText = view.findViewById(R.id.date_picker_input_text_info);
@@ -119,7 +109,7 @@ public class NewInfoDialog extends DialogFragment {
             @Override
             public void onFocusChange(View v, boolean sel) {
 
-                if(v.getId() == R.id.date_input_text_inner  && sel) {
+                if(v.getId() == R.id.date_input_text_inner_info  && sel) {
                     MaterialDatePicker<Long> dp = MaterialDatePicker.Builder.datePicker()
                             .setTitleText("Seleziona la data dell'evento")
                             .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
@@ -146,7 +136,7 @@ public class NewInfoDialog extends DialogFragment {
         });
 
         saveEvent.setOnClickListener(v -> {
-
+            checkModal();
         });
     }
 
@@ -161,6 +151,49 @@ public class NewInfoDialog extends DialogFragment {
             dialog.getWindow().setWindowAnimations(R.style.Theme_NovApp2_Slide);
         }
     }
+
+    private void checkModal() {
+        boolean valid = true;
+
+        // checking event modal
+        if (eventDateTextInner.getText().toString().compareTo("") == 0) {
+            valid = false;
+            eventDateTextInner.setError(ContextCompat.getString(getContext(), R.string.date_error));
+        }
+        else{
+            eventDateTextInner.setError(null);
+        }
+
+        if (infoTitle.getText().toString().compareTo("") == 0){
+            valid = false;
+            infoTitle.setError(ContextCompat.getString(getContext(), R.string.title_error));
+        }
+        else{
+            infoTitle.setError(null);
+        }
+
+        if(infoPlace.getText().toString().compareTo("") == 0) {
+            valid = false;
+            infoPlace.setError(ContextCompat.getString(getContext(), R.string.place_error));
+        }
+        else{
+            infoPlace.setError(null);
+        }
+
+        if(infoDesc.getText().toString().compareTo("") == 0) {
+            valid = false;
+            infoDesc.setError(ContextCompat.getString(getContext(), R.string.desc_error));
+        }
+        else{
+            infoDesc.setError(null);
+        }
+
+        if (valid) {
+            // insert event
+        }
+
+    }
+
 
 }
 
