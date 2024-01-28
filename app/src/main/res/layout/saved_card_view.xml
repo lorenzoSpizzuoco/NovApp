@@ -9,7 +9,6 @@
         android:id="@+id/saved_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background_white"
         android:layout_margin="8dp">
 
         <LinearLayout

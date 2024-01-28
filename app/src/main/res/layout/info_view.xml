@@ -17,8 +17,7 @@
         android:id="@+id/infoView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:background="@color/background_white">
+        android:padding="10dp">
 
         <RelativeLayout
             android:id="@+id/topInfoRelativeLayout"
@@ -52,12 +51,22 @@
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"/>
 
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipEvent"
+            style="@style/Widget.Material3.Chip.Assist.Elevated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/event"
+            app:chipIcon="@drawable/colored_circle_drawable"
+            android:layout_below="@+id/infodesc"
+            app:chipIconTint="@color/main_blue" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:layout_marginTop="5dp"
-            android:layout_below="@+id/infodesc">
+            android:layout_below="@+id/chipEvent">
 
             <ImageView
                 android:id="@+id/calendarInfoIcon"

@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.dashboard.DashboardFragment"
-    android:background="@color/background_white">
+    tools:context=".ui.dashboard.DashboardFragment">
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/courseSearchView"
@@ -46,7 +45,8 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_event"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"                    android:layout_width="wrap_content"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:text="@string/button_event"
@@ -55,7 +55,8 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_ui"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"                    android:layout_width="wrap_content"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:text="@string/button_info"
@@ -64,7 +65,8 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_gs"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"                    android:layout_width="wrap_content"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:text="@string/button_sg"
@@ -73,7 +75,8 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_ripetizioni"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"                    android:layout_width="wrap_content"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:text="@string/button_ripetizioni"
@@ -88,7 +91,6 @@
         android:id="@+id/courseView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/background_white"
         android:paddingLeft="10dp"
         android:paddingTop="0dp"
         android:paddingRight="10dp"
