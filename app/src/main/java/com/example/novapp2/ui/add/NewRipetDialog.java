@@ -55,6 +55,12 @@ public class NewRipetDialog extends DialogFragment {
 
     private TextView saveEvent;
 
+    private TextInputEditText ripetTitle;
+
+    private TextInputEditText ripetDesc;
+
+    private TextInputEditText ripetPlace;
+
 
     private ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
 
@@ -101,20 +107,23 @@ public class NewRipetDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_new_info_dialog, container, false);
+        return inflater.inflate(R.layout.fragment_new_ripet_dialog, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
-        saveEvent = view.findViewById(R.id.save_button_info);
+        ripetPlace = view.findViewById(R.id.new_ripet_place_inner);
+        ripetDesc = view.findViewById(R.id.new_ripet_desc_inner);
+        ripetTitle = view.findViewById(R.id.new_ripet_title_inner);
+        saveEvent = view.findViewById(R.id.save_button_ripet);
         delPhoto = view.findViewById(R.id.fab_delete_photo);
-        toolbar = view.findViewById(R.id.toolbar_info);
-        eventDateText = view.findViewById(R.id.date_picker_input_text_info);
-        eventDateTextInner = view.findViewById(R.id.date_input_text_inner_info);
-        photoButton = view.findViewById(R.id.info_photo_button);
-        eventImage = view.findViewById(R.id.info_photo_view);
+        toolbar = view.findViewById(R.id.toolbar_ripet);
+        eventDateText = view.findViewById(R.id.date_picker_input_text_ripet);
+        eventDateTextInner = view.findViewById(R.id.date_input_text_inner_ripet);
+        photoButton = view.findViewById(R.id.ripet_photo_button);
+        eventImage = view.findViewById(R.id.ripet_photo_view);
         eventDateTextInner.setInputType(InputType.TYPE_NULL);
 
         photoButton.setOnClickListener(v -> {
@@ -147,8 +156,8 @@ public class NewRipetDialog extends DialogFragment {
 
             @Override
             public void onFocusChange(View v, boolean sel) {
-                Log.d("tagtag", "faccio qualcosa nella mia vita");
-                if(v.getId() == R.id.date_input_text_inner  && sel) {
+
+                if(v.getId() == R.id.date_input_text_inner_ripet  && sel) {
                     MaterialDatePicker<Long> dp = MaterialDatePicker.Builder.datePicker()
                             .setTitleText("Seleziona la data dell'evento")
                             .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
@@ -175,7 +184,7 @@ public class NewRipetDialog extends DialogFragment {
         });
 
         saveEvent.setOnClickListener(v -> {
-
+            checkModal();
         });
     }
 
@@ -189,6 +198,53 @@ public class NewRipetDialog extends DialogFragment {
             dialog.getWindow().setLayout(width, height);
             dialog.getWindow().setWindowAnimations(R.style.Theme_NovApp2_Slide);
         }
+    }
+
+    private void checkModal() {
+        boolean valid = true;
+
+        // checking event modal
+        if (eventDateTextInner.getText().toString().compareTo("") == 0) {
+            valid = false;
+            eventDateTextInner.setError(ContextCompat.getString(getContext(), R.string.date_error));
+        }
+        else {
+            eventDateTextInner.setError(null);
+        }
+
+        if (ripetTitle.getText().toString().compareTo("") == 0){
+            valid = false;
+            ripetTitle.setError(ContextCompat.getString(getContext(), R.string.title_error));
+        }
+        else {
+            ripetTitle.setError(null);
+        }
+
+        if(ripetPlace.getText().toString().compareTo("") == 0) {
+            valid = false;
+            ripetPlace.setError(ContextCompat.getString(getContext(), R.string.place_error));
+        }
+        else {
+            ripetPlace.setError(null);
+        }
+
+
+        if(ripetDesc.getText().toString().compareTo("") == 0) {
+            valid = false;
+            ripetDesc.setError(ContextCompat.getString(getContext(), R.string.desc_error));
+        }
+        else {
+            ripetDesc.setError(null);
+        }
+
+        if(eventPhoto == null) {
+            valid = false;
+        }
+
+        if (valid) {
+            // insert event
+        }
+
     }
 
 }

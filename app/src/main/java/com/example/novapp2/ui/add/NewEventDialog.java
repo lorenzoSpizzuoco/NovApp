@@ -26,6 +26,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -42,6 +43,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.w3c.dom.Text;
+
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -56,9 +59,9 @@ public class NewEventDialog extends DialogFragment {
 
     private TextInputLayout eventDateText;
 
-    private ImageView eventImage;
+    private ImageView eventImageView;
 
-    private Bitmap eventPhoto;
+    private Bitmap eventPhoto = null;
 
     private TextInputEditText eventDateTextInner;
 
@@ -68,6 +71,11 @@ public class NewEventDialog extends DialogFragment {
 
     private TextView saveEvent;
 
+    private TextInputEditText eventTitle;
+
+    private TextInputEditText eventPlaceInner;
+
+    private TextInputEditText eventDescInner;
 
     private ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
 
@@ -86,24 +94,18 @@ public class NewEventDialog extends DialogFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
-       pickMedia =
+        pickMedia =
                 registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
                     if (uri != null) {
-                        Log.d("PhotoPicker", "Selected URI: " + uri);
                         ImageView ev = new ImageView(getContext());
                         ev.setImageURI(uri);
                         BitmapDrawable draw = (BitmapDrawable) ev.getDrawable();
                         // image bitmap (don't know what to do with it tho)
                         eventPhoto = draw.getBitmap();
-                        eventImage.setImageBitmap(eventPhoto);
+                        eventImageView.setImageBitmap(eventPhoto);
                         delPhoto.setVisibility(View.VISIBLE);
                         delPhoto.setColorFilter(ContextCompat.getColor(this.getContext(), android.R.color.white));
-
-                    } else {
-                        Log.d("PhotoPicker", "No media selected");
                     }
                 });
 
@@ -121,28 +123,35 @@ public class NewEventDialog extends DialogFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
+
         saveEvent = view.findViewById(R.id.save_button_event);
+        eventPlaceInner = view.findViewById(R.id.event_place_inner);
         delPhoto = view.findViewById(R.id.fab_delete_photo);
         toolbar = view.findViewById(R.id.toolbar);
         eventDateText = view.findViewById(R.id.date_picker_input_text);
         eventDateTextInner = view.findViewById(R.id.date_input_text_inner);
+        eventDescInner = view.findViewById(R.id.event_desc_inner);
         photoButton = view.findViewById(R.id.event_photo_button);
-        eventImage = view.findViewById(R.id.event_photo_view);
+        eventImageView = view.findViewById(R.id.event_photo_view);
+        eventTitle = view.findViewById(R.id.event_title_inner);
         eventDateTextInner.setInputType(InputType.TYPE_NULL);
 
         photoButton.setOnClickListener(v -> {
-
             pickMedia.launch(new PickVisualMediaRequest.Builder()
                     .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
                     .build());
         });
 
+        saveEvent.setOnClickListener(v -> {
+            checkModal();
+        });
+
         delPhoto.setOnClickListener(v -> {
-            if (eventImage.getDrawable() != null) {
+            if (eventImageView.getDrawable() != null) {
                 MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getParentFragment().getActivity()).setTitle(R.string.event_photo)
                         .setMessage(R.string.photo_delete)
                         .setPositiveButton(R.string.dialog_ok_event_photo_delete, (di, i) -> {
-                            eventImage.setImageBitmap(null);
+                            eventImageView.setImageBitmap(null);
                             eventPhoto = null;
                             delPhoto.setVisibility(View.GONE);
                             Snackbar.make(view, R.string.image_delete_snackbar, Snackbar.LENGTH_SHORT).show();
@@ -160,7 +169,6 @@ public class NewEventDialog extends DialogFragment {
 
             @Override
             public void onFocusChange(View v, boolean sel) {
-                Log.d("tagtag", "faccio qualcosa nella mia vita");
                 if(v.getId() == R.id.date_input_text_inner  && sel) {
                     MaterialDatePicker<Long> dp = MaterialDatePicker.Builder.datePicker()
                             .setTitleText("Seleziona la data dell'evento")
@@ -187,9 +195,6 @@ public class NewEventDialog extends DialogFragment {
             return true;
         });
 
-        saveEvent.setOnClickListener(v -> {
-
-        });
     }
 
     @Override
@@ -197,11 +202,54 @@ public class NewEventDialog extends DialogFragment {
         super.onStart();
         Dialog dialog = getDialog();
         if (dialog != null) {
-            int width = ViewGroup.LayoutParams.MATCH_PARENT;
-            int height = ViewGroup.LayoutParams.MATCH_PARENT;
-            dialog.getWindow().setLayout(width, height);
             dialog.getWindow().setWindowAnimations(R.style.Theme_NovApp2_Slide);
         }
+    }
+
+    private void checkModal() {
+        boolean valid = true;
+
+        // checking event modal
+        if (eventDateTextInner.getText().toString().compareTo("") == 0) {
+            valid = false;
+            eventDateTextInner.setError(ContextCompat.getString(getContext(), R.string.date_error));
+        }
+        else {
+            eventDateTextInner.setError(null);
+        }
+
+        if (eventTitle.getText().toString().compareTo("") == 0){
+            valid = false;
+            eventTitle.setError(ContextCompat.getString(getContext(), R.string.title_error));
+        }
+        else {
+            eventTitle.setError(null);
+        }
+
+        if(eventPlaceInner.getText().toString().compareTo("") == 0) {
+            valid = false;
+            eventPlaceInner.setError(ContextCompat.getString(getContext(), R.string.place_error));
+        }
+        else {
+            eventPlaceInner.setError(null);
+        }
+
+        if(eventDescInner.getText().toString().compareTo("") == 0) {
+            valid = false;
+            eventDescInner.setError(ContextCompat.getString(getContext(), R.string.desc_error));
+        }
+        else {
+            eventDescInner.setError(null);
+        }
+
+        if(eventPhoto == null) {
+            valid = false;
+        }
+
+        if (valid) {
+            // insert event
+        }
+
     }
 
 }

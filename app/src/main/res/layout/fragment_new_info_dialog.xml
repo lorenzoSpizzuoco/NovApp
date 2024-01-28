@@ -35,7 +35,7 @@
 
             <TextView
                 android:layout_centerHorizontal="true"
-                android:layout_marginRight="40dp"
+                android:layout_marginEnd="40dp"
                 android:layout_centerVertical="true"
                 android:id="@+id/save_button_info"
                 android:gravity="center"
@@ -58,41 +58,46 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.Material3.TextInputLayout.FilledBox"
+            app:errorEnabled="true"
             android:id="@+id/new_info_title"
             android:layout_width="300dp"
             android:layout_centerHorizontal="true"
+            app:endIconMode="clear_text"
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
             android:hint="@string/info_title_hint"
             android:inputType="textEmailAddress"
             android:textColorHighlight="@color/main_red">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/new_info_title_inner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.Material3.TextInputLayout.FilledBox"
             android:id="@+id/new_info_place"
+            app:errorEnabled="true"
             android:layout_width="300dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/new_info_title"
+            app:endIconMode="clear_text"
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
             android:hint="@string/info_place_text"
             android:inputType="textEmailAddress"
             android:textColorHighlight="@color/main_red">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/new_info_place_inner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.Material3.TextInputLayout.FilledBox"
             android:id="@+id/new_info_desc"
+            app:errorEnabled="true"
             android:layout_width="300dp"
             android:layout_centerHorizontal="true"
+            app:endIconMode="clear_text"
             android:layout_below="@id/new_info_place"
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
@@ -100,13 +105,15 @@
             android:inputType="textEmailAddress"
             android:textColorHighlight="@color/main_red">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/new_info_desc_inner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.Material3.TextInputLayout.FilledBox"
+
             android:id="@+id/date_picker_input_text_info"
+            app:errorEnabled="true"
             android:layout_width="300dp"
             android:layout_below="@id/new_info_desc"
             android:layout_centerHorizontal="true"
@@ -120,50 +127,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
-
-        <RelativeLayout
-            android:layout_below="@id/info_photo_button"
-            android:layout_centerHorizontal="true"
-            android:layout_width="300dp"
-            android:layout_marginTop="20sp"
-            android:layout_height="300dp">
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:visibility="gone"
-                android:id="@+id/fab_delete_photo"
-                android:backgroundTint="@color/main_red"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/x_close"
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <ImageView
-                android:layout_marginTop="25dp"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/info_photo_view"
-                android:scaleType="centerCrop"
-                android:layout_width="200dp"
-                android:layout_height="200dp" />
-
-
-        </RelativeLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/info_photo_button"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="20sp"
-            android:layout_centerHorizontal="true"
-            android:text="@string/event_photo_button"
-            android:layout_below="@id/date_picker_input_text_info"
-            android:layout_height="wrap_content">
-
-        </com.google.android.material.button.MaterialButton>
-
-
-
-
-
-
 
     </RelativeLayout>
 
