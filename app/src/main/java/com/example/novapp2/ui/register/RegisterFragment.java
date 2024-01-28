@@ -1,6 +1,5 @@
 package com.example.novapp2.ui.register;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,12 +19,9 @@ import androidx.navigation.Navigation;
 
 import com.example.novapp2.R;
 import com.example.novapp2.service.UserService;
-import com.example.novapp2.ui.login.LoginFragment;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import org.apache.commons.validator.routines.EmailValidator;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -96,7 +92,7 @@ public class RegisterFragment extends Fragment {
                     public void onRegisterSuccess() {
                         // Handle success, for example, navigate to the next activity
                         if (mAuth.getCurrentUser() != null) {
-                            UserService.createUser(mAuth.getCurrentUser().getUid(), email);
+                            UserService.createDefaultUser(mAuth.getCurrentUser().getUid(), email);
                             Navigation.findNavController(v).navigate(R.id.action_registerFragment_to_mainActivity2);
                         } else {
                             Toast.makeText(requireContext(), "An error occurred!", Toast.LENGTH_SHORT).show();

@@ -78,4 +78,13 @@
     <string name="second_carousel_txt">Con BiClub potrai rimanere aggiornato sulla vita universitaria e trovare il tuo gruppo studio preferito, creato su misura per le tue esigenze.</string>
     <string name="third_carousel_txt">Che cosa aspetti? \nUnisciti alla community, entra nel Club!</string>
 
+    <!-- FullRegister -->
+    <string name="full_register_title">Parlaci di te!</string>
+    <string name="full_register_bio_hint">Che cosa è importante sapere di te?</string>
+    <string name="full_register_end_flow">Finito!</string>
+
+    <!-- General -->
+    <string name="name">Nome</string>
+    <string name="surname">Cognome</string>
+
 </resources>

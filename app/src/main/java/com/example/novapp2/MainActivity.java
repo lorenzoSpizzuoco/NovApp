@@ -2,6 +2,7 @@ package com.example.novapp2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.example.novapp2.entity.User;
@@ -51,18 +52,15 @@ public class MainActivity extends AppCompatActivity {
 
 
         mAuth = FirebaseAuth.getInstance();
-        Log.e("Main", "Main");
         if (mAuth.getCurrentUser() != null) {
-            Log.e("Main", "CurrentUserGet");
             Task<User> activeUserTask = UserService.getUserById(mAuth.getCurrentUser().getUid());
             activeUserTask.addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     activeUser = task.getResult();
-                    Log.e("Main", "Getted");
 
                     if (!userFullyRegistered(activeUser)){
                         Intent intent = new Intent(this, FullRegisterActivity.class);
-                        Log.e("Main", "FullRegisterActivity");
+                        intent.putExtra("activeUser", (Parcelable) activeUser);
                         startActivity(intent);
                     }
                 } else {
@@ -72,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
 
         } else {
             Intent intent = new Intent(this, LoginActivity.class);
-            Log.e("Main", "LoginActivity");
             startActivity(intent);
         }
 

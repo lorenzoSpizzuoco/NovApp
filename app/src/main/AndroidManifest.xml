@@ -20,7 +20,9 @@
 
         <activity
             android:name=".ui.register.FullRegisterActivity"
-            android:exported="false" />
+            android:exported="true" >
+
+        </activity>
 
         <activity
             android:name=".ui.carousel.CarouselActivity"

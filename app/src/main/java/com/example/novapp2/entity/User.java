@@ -1,11 +1,14 @@
 package com.example.novapp2.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.util.List;
 
 @IgnoreExtraProperties
-public class User {
+public class User implements Parcelable {
 
     public String userId;
     public String name;
@@ -34,6 +37,51 @@ public class User {
         this.profileImg = profileImg;
         this.notifications = notifications;
     }
+
+    protected User(Parcel in) {
+        userId = in.readString();
+        name = in.readString();
+        email = in.readString();
+        surname = in.readString();
+        bio = in.readString();
+        groupChats = in.createStringArrayList();
+        favourites = in.createStringArrayList();
+        byte tmpIsBicoccaUser = in.readByte();
+        isBicoccaUser = tmpIsBicoccaUser == 0 ? null : tmpIsBicoccaUser == 1;
+        profileImg = in.readString();
+        notifications = in.createStringArrayList();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(userId);
+        dest.writeString(name);
+        dest.writeString(email);
+        dest.writeString(surname);
+        dest.writeString(bio);
+        dest.writeStringList(groupChats);
+        dest.writeStringList(favourites);
+        dest.writeByte((byte) (isBicoccaUser == null ? 0 : isBicoccaUser ? 1 : 2));
+        dest.writeString(profileImg);
+        dest.writeStringList(notifications);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
     public String getID() {
         return userId;

@@ -82,4 +82,13 @@
     <string name="second_carousel_txt">With BiClub, you can stay updated on university life and find your favorite study group, tailored to your needs.</string>
     <string name="third_carousel_txt">What are you waiting for? \n<b>Join the community, enter the Club!</b></string>
 
+    <!-- FullRegister -->
+    <string name="full_register_title">Share about you!</string>
+    <string name="full_register_bio_hint">What key details should we know about you?</string>
+    <string name="full_register_end_flow">Finished!</string>
+
+    <!-- General -->
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+
 </resources>
