@@ -8,15 +8,17 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="main_red">#A51E3A</color>
-    <color name = "main_light_blue">#0298AF</color>
+    <color name ="main_light_blue">#0298AF</color>
     <color name="main_grey">#5A636C</color>
     <color name="main_blue">#0579BE</color>
+    <color name="dark_background">#081e1d</color>
     <color name="gs_background_color">#A4FCC0</color>
-    <color name="gs_text_color">#14B848</color>
+    <color name="gs_text_color">#95BF74</color>
     <color name="background_white">#FCFBFB</color>
     <color name="background_gray">#DBDDDF</color>
     <color name="event_chip_text_color">#D6A206</color>
     <color name="event_chip_background">#FADA70</color>
     <color name="ripetizioni_chip_background"> #FF708E</color>
     <color name="info_chip_background">#64C8E6</color>
+
 </resources>

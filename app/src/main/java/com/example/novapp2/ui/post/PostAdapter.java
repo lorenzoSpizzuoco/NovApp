@@ -196,13 +196,16 @@ public class PostAdapter extends  RecyclerView.Adapter{
         public TextView descView;
         public CardView courseCardView;
 
+        public TextView dateView;
+
         public RipetizioniViewHolder(@NonNull View itemView) {
 
             super(itemView);
-            imageView = itemView.findViewById(R.id.ripetizioniimageview);
+            imageView = itemView.findViewById(R.id.ripetizioniImageView);
             titleView = itemView.findViewById(R.id.ripetizioniTitle);
-            descView = itemView.findViewById(R.id.ripetizionidesc);
+            descView = itemView.findViewById(R.id.ripetizioniDesc);
             courseCardView = itemView.findViewById(R.id.ripetizioniCardView);
+            dateView = itemView.findViewById(R.id.ripetizioniDate);
             courseCardView.setOnClickListener(this);
         }
 
@@ -210,6 +213,7 @@ public class PostAdapter extends  RecyclerView.Adapter{
             imageView.setImageResource(postList.get(position).getImage());
             titleView.setText(postList.get(position).getTitle());
             descView.setText(postList.get(position).getContent());
+            dateView.setText(postList.get(position).getDate());
         }
 
 
@@ -225,7 +229,7 @@ public class PostAdapter extends  RecyclerView.Adapter{
         public TextView titleView;
         public TextView descView;
 
-        //public TextView dateView;
+        public TextView dateView;
         public CardView groupCardView;
 
         public GroupViewHolder(@NonNull View itemView) {
@@ -235,6 +239,7 @@ public class PostAdapter extends  RecyclerView.Adapter{
             titleView = itemView.findViewById(R.id.groupTitle);
             descView = itemView.findViewById(R.id.groupDesc);
             groupCardView = itemView.findViewById(R.id.groupCardView);
+            dateView = itemView.findViewById(R.id.groupDate);
             groupCardView.setOnClickListener(this);
         }
 
@@ -242,6 +247,7 @@ public class PostAdapter extends  RecyclerView.Adapter{
             imageView.setImageResource(postList.get(position).getImage());
             titleView.setText(postList.get(position).getTitle());
             descView.setText(postList.get(position).getContent());
+            dateView.setText(postList.get(position).getDate());
         }
 
 

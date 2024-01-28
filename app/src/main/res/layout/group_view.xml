@@ -18,54 +18,86 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:background="@drawable/gs_background_color">
+        android:background="@color/background_white">
 
 
-        <ImageView
-            android:id="@+id/groupimageview"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginRight="15dp"
-            android:outlineAmbientShadowColor="@color/background_gray" />
+        <RelativeLayout
+            android:id="@+id/titleRelaviveLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/groupTitle"
+            <ImageView
+                android:id="@+id/groupimageview"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="0dp"
+                android:layout_weight="2"
+                android:scaleType="centerCrop"
+                android:outlineAmbientShadowColor="@color/background_gray" />
+
+            <TextView
+                android:id="@+id/groupTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@id/groupimageview"
+                android:textColor="@color/main_grey"
+                android:textSize="20sp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="2"
+                android:layout_weight="7"
+                android:layout_alignParentLeft="true"
+                tools:text="Title"/>
+
+            <TextView
+                android:id="@+id/groupDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/groupTitle"
+                android:layout_toStartOf="@id/groupimageview"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="2"
+                android:textSize="14sp"
+                android:textColor="@color/main_grey"
+                android:layout_weight="7"
+                android:layout_alignParentLeft="true"
+                tools:text="Desc"/>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/groupimageview"
-            android:textColor="@color/main_blue"
-            android:textSize="20sp"
-            tools:text="Title" />
+            android:layout_below="@id/titleRelaviveLayout"
+            android:layout_marginTop="5dp">
 
-        <TextView
-            android:id="@+id/groupDate"
-            android:layout_width="133dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/groupTitle"
-            android:layout_toEndOf="@id/groupimageview"
-            android:textColor="@color/main_grey"
-            tools:text="Date" />
+            <ImageView
+                android:id="@+id/calendarIcon"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/btn_1"
+                android:contentDescription="@string/calendar_icon_description"
+                app:tint="@color/gs_text_color"
+                android:layout_marginRight="5dp"
+                android:layout_centerVertical="true"/>
 
-        <TextView
-            android:id="@+id/groupPlace"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/groupTitle"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="0dp"
-            android:layout_toEndOf="@id/groupDate"
-            android:textColor="@color/main_grey"
-            tools:text="Place" />
-        <TextView
-            android:id="@+id/groupDesc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/groupDate"
-            android:layout_marginTop="0dp"
-            android:textSize="11dp"
-            android:layout_toEndOf="@id/groupimageview"
-            android:textColor="@color/main_grey"
-            tools:text="Desc" />
+            <TextView
+                android:id="@+id/groupDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/calendarIcon"
+                android:textColor="@color/main_grey"
+                tools:text="Date"
+                android:textSize="14sp"
+                android:layout_marginBottom="5dp"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

@@ -3,13 +3,13 @@
     <item>
         <shape android:shape="rectangle">
             <solid android:color="@color/background_gray" /> <!-- Colore di sfondo -->
-            <corners android:radius="20dp" /> <!-- Radius dei bordi -->
+            <corners android:radius="8dp" /> <!-- Radius dei bordi -->
         </shape>
     </item>
     <item android:top="1dp" android:right="1dp" android:left="1dp" android:bottom="3dp">
         <shape android:shape="rectangle">
             <solid android:color="@color/background_white" /> <!-- Colore dell'ombra -->
-            <corners android:radius="20dp" /> <!-- Radius dei bordi -->
+            <corners android:radius="8dp" /> <!-- Radius dei bordi -->
         </shape>
     </item>
 </layer-list>

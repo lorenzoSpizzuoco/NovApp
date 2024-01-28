@@ -82,5 +82,7 @@
     <string name="second_carousel_txt">With BiClub, you can stay updated on university life and find your favorite study group, tailored to your needs.</string>
     <string name="third_carousel_txt">What are you waiting for? \n<b>Join the community, enter the Club!</b></string>
     <string name="icon_info_desc">Immagine informazioni universitarie</string>
+    <string name="calendar_icon_description">Icona di un calendario</string>
+    <string name="ripetizioni_content_desc">Immagine esplicativa ripetizioni</string>
 
 </resources>

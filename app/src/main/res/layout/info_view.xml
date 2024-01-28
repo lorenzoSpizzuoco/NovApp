@@ -18,13 +18,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:background="@drawable/info_background_color">
+        android:background="@color/background_white">
 
         <RelativeLayout
             android:id="@+id/topInfoRelativeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
 
             <TextView
                 android:id="@+id/infoTitle"
@@ -35,7 +37,7 @@
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="2"
-                android:textColor="@color/main_blue"
+                android:textColor="@color/main_grey"
                 android:textSize="20dp"
                 android:layout_weight="3"
                 tools:text="Title" />
@@ -48,27 +50,41 @@
             android:layout_below="@id/topInfoRelativeLayout"
             android:textSize="14sp"
             android:textColor="@color/main_grey"
-            tools:text="Desc" />
+            tools:text="Desc"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
             android:layout_below="@+id/infodesc">
+
+            <ImageView
+                android:id="@+id/calendarInfoIcon"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/btn_1"
+                android:contentDescription="@string/calendar_icon_description"
+                app:tint="@color/main_blue"
+                android:layout_marginRight="5dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:gravity="center_vertical"/>
 
             <TextView
                 android:id="@+id/infoDate"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:textColor="@color/main_grey"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
                 android:gravity="center_vertical"
                 android:textFontWeight="@integer/google_play_services_version"
-                android:textSize="15sp"
-                tools:text="Date" />
+                android:textSize="12sp"
+                tools:text="Date"
+                android:layout_toEndOf="@id/calendarInfoIcon"
+                android:layout_marginBottom="5dp"
+                />
         </RelativeLayout>
 
     </RelativeLayout>
