@@ -3,23 +3,130 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_dashboard">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.novapp2.ui.home.HomeFragment"
+        android:id="@+id/navigation_chat"
+        android:name="com.example.novapp2.ui.chat.FragmentChat"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.novapp2.ui.dashboard.DashboardFragment"
+        android:id="@+id/navigation_add"
+        android:name="com.example.novapp2.ui.add.AddFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_navigation_add_to_newEventFragment"
+            app:destination="@id/newEventFragment" />
+        <action
+            android:id="@+id/action_navigation_add_to_newRipetizioniFragment"
+            app:destination="@id/newRipetizioniFragment" />
+        <action
+            android:id="@+id/action_navigation_add_to_newInfoFragment"
+            app:destination="@id/newInfoFragment" />
+        <action
+            android:id="@+id/action_navigation_add_to_newGsFragment"
+            app:destination="@id/newGsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.novapp2.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.novapp2.ui.user.UserFragment"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat" >
+        <action
+            android:id="@+id/action_navigation_profile_to_postDetailsFragmentFragment"
+            app:destination="@id/postDetailsFragmentFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/adDetailsFragment"
+        android:name="com.example.novapp2.ui.home.AdDetailsFragment"
+        android:label="adDetailsFragment"
+        tools:layout="@layout/ad_details_fragment">
+
+
+        <argument
+            android:name="AdObject"
+            app:argType="com.example.novapp2.ui.ad.Ad" />
+    </fragment>
+    <fragment
+        android:id="@+id/newAdFragment"
+        android:name="com.example.novapp2.ui.home.NewAdFragment"
+        android:label="fragment_new_ad"
+        tools:layout="@layout/fragment_new_ad" >
+        <action
+            android:id="@+id/action_newAdFragment_to_loadingFragment"
+            app:destination="@id/loadingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loadingFragment"
+        android:name="com.example.novapp2.ui.LoadingFragment"
+        android:label="fragment_loading"
+        tools:layout="@layout/fragment_loading" >
+        <action
+            android:id="@+id/action_loadingFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.novapp2.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_adDetailsFragment"
+            app:destination="@id/adDetailsFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_newAdFragment"
+            app:destination="@id/newAdFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.example.novapp2.ui.dashboard.DashboardFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_navigation_dashboard_to_postDetailsFragment"
+            app:destination="@id/postDetailsFragmentFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/postDetailsFragmentFragment"
+        android:name="com.example.novapp2.ui.dashboard.PostDetailsFragment"
+        android:label="fragment_post_details_fragment"
+        tools:layout="@layout/fragment_post_details" >
+        <argument
+            android:name="post"
+            app:argType="com.example.novapp2.ui.post.Post" />
+    </fragment>
+    <fragment
+        android:id="@+id/newEventFragment"
+        android:name="com.example.novapp2.ui.add.NewEventFragment"
+        android:label="fragment_new_event"
+        tools:layout="@layout/fragment_new_event" />
+    <fragment
+        android:id="@+id/newRipetizioniFragment"
+        android:name="com.example.novapp2.ui.add.NewRipetizioniFragment"
+        android:label="fragment_new_ripetizioni"
+        tools:layout="@layout/fragment_new_ripetizioni" />
+    <fragment
+        android:id="@+id/newGsFragment"
+        android:name="com.example.novapp2.ui.add.NewGsFragment"
+        android:label="fragment_new_gs"
+        tools:layout="@layout/fragment_new_gs" />
+    <fragment
+        android:id="@+id/newInfoFragment"
+        android:name="com.example.novapp2.ui.add.NewInfoFragment"
+        android:label="fragment_new_info"
+        tools:layout="@layout/fragment_new_info" />
 </navigation>

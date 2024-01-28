@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/infoUniCardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginBottom="5dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="@color/background_white">
+
+    <RelativeLayout
+        android:id="@+id/infoView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/infoimageview"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginRight="15dp"
+            android:outlineAmbientShadowColor="@color/background_gray" />
+
+        <TextView
+            android:id="@+id/infoTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/infoimageview"
+            android:textColor="@color/main_blue"
+            android:textSize="20sp"
+            tools:text="Title" />
+
+        <TextView
+            android:id="@+id/infoDate"
+            android:layout_width="133dp"
+            android:textFontWeight="@integer/google_play_services_version"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/infoTitle"
+            android:layout_toEndOf="@id/infoimageview"
+            android:textColor="@color/main_grey"
+            tools:text="Date" />
+
+        <TextView
+            android:id="@+id/eventPlace"
+            android:textFontWeight="@integer/google_play_services_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/infoTitle"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@id/infoDate"
+            android:textColor="@color/main_grey"
+            tools:text="Place" />
+        <TextView
+            android:id="@+id/infodesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/infoDate"
+            android:textSize="11dp"
+            android:layout_above="@id/infoTypeChip"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@id/infoimageview"
+            android:textColor="@color/main_grey"
+            tools:text="Desc" />
+
+
+        <com.google.android.material.chip.Chip
+            android:clickable="false"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:id="@+id/infoTypeChip"
+            android:textColor="@color/main_blue"
+            android:backgroundTint="@color/info_chip_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/infoimageview"
+            android:layout_marginBottom="-12dp"
+            android:layout_toEndOf="@+id/infoimageview"
+            android:text="type"
+            android:padding="4dp"
+            android:textSize="12sp"
+            app:chipMinHeight="20dp"
+            app:chipStrokeWidth="0dp" />
+
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

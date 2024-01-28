@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ripetizioniCardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginBottom="5dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="@color/background_white">
+
+    <RelativeLayout
+        android:id="@+id/ripetizioniView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/ripetizioniimageview"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginRight="15dp"
+            android:outlineAmbientShadowColor="@color/background_gray" />
+
+        <TextView
+            android:id="@+id/ripetizioniTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/ripetizioniimageview"
+            android:textColor="@color/main_blue"
+            android:textSize="20sp"
+            tools:text="Title" />
+
+        <TextView
+            android:id="@+id/ripetizioniDate"
+            android:layout_width="133dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ripetizioniTitle"
+            android:layout_toEndOf="@id/ripetizioniimageview"
+            android:textColor="@color/main_grey"
+            tools:text="Date" />
+
+        <TextView
+            android:id="@+id/ripetizioniPlace"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ripetizioniTitle"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@id/ripetizioniDate"
+            android:textColor="@color/main_grey"
+            tools:text="Place" />
+        <TextView
+            android:id="@+id/ripetizionidesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ripetizioniDate"
+            android:textSize="11dp"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@id/ripetizioniimageview"
+            android:textColor="@color/main_grey"
+            tools:text="Desc" />
+
+
+        <com.google.android.material.chip.Chip
+
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:textFontWeight="@integer/material_motion_duration_medium_2"
+            android:backgroundTint="@color/ripetizioni_chip_background"
+            android:textColor="@color/main_red"
+            android:id="@+id/ripetizioniTypeChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/ripetizioniimageview"
+            android:clickable="false"
+            android:layout_marginBottom="-12dp"
+            android:layout_toEndOf="@+id/ripetizioniimageview"
+            android:text="@string/button_ripetizioni"
+            android:textSize="12sp"
+            android:padding="4dp"
+            app:chipMinHeight="20dp"
+            app:chipStrokeWidth="0dp">
+
+        </com.google.android.material.chip.Chip>
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
