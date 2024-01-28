@@ -12,7 +12,7 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.novapp2.R;
-import com.example.novapp2.ui.post.Post;
+import com.example.novapp2.entity.post.Post;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

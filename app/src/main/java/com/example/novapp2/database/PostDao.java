@@ -6,8 +6,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.example.novapp2.ui.ad.Ad;
-import com.example.novapp2.ui.post.Post;
+import com.example.novapp2.entity.post.Post;
 
 import java.util.List;
 

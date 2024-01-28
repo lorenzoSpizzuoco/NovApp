@@ -1,7 +1,6 @@
 package com.example.novapp2.utils;
 
-import com.example.novapp2.ui.course.Course;
-import com.example.novapp2.ui.post.Post;
+import com.example.novapp2.entity.post.Post;
 
 import java.util.Comparator;
 import java.util.List;

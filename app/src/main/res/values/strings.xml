@@ -3,14 +3,6 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-
-    <string name="new_account"> Don\'t have an account? </string>
-    <string name="register">Register</string>
-    <string name="forgot_password">Forgot Password?</string>
-    <string name="password">password</string>
-    <string name="password_confirm">confirm password</string>
-    <string name="email">email</string>
-    <string name="logo">logo</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="email_error"> Email not valid </string>
     <string name="hello"> Ciao, Alessandro! </string>
@@ -84,6 +76,17 @@
 
     <!-- Login strings -->
     <string name="login">Login</string>
+    <string name="new_account">Don\'t have an account?</string>
+    <string name="forgot_password">Forgot Password?</string>
+
+    <!-- Register strings -->
+    <string name="have_account">You already have an account?</string>
+    <string name="register">Register</string>
+    <string name="password">Password</string>
+    <string name="password_confirm">Confirm password</string>
+    <string name="email">Email</string>
+    <string name="logo">Logo</string>
+
 
     <!-- Carousel strings -->
     <string name="first_carousel_txt">BiClub is the application that allows you to experience 360 degrees of what Bicocca University has to offer.</string>
