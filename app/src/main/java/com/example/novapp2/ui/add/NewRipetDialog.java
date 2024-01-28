@@ -101,20 +101,20 @@ public class NewRipetDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_new_info_dialog, container, false);
+        return inflater.inflate(R.layout.fragment_new_ripet_dialog, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
-        saveEvent = view.findViewById(R.id.save_button_info);
+        saveEvent = view.findViewById(R.id.save_button_ripet);
         delPhoto = view.findViewById(R.id.fab_delete_photo);
-        toolbar = view.findViewById(R.id.toolbar_info);
-        eventDateText = view.findViewById(R.id.date_picker_input_text_info);
-        eventDateTextInner = view.findViewById(R.id.date_input_text_inner_info);
-        photoButton = view.findViewById(R.id.info_photo_button);
-        eventImage = view.findViewById(R.id.info_photo_view);
+        toolbar = view.findViewById(R.id.toolbar_ripet);
+        eventDateText = view.findViewById(R.id.date_picker_input_text_ripet);
+        eventDateTextInner = view.findViewById(R.id.date_input_text_inner_ripet);
+        photoButton = view.findViewById(R.id.ripet_photo_button);
+        eventImage = view.findViewById(R.id.ripet_photo_view);
         eventDateTextInner.setInputType(InputType.TYPE_NULL);
 
         photoButton.setOnClickListener(v -> {

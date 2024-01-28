@@ -109,45 +109,16 @@ public class NewInfoDialog extends DialogFragment {
 
         super.onViewCreated(view, savedInstanceState);
         saveEvent = view.findViewById(R.id.save_button_info);
-        delPhoto = view.findViewById(R.id.fab_delete_photo);
         toolbar = view.findViewById(R.id.toolbar_info);
         eventDateText = view.findViewById(R.id.date_picker_input_text_info);
         eventDateTextInner = view.findViewById(R.id.date_input_text_inner_info);
-        photoButton = view.findViewById(R.id.info_photo_button);
-        eventImage = view.findViewById(R.id.info_photo_view);
         eventDateTextInner.setInputType(InputType.TYPE_NULL);
-
-        photoButton.setOnClickListener(v -> {
-
-            pickMedia.launch(new PickVisualMediaRequest.Builder()
-                    .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
-                    .build());
-        });
-
-        delPhoto.setOnClickListener(v -> {
-            if (eventImage.getDrawable() != null) {
-                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getParentFragment().getActivity()).setTitle(R.string.event_photo)
-                        .setMessage(R.string.photo_delete)
-                        .setPositiveButton(R.string.dialog_ok_event_photo_delete, (di, i) -> {
-                            eventImage.setImageBitmap(null);
-                            eventPhoto = null;
-                            delPhoto.setVisibility(View.GONE);
-                            Snackbar.make(view, R.string.image_delete_snackbar, Snackbar.LENGTH_SHORT).show();
-                        })
-                        .setNegativeButton(R.string.dialog_close, (di, i) -> {
-
-                        });
-
-                builder.create();
-                builder.show();
-            }
-        });
 
         eventDateTextInner.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             @Override
             public void onFocusChange(View v, boolean sel) {
-                Log.d("tagtag", "faccio qualcosa nella mia vita");
+
                 if(v.getId() == R.id.date_input_text_inner  && sel) {
                     MaterialDatePicker<Long> dp = MaterialDatePicker.Builder.datePicker()
                             .setTitleText("Seleziona la data dell'evento")
