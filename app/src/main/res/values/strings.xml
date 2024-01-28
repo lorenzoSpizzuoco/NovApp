@@ -74,6 +74,14 @@
     <string name="info_photo">infos photo </string>
     <string name="new_info_toolbar"> New Infos</string>
 
+
+    <!-- ERROR STRINGS -->
+
+    <string name="title_error">Insert name</string>
+    <string name="place_error">Insert place</string>
+    <string name="date_error">Insert date</string>
+    <string name="desc_error">Insert description</string>
+
     <!-- Login strings -->
     <string name="login">Login</string>
 

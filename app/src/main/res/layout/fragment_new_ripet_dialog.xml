@@ -29,7 +29,6 @@
                 android:paddingEnd="16dp"
                 app:contentInsetStartWithNavigation="0dp"
                 app:navigationIcon="@drawable/x_close"
-
                 app:title="@string/new_ripet_toolbar"
                 app:titleMarginStart="10dp" />
 
@@ -58,25 +57,28 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.Material3.TextInputLayout.FilledBox"
             android:id="@+id/new_ripet_title"
             android:layout_width="300dp"
             android:layout_centerHorizontal="true"
             android:layout_height="wrap_content"
+            app:errorEnabled="true"
+            app:endIconMode="clear_text"
             android:layout_marginTop="100dp"
             android:hint="@string/ripet_title_hint"
             android:inputType="textEmailAddress"
             android:textColorHighlight="@color/main_red">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/new_ripet_title_inner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.Material3.TextInputLayout.FilledBox"
             android:id="@+id/new_ripet_place"
             android:layout_width="300dp"
+            app:errorEnabled="true"
             android:layout_centerHorizontal="true"
+            app:endIconMode="clear_text"
             android:layout_below="@id/new_ripet_title"
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
@@ -84,15 +86,17 @@
             android:inputType="textEmailAddress"
             android:textColorHighlight="@color/main_red">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/new_ripet_place_inner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.Material3.TextInputLayout.FilledBox"
             android:id="@+id/new_ripet_desc"
             android:layout_width="300dp"
+            app:errorEnabled="true"
             android:layout_centerHorizontal="true"
+            app:endIconMode="clear_text"
             android:layout_below="@id/new_ripet_place"
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
@@ -100,17 +104,19 @@
             android:inputType="textEmailAddress"
             android:textColorHighlight="@color/main_red">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/new_ripet_desc_inner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.Material3.TextInputLayout.FilledBox"
             android:id="@+id/date_picker_input_text_ripet"
             android:layout_width="300dp"
             android:layout_below="@id/new_ripet_desc"
             android:layout_centerHorizontal="true"
             android:layout_height="wrap_content"
+            app:errorEnabled="true"
+            app:startIconDrawable="@drawable/calendar"
             android:layout_marginTop="20sp"
             android:hint="@string/ripet_date_button"
             android:inputType="textEmailAddress"
