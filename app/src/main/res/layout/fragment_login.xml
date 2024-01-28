@@ -42,7 +42,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:text="@string/login"
-                android:textColor="@color/black"
                 android:textSize="34sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -67,8 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/email"
-                    android:inputType="textEmailAddress"
-                    android:textColorHighlight="@color/main_red" />
+                    android:inputType="textEmailAddress"/>
             </com.google.android.material.textfield.TextInputLayout>
             <!-- app:startIconDrawable="@drawable/ic_baseline_vpn_key_24"-->
             <com.google.android.material.textfield.TextInputLayout
@@ -101,7 +99,6 @@
                 android:layout_marginTop="18dp"
                 android:layout_marginEnd="20dp"
                 android:text="@string/forgot_password"
-                android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password"
@@ -115,17 +112,14 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
-                android:backgroundTint="@color/main_red"
                 android:text="@string/login"
-                android:textColor="@color/white"
                 android:textSize="14sp"
                 app:defaultNavHost="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/button_forgot_password"
-                app:navGraph="@navigation/main_nav_graph"
-                app:rippleColor="@color/main_red" />
+                app:navGraph="@navigation/main_nav_graph"/>
 
             <Button
                 android:id="@+id/button_register"
@@ -133,7 +127,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/register"
-                android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textview_new_account"
                 app:layout_constraintEnd_toEndOf="parent"

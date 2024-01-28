@@ -51,15 +51,15 @@
                 app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/left_guideline"
-                tools:layout_editor_absoluteY="112dp">
+                tools:layout_editor_absoluteY="112dp"
+                tools:ignore="MissingConstraints">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/text_input_ad_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Title"
-                    android:inputType="textEmailAddress"
-                    android:textColorHighlight="@color/main_red" />
+                    android:inputType="textEmailAddress"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -86,9 +86,7 @@
                 android:layout_width="363dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="68dp"
-                android:backgroundTint="@color/main_red"
                 android:text="Add"
-                android:textColor="@color/white"
                 android:textSize="14sp"
                 app:defaultNavHost="true"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -97,8 +95,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_input_layout_content"
                 app:layout_constraintVertical_bias="0.0"
-                app:navGraph="@navigation/main_nav_graph"
-                app:rippleColor="@color/main_red" />
+                app:navGraph="@navigation/main_nav_graph"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

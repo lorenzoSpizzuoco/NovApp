@@ -22,7 +22,6 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar_gs"
-                android:backgroundTint="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:paddingStart="6dp"
@@ -39,8 +38,6 @@
                 android:layout_centerVertical="true"
                 android:id="@+id/save_button_gs"
                 android:gravity="center"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/purple_500"
                 android:layout_width="wrap_content"
                 android:textSize="16sp"
                 android:layout_alignEnd="@id/toolbar_gs"
@@ -66,8 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
             android:hint="@string/gs_title_hint"
-            android:inputType="textEmailAddress"
-            android:textColorHighlight="@color/main_red">
+            android:inputType="textEmailAddress">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/new_gs_title_inner"
                 android:layout_width="match_parent"
@@ -84,8 +80,7 @@
             android:layout_marginTop="20sp"
             android:hint="@string/gs_place_text"
             app:errorEnabled="true"
-            android:inputType="textEmailAddress"
-            android:textColorHighlight="@color/main_red">
+            android:inputType="textEmailAddress">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/new_gs_place_inner"
                 android:layout_width="match_parent"
@@ -102,8 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
             android:hint="@string/gs_desc"
-            android:inputType="textEmailAddress"
-            android:textColorHighlight="@color/main_red">
+            android:inputType="textEmailAddress">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/new_gs_desc_inner"
                 android:layout_width="match_parent"
@@ -120,8 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
             android:hint="@string/gs_date_button"
-            android:inputType="textEmailAddress"
-            android:textColorHighlight="@color/main_red">
+            android:inputType="textEmailAddress">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/date_input_text_inner_gs"
                 android:layout_width="match_parent"

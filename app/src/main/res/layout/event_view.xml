@@ -58,7 +58,6 @@
                     android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:maxLines="2"
-                    android:textColor="@color/main_blue"
                     android:textSize="20sp"
                     tools:text="Title" />
 
@@ -75,7 +74,6 @@
                 android:textSize="14sp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:textColor="@color/main_grey"
                 tools:text="Desc" />
 
         </RelativeLayout>
@@ -95,14 +93,12 @@
                 android:layout_marginEnd="5dp"
                 android:contentDescription="@string/calendar_icon_description"
                 android:src="@drawable/calendar"
-                app:tint="@color/main_grey"
                 tools:ignore="ImageContrastCheck" />
 
             <TextView
                 android:id="@+id/eventDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/main_grey"
                 android:gravity="center_vertical"
                 android:textSize="12sp"
                 tools:text="Date"
@@ -116,7 +112,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:gravity="center_vertical"
-                android:textColor="@color/main_grey"
                 tools:text="Place"
                 android:paddingEnd="5dp"
                 android:layout_centerVertical="true"

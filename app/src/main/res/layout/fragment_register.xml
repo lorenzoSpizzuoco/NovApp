@@ -43,7 +43,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:text="@string/register"
-                android:textColor="@color/black"
                 android:textSize="34sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -70,8 +69,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/email"
-                    android:inputType="textEmailAddress"
-                    android:textColorHighlight="@color/main_red" />
+                    android:inputType="textEmailAddress"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -126,9 +124,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="24dp"
-                android:backgroundTint="@color/main_red"
                 android:text="@string/register"
-                android:textColor="@color/white"
                 android:textSize="14sp"
                 app:defaultNavHost="true"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -137,8 +133,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password_confirm"
                 app:layout_constraintVertical_bias="0.0"
-                app:navGraph="@navigation/main_nav_graph"
-                app:rippleColor="@color/main_red" />
+                app:navGraph="@navigation/main_nav_graph"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

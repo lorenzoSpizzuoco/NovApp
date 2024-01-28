@@ -49,8 +49,7 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text="TEST"
-                    android:textAppearance="?attr/textAppearanceTitleMedium"
-                    android:textColor="@color/main_red" />
+                    android:textAppearance="?attr/textAppearanceTitleMedium"/>
 
                 <TextView
                     android:id="@+id/savedPostDescTextView"
@@ -61,8 +60,7 @@
                     android:maxHeight="40dp"
                     android:maxLines="2"
                     android:ellipsize="end"
-                    android:textAppearance="?attr/textAppearanceBodyMedium"
-                    android:textColor="@color/main_grey"/>
+                    android:textAppearance="?attr/textAppearanceBodyMedium"/>
 
             </LinearLayout>
 
@@ -85,8 +83,7 @@
                     android:text="TEST"
                     android:maxLines="1"
                     android:ellipsize="end"
-                    android:textAppearance="?attr/textAppearanceBodyMedium"
-                    android:textColor="@color/main_grey"/>
+                    android:textAppearance="?attr/textAppearanceBodyMedium"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/savedCardOpenButton"
@@ -94,16 +91,14 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginEnd="8dp"
-                    app:icon="@drawable/eye"
-                    app:iconTint="@color/main_blue" />
+                    app:icon="@drawable/eye"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/savedCardAddButton"
                     style="?attr/borderlessButtonStyle"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    app:icon="@drawable/full_like"
-                    app:iconTint="@color/main_blue" />
+                    app:icon="@drawable/full_like"/>
             </LinearLayout>
 
         </LinearLayout>
