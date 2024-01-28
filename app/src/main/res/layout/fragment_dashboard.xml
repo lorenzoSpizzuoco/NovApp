@@ -46,8 +46,7 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_event"
-                    style="@style/Widget.Material3.Chip.Filter"
-                    android:layout_width="wrap_content"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:text="@string/button_event"
@@ -56,8 +55,7 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_ui"
-                    style="@style/Widget.Material3.Chip.Filter"
-                    android:layout_width="wrap_content"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:text="@string/button_info"
@@ -66,8 +64,7 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_gs"
-                    style="@style/Widget.Material3.Chip.Filter"
-                    android:layout_width="wrap_content"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:text="@string/button_sg"
@@ -76,8 +73,7 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_ripetizioni"
-                    style="@style/Widget.Material3.Chip.Filter"
-                    android:layout_width="wrap_content"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:text="@string/button_ripetizioni"
