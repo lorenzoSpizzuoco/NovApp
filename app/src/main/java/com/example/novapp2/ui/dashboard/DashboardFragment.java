@@ -25,39 +25,34 @@ import com.example.novapp2.utils.Utils;
 import com.google.android.material.chip.Chip;
 import androidx.appcompat.widget.SearchView;
 
-
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class DashboardFragment extends Fragment {
 
-    private static final String TAG = DashboardFragment.class.getSimpleName();
     private FragmentDashboardBinding binding;
-
     private SearchView postSearchView;
-
     private RecyclerView postView;
-
     private PostViewModel postViewModel;
     private PostAdapter postAdapter;
     private List<Post> postList;
-    private List<Post> filteredList;
-
+    private Set<Integer> selectedCategories;
     private Chip eventsChip;
-
     private Chip gsChip;
-
     private Chip infoChip;
-
     private Chip ripetizioniChip;
-
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
         postList = new ArrayList<>();
+        selectedCategories = new HashSet<>();
     }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         DashboardViewModel dashboardViewModel =
@@ -76,61 +71,38 @@ public class DashboardFragment extends Fragment {
         gsChip = view.findViewById(R.id.chip_gs);
         ripetizioniChip= view.findViewById(R.id.chip_ripetizioni);
 
-        // filtering buttons onClick listeners
+        // Set up chip click listeners
+        setUpChipClickListener(eventsChip, 1);
+        setUpChipClickListener(infoChip, 2);
+        setUpChipClickListener(gsChip, 4);
+        setUpChipClickListener(ripetizioniChip, 3);
 
-        eventsChip.setOnClickListener(v -> {
-            filterPostList(1);
-        });
-
-        infoChip.setOnClickListener(v -> {
-            filterPostList(2);
-        });
-
-        gsChip.setOnClickListener(v -> {
-            filterPostList(4);
-        });
-
-        ripetizioniChip.setOnClickListener(v -> {
-            filterPostList(3);
-        });
-
-        //post RecycleView
+        //post RecyclerView
         postView = view.findViewById(R.id.courseView);
         postView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         // creating recyclerView adapter
-        postAdapter = new PostAdapter(requireContext(), postList, new PostAdapter.OnItemClickListener() {
-            // navigation to post details fragment
-            @Override
-            public void onPostItemClick(Post post) {
-                // navigation to details fragment
-                DashboardFragmentDirections.ActionNavigationDashboardToPostDetailsFragment action =
-                        DashboardFragmentDirections.actionNavigationDashboardToPostDetailsFragment(post);
-                Navigation.findNavController(view).navigate(action);
-            }
+        postAdapter = new PostAdapter(requireContext(), postList, post -> {
+            // navigation to details fragment
+            DashboardFragmentDirections.ActionNavigationDashboardToPostDetailsFragment action =
+                    DashboardFragmentDirections.actionNavigationDashboardToPostDetailsFragment(post);
+            Navigation.findNavController(view).navigate(action);
         });
 
         postView.setAdapter(postAdapter);
 
-        // top search bar configuration
+        // Configure search view
         postSearchView = view.findViewById(R.id.courseSearchView);
-
-
-        // Open the keyboard when the search view is clicked
-        postSearchView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.showSoftInput(postSearchView, InputMethodManager.SHOW_IMPLICIT);
-                }
+        postSearchView.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(postSearchView, InputMethodManager.SHOW_IMPLICIT);
             }
         });
 
         postSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                // Puoi gestire anche la ricerca su invio, se necessario
                 return false;
             }
 
@@ -141,26 +113,49 @@ public class DashboardFragment extends Fragment {
             }
         });
 
-
-
-        // adapter for the recyclerView
-        // observing viewModel
+        // Observing viewModel
         postViewModel.getAllPost().observe(getViewLifecycleOwner(), posts -> {
-            this.postList.clear();
-            this.postList.addAll(posts);
-            postAdapter.notifyItemChanged(0, posts.size());
+            postList.clear();
+            postList.addAll(posts);
+            postAdapter.notifyDataSetChanged();
+            updateFilteredList();
         });
     }
 
-    private void filterPostList(int category) {
+    private void setUpChipClickListener(Chip chip, int category) {
+        chip.setOnClickListener(v -> {
+            if (chip.isChecked()) {
+                selectedCategories.add(category);
+            } else {
+                selectedCategories.remove(category);
+            }
+            updateFilteredList();
+        });
+    }
 
-        List<Post> newFilteredList = postList.stream()
-                .filter(post -> post.getCategory() == category)
-                .collect(Collectors.toList());
+    private void updateFilteredList() {
+        if (selectedCategories.isEmpty()) {
+            postAdapter.setPostList(postList);
+        } else {
+            List<Post> newFilteredList = postList.stream()
+                    .filter(post -> selectedCategories.contains(post.getCategory()))
+                    .collect(Collectors.toList());
+            postAdapter.setPostList(newFilteredList);
+        }
+        postAdapter.notifyDataSetChanged();
+    }
 
+    private void filterPostsByTitle(String query) {
+        Stream<Post> stream = postList.stream()
+                .filter(post -> post.getTitle().toLowerCase().contains(query.toLowerCase()));
 
-        this.postAdapter.setPostList(newFilteredList);
-        postAdapter.notifyItemChanged(0, newFilteredList.size());
+        if (!selectedCategories.isEmpty()) {
+            stream = stream.filter(post -> selectedCategories.contains(post.getCategory()));
+        }
+
+        List<Post> filteredPosts = stream.collect(Collectors.toList());
+        postAdapter.setPostList(filteredPosts);
+        postAdapter.notifyDataSetChanged();
     }
 
     public void onDestroyView() {
@@ -169,15 +164,6 @@ public class DashboardFragment extends Fragment {
     }
 
     public void addItemsToList() {
-
         Utils.sortCourseByName(postList);
-    }
-
-    private void filterPostsByTitle(String query) {
-        List<Post> filteredPosts = postList.stream()
-                .filter(post -> post.getTitle().toLowerCase().contains(query.toLowerCase()))
-                .collect(Collectors.toList());
-        postAdapter.setPostList(filteredPosts);
-        postAdapter.notifyDataSetChanged();
     }
 }
