@@ -39,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toStartOf="@id/ripetizioniImageView"
-                android:textColor="@color/main_grey"
+                android:textColor="@color/main_blue"
                 android:textSize="20sp"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
@@ -76,9 +76,9 @@
                 android:id="@+id/calendarIcon"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:src="@drawable/btn_1"
+                android:src="@drawable/calendar"
                 android:contentDescription="@string/calendar_icon_description"
-                app:tint="@color/main_red"
+                app:tint="@color/main_grey"
                 android:layout_marginEnd="5dp"
                 android:layout_centerVertical="true"/>
 

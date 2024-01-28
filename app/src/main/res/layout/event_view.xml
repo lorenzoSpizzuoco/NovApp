@@ -36,9 +36,10 @@
                     android:id="@+id/eventimageview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:outlineAmbientShadowColor="@color/background_gray"
                     android:background="@drawable/event_image"
-                    android:scaleType="centerCrop"/>
+                    android:contentDescription="@string/event_desc"
+                    android:scaleType="centerCrop"
+                    tools:ignore="ImageContrastCheck" />
 
             </androidx.cardview.widget.CardView>
 
@@ -55,11 +56,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
-                    android:layout_weight="3"
                     android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:maxLines="2"
-                    android:textColor="@color/main_grey"
+                    android:textColor="@color/main_blue"
                     android:textSize="20sp"
                     tools:text="Title" />
 
@@ -92,11 +92,12 @@
                 android:id="@+id/calendarEventIcon"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:src="@drawable/btn_1"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="5dp"
                 android:contentDescription="@string/calendar_icon_description"
-                app:tint="@color/event_chip_text_color"
-                android:layout_marginRight="5dp"
-                android:layout_centerVertical="true"/>
+                android:src="@drawable/calendar"
+                app:tint="@color/main_grey"
+                tools:ignore="ImageContrastCheck" />
 
             <TextView
                 android:id="@+id/eventDate"
@@ -104,7 +105,6 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/main_grey"
                 android:gravity="center_vertical"
-                android:textFontWeight="@integer/google_play_services_version"
                 android:textSize="12sp"
                 tools:text="Date"
                 android:layout_toEndOf="@+id/calendarEventIcon"
@@ -116,13 +116,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:gravity="center_vertical"
-                android:textColor="@color/white"
-                android:textFontWeight="@integer/google_play_services_version"
+                android:textColor="@color/main_grey"
                 tools:text="Place"
-                android:paddingRight="5dp"
-                android:layout_centerVertical="true"/>
+                android:paddingEnd="5dp"
+                android:layout_centerVertical="true"
+                tools:ignore="RelativeOverlap,RtlSymmetry" />
         </RelativeLayout>
 
 
