@@ -8,21 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.novapp2.R;
-import com.example.novapp2.ui.ad.Ad;
-import com.example.novapp2.ui.post.Post;
-import com.google.android.material.chip.Chip;
-
 import java.util.List;
 
 public class PostAdapter extends  RecyclerView.Adapter{
@@ -119,10 +114,6 @@ public class PostAdapter extends  RecyclerView.Adapter{
     public class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public ImageView imageView;
         public TextView titleView;
-        //public TextView descView;
-
-        public Chip typechip;
-
         public TextView dateView;
 
         public TextView descView;
@@ -139,7 +130,6 @@ public class PostAdapter extends  RecyclerView.Adapter{
             titleView = itemView.findViewById(R.id.eventTitle);
             dateView = itemView.findViewById(R.id.eventDate);
             descView = itemView.findViewById(R.id.eventDesc);
-            //typechip = itemView.findViewById(R.id.eventTypeChip);
             placeView = itemView.findViewById(R.id.eventPlace);
             eventCardView.setOnClickListener(this);
         }
@@ -149,8 +139,6 @@ public class PostAdapter extends  RecyclerView.Adapter{
 
             imageView.setImageResource(postList.get(position).getImage());
             titleView.setText(postList.get(position).getTitle());
-            //typechip.setText("evento");
-            //typechip.setBackgroundColor(ContextCompat.getColor(context, R.color.main_red));
             dateView.setText(postList.get(position).getDate());
             descView.setText(postList.get(position).getContent());
             placeView.setText(postList.get(position).getPlace());
@@ -166,30 +154,32 @@ public class PostAdapter extends  RecyclerView.Adapter{
 
     // uni info viewHolder
     public class UniInfoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public ImageView imageView;
         public TextView titleView;
         public TextView descView;
         public CardView infoCardView;
 
-        public Chip typechip;
+        public TextView dateView;
+
+        //public TextView placeView;
+
         public UniInfoViewHolder(@NonNull View itemView) {
 
             super(itemView);
-            imageView = itemView.findViewById(R.id.infoimageview);
             titleView = itemView.findViewById(R.id.infoTitle);
             descView = itemView.findViewById(R.id.infodesc);
             infoCardView = itemView.findViewById(R.id.infoUniCardView);
-            typechip = itemView.findViewById(R.id.infoTypeChip);
+            dateView = itemView.findViewById(R.id.infoDate);
+            //placeView = itemView.findViewById(R.id.infoPlace);
+
 
             infoCardView.setOnClickListener(this);
         }
 
         public void bindView(int position) {
-            imageView.setImageResource(postList.get(position).getImage());
             titleView.setText(postList.get(position).getTitle());
             descView.setText(postList.get(position).getContent());
-            //descView.setText(postList.get(position).getContent());
-            typechip.setText("Info universitarie");
+            dateView.setText(postList.get(position).getDate());
+            //placeView.setText(postList.get(position).getPlace());
         }
 
 
@@ -206,8 +196,6 @@ public class PostAdapter extends  RecyclerView.Adapter{
         public TextView descView;
         public CardView courseCardView;
 
-        public Chip ripetizioniChip;
-
         public RipetizioniViewHolder(@NonNull View itemView) {
 
             super(itemView);
@@ -215,7 +203,6 @@ public class PostAdapter extends  RecyclerView.Adapter{
             titleView = itemView.findViewById(R.id.ripetizioniTitle);
             descView = itemView.findViewById(R.id.ripetizionidesc);
             courseCardView = itemView.findViewById(R.id.ripetizioniCardView);
-            ripetizioniChip = itemView.findViewById(R.id.ripetizioniTypeChip);
             courseCardView.setOnClickListener(this);
         }
 
@@ -223,7 +210,6 @@ public class PostAdapter extends  RecyclerView.Adapter{
             imageView.setImageResource(postList.get(position).getImage());
             titleView.setText(postList.get(position).getTitle());
             descView.setText(postList.get(position).getContent());
-            ripetizioniChip.setText("ripetizioni");
         }
 
 
@@ -242,15 +228,12 @@ public class PostAdapter extends  RecyclerView.Adapter{
         //public TextView dateView;
         public CardView groupCardView;
 
-        public Chip groupChip;
-
         public GroupViewHolder(@NonNull View itemView) {
 
             super(itemView);
             imageView = itemView.findViewById(R.id.groupimageview);
             titleView = itemView.findViewById(R.id.groupTitle);
             descView = itemView.findViewById(R.id.groupDesc);
-            groupChip = itemView.findViewById(R.id.groupTypeChip);
             groupCardView = itemView.findViewById(R.id.groupCardView);
             groupCardView.setOnClickListener(this);
         }
@@ -259,7 +242,6 @@ public class PostAdapter extends  RecyclerView.Adapter{
             imageView.setImageResource(postList.get(position).getImage());
             titleView.setText(postList.get(position).getTitle());
             descView.setText(postList.get(position).getContent());
-            groupChip.setText("gruppo studio");
         }
 
 

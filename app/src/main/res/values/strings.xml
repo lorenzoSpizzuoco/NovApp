@@ -81,5 +81,6 @@
     <string name="first_carousel_txt">BiClub is the application that allows you to experience 360 degrees of what Bicocca University has to offer.</string>
     <string name="second_carousel_txt">With BiClub, you can stay updated on university life and find your favorite study group, tailored to your needs.</string>
     <string name="third_carousel_txt">What are you waiting for? \n<b>Join the community, enter the Club!</b></string>
+    <string name="icon_info_desc">Immagine informazioni universitarie</string>
 
 </resources>

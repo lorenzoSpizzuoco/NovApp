@@ -11,14 +11,15 @@
     android:layout_marginRight="5dp"
     android:layout_marginBottom="5dp"
     app:cardCornerRadius="8dp"
-    app:cardElevation="4dp"
-    app:cardBackgroundColor="@color/background_white">
+    app:cardElevation="4dp">
 
     <RelativeLayout
         android:id="@+id/groupView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:background="@drawable/gs_background_color">
+
 
         <ImageView
             android:id="@+id/groupimageview"
@@ -65,25 +66,6 @@
             android:layout_toEndOf="@id/groupimageview"
             android:textColor="@color/main_grey"
             tools:text="Desc" />
-
-        <com.google.android.material.chip.Chip
-            android:clickable="false"
-            android:backgroundTint="@color/gs_background_color"
-            android:textColor="@color/gs_text_color"
-            android:textStyle="bold"
-            android:textAllCaps="true"
-            android:id="@+id/groupTypeChip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/groupimageview"
-            android:layout_alignBottom="@id/groupimageview"
-            android:textSize="11sp"
-            android:layout_marginBottom="-12dp"
-            app:chipMinHeight="20dp"
-            app:chipStrokeWidth="0dp">
-
-        </com.google.android.material.chip.Chip>
-
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
