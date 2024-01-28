@@ -1,35 +1,30 @@
 package com.example.novapp2.ui.dashboard;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
+
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.core.content.ContextCompat;
 
-import com.example.novapp2.ui.ad.Ad;
-import com.example.novapp2.ui.ad.AdViewModel;
-import com.example.novapp2.ui.course.Course;
-import com.example.novapp2.ui.course.CourseAdapter;
 import com.example.novapp2.R;
 import com.example.novapp2.databinding.FragmentDashboardBinding;
 import com.example.novapp2.ui.post.Post;
 import com.example.novapp2.ui.post.PostAdapter;
 import com.example.novapp2.ui.post.PostViewModel;
 import com.example.novapp2.utils.Utils;
-import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.chip.Chip;
+import androidx.appcompat.widget.SearchView;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +36,7 @@ public class DashboardFragment extends Fragment {
     private FragmentDashboardBinding binding;
 
     private SearchView postSearchView;
+
     private RecyclerView postView;
 
     private PostViewModel postViewModel;
@@ -48,13 +44,14 @@ public class DashboardFragment extends Fragment {
     private List<Post> postList;
     private List<Post> filteredList;
 
-    private Button eventsButton;
+    private Chip eventsChip;
 
-    private Button gsButton;
+    private Chip gsChip;
 
-    private Button infoButton;
+    private Chip infoChip;
 
-    private Button ripetizioniButton;
+    private Chip ripetizioniChip;
+
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,33 +71,28 @@ public class DashboardFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
 
-        eventsButton = view.findViewById(R.id.button_event);
-        infoButton = view.findViewById(R.id.button_ui);
-        gsButton = view.findViewById(R.id.button_gs);
-        ripetizioniButton = view.findViewById(R.id.button_ripetizioni);
+        eventsChip = view.findViewById(R.id.chip_event);
+        infoChip = view.findViewById(R.id.chip_ui);
+        gsChip = view.findViewById(R.id.chip_gs);
+        ripetizioniChip= view.findViewById(R.id.chip_ripetizioni);
 
         // filtering buttons onClick listeners
 
-        eventsButton.setOnClickListener(v -> {
+        eventsChip.setOnClickListener(v -> {
             filterPostList(1);
         });
 
-        infoButton.setOnClickListener(v -> {
+        infoChip.setOnClickListener(v -> {
             filterPostList(2);
         });
 
-        gsButton.setOnClickListener(v -> {
+        gsChip.setOnClickListener(v -> {
             filterPostList(4);
         });
 
-        ripetizioniButton.setOnClickListener(v -> {
+        ripetizioniChip.setOnClickListener(v -> {
             filterPostList(3);
         });
-
-        // top search bar configuration
-        postSearchView = view.findViewById(R.id.courseSearchView);
-        EditText searchText = postSearchView.findViewById(androidx.appcompat.R.id.search_src_text);
-        searchText.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black));
 
         //post RecycleView
         postView = view.findViewById(R.id.courseView);
@@ -120,24 +112,36 @@ public class DashboardFragment extends Fragment {
 
         postView.setAdapter(postAdapter);
 
-        postSearchView.clearFocus();
+        // top search bar configuration
+        postSearchView = view.findViewById(R.id.courseSearchView);
+
+
+        // Open the keyboard when the search view is clicked
+        postSearchView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(postSearchView, InputMethodManager.SHOW_IMPLICIT);
+                }
+            }
+        });
+
         postSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                // Puoi gestire anche la ricerca su invio, se necessario
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                //Log.d(TAG, "onQueryTextChange call");
-                filteredList = Utils.sortCourseByString(postList, newText);
-                if (filteredList.isEmpty()) {
-                    Snackbar.make(getView(), "no data found", Snackbar.LENGTH_SHORT).show();
-                }
-                postAdapter.setPostList(filteredList);
-                return false;
+                filterPostsByTitle(newText);
+                return true;
             }
         });
+
+
 
         // adapter for the recyclerView
         // observing viewModel
@@ -167,5 +171,13 @@ public class DashboardFragment extends Fragment {
     public void addItemsToList() {
 
         Utils.sortCourseByName(postList);
+    }
+
+    private void filterPostsByTitle(String query) {
+        List<Post> filteredPosts = postList.stream()
+                .filter(post -> post.getTitle().toLowerCase().contains(query.toLowerCase()))
+                .collect(Collectors.toList());
+        postAdapter.setPostList(filteredPosts);
+        postAdapter.notifyDataSetChanged();
     }
 }
