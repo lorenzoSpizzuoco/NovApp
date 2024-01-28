@@ -4,24 +4,17 @@ import static com.example.novapp2.utils.Constants.AD_DATABASE_NAME;
 import static com.example.novapp2.utils.Constants.DATABASE_VERSION;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
-import androidx.room.DatabaseConfiguration;
-import androidx.room.InvalidationTracker;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
-import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
 import com.example.novapp2.R;
-import com.example.novapp2.utils.Constants.*;
 
-import com.example.novapp2.ui.ad.Ad;
+import com.example.novapp2.entity.ad.Ad;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

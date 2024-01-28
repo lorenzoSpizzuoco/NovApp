@@ -14,31 +14,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.novapp2.R;
-import com.example.novapp2.ui.ad.Ad;
-import com.example.novapp2.ui.ad.AdViewModel;
+import com.example.novapp2.entity.ad.Ad;
+import com.example.novapp2.entity.ad.AdViewModel;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link LoadingFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class LoadingFragment extends Fragment {
 
     private AdViewModel adViewModel;
-
     private Ad ad;
     private final String TAG = LoadingFragment.class.getSimpleName();
 
-    public LoadingFragment() {
-        // Required empty public constructor
-    }
-
-
-
     public static LoadingFragment newInstance(String param1, String param2) {
         LoadingFragment fragment = new LoadingFragment();
-
-
         return fragment;
     }
 

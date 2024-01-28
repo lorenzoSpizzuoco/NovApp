@@ -1,115 +1,42 @@
 package com.example.novapp2.ui.home;
 
 import android.os.Bundle;
-import android.text.Layout;
-import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.novapp2.R;
-import com.example.novapp2.databinding.FragmentHomeBinding;
-import com.example.novapp2.ui.ad.Ad;
-import com.example.novapp2.ui.ad.AdViewAdapter;
-import com.example.novapp2.ui.ad.AdViewModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    private FragmentHomeBinding binding;
-    private AdViewModel adViewModel;
-
-    private List<Ad> ads;
-
-
     @Override
-    public void onCreate(Bundle SavedInstaceStace) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-        super.onCreate(SavedInstaceStace);
-
-        adViewModel = new ViewModelProvider(this).get(AdViewModel.class);
-
-        ads = new ArrayList<>();
-
-    }
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
-
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-        return root;
-    }
-
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
-        RecyclerView recyclerViewAd = view.findViewById(R.id.AdRecyclerView);
-        FloatingActionButton newAdButton = view.findViewById(R.id.newAdButton);
-
-        int white = ContextCompat.getColor(this.getContext(), android.R.color.background_light);
-        newAdButton.setColorFilter(white);
-
-        RecyclerView.LayoutManager layoutManager =
-                new LinearLayoutManager(requireContext(),
-                        LinearLayoutManager.VERTICAL, false);
-
-
-
-        newAdButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Snackbar.make(view, "new ad button", Snackbar.LENGTH_SHORT).show();
-                Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_newAdFragment);
-            }
-        });
-
-
-        AdViewAdapter adRecyclerViewAdapter = new AdViewAdapter(ads,
-
-                // navigation to ad details
-                new AdViewAdapter.OnItemClickListener() {
-                    @Override
-                    public void onAdItemClick(Ad ad) {
-                        HomeFragmentDirections.ActionNavigationHomeToAdDetailsFragment action =
-                                HomeFragmentDirections.actionNavigationHomeToAdDetailsFragment(ad);
-                        Navigation.findNavController(view).navigate(action);
-                    }
-
-                });
-
-        recyclerViewAd.setLayoutManager(layoutManager);
-        recyclerViewAd.setAdapter(adRecyclerViewAdapter);
-
-        adViewModel.getAllAd().observe(getViewLifecycleOwner(), ads -> {
-            this.ads.addAll(ads);
-            adRecyclerViewAdapter.notifyItemChanged(0, ads.size());
-        });
-
-
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        BottomNavigationView navView = requireView().findViewById(R.id.nav_view);
+
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.navigation_dashboard, R.id.navigation_chat, R.id.navigation_add, R.id.navigation_notifications, R.id.navigation_profile)
+                .build();
+
+        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+        NavigationUI.setupWithNavController(navView, navController);
     }
-
-
 }

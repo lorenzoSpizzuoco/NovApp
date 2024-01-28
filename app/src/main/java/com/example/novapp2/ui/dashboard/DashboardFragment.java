@@ -2,25 +2,33 @@ package com.example.novapp2.ui.dashboard;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.core.content.ContextCompat;
 
+import com.example.novapp2.ui.ad.Ad;
+import com.example.novapp2.ui.ad.AdViewModel;
+import com.example.novapp2.ui.course.Course;
+import com.example.novapp2.ui.course.CourseAdapter;
 import com.example.novapp2.R;
 import com.example.novapp2.databinding.FragmentDashboardBinding;
-import com.example.novapp2.ui.post.Post;
-import com.example.novapp2.ui.post.PostAdapter;
-import com.example.novapp2.ui.post.PostViewModel;
+import com.example.novapp2.entity.post.Post;
+import com.example.novapp2.entity.post.PostAdapter;
+import com.example.novapp2.entity.post.PostViewModel;
 import com.example.novapp2.utils.Utils;
 import com.google.android.material.chip.Chip;
 import androidx.appcompat.widget.SearchView;
