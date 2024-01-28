@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         mAuth = FirebaseAuth.getInstance();
-        if (mAuth.getCurrentUser() != null) {
+        /*if (mAuth.getCurrentUser() != null) {
             Task<User> activeUserTask = UserService.getUserById(mAuth.getCurrentUser().getUid());
             activeUserTask.addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
-        }
+        } */
 
 
     }

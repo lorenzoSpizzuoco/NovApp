@@ -21,6 +21,7 @@ public class StartActivity extends AppCompatActivity {
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
+
                 Intent intent = new Intent(StartActivity.this, CarouselActivity.class);
                 startActivity(intent);
             }
