@@ -1,6 +1,8 @@
 package com.example.novapp2.entity.post;
 
+import static com.example.novapp2.utils.Constants.API_KEY;
 import static com.example.novapp2.utils.Constants.PROFANITY_API_BASE_URL;
+import static com.example.novapp2.utils.Utils.checkResponse;
 
 import android.app.Application;
 import android.util.Log;
@@ -21,6 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class PostViewModel extends AndroidViewModel {
 
@@ -63,10 +66,13 @@ public class PostViewModel extends AndroidViewModel {
         // check for profanity
         retrofit = new Retrofit.Builder()
                 .baseUrl(PROFANITY_API_BASE_URL)
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .build();
 
         ProfanityApiService service = retrofit.create(ProfanityApiService.class);
-        service.checkForPronfanity(post.getTitle() + post.getContent()).enqueue(new Callback<ResponseBody>() {
+        service.checkForPronfanity(API_KEY,
+                "{comment: {text: \"" + post.getTitle() + " " + post.getContent() + "\" }, requestedAttributes: {PROFANITY:{}, TOXICITY:{}} }")
+                .enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
@@ -74,12 +80,12 @@ public class PostViewModel extends AndroidViewModel {
                     try {
                         String resp = response.body().string();
                         Log.d(TAG, "response: " + resp + " " + resp.getClass().getSimpleName());
-                        if (resp.equals("false")) {
+                        boolean res = checkResponse(resp);
+                        if (res) {
                             postRepository.insert(post);
                             isLoading.setValue(true);
                             Log.d(TAG, "all good");
                         }
-                        // profanity found (no cussing in my application!)
                         else {
                             Log.d(TAG, "rejected");
                             isLoading.setValue(true);
@@ -89,6 +95,7 @@ public class PostViewModel extends AndroidViewModel {
                         Log.e("AdViewModel", "errore");
                     }
                 } else {
+                    Log.d("PostViewModel", response.errorBody().toString());
                     Log.d("AdViewModel", "NESSUNA RISPOSTA");
                 }
 

@@ -52,7 +52,7 @@ public class AdViewModel extends AndroidViewModel {
                 .build();
 
         ProfanityApiService service = retrofit.create(ProfanityApiService.class);
-        service.checkForPronfanity(ad.getTitle() + ad.getContent()).enqueue(new Callback<ResponseBody>() {
+        service.checkForPronfanity(ad.getTitle() + ad.getContent(), "").enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
