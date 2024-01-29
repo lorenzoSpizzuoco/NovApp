@@ -6,22 +6,19 @@ import java.util.List;
 
 public class GroupChat {
 
-    private int groupId;
+    private String ID;
     private String title;
     private String author;
     private String image;
     private List<MessageModel> messages;
 
-    public GroupChat(String title, String author) {
-        this.groupId = 0;
-        this.title = title;
-        this.author = author;
-        this.image = null;
-        this.messages = null;
+
+    public GroupChat() {
+        this(null, null, null, null);
     }
 
-    public GroupChat(int groupId, String title, String author, String image) {
-        this.groupId = groupId;
+    public GroupChat(String ID, String title, String author, String image) {
+        this.ID = ID;
         this.title = title;
         this.author = author;
         this.image = image;
@@ -34,5 +31,17 @@ public class GroupChat {
 
     public String getAuthor() {
         return author;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public List<MessageModel> getMessages() {
+        return messages;
     }
 }
