@@ -49,44 +49,33 @@
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"/>
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chipEvent"
-            style="@style/Widget.Material3.Chip.Assist.Elevated"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/event"
-            app:chipIcon="@drawable/colored_circle_drawable"
-            android:layout_below="@+id/infodesc"/>
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:layout_marginTop="5dp"
-            android:layout_below="@+id/chipEvent">
+            android:layout_below="@+id/infodesc">
 
-            <ImageView
-                android:id="@+id/calendarInfoIcon"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@drawable/calendar"
-                android:contentDescription="@string/calendar_icon_description"
-                android:layout_marginRight="5dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:gravity="center_vertical"/>
-
-            <TextView
+            <com.google.android.material.chip.Chip
                 android:id="@+id/infoDate"
+                style="@style/Widget.Material3.Chip.Assist.Elevated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:textFontWeight="@integer/google_play_services_version"
-                android:textSize="12sp"
-                tools:text="Date"
-                android:layout_toEndOf="@id/calendarInfoIcon"
-                android:layout_marginBottom="5dp"
+                android:text="@string/event_date_button"
+                app:chipIcon="@drawable/calendar"
+                android:layout_marginRight="5dp"
+
                 />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipEvent"
+                style="@style/Widget.Material3.Chip.Assist.Elevated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_info"
+                app:chipIcon="@drawable/colored_circle_drawable"
+                android:layout_toEndOf="@id/infoDate"/>
+
         </RelativeLayout>
 
     </RelativeLayout>

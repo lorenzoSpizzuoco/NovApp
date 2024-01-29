@@ -26,8 +26,8 @@
 
             <ImageView
                 android:id="@+id/ripetizioniImageView"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="0dp"
                 android:scaleType="centerCrop"
@@ -69,24 +69,26 @@
             android:layout_below="@id/titleRipRelaviveLayout"
             android:layout_marginTop="5dp">
 
-            <ImageView
-                android:id="@+id/calendarIcon"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@drawable/calendar"
-                android:contentDescription="@string/calendar_icon_description"
-                android:layout_marginEnd="5dp"
-                android:layout_centerVertical="true"/>
-
-            <TextView
+            <com.google.android.material.chip.Chip
                 android:id="@+id/ripetizioniDate"
+                style="@style/Widget.Material3.Chip.Assist.Elevated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/calendarIcon"
-                tools:text="Date"
-                android:textSize="14sp"
-                android:layout_marginBottom="5dp"
-                android:layout_centerVertical="true"/>
+                android:text="@string/button_ripetizioni"
+                app:chipIcon="@drawable/calendar"
+                android:layout_marginRight="5dp"
+
+                />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipRipetizioni"
+                style="@style/Widget.Material3.Chip.Assist.Elevated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_ripetizioni"
+                app:chipIcon="@drawable/colored_circle_drawable"
+                android:layout_toEndOf="@id/ripetizioniDate"/>
+
         </RelativeLayout>
 
     </RelativeLayout>
