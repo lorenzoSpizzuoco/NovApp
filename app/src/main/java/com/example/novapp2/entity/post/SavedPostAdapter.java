@@ -67,7 +67,7 @@ public class SavedPostAdapter extends  RecyclerView.Adapter{
         public CardView savedCardView;
         public ImageView imageView;
         public TextView titleTextView;
-        public TextView subtitleTextView;
+        //public TextView subtitleTextView;
         public TextView descTextView;
         public Button openButton;
         public Button addButton;
@@ -79,7 +79,7 @@ public class SavedPostAdapter extends  RecyclerView.Adapter{
             savedCardView = itemView.findViewById(R.id.saved_card_view);
             imageView = itemView.findViewById(R.id.savedCardImageView);
             titleTextView = itemView.findViewById(R.id.savedPostTitleTextView);
-            subtitleTextView = itemView.findViewById(R.id.savedPostSubtitleTextView);
+            //subtitleTextView = itemView.findViewById(R.id.savedPostSubtitleTextView);
             descTextView = itemView.findViewById(R.id.savedPostDescTextView);
             openButton = itemView.findViewById(R.id.savedCardOpenButton);
             addButton = itemView.findViewById(R.id.savedCardAddButton);
@@ -91,7 +91,7 @@ public class SavedPostAdapter extends  RecyclerView.Adapter{
             imageView.setImageResource(postList.get(position).getImage());
             titleTextView.setText(postList.get(position).getTitle());
             descTextView.setText(postList.get(position).getContent());
-            subtitleTextView.setText(postList.get(position).getPlace());
+            //subtitleTextView.setText(postList.get(position).getPlace());
 
         }
 
