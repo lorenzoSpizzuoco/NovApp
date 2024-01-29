@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.novapp2.MainActivity;
 import com.example.novapp2.R;
 import com.example.novapp2.service.UserService;
 import com.example.novapp2.ui.login.LoginFragment;
@@ -43,10 +44,6 @@ public class RegisterFragment extends Fragment {
     private TextInputLayout textInputLayoutPasswordConfirm;
     private FirebaseAuth mAuth;
 
-    public RegisterFragment() {
-        // Required empty public constructor
-    }
-
     public static RegisterFragment newInstance() {
         RegisterFragment fragment = new RegisterFragment();
         return fragment;
@@ -64,9 +61,8 @@ public class RegisterFragment extends Fragment {
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_register, container, false);
-
-
     }
+
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
@@ -77,7 +73,11 @@ public class RegisterFragment extends Fragment {
         // TODO: implement password confirm
 
         final Button buttonRegister = view.findViewById(R.id.button_register);
+        final Button buttonLogin = view.findViewById(R.id.button_login);
         Animation animation = AnimationUtils.loadAnimation(requireContext(), R.anim.shake);
+
+        buttonLogin.setOnClickListener(v ->
+                MainActivity.getNavController().navigate(R.id.action_register_to_login));
 
         buttonRegister.setOnClickListener(v -> {
 
@@ -97,7 +97,7 @@ public class RegisterFragment extends Fragment {
                         // Handle success, for example, navigate to the next activity
                         if (mAuth.getCurrentUser() != null) {
                             UserService.createUser(mAuth.getCurrentUser().getUid(), email);
-                            Navigation.findNavController(v).navigate(R.id.action_registerFragment_to_mainActivity2);
+                            MainActivity.getNavController().navigate(R.id.action_register_to_home);
                         } else {
                             Toast.makeText(requireContext(), "An error occurred!", Toast.LENGTH_SHORT).show();
                         }

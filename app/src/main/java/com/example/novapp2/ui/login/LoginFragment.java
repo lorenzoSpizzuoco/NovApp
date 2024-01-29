@@ -1,12 +1,9 @@
 package com.example.novapp2.ui.login;
 
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -21,18 +18,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.novapp2.MainActivity;
 import com.example.novapp2.R;
-import com.example.novapp2.ui.register.RegisterActivity;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
-import org.apache.commons.validator.routines.EmailValidator;
-
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -103,7 +94,7 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onSignInSuccess() {
                         // Handle success, for example, navigate to the next activity
-                        Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_mainActivity2);
+                        MainActivity.getNavController().navigate(R.id.action_login_to_home);
                     }
 
                     @Override
@@ -117,7 +108,7 @@ public class LoginFragment extends Fragment {
 
         toRegisterPage.setOnClickListener(v -> {
             Log.i(TAG, "Clicked");
-            Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_registerFragment);
+            MainActivity.getNavController().navigate(R.id.action_login_to_register);
         });
     }
 

@@ -3,14 +3,7 @@
     <string name="app_name">NovApp</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Avvisi</string>
-    <string name="new_account"> Don\'t have an account? </string>
-    <string name="register">Register</string>
-    <string name="forgot_password">Forgot Password?</string>
-    <string name="password">password</string>
-    <string name="password_confirm">confirm password</string>
-    <string name="email">email</string>
-    <string name="logo">logo</string>
+    <string name="title_notifications">Notifications</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="email_error"> Email not valid </string>
     <string name="hello"> Ciao, Alessandro! </string>
@@ -80,11 +73,33 @@
 
     <!-- Login strings -->
     <string name="login">Accedi</string>
+    <string name="new_account">Non hai un account?</string>
+    <string name="forgot_password">Password dimenticata?</string>
+
+    <!-- Register strings -->
+    <string name="have_account">Hai già un account?</string>
+    <string name="register">Registrati</string>
+    <string name="password">Password</string>
+    <string name="password_confirm">Conferma la password</string>
+    <string name="email">Email</string>
+    <string name="logo">Logo</string>
 
     <!-- Carousel strings -->
     <string name="first_carousel_txt">BiClub è l\'applicazione che permette di vivere a 360 gradi quello che l\'università Bicocca ha da offrire.</string>
     <string name="second_carousel_txt">Con BiClub potrai rimanere aggiornato sulla vita universitaria e trovare il tuo gruppo studio preferito, creato su misura per le tue esigenze.</string>
     <string name="third_carousel_txt">Che cosa aspetti? \nUnisciti alla community, entra nel Club!</string>
 
+    <!-- FullRegister -->
+    <string name="full_register_title">Parlaci di te!</string>
+    <string name="full_register_bio_hint">Che cosa è importante sapere di te?</string>
+    <string name="full_register_end_flow">Finito!</string>
+
+    <!-- General -->
+    <string name="name">Nome</string>
+    <string name="surname">Cognome</string>
+
+    <string name="icon_info_desc">Immagine informazioni universitarie</string>
+    <string name="calendar_icon_description">Icona di un calendario</string>
+    <string name="ripetizioni_content_desc">Immagine esplicativa ripetizioni</string>
 
 </resources>

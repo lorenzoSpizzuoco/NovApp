@@ -2,15 +2,7 @@
     <string name="app_name">NovApp</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Avvisi</string>
-
-    <string name="new_account"> Don\'t have an account? </string>
-    <string name="register">Register</string>
-    <string name="forgot_password">Forgot Password?</string>
-    <string name="password">password</string>
-    <string name="password_confirm">confirm password</string>
-    <string name="email">email</string>
-    <string name="logo">logo</string>
+    <string name="title_notifications">Notifications</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="email_error"> Email not valid </string>
     <string name="hello"> Ciao, Alessandro! </string>
@@ -84,14 +76,35 @@
 
     <!-- Login strings -->
     <string name="login">Login</string>
+    <string name="new_account">Don\'t have an account?</string>
+    <string name="forgot_password">Forgot Password?</string>
+
+    <!-- Register strings -->
+    <string name="have_account">You already have an account?</string>
+    <string name="register">Register</string>
+    <string name="password">Password</string>
+    <string name="password_confirm">Confirm password</string>
+    <string name="email">Email</string>
+    <string name="logo">Logo</string>
+
 
     <!-- Carousel strings -->
     <string name="first_carousel_txt">BiClub is the application that allows you to experience 360 degrees of what Bicocca University has to offer.</string>
     <string name="second_carousel_txt">With BiClub, you can stay updated on university life and find your favorite study group, tailored to your needs.</string>
     <string name="third_carousel_txt">What are you waiting for? \n<b>Join the community, enter the Club!</b></string>
+
+    <!-- FullRegister -->
+    <string name="full_register_title">Share about you!</string>
+    <string name="full_register_bio_hint">What key details should we know about you?</string>
+    <string name="full_register_end_flow">Finished!</string>
+
+    <!-- General -->
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+
     <string name="icon_info_desc">Immagine informazioni universitarie</string>
     <string name="calendar_icon_description">Icona di un calendario</string>
     <string name="ripetizioni_content_desc">Immagine esplicativa ripetizioni</string>
-    <string name="event">Evento</string>
+
 
 </resources>
