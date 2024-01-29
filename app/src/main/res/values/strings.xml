@@ -106,6 +106,7 @@
     <string name="icon_info_desc">Immagine informazioni universitarie</string>
     <string name="calendar_icon_description">Icona di un calendario</string>
     <string name="ripetizioni_content_desc">Immagine esplicativa ripetizioni</string>
+    <string name="share_something">Condividi con gli Utenti</string>
 
 
 </resources>

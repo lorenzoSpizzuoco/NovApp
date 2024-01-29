@@ -35,7 +35,6 @@
                     android:id="@+id/eventimageview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/event_image"
                     android:contentDescription="@string/event_desc"
                     android:scaleType="centerCrop"
                     tools:ignore="ImageContrastCheck" />

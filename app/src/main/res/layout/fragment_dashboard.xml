@@ -50,8 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:text="@string/button_event"
-                    android:textSize="14sp"
-                    app:chipIcon="@drawable/btn_2"/>
+                    android:textSize="14sp"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_ui"
@@ -60,8 +59,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:text="@string/button_info"
-                    android:textSize="14sp"
-                    app:chipIcon="@drawable/btn_1"/>
+                    android:textSize="14sp"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_gs"
@@ -70,8 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:text="@string/button_sg"
-                    android:textSize="14sp"
-                    app:chipIcon="@drawable/btn_2"/>
+                    android:textSize="14sp"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_ripetizioni"
@@ -80,8 +77,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:text="@string/button_ripetizioni"
-                    android:textSize="14sp"
-                    app:chipIcon="@drawable/btn_3"/>
+                    android:textSize="14sp"/>
 
             </com.google.android.material.chip.ChipGroup>
 
