@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
@@ -20,8 +21,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.navigation.Navigation;
 
 import com.example.novapp2.R;
+import com.example.novapp2.entity.post.Post;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
@@ -128,7 +131,7 @@ public class NewEventDialog extends DialogFragment {
         });
 
         saveEvent.setOnClickListener(v -> {
-            checkModal();
+            checkModal(view);
         });
 
         delPhoto.setOnClickListener(v -> {
@@ -191,7 +194,7 @@ public class NewEventDialog extends DialogFragment {
         }
     }
 
-    private void checkModal() {
+    private void checkModal(View view) {
         boolean valid = true;
 
         // checking event modal
@@ -232,7 +235,20 @@ public class NewEventDialog extends DialogFragment {
         }
 
         if (valid) {
-            // insert event
+            Bundle b = new Bundle();
+            b.putParcelable("post", new Post(
+                    eventTitle.getText().toString(),
+                    "author",
+                    R.drawable.analisi,
+                    null ,
+                    eventDescInner.getText().toString(),
+                    1,
+                    eventDateTextInner.getText().toString(),
+                    eventPlaceInner.getText().toString(),
+                    0 ));
+
+
+             Navigation.findNavController(getParentFragment().getView()).navigate(R.id.action_navigation_add_to_loadingFragment, b);
         }
 
     }

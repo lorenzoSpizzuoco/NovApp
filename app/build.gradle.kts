@@ -59,6 +59,8 @@ dependencies {
     val nav_version = "2.7.6"
     val room_version = "2.6.1"
 
+    implementation ("com.squareup.retrofit2:converter-scalars:2.4.0")
+    implementation("com.google.code.gson:gson:2.10.1")
     implementation("com.google.firebase:firebase-auth:22.3.0")
     implementation("androidx.navigation:navigation-fragment:$nav_version")
     implementation("androidx.navigation:navigation-ui:$nav_version")
