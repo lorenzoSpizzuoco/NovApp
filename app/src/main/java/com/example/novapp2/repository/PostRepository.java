@@ -26,7 +26,7 @@ import java.util.List;
 
 public class PostRepository {
 
-    private String TAG = AdRepository.class.getSimpleName();
+    private String TAG = PostRepository.class.getSimpleName();
     private PostDao postDao;
     private LiveData<List<Post>> allPosts;
 
@@ -70,75 +70,23 @@ public class PostRepository {
 
         return posts;
     }
-    /*
-    public LiveData<List<Post>> getRemotePosts(int start, int end) {
 
+    public LiveData<List<Post>> getRemotePosts(int start, int size) {
+        Log.d(TAG, "vengo chiamato");
         MutableLiveData<List<Post>> posts = new MutableLiveData<>();
 
-        mDatabase.child("posts").orderByChild("timestamp")
-                .startAt(start)
-                .endAt(end)
+        mDatabase.child("posts")
                 .get().addOnCompleteListener(task -> {
                     if (!task.isSuccessful()) {
 
-                    }
-                    else {
-
-                        List<Post> postList = new ArrayList<>();
-
-                        // genericPosts
-                        for(DataSnapshot ds: task.getResult().getChildren()) {
-                            GenericPost postInfos = ds.getValue(GenericPost.class);
-                            String mainChild = "events";
-                            switch(postInfos.getCategoria()) {
-                                case 1:
-                                    mainChild = "events";
-                                    break;
-                                case 2:
-                                    mainChild = "infos";
-                                    break;
-                                case 3:
-                                    mainChild = "repetitions";
-                                    break;
-                                case 4:
-                                    mainChild = "studyGroups";
-                                    break;
-                            }
-                            // fetching single post
-                            mDatabase.child(mainChild).child(postInfos.getId()).get().addOnCompleteListener(
-                                    taskInner -> {
-                                        for(DataSnapshot p: taskInner.getResult().getChildren()){
-                                            Post post = p.getValue(Post.class);
-                                            postList.add(post);
-                                        }
-                                    }
-                            );
-
-                        }
-
-                        posts.setValue(postList);
-                    }
-                });
-
-        return posts;
-    }*/
-
-    public LiveData<List<Post>> getRemotePosts(int start, int end) {
-
-        MutableLiveData<List<Post>> posts = new MutableLiveData<>();
-
-        mDatabase.child("posts").orderByChild("timestamp")
-                .startAt(start)
-                .endAt(end)
-                .get().addOnCompleteListener(task -> {
-                    if (!task.isSuccessful()) {
-
+                        Log.d(TAG, "fail");
                     }
                     else {
 
                         List<Post> postList = new ArrayList<>();
                         long childrenCount = task.getResult().getChildrenCount();
-                        long[] completedTasks = {0};
+                        Log.d(TAG, "qualcosa " + String.valueOf(childrenCount));
+                        int completed = 0;
 
                         // genericPosts
                         for(DataSnapshot ds: task.getResult().getChildren()) {
@@ -158,17 +106,15 @@ public class PostRepository {
                                     mainChild = "studyGroups";
                                     break;
                             }
+                            Log.d(TAG, mainChild);
                             // fetching single post
                             mDatabase.child(mainChild).child(postInfos.getId()).get().addOnCompleteListener(
                                     taskInner -> {
-                                        for(DataSnapshot p: taskInner.getResult().getChildren()){
-                                            Post post = p.getValue(Post.class);
-                                            postList.add(post);
-                                        }
-                                        completedTasks[0]++;
-                                        if(completedTasks[0] == childrenCount){
-                                            posts.setValue(postList);
-                                        }
+                                        Log.d(TAG, taskInner.getResult().toString());
+                                        Post p = taskInner.getResult().getValue(Post.class);
+                                        Log.d(TAG, p.toString());
+                                        postList.add(p);
+                                        posts.setValue(postList);
                                     }
                             );
 

@@ -29,7 +29,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class PostViewModel extends AndroidViewModel {
 
-    static final private String TAG = AdViewModel.class.getSimpleName();
+    static final private String TAG = PostViewModel.class.getSimpleName();
     private Retrofit retrofit;
     private PostRepository postRepository;
 

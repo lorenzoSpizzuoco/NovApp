@@ -187,7 +187,7 @@ public class NewGsDialog extends DialogFragment {
             Bundle b = new Bundle();
             b.putParcelable("post", new Post(
                     gsTitle.getText().toString(),
-                    hf.getActiveUser().getEmail(),
+                    "author",
                     0,
                     null,
                     gsDesc.getText().toString(),

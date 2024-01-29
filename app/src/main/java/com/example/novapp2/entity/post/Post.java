@@ -159,4 +159,12 @@ public class Post implements Parcelable{
         dest.writeInt(image);
         dest.writeInt(favorite);
     }
+
+    @Override
+    public String toString() {
+        return this.getTitle() +
+                " " +
+                String.valueOf(this.getCategory()) +
+                this.getContent();
+    }
 }
