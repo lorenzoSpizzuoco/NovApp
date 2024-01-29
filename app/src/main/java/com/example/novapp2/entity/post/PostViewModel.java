@@ -33,6 +33,7 @@ public class PostViewModel extends AndroidViewModel {
     private Retrofit retrofit;
     private PostRepository postRepository;
 
+    private long lastelement;
     private MutableLiveData<Integer> isFavorite = new MutableLiveData<>();
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
     private final LiveData<List<Post>> allPost;
@@ -41,8 +42,9 @@ public class PostViewModel extends AndroidViewModel {
         super(application);
         postRepository = new PostRepository(application);
         //allPost = postRepository.getAllPost(false);
-        allPost = postRepository.getRemotePosts(0, 10);
+        allPost = postRepository.getRemotePosts(null);
         isFavorite.setValue(0);
+        lastelement = 0;
     }
 
     public MutableLiveData<Integer> getIsFavorite() {

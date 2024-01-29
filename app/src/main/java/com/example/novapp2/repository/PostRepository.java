@@ -71,11 +71,11 @@ public class PostRepository {
         return posts;
     }
 
-    public LiveData<List<Post>> getRemotePosts(int start, int size) {
+    public LiveData<List<Post>> getRemotePosts(Post post) {
         Log.d(TAG, "vengo chiamato");
         MutableLiveData<List<Post>> posts = new MutableLiveData<>();
-
         mDatabase.child("posts")
+                //.limitToFirst(10)
                 .get().addOnCompleteListener(task -> {
                     if (!task.isSuccessful()) {
 
@@ -85,7 +85,6 @@ public class PostRepository {
 
                         List<Post> postList = new ArrayList<>();
                         long childrenCount = task.getResult().getChildrenCount();
-                        Log.d(TAG, "qualcosa " + String.valueOf(childrenCount));
                         int completed = 0;
 
                         // genericPosts
