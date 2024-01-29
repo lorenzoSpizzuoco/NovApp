@@ -60,8 +60,6 @@ public class LoadingFragment extends Fragment {
             if (isLoading != null && isLoading) {
                 Log.d(TAG, "inside observer");
                 Navigation.findNavController(getView()).navigate(R.id.action_loadingFragment_to_navigation_dashboard);
-
-                //Navigation.findNavController(requireView()).navigateUp();
             }
         });
     }
