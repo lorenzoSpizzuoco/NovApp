@@ -34,7 +34,7 @@ public class UserService {
         return userRepositoryImpl.getUserById(userID);
     }
 
-    public Task<Void> updateUserById(String userId, User updatedUser){
+    public static Task<Void> updateUserById(String userId, User updatedUser){
         return userRepositoryImpl.updateUserById(userId, updatedUser);
     }
 
