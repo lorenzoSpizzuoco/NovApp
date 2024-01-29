@@ -1,5 +1,11 @@
 package com.example.novapp2.repository;
 
+import static com.example.novapp2.utils.Constants.DB_EVENTS;
+import static com.example.novapp2.utils.Constants.DB_GS;
+import static com.example.novapp2.utils.Constants.DB_INFOS;
+import static com.example.novapp2.utils.Constants.DB_POSTS;
+import static com.example.novapp2.utils.Constants.DB_RIPET;
+
 import android.app.Application;
 import android.util.Log;
 
@@ -30,16 +36,22 @@ public class PostRepository {
     private PostDao postDao;
     private LiveData<List<Post>> allPosts;
 
+    private MutableLiveData<GenericPost> lastFetched = new MutableLiveData<>(null);
+
+    private MutableLiveData<Boolean> firstBatch = new MutableLiveData<Boolean>(true);
+
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
     public PostRepository(Application application) {
-        //AdRoomDatabase db = AdRoomDatabase.getDatabase(application);
-        //AdRoomDatabase.getDatabase(application).clearAllTables();
+
         PostRoomDatabase db = PostRoomDatabase.getDatabase(application);
 
         db = PostRoomDatabase.getDatabase(application);
         postDao = db.postDao();
-        allPosts = postDao.getAllPosts();
+        //allPosts = postDao.getAllPosts();
+        // FIRST CALL WITH NULL PARAMETER -> FETCH FIRST 20 POSTS
+        //allPosts = getRemotePosts(null);
+        //lastFetched.setValue(allPosts.getValue().get(allPosts.getValue().size() - 1));
     }
 
     public LiveData<List<Post>> getAllPost(Boolean local) {
@@ -51,7 +63,7 @@ public class PostRepository {
         MutableLiveData<List<Post>> posts = new MutableLiveData<>();
 
         // remote fetching
-        mDatabase.child("posts").orderByChild("timestamp").limitToFirst(20).get().addOnCompleteListener(task -> {
+        mDatabase.child(DB_POSTS).orderByChild("timestamp").limitToFirst(20).get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
 
             }
@@ -71,96 +83,143 @@ public class PostRepository {
         return posts;
     }
 
-    public LiveData<List<Post>> getRemotePosts(Post post) {
-        Log.d(TAG, "vengo chiamato");
+    public LiveData<List<Post>> getRemotePosts() {
+
         MutableLiveData<List<Post>> posts = new MutableLiveData<>();
-        mDatabase.child("posts")
-                //.limitToFirst(10)
-                .get().addOnCompleteListener(task -> {
-                    if (!task.isSuccessful()) {
 
-                        Log.d(TAG, "fail");
-                    }
-                    else {
+        if (firstBatch.getValue()){
 
-                        List<Post> postList = new ArrayList<>();
-                        long childrenCount = task.getResult().getChildrenCount();
-                        int completed = 0;
+            mDatabase.child(DB_POSTS)
+                    .limitToFirst(10)
+                    .get().addOnCompleteListener(task -> {
+                        if (!task.isSuccessful()) {
+                            Log.d(TAG, "fail");
+                        }
+                        else {
 
-                        // genericPosts
-                        for(DataSnapshot ds: task.getResult().getChildren()) {
-                            GenericPost postInfos = ds.getValue(GenericPost.class);
-                            String mainChild = "events";
-                            switch(postInfos.getCategoria()) {
-                                case 1:
-                                    mainChild = "events";
-                                    break;
-                                case 2:
-                                    mainChild = "infos";
-                                    break;
-                                case 3:
-                                    mainChild = "repetitions";
-                                    break;
-                                case 4:
-                                    mainChild = "studyGroups";
-                                    break;
+                            List<Post> postList = new ArrayList<>();
+                            long childrenCount = task.getResult().getChildrenCount();
+
+                            // genericPosts
+                            for(DataSnapshot ds: task.getResult().getChildren()) {
+                                GenericPost postInfos = ds.getValue(GenericPost.class);
+                                String mainChild = DB_EVENTS;
+                                switch(postInfos.getCategoria()) {
+                                    case 1:
+                                        mainChild = DB_EVENTS;
+                                        break;
+                                    case 2:
+                                        mainChild = DB_INFOS;
+                                        break;
+                                    case 3:
+                                        mainChild = DB_RIPET;
+                                        break;
+                                    case 4:
+                                        mainChild = DB_GS;
+                                        break;
+                                }
+                                //Log.d(TAG, mainChild);
+                                // fetching single post
+                                mDatabase.child(mainChild).child(postInfos.getId()).get().addOnCompleteListener(
+                                        taskInner -> {
+                                            //Log.d(TAG, taskInner.getResult().toString());
+                                            Post p = taskInner.getResult().getValue(Post.class);
+                                            //Log.d(TAG, p.toString());
+                                            postList.add(p);
+                                            posts.setValue(postList);
+                                            lastFetched.setValue(postInfos);
+                                        }
+                                );
+
                             }
-                            Log.d(TAG, mainChild);
-                            // fetching single post
-                            mDatabase.child(mainChild).child(postInfos.getId()).get().addOnCompleteListener(
-                                    taskInner -> {
-                                        Log.d(TAG, taskInner.getResult().toString());
-                                        Post p = taskInner.getResult().getValue(Post.class);
-                                        Log.d(TAG, p.toString());
-                                        postList.add(p);
-                                        posts.setValue(postList);
-                                    }
-                            );
 
                         }
+                    });
+            }
+        else {
+            // getting timestamp
+            // not first batch
+            firstBatch.setValue(false);
+            mDatabase.child(DB_POSTS)
+                    .orderByChild("timestamp")
+                    .startAfter(lastFetched.getValue().getTimestamp())
+                    .limitToFirst(10)
+                    .get().addOnCompleteListener(task -> {
+                        if (!task.isSuccessful()) {
+                            Log.d(TAG, "fail");
+                        }
+                        else {
 
-                    }
-                });
+                            List<Post> postList = new ArrayList<>();
+                            long childrenCount = task.getResult().getChildrenCount();
+                            int completed = 0;
+
+                            // genericPosts
+                            for(DataSnapshot ds: task.getResult().getChildren()) {
+                                GenericPost postInfos = ds.getValue(GenericPost.class);
+                                String mainChild = DB_EVENTS;
+                                switch(postInfos.getCategoria()) {
+                                    case 1:
+                                        mainChild = DB_EVENTS;
+                                        break;
+                                    case 2:
+                                        mainChild = DB_INFOS;
+                                        break;
+                                    case 3:
+                                        mainChild = DB_RIPET;
+                                        break;
+                                    case 4:
+                                        mainChild = DB_GS;
+                                        break;
+                                }
+                                // fetching single post
+                                mDatabase.child(mainChild).child(postInfos.getId()).get().addOnCompleteListener(
+                                        taskInner -> {
+                                            Post p = taskInner.getResult().getValue(Post.class);
+                                            postList.add(p);
+                                            posts.setValue(postList);
+                                            lastFetched.setValue(postInfos);
+                                        }
+                                );
+
+                            }
+
+                        }
+                    });
+        }
 
         return posts;
     }
 
-
-
-
     public void insert(Post post) {
 
-        Log.d("PostRepository", "sono qui");
-        String id = mDatabase.child("posts").push().getKey();
+        String id = mDatabase.child(DB_POSTS).push().getKey();
 
 
         Date date = new Date();
         long time = date.getTime();
-        mDatabase.child("posts").child(id).setValue(new GenericPost(id, time, post.getCategory()));
+        mDatabase.child(DB_POSTS).child(id).setValue(new GenericPost(id, time, post.getCategory()));
 
         switch (post.getCategory()) {
             case 1:
-                mDatabase.child("event").child(id).setValue(post);
+                mDatabase.child(DB_EVENTS).child(id).setValue(post);
                 break;
             case 2:
-                mDatabase.child("infos").child(id).setValue(post);
+                mDatabase.child(DB_INFOS).child(id).setValue(post);
                 break;
             case 3:
-                mDatabase.child("repetetions").child(id).setValue(post);
+                mDatabase.child(DB_RIPET).child(id).setValue(post);
                 break;
             case 4:
-                mDatabase.child("studyGroups").child(id).setValue(post);
+                mDatabase.child(DB_GS).child(id).setValue(post);
                 break;
         }
 
+        /*
         PostRoomDatabase.databaseWriteExecutor.execute(() -> {
             postDao.insert(post);
         });
-
-
-
-
-
+         */
     }
 
     public LiveData<List<Post>> setFavorite(long id, int fav) {
