@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.example.novapp2.R;
 import com.example.novapp2.entity.chat.group.GroupChat;
 import com.example.novapp2.entity.chat.group.GroupChatAdapter;
+import com.example.novapp2.entity.chat.group.GroupChatDB;
 import com.example.novapp2.entity.chat.group.GroupChatFactory;
 
 import java.util.List;
@@ -33,6 +34,8 @@ public class FragmentChat extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        GroupChatDB.saveGroupChatToDB(new GroupChat("Il gruppo di dio", "dio"));
 
         List<GroupChat> groupChats = GroupChatFactory.createGroupChats();
 
