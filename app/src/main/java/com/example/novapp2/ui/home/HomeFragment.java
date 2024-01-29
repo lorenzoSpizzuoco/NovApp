@@ -45,9 +45,9 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         BottomNavigationView navView = requireView().findViewById(R.id.nav_view);
 
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+        /*AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_dashboard, R.id.navigation_chat, R.id.navigation_add, R.id.navigation_notifications, R.id.navigation_profile)
-                .build();
+                .build();*/
 
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(navView, navController);
