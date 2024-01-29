@@ -1,5 +1,7 @@
 package com.example.novapp2.entity.add;
 
+import static com.example.novapp2.utils.Utils.bitmapToBase64;
+
 import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -25,6 +27,7 @@ import androidx.navigation.Navigation;
 
 import com.example.novapp2.R;
 import com.example.novapp2.entity.post.Post;
+import com.example.novapp2.ui.home.HomeFragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
@@ -235,12 +238,13 @@ public class NewEventDialog extends DialogFragment {
         }
 
         if (valid) {
+            HomeFragment hf = new HomeFragment();
             Bundle b = new Bundle();
             b.putParcelable("post", new Post(
                     eventTitle.getText().toString(),
                     "author",
                     R.drawable.analisi,
-                    null ,
+                    bitmapToBase64(eventPhoto),
                     eventDescInner.getText().toString(),
                     1,
                     eventDateTextInner.getText().toString(),

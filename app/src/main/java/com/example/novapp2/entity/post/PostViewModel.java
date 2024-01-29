@@ -7,9 +7,11 @@ import static com.example.novapp2.utils.Utils.checkResponse;
 import android.app.Application;
 import android.util.Log;
 
+import com.example.novapp2.entity.User;
 import com.example.novapp2.entity.ad.AdViewModel;
 import com.example.novapp2.repository.PostRepository;
 import com.example.novapp2.service.ProfanityApiService;
+import com.google.android.gms.tasks.Task;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -35,11 +37,11 @@ public class PostViewModel extends AndroidViewModel {
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
     private final LiveData<List<Post>> allPost;
 
-
     public PostViewModel (Application application) {
         super(application);
         postRepository = new PostRepository(application);
-        allPost = postRepository.getAllPost();
+        //allPost = postRepository.getAllPost(false);
+        allPost = postRepository.getRemotePosts(0, 10);
         isFavorite.setValue(0);
     }
 
@@ -62,7 +64,6 @@ public class PostViewModel extends AndroidViewModel {
 
     public void insert(Post post) {
 
-        //isLoading.setValue(true);
         // check for profanity
         retrofit = new Retrofit.Builder()
                 .baseUrl(PROFANITY_API_BASE_URL)
@@ -82,6 +83,7 @@ public class PostViewModel extends AndroidViewModel {
                         Log.d(TAG, "response: " + resp + " " + resp.getClass().getSimpleName());
                         boolean res = checkResponse(resp);
                         if (res) {
+                            // insertion
                             postRepository.insert(post);
                             isLoading.setValue(true);
                             Log.d(TAG, "all good");

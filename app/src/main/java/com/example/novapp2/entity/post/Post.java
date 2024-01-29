@@ -30,6 +30,7 @@ public class Post implements Parcelable{
 
     private int favorite;
 
+    public Post() {}
 
     protected Post(Parcel in) {
         postImage = in.readString();

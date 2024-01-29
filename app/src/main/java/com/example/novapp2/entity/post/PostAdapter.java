@@ -1,6 +1,8 @@
 package com.example.novapp2.entity.post;
 
 
+import static com.example.novapp2.utils.Utils.base64ToBitmap;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
@@ -219,7 +221,8 @@ public class PostAdapter extends  RecyclerView.Adapter{
                 imageView.setImageResource(postList.get(position).getImage());
             }
             else {
-                // convert from base64 to bitmap and ImageView.setImageBitmap
+                String base64Econded = postList.get(position).getPostImage();
+                imageView.setImageBitmap(base64ToBitmap(base64Econded));
             }
             titleView.setText(postList.get(position).getTitle());
             descView.setText(postList.get(position).getContent());
@@ -258,8 +261,10 @@ public class PostAdapter extends  RecyclerView.Adapter{
                 imageView.setImageResource(postList.get(position).getImage());
             }
             else {
-                // convert from base64 to bitmap and ImageView.setImageBitmap
+                String base64Econded = postList.get(position).getPostImage();
+                imageView.setImageBitmap(base64ToBitmap(base64Econded));
             }
+
             titleView.setText(postList.get(position).getTitle());
             descView.setText(postList.get(position).getContent());
             dateView.setText(postList.get(position).getDate());
