@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.dashboard.DashboardFragment"
-    android:background="@color/background_white">
+    tools:context=".ui.dashboard.DashboardFragment">
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/courseSearchView"
@@ -92,7 +91,6 @@
         android:id="@+id/courseView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/background_white"
         android:paddingLeft="10dp"
         android:paddingTop="0dp"
         android:paddingRight="10dp"

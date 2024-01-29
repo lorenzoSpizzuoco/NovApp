@@ -11,8 +11,7 @@
     android:layout_marginRight="5dp"
     android:layout_marginBottom="5dp"
     app:cardCornerRadius="8dp"
-    app:cardElevation="4dp"
-    app:cardBackgroundColor="@color/background_white">
+    app:cardElevation="4dp">
 
     <RelativeLayout
         android:id="@+id/courseView"
@@ -24,15 +23,13 @@
             android:id="@+id/imageview"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginRight="15dp"
-            android:outlineAmbientShadowColor="@color/background_gray" />
+            android:layout_marginRight="15dp"/>
 
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/imageview"
-            android:textColor="@color/main_blue"
             android:textSize="20sp"
             tools:text="Title" />
 
@@ -42,7 +39,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/title"
             android:layout_toEndOf="@id/imageview"
-            android:textColor="@color/main_grey"
             tools:text="Desc" />
 
     </RelativeLayout>

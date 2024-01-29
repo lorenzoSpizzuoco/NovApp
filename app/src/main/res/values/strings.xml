@@ -2,7 +2,7 @@
     <string name="app_name">NovApp</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_notifications">Avvisi</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="email_error"> Email not valid </string>
     <string name="hello"> Ciao, Alessandro! </string>
@@ -23,6 +23,7 @@
     <string name="open">Apri</string>
     <string name="add_to_favourite">Aggiungi ai preferiti</string>
     <string name="Save"> Salva </string>
+    <string name="event"> Evento </string>
 
     <!-- NEW EVENT STRINGS -->
 
