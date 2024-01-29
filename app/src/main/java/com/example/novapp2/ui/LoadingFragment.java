@@ -16,12 +16,15 @@ import android.view.ViewGroup;
 import com.example.novapp2.R;
 import com.example.novapp2.entity.ad.Ad;
 import com.example.novapp2.entity.ad.AdViewModel;
+import com.example.novapp2.entity.post.Post;
+import com.example.novapp2.entity.post.PostViewModel;
 
 
 public class LoadingFragment extends Fragment {
 
-    private AdViewModel adViewModel;
-    private Ad ad;
+    private PostViewModel postViewModel;
+
+    private Post post;
     private final String TAG = LoadingFragment.class.getSimpleName();
 
     public static LoadingFragment newInstance(String param1, String param2) {
@@ -32,15 +35,15 @@ public class LoadingFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adViewModel = new ViewModelProvider(this).get(AdViewModel.class);
+        postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Bundle bundle = getArguments();
-        if (bundle != null && bundle.getParcelable("adobj") != null) {
-            ad = bundle.getParcelable("adobj");
+        if (bundle != null && bundle.getParcelable("post") != null) {
+            post = bundle.getParcelable("post");
         }
         return inflater.inflate(R.layout.fragment_loading, container, false);
     }
@@ -50,13 +53,13 @@ public class LoadingFragment extends Fragment {
         Log.d(TAG, "sono qui");
 
         // inserting new add
-        adViewModel.insert(ad);
+        postViewModel.insert(post);
 
 
-        adViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
+        postViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
             if (isLoading != null && isLoading) {
                 Log.d(TAG, "inside observer");
-                Navigation.findNavController(getView()).navigate(R.id.action_loadingFragment_to_navigation_home);
+                Navigation.findNavController(getView()).navigate(R.id.action_loadingFragment_to_navigation_dashboard);
 
                 //Navigation.findNavController(requireView()).navigateUp();
             }
