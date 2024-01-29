@@ -61,20 +61,20 @@
                 style="@style/Widget.Material3.Chip.Assist.Elevated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
                 android:text="@string/event_date_button"
                 app:chipIcon="@drawable/calendar"
-                android:layout_marginRight="5dp"
-
-                />
+                tools:ignore="TouchTargetSizeCheck" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipEvent"
                 style="@style/Widget.Material3.Chip.Assist.Elevated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/infoDate"
                 android:text="@string/button_info"
                 app:chipIcon="@drawable/colored_circle_drawable"
-                android:layout_toEndOf="@id/infoDate"/>
+                tools:ignore="TouchTargetSizeCheck" />
 
         </RelativeLayout>
 
