@@ -71,33 +71,3 @@ public class FullRegisterFragment extends Fragment {
     }
 }
 
-
-
-/*public class FullRegisterActivity extends AppCompatActivity {
-
-    private Button end_flow_button;
-    private User activeUser;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_carousel);
-
-        end_flow_button = this.findViewById(R.id.full_register_end_flow_button);
-        activeUser = (User) getIntent().getParcelableExtra("activeUser");
-
-        end_flow_button.setOnClickListener(v -> {
-            updateUser();
-            toMainPage();
-        });
-    }
-
-    private void toMainPage() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-
-    private void updateUser() {
-        //Toast.makeText(this, activeUser.email, Toast.LENGTH_SHORT).show();
-    }
-}*/

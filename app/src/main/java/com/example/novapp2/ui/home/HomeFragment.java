@@ -73,7 +73,8 @@ public class HomeFragment extends Fragment {
             });
 
         } else {
-            MainActivity.getNavController().navigate(R.id.action_home_to_login);
+            // TODO remove comment
+            //  MainActivity.getNavController().navigate(R.id.action_home_to_login);
         }
     }
 
