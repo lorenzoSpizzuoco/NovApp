@@ -24,6 +24,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.util.Arrays;
+import java.util.List;
+
 
 public class HomeFragment extends Fragment {
 
@@ -77,7 +80,7 @@ public class HomeFragment extends Fragment {
             // TODO remove comment
             //  MainActivity.getNavController().navigate(R.id.action_home_to_login);
         }
-    }
+}
 
 
     private boolean userFullyRegistered(User user) {

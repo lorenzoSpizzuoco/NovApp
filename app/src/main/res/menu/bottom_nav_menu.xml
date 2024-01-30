@@ -7,7 +7,7 @@
         android:title="Post" />
 
     <item
-        android:id="@+id/openChatFragment"
+        android:id="@+id/navigation_chat"
         android:icon="@drawable/selector_chat_icon"
         android:title="Chat" />
 

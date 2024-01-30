@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_chat"
-        android:name="com.example.novapp2.ui.home.chat.FragmentChat"
+        android:name="com.example.novapp2.ui.home.chat.ChatFragment"
         android:label="fragment_chat"
         tools:layout="@layout/fragment_chat"/>
 
