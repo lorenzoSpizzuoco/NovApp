@@ -181,17 +181,6 @@ public class NewGsDialog extends DialogFragment {
     private void checkModal() {
         boolean valid = true;
 
-        /*
-        // checking event modal
-        if (eventDateTextInner.getText().toString().compareTo("") == 0) {
-            valid = false;
-            eventDateTextInner.setError(ContextCompat.getString(getContext(), R.string.date_error));
-        }
-        else{
-            eventDateTextInner.setError(null);
-        }
-         */
-
         if (gsTitle.getText().toString().compareTo("") == 0){
             valid = false;
             gsTitle.setError(ContextCompat.getString(getContext(), R.string.title_error));
@@ -199,7 +188,6 @@ public class NewGsDialog extends DialogFragment {
         else{
             gsTitle.setError(null);
         }
-
 
         if(gsDesc.getText().toString().compareTo("") == 0) {
             valid = false;
@@ -218,7 +206,7 @@ public class NewGsDialog extends DialogFragment {
             b.putParcelable("post", new Post(
                     gsTitle.getText().toString(),
                     HomeFragment.getActiveUser().getEmail(),
-                    0,
+                    R.drawable.analisi,
                     null,
                     gsDesc.getText().toString(),
                     4,
@@ -233,7 +221,3 @@ public class NewGsDialog extends DialogFragment {
     }
 
 }
-
-
-
-

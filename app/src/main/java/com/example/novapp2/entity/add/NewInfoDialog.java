@@ -191,8 +191,8 @@ public class NewInfoDialog extends DialogFragment {
             Bundle b = new Bundle();
             b.putParcelable("post", new Post(
                     infoTitle.getText().toString(),
-                    "user",
-                    0,
+                    HomeFragment.getActiveUser().getEmail(),
+                    R.drawable.analisi,
                     null,
                     infoDesc.getText().toString(),
                     2,
