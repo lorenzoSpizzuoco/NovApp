@@ -18,6 +18,7 @@ import com.example.novapp2.entity.chat.group.GroupChat;
 import com.example.novapp2.entity.chat.message.Message;
 import com.example.novapp2.entity.chat.message.MessageAdapter;
 import com.example.novapp2.entity.chat.message.MessageFactory;
+import com.example.novapp2.service.MessageService;
 import com.google.android.gms.tasks.Task;
 
 import java.util.List;
@@ -58,5 +59,7 @@ public class OpenChatFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
+
+        MessageService.createMessage("ada", "Io sono stanco", "piero");
     }
 }

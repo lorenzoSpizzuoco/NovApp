@@ -9,33 +9,7 @@ public class MessageFactory {
 
     public static List<Message> createMessages() {
         list = new ArrayList<>();
-        list.add(new Message("bello1", "giorgio"));
-        list.add(new Message("bello2", "leone@leone.com"));
-        list.add(new Message("bello1", "leone@leone.com"));
-        list.add(new Message("bello2", "leone@leone.com"));
-        list.add(new Message("bello1", "giorgio"));
-        list.add(new Message("bello2", "piero"));
-        list.add(new Message("bello1", "giorgio"));
-        list.add(new Message("bello2", "giorgio"));
-        list.add(new Message("bello1", "giorgio"));
-        list.add(new Message("bello2", "piero"));
-        list.add(new Message("bello2", "giorgio"));
-        list.add(new Message("bello1", "giorgio"));
-        list.add(new Message("bello2", "giorgio"));
-        list.add(new Message("bello1", "giorgio"));
-        list.add(new Message("bello2", "piero"));
-        list.add(new Message("bello2", "piero"));
-        list.add(new Message("bello2", "giorgio"));
-        list.add(new Message("bello1", "giorgio"));
-        list.add(new Message("bello2", "giorgio"));
-        list.add(new Message("bello2", "piero"));
-        list.add(new Message("bello2", "leone@leone.com"));
-        list.add(new Message("bello2", "leone@leone.com"));
-        list.add(new Message("bello2", "leone@leone.com"));
-        list.add(new Message("bello1", "giorgio"));
-        list.add(new Message("bello2", "giorgio"));
-        list.add(new Message("bello1", "giorgio"));
-        list.add(new Message("bello2", "giorgio"));
+        list.add(new Message("1", "bello1", "giorgio"));
 
         return list;
     }
