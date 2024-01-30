@@ -1,18 +1,24 @@
 package com.example.novapp2.entity.add;
 
 import android.app.Dialog;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
@@ -21,10 +27,13 @@ import androidx.navigation.Navigation;
 import com.example.novapp2.R;
 import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.ui.home.HomeFragment;
+import com.example.novapp2.ui.home.HomeFragmentDirections;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -40,21 +49,21 @@ public class NewGsDialog extends DialogFragment {
 
     private TextInputEditText gsTitle;
 
-    private TextInputEditText gsPlace;
-
     private TextInputEditText gsDesc;
 
-    private DatePicker eventDatePicker;
+    public ImageView eventImage;
 
     private TextInputLayout eventDateText;
-    private TextInputEditText eventDateTextInner;
+
+    private Bitmap eventPhoto;
+
+    private Uri imageUri;
 
     private MaterialButton photoButton;
 
     private FloatingActionButton delPhoto;
 
     private TextView saveEvent;
-
 
     private ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
 
@@ -74,6 +83,24 @@ public class NewGsDialog extends DialogFragment {
 
         super.onCreate(savedInstanceState);
 
+        pickMedia =
+                registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
+                    if (uri != null) {
+                        Log.d("PhotoPicker", "Selected URI: " + uri);
+                        imageUri = uri;
+                        ImageView ev = new ImageView(getContext());
+                        ev.setImageURI(uri);
+                        BitmapDrawable draw = (BitmapDrawable) ev.getDrawable();
+                        eventPhoto = draw.getBitmap();
+                        eventImage.setImageBitmap(eventPhoto);
+                        delPhoto.setVisibility(View.VISIBLE);
+                        delPhoto.setColorFilter(ContextCompat.getColor(this.getContext(), android.R.color.black));
+
+                    } else {
+                        Log.d("PhotoPicker", "No media selected");
+                    }
+                });
+
         setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_NovApp2_Slide);
     }
 
@@ -90,37 +117,12 @@ public class NewGsDialog extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
         gsTitle = view.findViewById(R.id.new_gs_title_inner);
         gsDesc = view.findViewById(R.id.new_gs_desc_inner);
-        gsPlace = view.findViewById(R.id.new_gs_place_inner);
+        eventImage = view.findViewById(R.id.gs_photo_view);
         saveEvent = view.findViewById(R.id.save_button_gs);
         delPhoto = view.findViewById(R.id.fab_delete_photo);
         toolbar = view.findViewById(R.id.toolbar_gs);
-        eventDateText = view.findViewById(R.id.date_picker_input_text_gs);
-        eventDateTextInner = view.findViewById(R.id.date_input_text_inner_gs);
+        photoButton = view.findViewById(R.id.gs_photo_button);
 
-        eventDateTextInner.setInputType(InputType.TYPE_NULL);
-
-        eventDateTextInner.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-
-            @Override
-            public void onFocusChange(View v, boolean sel) {
-                if(v.getId() == R.id.date_input_text_inner_gs  && sel) {
-                    MaterialDatePicker<Long> dp = MaterialDatePicker.Builder.datePicker()
-                            .setTitleText("Seleziona la data dell'evento")
-                            .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-                            .build();
-
-                    dp.show(getChildFragmentManager(), "TAG");
-
-                    dp.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
-                        @Override
-                        public void onPositiveButtonClick(Long selection) {
-                            String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date(selection));
-                            eventDateTextInner.setText(date);
-                        }
-                    });
-                }
-            }
-        });
 
         toolbar.setNavigationOnClickListener(v -> dismiss());
 
@@ -129,9 +131,39 @@ public class NewGsDialog extends DialogFragment {
             return true;
         });
 
+        // launching pick media launcher
+        photoButton.setOnClickListener(v -> {
+
+            pickMedia.launch(new PickVisualMediaRequest.Builder()
+                    .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
+                    .build());
+        });
+
+        // submit modal
         saveEvent.setOnClickListener(v -> {
             checkModal();
         });
+
+        delPhoto.setOnClickListener(v -> {
+            if (eventImage.getDrawable() != null) {
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getParentFragment().getActivity()).setTitle(R.string.event_photo)
+                        .setMessage(R.string.photo_delete)
+                        .setPositiveButton(R.string.dialog_ok_event_photo_delete, (di, i) -> {
+                            eventImage.setImageBitmap(null);
+                            eventPhoto = null;
+                            delPhoto.setVisibility(View.GONE);
+                            Snackbar.make(view, R.string.image_delete_snackbar, Snackbar.LENGTH_SHORT).show();
+                        })
+                        .setNegativeButton(R.string.dialog_close, (di, i) -> {
+
+                        });
+
+                builder.create();
+                builder.show();
+            }
+        });
+
+
     }
 
     @Override
@@ -149,6 +181,7 @@ public class NewGsDialog extends DialogFragment {
     private void checkModal() {
         boolean valid = true;
 
+        /*
         // checking event modal
         if (eventDateTextInner.getText().toString().compareTo("") == 0) {
             valid = false;
@@ -157,6 +190,7 @@ public class NewGsDialog extends DialogFragment {
         else{
             eventDateTextInner.setError(null);
         }
+         */
 
         if (gsTitle.getText().toString().compareTo("") == 0){
             valid = false;
@@ -166,13 +200,6 @@ public class NewGsDialog extends DialogFragment {
             gsTitle.setError(null);
         }
 
-        if(gsPlace.getText().toString().compareTo("") == 0) {
-            valid = false;
-            gsPlace.setError(ContextCompat.getString(getContext(), R.string.place_error));
-        }
-        else{
-            gsPlace.setError(null);
-        }
 
         if(gsDesc.getText().toString().compareTo("") == 0) {
             valid = false;
@@ -183,20 +210,23 @@ public class NewGsDialog extends DialogFragment {
         }
 
         if (valid) {
-            HomeFragment hf = new HomeFragment();
+            Date currentDate = new Date();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            String date = dateFormat.format(currentDate);
+
             Bundle b = new Bundle();
             b.putParcelable("post", new Post(
                     gsTitle.getText().toString(),
-                    "author",
+                    HomeFragment.getActiveUser().getEmail(),
                     0,
                     null,
                     gsDesc.getText().toString(),
                     4,
-                    eventDateTextInner.getText().toString(),
-                    gsPlace.getText().toString(),
+                    date,
+                    "",
                     0 ));
 
-
+            b.putParcelable("image", imageUri);
             Navigation.findNavController(getParentFragment().getView()).navigate(R.id.action_navigation_add_to_loadingFragment, b);
         }
 

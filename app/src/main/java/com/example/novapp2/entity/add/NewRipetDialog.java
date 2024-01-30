@@ -1,6 +1,5 @@
 package com.example.novapp2.entity.add;
 
-import static com.example.novapp2.utils.Utils.bitmapToBase64;
 
 import android.app.Dialog;
 import android.graphics.Bitmap;

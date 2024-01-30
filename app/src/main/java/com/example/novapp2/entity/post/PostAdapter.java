@@ -1,7 +1,7 @@
 package com.example.novapp2.entity.post;
 
 
-import static com.example.novapp2.utils.Utils.base64ToBitmap;
+
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -224,6 +224,7 @@ public class PostAdapter extends  RecyclerView.Adapter{
         }
 
         public void bindView(int position) {
+            /*
             if (postList.get(position).getPostImage() == null) {
                 imageView.setImageResource(postList.get(position).getImage());
             }
@@ -231,6 +232,8 @@ public class PostAdapter extends  RecyclerView.Adapter{
                 String base64Econded = postList.get(position).getPostImage();
                 //imageView.setImageBitmap(base64ToBitmap(base64Econded));
             }
+            */
+
             titleView.setText(postList.get(position).getTitle());
             descView.setText(postList.get(position).getContent());
             dateView.setText(postList.get(position).getDate());
@@ -268,8 +271,11 @@ public class PostAdapter extends  RecyclerView.Adapter{
                 imageView.setImageResource(postList.get(position).getImage());
             }
             else {
-                String base64Econded = postList.get(position).getPostImage();
-                imageView.setImageBitmap(base64ToBitmap(base64Econded));
+                Glide.with(context)
+                        .load(postList.get(position).getPostImage())
+                        .centerCrop()
+                        .placeholder(R.drawable.analisi)
+                        .into(imageView);
             }
 
             titleView.setText(postList.get(position).getTitle());

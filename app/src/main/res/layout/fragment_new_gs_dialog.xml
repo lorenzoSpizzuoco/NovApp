@@ -70,22 +70,7 @@
                 android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/new_gs_place"
-            android:layout_width="300dp"
-            app:endIconMode="clear_text"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/new_gs_title"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20sp"
-            android:hint="@string/gs_place_text"
-            app:errorEnabled="true"
-            android:inputType="textEmailAddress">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/new_gs_place_inner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </com.google.android.material.textfield.TextInputLayout>
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/new_gs_desc"
@@ -93,7 +78,7 @@
             app:errorEnabled="true"
             android:layout_width="300dp"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/new_gs_place"
+            android:layout_below="@id/new_gs_title"
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
             android:hint="@string/gs_desc"
@@ -104,22 +89,44 @@
                 android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-
-            android:id="@+id/date_picker_input_text_gs"
-            app:startIconDrawable="@drawable/calendar"
-            android:layout_width="300dp"
-            android:layout_below="@id/new_gs_desc"
+        <RelativeLayout
+            android:layout_below="@id/gs_photo_button"
             android:layout_centerHorizontal="true"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
             android:layout_marginTop="20sp"
-            android:hint="@string/gs_date_button"
-            android:inputType="textEmailAddress">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/date_input_text_inner_gs"
-                android:layout_width="match_parent"
+            android:layout_height="300dp">
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:visibility="gone"
+                android:id="@+id/fab_delete_photo"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/x_close"
+
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-        </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:layout_marginTop="25dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/gs_photo_view"
+                android:scaleType="centerCrop"
+                android:layout_width="200dp"
+                android:layout_height="200dp" />
+        </RelativeLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/gs_photo_button"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="20sp"
+            android:layout_centerHorizontal="true"
+            android:text="@string/ripet_photo"
+            android:layout_below="@id/new_gs_desc"
+            android:layout_height="wrap_content">
+
+        </com.google.android.material.button.MaterialButton>
+
+
+
     </RelativeLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

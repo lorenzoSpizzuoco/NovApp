@@ -47,8 +47,16 @@ public class PostRepository implements IPostRepository{
         StorageReference storageRef = mStorage.getReference();
         int category = post.getCategory();
 
-        if (category == 1 || category == 3) {
-            UploadImage.uploadImage(image, "postImages", id).addOnCompleteListener(
+        if (category == 1 || category == 4) {
+
+            String mainChild = "postImages";
+
+            // uploading in "groupImages" if it's a group image
+            if (category == 4) {
+                mainChild = "groupImages";
+            }
+
+            UploadImage.uploadImage(image, mainChild, id).addOnCompleteListener(
                     new OnCompleteListener<Uri>() {
                         @Override
                         public void onComplete(@NonNull Task<Uri> task) {
