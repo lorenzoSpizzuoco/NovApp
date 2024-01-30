@@ -8,11 +8,8 @@ import android.app.Application;
 import android.net.Uri;
 import android.util.Log;
 
-import com.example.novapp2.entity.User;
-import com.example.novapp2.entity.ad.AdViewModel;
-import com.example.novapp2.repository.PostRepository;
+import com.example.novapp2.repository.post.PostRepository;
 import com.example.novapp2.service.ProfanityApiService;
-import com.google.android.gms.tasks.Task;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;

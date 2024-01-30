@@ -1,4 +1,4 @@
-package com.example.novapp2.repository;
+package com.example.novapp2.repository.post;
 
 import static com.example.novapp2.utils.Constants.DB_EVENTS;
 import static com.example.novapp2.utils.Constants.DB_GS;
@@ -18,7 +18,6 @@ import com.example.novapp2.database.PostDao;
 import com.example.novapp2.database.PostRoomDatabase;
 import com.example.novapp2.entity.post.GenericPost;
 import com.example.novapp2.entity.post.Post;
-import com.example.novapp2.sources.PostRemoteSource;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -32,7 +31,6 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 public class PostRepository {
 
