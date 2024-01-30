@@ -1,6 +1,5 @@
 package com.example.novapp2.entity.add;
 
-import static com.example.novapp2.utils.Utils.bitmapToBase64;
 
 import android.app.Dialog;
 import android.graphics.Bitmap;
@@ -136,12 +135,15 @@ public class NewRipetDialog extends DialogFragment {
         eventImage = view.findViewById(R.id.ripet_photo_view);
         eventDateTextInner.setInputType(InputType.TYPE_NULL);
 
+
         photoButton.setOnClickListener(v -> {
 
             pickMedia.launch(new PickVisualMediaRequest.Builder()
                     .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
                     .build());
         });
+
+
 
         delPhoto.setOnClickListener(v -> {
             if (eventImage.getDrawable() != null) {
@@ -256,7 +258,7 @@ public class NewRipetDialog extends DialogFragment {
             Bundle b = new Bundle();
             b.putParcelable("post", new Post(
                     ripetTitle.getText().toString(),
-                    "user",
+                    HomeFragment.getActiveUser().getEmail(),
                     R.drawable.analisi,
                     null,
                     ripetDesc.getText().toString(),

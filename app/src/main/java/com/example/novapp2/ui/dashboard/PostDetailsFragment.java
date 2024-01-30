@@ -1,6 +1,5 @@
 package com.example.novapp2.ui.dashboard;
 
-import static com.example.novapp2.utils.Utils.base64ToBitmap;
 
 import android.content.res.ColorStateList;
 import android.net.Uri;

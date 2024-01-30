@@ -1,6 +1,6 @@
 package com.example.novapp2.entity.add;
 
-import static com.example.novapp2.utils.Utils.bitmapToBase64;
+
 
 import android.app.Dialog;
 import android.graphics.Bitmap;
@@ -242,11 +242,10 @@ public class NewEventDialog extends DialogFragment {
         }
 
         if (valid) {
-            String author = HomeFragment.getActiveUser().getEmail();
             Bundle b = new Bundle();
             b.putParcelable("post", new Post(
                     eventTitle.getText().toString(),
-                    author,
+                    HomeFragment.getActiveUser().getEmail(),
                     R.drawable.analisi,
                     null,
                     eventDescInner.getText().toString(),

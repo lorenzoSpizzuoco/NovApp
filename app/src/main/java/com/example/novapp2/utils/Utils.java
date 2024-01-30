@@ -39,19 +39,4 @@ public class Utils {
         }
         return true;
     }
-
-    public static Bitmap base64ToBitmap(String string) {
-
-        byte[] byteArray = Base64.getDecoder().decode(string);
-        return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-
-    }
-
-    public static String bitmapToBase64(Bitmap bitmap) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream.toByteArray();
-        return Base64.getEncoder().encodeToString(byteArray);
-    }
-
 }
