@@ -264,6 +264,7 @@ public class PostRepository {
         int category = post.getCategory();
 
         if(category == 1 || category == 3) {
+            // postImage(String child, String fileName) filename -> nome.ext
 
             StorageReference imRef = storageRef.child("postImages").child(id + image.getLastPathSegment());
 

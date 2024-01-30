@@ -242,11 +242,11 @@ public class NewEventDialog extends DialogFragment {
         }
 
         if (valid) {
-            HomeFragment hf = new HomeFragment();
+            String author = HomeFragment.getActiveUser().getEmail();
             Bundle b = new Bundle();
             b.putParcelable("post", new Post(
                     eventTitle.getText().toString(),
-                    "author",
+                    author,
                     R.drawable.analisi,
                     null,
                     eventDescInner.getText().toString(),

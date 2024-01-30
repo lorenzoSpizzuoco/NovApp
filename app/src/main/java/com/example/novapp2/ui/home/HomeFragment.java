@@ -27,7 +27,7 @@ import com.google.android.gms.tasks.Task;
 public class HomeFragment extends Fragment {
 
     private FirebaseAuth mAuth;
-    private User activeUser;
+    private static User activeUser;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,7 +85,7 @@ public class HomeFragment extends Fragment {
         else return true;
     }
 
-    public User getActiveUser(){
+    public static User getActiveUser(){
         return activeUser;
     }
 
