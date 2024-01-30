@@ -21,8 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.core.content.ContextCompat;
 
-import com.example.novapp2.entity.ad.Ad;
-import com.example.novapp2.entity.ad.AdViewModel;
+
 import com.example.novapp2.entity.course.Course;
 import com.example.novapp2.entity.course.CourseAdapter;
 import com.example.novapp2.R;

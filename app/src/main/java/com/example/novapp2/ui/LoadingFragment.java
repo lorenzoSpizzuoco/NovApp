@@ -14,8 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.novapp2.R;
-import com.example.novapp2.entity.ad.Ad;
-import com.example.novapp2.entity.ad.AdViewModel;
+
 import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.entity.post.PostViewModel;
 
