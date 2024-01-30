@@ -13,4 +13,14 @@ public class Constants {
     public static final String CHECK_PROFANITY_ENDPOINT = "v1alpha1/comments:analyze";
 
     public static final String API_KEY = "AIzaSyAOsGrRsKeqkYvvV8TYQ-8xjf7eXU3Rqtg";
+
+    public static final String DB_POSTS = "posts";
+
+    public static final String DB_RIPET = "repetitions";
+
+    public static final String DB_GS  = "studyGroups";
+
+    public static final String DB_EVENTS = "events";
+
+    public static final String DB_INFOS = "infos";
 }

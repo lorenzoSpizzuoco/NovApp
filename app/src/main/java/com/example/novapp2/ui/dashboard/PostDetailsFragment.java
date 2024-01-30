@@ -1,6 +1,9 @@
 package com.example.novapp2.ui.dashboard;
 
+import static com.example.novapp2.utils.Utils.base64ToBitmap;
+
 import android.content.res.ColorStateList;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.novapp2.R;
 import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.entity.post.PostViewModel;
@@ -80,7 +84,18 @@ public class PostDetailsFragment extends Fragment {
         favoriteIcon = view.findViewById(R.id.imageview_favorite_post);
         username = view.findViewById(R.id.user_name_post);
         username.setText(p.getAuthor());
-        image.setImageResource(p.getImage());
+
+        if (p.getPostImage() == null) {
+            image.setImageResource(p.getImage());
+        }
+        else {
+            Glide.with(getContext())
+                    .load(p.getPostImage())
+                    .centerCrop()
+                    .placeholder(R.drawable.analisi)
+                    .into(image);
+        }
+
         title.setText(p.getTitle());
         date.setText(p.getDate());
         place.setText(p.getPlace());

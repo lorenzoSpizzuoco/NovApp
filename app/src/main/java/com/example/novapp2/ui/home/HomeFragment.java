@@ -28,10 +28,10 @@ import com.google.firebase.messaging.FirebaseMessaging;
 public class HomeFragment extends Fragment {
 
     private FirebaseAuth mAuth;
-    private User activeUser;
+
     private String tokenFCM;
 
-
+    private static User activeUser;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -100,7 +100,7 @@ public class HomeFragment extends Fragment {
         else return true;
     }
 
-    public User getActiveUser(){
+    public static User getActiveUser(){
         return activeUser;
     }
 

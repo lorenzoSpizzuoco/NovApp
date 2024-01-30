@@ -20,6 +20,7 @@ import androidx.navigation.Navigation;
 
 import com.example.novapp2.R;
 import com.example.novapp2.entity.post.Post;
+import com.example.novapp2.ui.home.HomeFragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
@@ -182,6 +183,7 @@ public class NewGsDialog extends DialogFragment {
         }
 
         if (valid) {
+            HomeFragment hf = new HomeFragment();
             Bundle b = new Bundle();
             b.putParcelable("post", new Post(
                     gsTitle.getText().toString(),
@@ -189,7 +191,7 @@ public class NewGsDialog extends DialogFragment {
                     0,
                     null,
                     gsDesc.getText().toString(),
-                    1,
+                    4,
                     eventDateTextInner.getText().toString(),
                     gsPlace.getText().toString(),
                     0 ));
