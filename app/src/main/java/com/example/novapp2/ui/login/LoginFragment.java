@@ -28,11 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link LoginFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+// TODO Add loading
 public class LoginFragment extends Fragment {
 
     final private String TAG = LoginFragment.class.getSimpleName();

@@ -22,12 +22,15 @@ import com.example.novapp2.service.UserService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 
 public class HomeFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private User activeUser;
+    private String tokenFCM;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,12 +45,22 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         BottomNavigationView navView = requireView().findViewById(R.id.nav_view);
 
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+        /*AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_dashboard, R.id.navigation_chat, R.id.navigation_add, R.id.navigation_notifications, R.id.navigation_profile)
-                .build();
+                .build();*/
 
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(navView, navController);
+
+        Task<String> tokenTask = FirebaseMessaging.getInstance().getToken();
+        tokenTask.addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                tokenFCM = tokenTask.getResult();
+            } else {
+                // TODO Handle the error
+                Toast.makeText(requireContext(), "Error token update", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -61,6 +74,7 @@ public class HomeFragment extends Fragment {
                         Bundle args = new Bundle();
                         args.putString("userId", activeUser.getID());
                         args.putString("userEmail", activeUser.getEmail());
+                        args.putString("userToken", tokenFCM);
 
 
                         NavController mainNavController = MainActivity.getNavController();
@@ -78,6 +92,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
+
     private boolean userFullyRegistered(User user) {
         // TODO: implementare sta cosa
         if (user.name.equals(""))
@@ -88,5 +103,7 @@ public class HomeFragment extends Fragment {
     public User getActiveUser(){
         return activeUser;
     }
+
+    // TODO if signout, remove token
 
 }

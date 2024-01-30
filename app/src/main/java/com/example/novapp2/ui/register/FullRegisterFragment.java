@@ -31,6 +31,8 @@ public class FullRegisterFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_full_register, container, false);
     }
 
+    // TODO image picker
+
     @Override
     public void onViewCreated(@NonNull View view, Bundle safeInstanceState){
         super.onViewCreated(view, safeInstanceState);
@@ -42,6 +44,7 @@ public class FullRegisterFragment extends Fragment {
         final Button finishButton = view.findViewById(R.id.full_register_end_flow_button);
 
         // TODO empty strings
+        // TODO image ???
         finishButton.setOnClickListener(v -> {
             String name = inputName.getEditText().getText().toString();
             String surname = inputSurname.getEditText().getText().toString();

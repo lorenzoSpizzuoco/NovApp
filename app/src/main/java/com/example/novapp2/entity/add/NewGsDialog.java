@@ -16,8 +16,10 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.navigation.Navigation;
 
 import com.example.novapp2.R;
+import com.example.novapp2.entity.post.Post;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
@@ -180,7 +182,20 @@ public class NewGsDialog extends DialogFragment {
         }
 
         if (valid) {
-            // insert event
+            Bundle b = new Bundle();
+            b.putParcelable("post", new Post(
+                    gsTitle.getText().toString(),
+                    "author",
+                    0,
+                    null,
+                    gsDesc.getText().toString(),
+                    1,
+                    eventDateTextInner.getText().toString(),
+                    gsPlace.getText().toString(),
+                    0 ));
+
+
+            Navigation.findNavController(getParentFragment().getView()).navigate(R.id.action_navigation_add_to_loadingFragment, b);
         }
 
     }

@@ -1,5 +1,6 @@
 package com.example.novapp2.entity.post;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -19,6 +20,8 @@ public class Post implements Parcelable{
 
     private String content;
 
+    private String  postImage;
+
     private String place;
 
     private int category;
@@ -29,6 +32,7 @@ public class Post implements Parcelable{
 
 
     protected Post(Parcel in) {
+        postImage = in.readString();
         author = in.readString();
         content = in.readString();
         date = in.readString();
@@ -51,6 +55,13 @@ public class Post implements Parcelable{
         }
     };
 
+    public String getPostImage() {
+        return postImage;
+    }
+
+    public void setPostImage(String postImage) {
+        this.postImage = postImage;
+    }
 
     public void setFavorite(int favorite) {
         this.favorite = favorite;
@@ -118,7 +129,7 @@ public class Post implements Parcelable{
 
 
     // post category
-    public Post(String title, String author, int image, String content, int category, String date, String place, int favorite) {
+    public Post(String title, String author, int image, String postImage, String content, int category, String date, String place, int favorite) {
         this.title = title;
         this.author = author;
         this.image = image;
@@ -127,6 +138,7 @@ public class Post implements Parcelable{
         this.date = date;
         this.place = place;
         this.favorite = favorite;
+        this.postImage = postImage;
     }
 
     @Override
@@ -136,6 +148,7 @@ public class Post implements Parcelable{
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(postImage);
         dest.writeString(author);
         dest.writeString(content);
         dest.writeString(date);

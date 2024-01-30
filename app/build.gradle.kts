@@ -15,6 +15,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+        multiDexEnabled = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -54,9 +55,12 @@ android {
 
 dependencies {
 
+    implementation("com.google.firebase:firebase-messaging:23.4.0")
     val nav_version = "2.7.6"
     val room_version = "2.6.1"
 
+    implementation ("com.squareup.retrofit2:converter-scalars:2.4.0")
+    implementation("com.google.code.gson:gson:2.10.1")
     implementation("com.google.firebase:firebase-auth:22.3.0")
     implementation("androidx.navigation:navigation-fragment:$nav_version")
     implementation("androidx.navigation:navigation-ui:$nav_version")
@@ -72,6 +76,9 @@ dependencies {
     implementation("androidx.credentials:credentials:1.3.0-alpha01")
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
+
+    // Chat
+    implementation("androidx.multidex:multidex:2.0.1")
 
 
     // Feature module Support
@@ -115,5 +122,6 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     implementation("androidx.viewpager2:viewpager2:1.0.0")
+
 }
 
