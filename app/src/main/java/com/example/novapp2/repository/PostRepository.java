@@ -14,21 +14,17 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.novapp2.database.PostDao;
 import com.example.novapp2.database.PostRoomDatabase;
-import com.example.novapp2.entity.User;
 import com.example.novapp2.entity.post.GenericPost;
 import com.example.novapp2.entity.post.Post;
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
+import com.example.novapp2.sources.PostRemoteSource;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.security.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class PostRepository {
 
@@ -37,6 +33,8 @@ public class PostRepository {
     private LiveData<List<Post>> allPosts;
 
     private MutableLiveData<GenericPost> lastFetched = new MutableLiveData<>(null);
+
+    private MutableLiveData<GenericPost> lastToFetch = new MutableLiveData<>(null);
 
     private MutableLiveData<Boolean> firstBatch = new MutableLiveData<Boolean>(true);
 
@@ -54,18 +52,22 @@ public class PostRepository {
         //lastFetched.setValue(allPosts.getValue().get(allPosts.getValue().size() - 1));
     }
 
-    public LiveData<List<Post>> getAllPost(Boolean local) {
 
+    public LiveData<List<Post>> getAllPost() {
+        // check for internet connection
+        boolean local = false;
+
+        // local caching
         if (local) {
-            return allPosts;
+            return postDao.getAllPosts();
         }
 
         MutableLiveData<List<Post>> posts = new MutableLiveData<>();
 
         // remote fetching
         mDatabase.child(DB_POSTS).orderByChild("timestamp").limitToFirst(20).get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
 
+            if (!task.isSuccessful()) {
             }
             else {
                 List<Post> postList = new ArrayList<>();
@@ -78,10 +80,9 @@ public class PostRepository {
             }
         });
 
-
-
         return posts;
     }
+
 
     public LiveData<List<Post>> getRemotePosts() {
 
@@ -98,8 +99,7 @@ public class PostRepository {
                         else {
 
                             List<Post> postList = new ArrayList<>();
-                            long childrenCount = task.getResult().getChildrenCount();
-
+                            //long childrenCount = task.getResult().getChildrenCount();
                             // genericPosts
                             for(DataSnapshot ds: task.getResult().getChildren()) {
                                 GenericPost postInfos = ds.getValue(GenericPost.class);
@@ -118,16 +118,13 @@ public class PostRepository {
                                         mainChild = DB_GS;
                                         break;
                                 }
-                                //Log.d(TAG, mainChild);
+
                                 // fetching single post
                                 mDatabase.child(mainChild).child(postInfos.getId()).get().addOnCompleteListener(
                                         taskInner -> {
-                                            //Log.d(TAG, taskInner.getResult().toString());
                                             Post p = taskInner.getResult().getValue(Post.class);
-                                            //Log.d(TAG, p.toString());
                                             postList.add(p);
                                             posts.setValue(postList);
-                                            lastFetched.setValue(postInfos);
                                         }
                                 );
 
@@ -177,8 +174,8 @@ public class PostRepository {
                                         taskInner -> {
                                             Post p = taskInner.getResult().getValue(Post.class);
                                             postList.add(p);
-                                            posts.setValue(postList);
-                                            lastFetched.setValue(postInfos);
+                                            posts.getValue().addAll(postList);
+                                            lastToFetch.setValue(postInfos);
                                         }
                                 );
 
@@ -190,6 +187,19 @@ public class PostRepository {
 
         return posts;
     }
+
+
+    /*
+    public MutableLiveData<List<Post>> getPosts(boolean local) {
+        if (local) {
+            // local fetching
+        }
+
+        return new PostRemoteSource().fetchPosts(0);
+
+    }
+    */
+
 
     public void insert(Post post) {
 
@@ -215,17 +225,13 @@ public class PostRepository {
                 break;
         }
 
-        /*
-        PostRoomDatabase.databaseWriteExecutor.execute(() -> {
-            postDao.insert(post);
-        });
-         */
+
     }
 
     public LiveData<List<Post>> setFavorite(long id, int fav) {
         PostRoomDatabase.databaseWriteExecutor.execute(() -> {
             postDao.setFavorite(id, fav);
         });
-        return getAllPost(false);
+        return getAllPost();
     }
 }

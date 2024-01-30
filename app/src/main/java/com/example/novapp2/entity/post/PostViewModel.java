@@ -43,6 +43,7 @@ public class PostViewModel extends AndroidViewModel {
         postRepository = new PostRepository(application);
         //allPost = postRepository.getAllPost(false);
         allPost = postRepository.getRemotePosts();
+        //allPost = postRepository.getPosts(false);
         isFavorite.setValue(0);
         lastelement = 0;
     }
