@@ -7,7 +7,7 @@
     <corners
         android:radius="25dp" />
     <stroke android:width="0.9dp"
-        android:color="@color/background_gray" />
+        android:color="@color/cardview_light_background" />
     <!--  stroke for defining a border for view -->
 
     <size
