@@ -22,6 +22,7 @@ import com.example.novapp2.entity.post.PostAdapter;
 import com.example.novapp2.entity.post.PostViewModel;
 import com.example.novapp2.entity.post.SavedPostAdapter;
 import com.example.novapp2.ui.home.user.UserFragmentDirections;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +52,8 @@ public class UserFragment extends Fragment {
     private RecyclerView myPostsView;
 
     private List<Post> postList;
+
+    private MaterialAlertDialogBuilder materialAlertDialogBuilder;
 
     public UserFragment() {
         // Required empty public constructor

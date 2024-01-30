@@ -8,14 +8,14 @@
     <fragment
         android:id="@+id/navigation_chat"
         android:name="com.example.novapp2.ui.home.chat.FragmentChat"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_feed" />
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat"/>
 
     <fragment
         android:id="@+id/navigation_add"
         android:name="com.example.novapp2.entity.add.AddFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" >
+        android:label="fragment_add"
+        tools:layout="@layout/fragment_add" >
         <action
             android:id="@+id/action_navigation_add_to_loadingFragment"
             app:destination="@id/loadingFragment" />
@@ -24,14 +24,14 @@
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.novapp2.ui.home.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:label="fragment_notifications"
         tools:layout="@layout/fragment_notifications" />
 
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.example.novapp2.ui.home.user.UserFragment"
-        android:label="fragment_chat"
-        tools:layout="@layout/fragment_chat" >
+        android:label="fragment_user"
+        tools:layout="@layout/fragment_user" >
         <action
             android:id="@+id/action_navigation_profile_to_postDetailsFragmentFragment"
             app:destination="@id/postDetailsFragmentFragment" />
@@ -46,12 +46,6 @@
             android:id="@+id/action_loadingFragment_to_navigation_dashboard"
             app:destination="@id/navigation_dashboard" />
     </fragment>
-
-    <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.novapp2.ui.home.feed.FeedFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_feed" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
