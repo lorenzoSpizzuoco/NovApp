@@ -92,8 +92,55 @@ public class PostRepository {
 
         return posts;
     }
+    public LiveData<List<Post>> getRemotePosts() {
 
+        MutableLiveData<List<Post>> posts = new MutableLiveData<>();
+        mDatabase.child(DB_POSTS)
+                .get().addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.d(TAG, "fail");
+                    }
+                    else {
 
+                        List<Post> postList = new ArrayList<>();
+                        //long childrenCount = task.getResult().getChildrenCount();
+                        // genericPosts
+                        for(DataSnapshot ds: task.getResult().getChildren()) {
+                            GenericPost postInfos = ds.getValue(GenericPost.class);
+                            String mainChild = DB_EVENTS;
+                            switch(postInfos.getCategoria()) {
+                                case 1:
+                                    mainChild = DB_EVENTS;
+                                    break;
+                                case 2:
+                                    mainChild = DB_INFOS;
+                                    break;
+                                case 3:
+                                    mainChild = DB_RIPET;
+                                    break;
+                                case 4:
+                                    mainChild = DB_GS;
+                                    break;
+                            }
+
+                            // fetching single post
+                            mDatabase.child(mainChild).child(postInfos.getId()).get().addOnCompleteListener(
+                                    taskInner -> {
+                                        Post p = taskInner.getResult().getValue(Post.class);
+                                        postList.add(p);
+                                        Log.d(TAG, p.getTitle());
+                                        posts.setValue(postList);
+                                    }
+                            );
+
+                        }
+
+                    }
+                });
+
+        return posts;
+    }
+/*
     public LiveData<List<Post>> getRemotePosts() {
 
         MutableLiveData<List<Post>> posts = new MutableLiveData<>();
@@ -101,7 +148,6 @@ public class PostRepository {
         if (firstBatch.getValue()){
 
             mDatabase.child(DB_POSTS)
-                    .limitToFirst(10)
                     .get().addOnCompleteListener(task -> {
                         if (!task.isSuccessful()) {
                             Log.d(TAG, "fail");
@@ -197,7 +243,7 @@ public class PostRepository {
 
         return posts;
     }
-
+?*
 
     /*
     public MutableLiveData<List<Post>> getPosts(boolean local) {
@@ -215,52 +261,77 @@ public class PostRepository {
 
         String id = mDatabase.child(DB_POSTS).push().getKey();
         StorageReference storageRef = mStorage.getReference();
+        int category = post.getCategory();
 
-        StorageReference imRef = storageRef.child("postImages").child(id + image.getLastPathSegment());
+        if(category == 1 || category == 3) {
 
-        Task uptask = imRef.putFile(image);
+            StorageReference imRef = storageRef.child("postImages").child(id + image.getLastPathSegment());
 
-
-        uptask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-            @Override
-            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                if (!task.isSuccessful()) {
-                    throw task.getException();
-                }
-
-                // Continue with the task to get the download URL
-                return imRef.getDownloadUrl();
-            }
-        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if (task.isSuccessful()) {
-                    Uri downloadUri = task.getResult();
-                    post.setPostImage(downloadUri.toString());
-
-                    Date date = new Date();
-                    long time = date.getTime();
-                    mDatabase.child(DB_POSTS).child(id).setValue(new GenericPost(id, time, post.getCategory()));
-
-                    switch (post.getCategory()) {
-                        case 1:
-                            mDatabase.child(DB_EVENTS).child(id).setValue(post);
-                            break;
-                        case 2:
-                            mDatabase.child(DB_INFOS).child(id).setValue(post);
-                            break;
-                        case 3:
-                            mDatabase.child(DB_RIPET).child(id).setValue(post);
-                            break;
-                        case 4:
-                            mDatabase.child(DB_GS).child(id).setValue(post);
-                            break;
+            Task uptask = imRef.putFile(image);
+            uptask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
                     }
-                } else {
 
+                    // Continue with the task to get the download URL
+                    return imRef.getDownloadUrl();
                 }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        Uri downloadUri = task.getResult();
+                        post.setPostImage(downloadUri.toString());
+
+                        Date date = new Date();
+                        long time = date.getTime();
+                        mDatabase.child(DB_POSTS).child(id).setValue(new GenericPost(id, time, post.getCategory()));
+
+                        switch (post.getCategory()) {
+                            case 1:
+                                mDatabase.child(DB_EVENTS).child(id).setValue(post);
+                                break;
+                            case 2:
+                                mDatabase.child(DB_INFOS).child(id).setValue(post);
+                                break;
+                            case 3:
+                                mDatabase.child(DB_RIPET).child(id).setValue(post);
+                                break;
+                            case 4:
+                                mDatabase.child(DB_GS).child(id).setValue(post);
+                                break;
+                        }
+                    } else {
+                        Log.d(TAG, "fail");
+
+                    }
+                }
+            });
+
+        }
+        else {
+            Date date = new Date();
+            long time = date.getTime();
+            post.setPostImage(null);
+            mDatabase.child(DB_POSTS).child(id).setValue(new GenericPost(id, time, post.getCategory()));
+
+            switch (post.getCategory()) {
+                case 1:
+                    mDatabase.child(DB_EVENTS).child(id).setValue(post);
+                    break;
+                case 2:
+                    mDatabase.child(DB_INFOS).child(id).setValue(post);
+                    break;
+                case 3:
+                    mDatabase.child(DB_RIPET).child(id).setValue(post);
+                    break;
+                case 4:
+                    mDatabase.child(DB_GS).child(id).setValue(post);
+                    break;
             }
-        });
+        }
     }
 
     public LiveData<List<Post>> setFavorite(long id, int fav) {

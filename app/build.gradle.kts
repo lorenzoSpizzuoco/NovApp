@@ -63,6 +63,8 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment:$nav_version")
     implementation("androidx.navigation:navigation-ui:$nav_version")
 
+    // glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))

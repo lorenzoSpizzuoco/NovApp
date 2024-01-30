@@ -54,12 +54,8 @@ public class LoadingFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstaceState) {
-        Log.d(TAG, "sono qui");
-
         // inserting new add
         postViewModel.insert(post, imageUri);
-
-
         postViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
             if (isLoading != null && isLoading) {
                 Log.d(TAG, "inside observer");

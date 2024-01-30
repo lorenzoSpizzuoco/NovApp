@@ -248,7 +248,7 @@ public class NewEventDialog extends DialogFragment {
                     eventTitle.getText().toString(),
                     "author",
                     R.drawable.analisi,
-                    bitmapToBase64(eventPhoto),
+                    null,
                     eventDescInner.getText().toString(),
                     1,
                     eventDateTextInner.getText().toString(),
