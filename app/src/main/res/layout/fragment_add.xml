@@ -8,78 +8,118 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/new_post_text"
+
+        <ImageView
+            android:id="@+id/bottomAddImageView1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/share_something"
-            android:padding="20dp"
-            android:textSize="25sp"
-            android:gravity="center_horizontal"
-            android:textStyle="bold" />
+            android:layout_height="match_parent"
+            android:src="@drawable/cratepost4"
+            android:alpha="0.55"
+            android:scaleType="centerCrop" />
 
         <RelativeLayout
             android:id="@+id/topAddRelativeLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/new_post_text">
+            android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/bottomAddImageView1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/createpost"
-                android:alpha="0.6"
-                android:scaleType="centerCrop" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="160dp">
 
                 <LinearLayout
                     android:id="@+id/first_row_new_post"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
+                    android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:elevation="8dp"
-                    android:gravity="center"
                     android:orientation="vertical">
 
-                    <Button
-                        android:id="@+id/new_event_button"
-                        style="@style/Widget.Material3.Button.ElevatedButton.Icon"
-                        android:layout_width="150dp"
-                        android:layout_height="70dp"
+                    <TextView
+                        android:id="@+id/new_post_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:text="@string/button_event"
-                        app:icon="@drawable/light_2" />
+                        android:gravity="center_horizontal"
+                        android:padding="20dp"
+                        android:text="@string/share_something"
+                        android:textColor="@color/md_theme_primary"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
 
-                    <Button
-                        android:id="@+id/new_info_button"
-                        style="@style/Widget.Material3.Button.ElevatedButton"
-                        android:layout_width="150dp"
-                        android:layout_height="70dp"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:text="@string/button_info"
-                        app:icon="@drawable/ic_notifications_black_24dp" />
+                        android:gravity="center"
+                        android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/new_gs_button"
-                        style="@style/Widget.Material3.Button.ElevatedButton"
-                        android:layout_width="150dp"
-                        android:layout_height="70dp"
-                        android:layout_marginBottom="10dp"
-                        android:text="@string/button_sg"
-                        app:icon="@drawable/libri" />
+                        <Button
+                            android:id="@+id/new_event_button"
+                            style="@style/Widget.Material3.Button.ElevatedButton.Icon"
+                            android:layout_width="160dp"
+                            android:layout_height="70dp"
+                            android:layout_marginRight="8dp"
+                            android:text="@string/button_event"
+                            android:textColor="@color/md_theme_onPrimaryContainer_mediumContrast"
+                            app:backgroundTint="@color/md_theme_primaryContainer_mediumContrast"
+                            android:textSize="16sp"
+                            app:icon="@drawable/bottom_btn4"
+                            app:iconSize="25dp"
+                            app:iconTint="@color/md_theme_onPrimaryContainer_mediumContrast" />
 
-                    <Button
-                        android:id="@+id/new_ripetizioni_button"
-                        style="@style/Widget.Material3.Button.ElevatedButton"
-                        android:layout_width="150dp"
-                        android:layout_height="70dp"
-                        android:text="@string/button_ripetizioni"
-                        app:icon="@drawable/online_worlds" />
+                        <Button
+                            android:id="@+id/new_info_button"
+                            style="@style/Widget.Material3.Button.ElevatedButton"
+                            android:layout_width="160dp"
+                            android:layout_height="70dp"
+                            android:layout_toEndOf="@+id/new_event_button"
+                            android:text="@string/button_info"
+                            android:textColor="@color/md_theme_onPrimaryContainer_mediumContrast"
+                            app:backgroundTint="@color/md_theme_primaryContainer_mediumContrast"
+                            android:textSize="16sp"
+                            app:icon="@drawable/ic_notifications_black_24dp"
+                            app:iconSize="25dp"
+                            app:iconTint="@color/md_theme_onPrimaryContainer_mediumContrast" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/new_gs_button"
+                            style="@style/Widget.Material3.Button.ElevatedButton"
+                            android:layout_width="160dp"
+                            android:layout_height="70dp"
+                            android:layout_marginRight="8dp"
+                            android:text="@string/button_sg"
+                            android:textColor="@color/md_theme_onPrimaryContainer_mediumContrast"
+                            app:backgroundTint="@color/md_theme_primaryContainer_mediumContrast"
+                            android:textSize="16sp"
+                            app:icon="@drawable/libri"
+                            app:iconSize="25dp"
+                            app:iconTint="@color/md_theme_onPrimaryContainer_mediumContrast" />
+
+                        <Button
+                            android:id="@+id/new_ripetizioni_button"
+                            style="@style/Widget.Material3.Button.ElevatedButton"
+                            android:layout_width="160dp"
+                            android:layout_height="70dp"
+                            android:layout_toEndOf="@+id/new_gs_button"
+                            android:text="@string/button_ripetizioni"
+                            android:textColor="@color/md_theme_onPrimaryContainer_mediumContrast"
+                            app:backgroundTint="@color/md_theme_primaryContainer_mediumContrast"
+                            android:textSize="16sp"
+                            app:icon="@drawable/online_worlds"
+                            app:iconSize="25dp"
+                            app:iconTint="@color/md_theme_onPrimaryContainer_mediumContrast" />
+
+                    </RelativeLayout>
                 </LinearLayout>
 
         </RelativeLayout>
