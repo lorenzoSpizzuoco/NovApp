@@ -25,6 +25,7 @@ import com.example.novapp2.R;
 import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.entity.post.PostViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class PostDetailsFragment extends Fragment {
@@ -42,6 +43,8 @@ public class PostDetailsFragment extends Fragment {
     private TextView place;
 
     private TextView username;
+
+    private Chip chip;
 
 
     private FloatingActionButton favoriteIcon;
@@ -75,6 +78,7 @@ public class PostDetailsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle bundle) {
 
         Post p = PostDetailsFragmentArgs.fromBundle(getArguments()).getPost();
+        chip = view.findViewById(R.id.postDetailChip);
         image = view.findViewById(R.id.PostdetailsImageView);
         title = view.findViewById(R.id.postTitle);
         date = view.findViewById(R.id.postDate);
@@ -83,6 +87,21 @@ public class PostDetailsFragment extends Fragment {
         favoriteIcon = view.findViewById(R.id.imageview_favorite_post);
         username = view.findViewById(R.id.user_name_post);
         username.setText(p.getAuthor());
+
+        switch (p.getCategory()) {
+            case 1:
+                chip.setText(R.string.event_chip);
+                break;
+            case 2:
+                chip.setText(R.string.infos_chip);
+                break;
+            case 3:
+                chip.setText(R.string.ripet_chip);
+                break;
+            case 4:
+                chip.setText(R.string.gs_chip);
+                break;
+        }
 
         if (p.getPostImage() == null) {
             image.setImageResource(p.getImage());

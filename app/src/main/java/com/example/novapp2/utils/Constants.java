@@ -23,4 +23,5 @@ public class Constants {
     public static final String DB_EVENTS = "events";
 
     public static final String DB_INFOS = "infos";
+
 }
