@@ -7,7 +7,6 @@ import static com.example.novapp2.utils.Utils.checkResponse;
 import android.app.Application;
 import android.util.Log;
 
-import com.example.novapp2.entity.ad.AdViewModel;
 import com.example.novapp2.repository.PostRepository;
 import com.example.novapp2.service.ProfanityApiService;
 
@@ -27,7 +26,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class PostViewModel extends AndroidViewModel {
 
-    static final private String TAG = AdViewModel.class.getSimpleName();
+    static final private String TAG = PostViewModel.class.getSimpleName();
     private Retrofit retrofit;
     private PostRepository postRepository;
 

@@ -38,26 +38,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/adDetailsFragment"
-        android:name="com.example.novapp2.ui.home.feed.AdDetailsFragment"
-        android:label="adDetailsFragment"
-        tools:layout="@layout/ad_details_fragment">
-
-
-        <argument
-            android:name="AdObject"
-            app:argType="com.example.novapp2.entity.ad.Ad" />
-    </fragment>
-    <fragment
-        android:id="@+id/newAdFragment"
-        android:name="com.example.novapp2.ui.home.feed.NewAdFragment"
-        android:label="fragment_new_ad"
-        tools:layout="@layout/fragment_new_ad" >
-        <action
-            android:id="@+id/action_newAdFragment_to_loadingFragment"
-            app:destination="@id/loadingFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/loadingFragment"
         android:name="com.example.novapp2.ui.LoadingFragment"
         android:label="fragment_loading"
@@ -71,14 +51,7 @@
         android:id="@+id/navigation_home"
         android:name="com.example.novapp2.ui.home.feed.FeedFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_feed" >
-        <action
-            android:id="@+id/action_navigation_home_to_adDetailsFragment"
-            app:destination="@id/adDetailsFragment" />
-        <action
-            android:id="@+id/action_navigation_home_to_newAdFragment"
-            app:destination="@id/newAdFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_feed" />
 
     <fragment
         android:id="@+id/navigation_dashboard"

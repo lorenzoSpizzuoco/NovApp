@@ -12,7 +12,7 @@ import java.util.List;
 
 public class PostRepository {
 
-    private String TAG = AdRepository.class.getSimpleName();
+    private String TAG = PostRepository.class.getSimpleName();
     private PostDao postDao;
     private LiveData<List<Post>> allPosts;
 
