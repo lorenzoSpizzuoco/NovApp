@@ -7,8 +7,10 @@ import static com.example.novapp2.utils.Constants.DB_POSTS;
 import static com.example.novapp2.utils.Constants.DB_RIPET;
 
 import android.app.Application;
+import android.net.Uri;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -17,9 +19,15 @@ import com.example.novapp2.database.PostRoomDatabase;
 import com.example.novapp2.entity.post.GenericPost;
 import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.sources.PostRemoteSource;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,6 +47,8 @@ public class PostRepository {
     private MutableLiveData<Boolean> firstBatch = new MutableLiveData<Boolean>(true);
 
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
+    private FirebaseStorage mStorage = FirebaseStorage.getInstance();
 
     public PostRepository(Application application) {
 
@@ -201,31 +211,56 @@ public class PostRepository {
     */
 
 
-    public void insert(Post post) {
+    public void insert(Post post, Uri image) {
 
         String id = mDatabase.child(DB_POSTS).push().getKey();
+        StorageReference storageRef = mStorage.getReference();
+
+        StorageReference imRef = storageRef.child("postImages").child(id + image.getLastPathSegment());
+
+        Task uptask = imRef.putFile(image);
 
 
-        Date date = new Date();
-        long time = date.getTime();
-        mDatabase.child(DB_POSTS).child(id).setValue(new GenericPost(id, time, post.getCategory()));
+        uptask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
 
-        switch (post.getCategory()) {
-            case 1:
-                mDatabase.child(DB_EVENTS).child(id).setValue(post);
-                break;
-            case 2:
-                mDatabase.child(DB_INFOS).child(id).setValue(post);
-                break;
-            case 3:
-                mDatabase.child(DB_RIPET).child(id).setValue(post);
-                break;
-            case 4:
-                mDatabase.child(DB_GS).child(id).setValue(post);
-                break;
-        }
+                // Continue with the task to get the download URL
+                return imRef.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    Uri downloadUri = task.getResult();
+                    post.setPostImage(downloadUri.toString());
 
+                    Date date = new Date();
+                    long time = date.getTime();
+                    mDatabase.child(DB_POSTS).child(id).setValue(new GenericPost(id, time, post.getCategory()));
 
+                    switch (post.getCategory()) {
+                        case 1:
+                            mDatabase.child(DB_EVENTS).child(id).setValue(post);
+                            break;
+                        case 2:
+                            mDatabase.child(DB_INFOS).child(id).setValue(post);
+                            break;
+                        case 3:
+                            mDatabase.child(DB_RIPET).child(id).setValue(post);
+                            break;
+                        case 4:
+                            mDatabase.child(DB_GS).child(id).setValue(post);
+                            break;
+                    }
+                } else {
+
+                }
+            }
+        });
     }
 
     public LiveData<List<Post>> setFavorite(long id, int fav) {

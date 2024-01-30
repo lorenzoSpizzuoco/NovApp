@@ -1,5 +1,6 @@
 package com.example.novapp2.ui;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,8 @@ public class LoadingFragment extends Fragment {
     private PostViewModel postViewModel;
 
     private Post post;
+
+    private Uri imageUri;
     private final String TAG = LoadingFragment.class.getSimpleName();
 
     public static LoadingFragment newInstance(String param1, String param2) {
@@ -44,6 +47,7 @@ public class LoadingFragment extends Fragment {
         Bundle bundle = getArguments();
         if (bundle != null && bundle.getParcelable("post") != null) {
             post = bundle.getParcelable("post");
+            imageUri = bundle.getParcelable("image");
         }
         return inflater.inflate(R.layout.fragment_loading, container, false);
     }
@@ -53,7 +57,7 @@ public class LoadingFragment extends Fragment {
         Log.d(TAG, "sono qui");
 
         // inserting new add
-        postViewModel.insert(post);
+        postViewModel.insert(post, imageUri);
 
 
         postViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {

@@ -57,7 +57,7 @@ public abstract class PostRoomDatabase extends RoomDatabase {
                 PostDao postDao = INSTANCE.postDao();
 
                 postDao.deleteAll();
-
+                /*
                 postDao.insert(new Post("Hackaton", "mario giordano", R.drawable.security, null, "ai hackaton!", 1, "13/02/2024", "Milano", 0));
                 postDao.insert(new Post("Riapertura bar u3", "Staff Bicocca", R.drawable.analisi, null, "riapertura bar u3 alle 11", 2, "22/01/2024", "Milano", 0));
                 postDao.insert(new Post("Gruppo studio", "Lorenzo", R.drawable.analisi, null, "Gruppo studio analisi 2", 4, "23/01/2024", "Milano", 0));
@@ -69,7 +69,7 @@ public abstract class PostRoomDatabase extends RoomDatabase {
                 postDao.insert(new Post("Lezioni di Yoga Gratuite", "Associazione Studenti", R.drawable.ask_customer_feedback, null, "Rilassati con le lezioni di yoga offerte gratuitamente", 4, "Ogni Mercoledì", "Palestra Universitaria", 0));
                 postDao.insert(new Post("Workshop di Programmazione", "Dipartimento di Informatica", R.drawable.website_development, null, "Apprendi nuove tecniche di programmazione", 3, "05/02/2024", "Laboratorio Informatico", 0));
                 postDao.insert(new Post("Workshop di machine learning", "Dipartimento di Informatica", R.drawable.website_development, null, "Apprendi nuove tecniche di programmazione", 3, "05/02/2024", "Laboratorio Informatico", 0));
-
+                */
             });
         }
     };

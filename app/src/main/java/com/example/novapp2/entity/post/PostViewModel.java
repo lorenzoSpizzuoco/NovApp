@@ -5,6 +5,7 @@ import static com.example.novapp2.utils.Constants.PROFANITY_API_BASE_URL;
 import static com.example.novapp2.utils.Utils.checkResponse;
 
 import android.app.Application;
+import android.net.Uri;
 import android.util.Log;
 
 import com.example.novapp2.entity.User;
@@ -65,7 +66,7 @@ public class PostViewModel extends AndroidViewModel {
 
 
 
-    public void insert(Post post) {
+    public void insert(Post post, Uri image) {
 
         // check for profanity
         retrofit = new Retrofit.Builder()
@@ -87,7 +88,7 @@ public class PostViewModel extends AndroidViewModel {
                         boolean res = checkResponse(resp);
                         if (res) {
                             // insertion
-                            postRepository.insert(post);
+                            postRepository.insert(post, image);
                             isLoading.setValue(true);
                             Log.d(TAG, "all good");
                         }
