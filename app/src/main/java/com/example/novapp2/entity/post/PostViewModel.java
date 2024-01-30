@@ -8,7 +8,7 @@ import android.app.Application;
 import android.net.Uri;
 import android.util.Log;
 
-import com.example.novapp2.repository.post.PostRepository;
+import com.example.novapp2.repository.post.PostRepository2;
 import com.example.novapp2.service.ProfanityApiService;
 
 import androidx.lifecycle.AndroidViewModel;
@@ -29,7 +29,7 @@ public class PostViewModel extends AndroidViewModel {
 
     static final private String TAG = PostViewModel.class.getSimpleName();
     private Retrofit retrofit;
-    private PostRepository postRepository;
+    private PostRepository2 postRepository;
 
     private long lastelement;
     private MutableLiveData<Integer> isFavorite = new MutableLiveData<>();
@@ -38,7 +38,7 @@ public class PostViewModel extends AndroidViewModel {
 
     public PostViewModel (Application application) {
         super(application);
-        postRepository = new PostRepository(application);
+        postRepository = new PostRepository2(application);
         //allPost = postRepository.getAllPost(false);
         allPost = postRepository.getRemotePosts();
         //allPost = postRepository.getPosts(false);
