@@ -11,6 +11,7 @@ import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.repository.post.IPostRepository;
 import com.example.novapp2.repository.post.PostRepository;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,8 +29,9 @@ public class PostService {
     private Retrofit retrofit;
     private static IPostRepository repository = new PostRepository();
 
-    public void insert(Post post, Uri image) {
+    public Task<Void> insert(Post post, Uri image) {
 
+        TaskCompletionSource<Void> taskCompletionSource = new TaskCompletionSource<>();
         retrofit = new Retrofit.Builder()
                 .baseUrl(PROFANITY_API_BASE_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
@@ -49,7 +51,13 @@ public class PostService {
                                 boolean res = checkResponse(resp);
                                 if (res) {
                                     // insertion
-                                    repository.insert(post, image);
+                                    repository.insert(post, image).addOnCompleteListener(
+                                            t -> {
+                                                if (t.isSuccessful()) {
+                                                    taskCompletionSource.setResult(t.getResult());
+                                                }
+                                            }
+                                    );
                                 }
 
                             } catch (IOException e) {
@@ -68,7 +76,7 @@ public class PostService {
 
                     }
                 });
-
+        return taskCompletionSource.getTask();
     }
 
     public Task<List<Post>> getAllPost() {

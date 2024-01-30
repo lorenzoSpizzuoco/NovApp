@@ -56,8 +56,8 @@ public class LoadingFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstaceState) {
         // inserting new add
         postViewModel.insert(post, imageUri);
-        postViewModel.getDoneLoading().observe(getViewLifecycleOwner(), isLoading -> {
-            if (isLoading != null && isLoading) {
+        postViewModel.getDoneLoading().observe(getViewLifecycleOwner(), doneLoading -> {
+            if (doneLoading != null && doneLoading) {
                 Log.d(TAG, "inside observer");
                 Navigation.findNavController(getView()).navigate(R.id.action_loadingFragment_to_navigation_dashboard);
             }

@@ -41,7 +41,7 @@ public class PostRepository implements IPostRepository{
 
     private static final String TAG = PostRepository.class.getSimpleName();
 
-
+    /*
     @Override
     public void insert(Post post, Uri image) {
 
@@ -109,6 +109,84 @@ public class PostRepository implements IPostRepository{
                     break;
             }
             mDatabase.child(child).child(id).setValue(post);
+        }
+    }
+    */
+    public Task<Void> insert(Post post, Uri image) {
+        TaskCompletionSource<Void> taskCompletionSource = new TaskCompletionSource<>();
+
+        String id = mDatabase.child(DB_POSTS).push().getKey();
+        StorageReference storageRef = mStorage.getReference();
+        int category = post.getCategory();
+
+        if (category == 1 || category == 3) {
+            UploadImage.uploadImage(image, "postImages", id).addOnCompleteListener(
+                    new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+                                Uri downloadUri = task.getResult();
+                                post.setPostImage(downloadUri.toString());
+                                Date date = new Date();
+                                long time = date.getTime();
+                                mDatabase.child(DB_POSTS).child(id).setValue(new GenericPost(id, time, post.getCategory()))
+                                        .addOnCompleteListener(task1 -> {
+                                            if (task1.isSuccessful()) {
+                                                String child = getChildCategory(post.getCategory());
+                                                mDatabase.child(child).child(id).setValue(post)
+                                                        .addOnCompleteListener(task2 -> {
+                                                            if (task2.isSuccessful()) {
+                                                                taskCompletionSource.setResult(null);
+                                                            } else {
+                                                                taskCompletionSource.setException(task2.getException());
+                                                            }
+                                                        });
+                                            } else {
+                                                taskCompletionSource.setException(task1.getException());
+                                            }
+                                        });
+                            } else {
+                                taskCompletionSource.setException(task.getException());
+                            }
+                        }
+                    });
+        } else {
+            Date date = new Date();
+            long time = date.getTime();
+            post.setPostImage(null);
+            mDatabase.child(DB_POSTS).child(id).setValue(new GenericPost(id, time, post.getCategory()))
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            String child = getChildCategory(post.getCategory());
+                            mDatabase.child(child).child(id).setValue(post)
+                                    .addOnCompleteListener(task1 -> {
+                                        if (task1.isSuccessful()) {
+                                            taskCompletionSource.setResult(null);
+                                        } else {
+                                            taskCompletionSource.setException(task1.getException());
+                                        }
+                                    });
+                        } else {
+                            taskCompletionSource.setException(task.getException());
+                        }
+                    });
+        }
+
+        return taskCompletionSource.getTask();
+    }
+
+    private String getChildCategory(int category) {
+        switch (category) {
+            case 1:
+                return DB_EVENTS;
+            case 2:
+                return DB_INFOS;
+            case 3:
+                return DB_RIPET;
+            case 4:
+                return DB_GS;
+            default:
+                return DB_INFOS;
         }
     }
 
