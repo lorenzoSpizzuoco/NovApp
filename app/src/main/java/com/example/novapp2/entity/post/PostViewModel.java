@@ -9,8 +9,13 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.example.novapp2.repository.post.PostRepository2;
+import com.example.novapp2.service.PostService;
 import com.example.novapp2.service.ProfanityApiService;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -28,20 +33,18 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class PostViewModel extends AndroidViewModel {
 
     static final private String TAG = PostViewModel.class.getSimpleName();
-    private Retrofit retrofit;
-    private PostRepository2 postRepository;
 
+    //private PostRepository2 postRepository;
+    private static PostService postService = new PostService();
     private long lastelement;
+
     private MutableLiveData<Integer> isFavorite = new MutableLiveData<>();
-    private MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
-    private final LiveData<List<Post>> allPost;
+    private MutableLiveData<Boolean> doneLoading = new MutableLiveData<>();
+    private final MutableLiveData<List<Post>> allPost = null;
 
     public PostViewModel (Application application) {
         super(application);
-        postRepository = new PostRepository2(application);
-        //allPost = postRepository.getAllPost(false);
-        allPost = postRepository.getRemotePosts();
-        //allPost = postRepository.getPosts(false);
+
         isFavorite.setValue(0);
         lastelement = 0;
     }
@@ -52,67 +55,30 @@ public class PostViewModel extends AndroidViewModel {
 
     public  void setFavorite(long id, int fav) {
         isFavorite.setValue(fav);
-        postRepository.setFavorite(id, fav);
+        //postRepository.setFavorite(id, fav);
     }
 
-    public LiveData<Boolean> getIsLoading() {
-        return isLoading;
+    public LiveData<Boolean> getDoneLoading() {
+        return doneLoading;
     }
 
-    public LiveData<List<Post>> getAllPost() {return allPost; }
+    public MutableLiveData<List<Post>> getAllPost() {
+
+        MutableLiveData<List<Post>> posts = new MutableLiveData<>();
+
+        postService.getAllPost().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                posts.postValue(task.getResult());
+            }
+        });
+
+        return posts;
+    }
 
 
 
     public void insert(Post post, Uri image) {
-
-        // check for profanity
-        retrofit = new Retrofit.Builder()
-                .baseUrl(PROFANITY_API_BASE_URL)
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .build();
-
-        ProfanityApiService service = retrofit.create(ProfanityApiService.class);
-        service.checkForPronfanity(API_KEY,
-                "{comment: {text: \"" + post.getTitle() + " " + post.getContent() + "\" }, requestedAttributes: {PROFANITY:{}, TOXICITY:{}} }")
-                .enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                if (response.isSuccessful() && response.body() != null) {
-                    try {
-                        String resp = response.body().string();
-                        Log.d(TAG, "response: " + resp + " " + resp.getClass().getSimpleName());
-                        boolean res = checkResponse(resp);
-                        if (res) {
-                            // insertion
-                            postRepository.insert(post, image);
-                            isLoading.setValue(true);
-                            Log.d(TAG, "all good");
-                        }
-                        else {
-                            Log.d(TAG, "rejected");
-                            isLoading.setValue(true);
-                        }
-
-                    } catch (IOException e) {
-                        Log.e("AdViewModel", "errore");
-                    }
-                } else {
-                    Log.d("PostViewModel", response.errorBody().toString());
-                    Log.d("AdViewModel", "NESSUNA RISPOSTA");
-                }
-
-            }
-
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                // TODO Gestisci il fallimento della chiamata API
-                isLoading.setValue(false);
-                Log.e("AdViewModel", "fail message: " + t.getMessage());
-
-            }
-        });
-
+        postService.insert(post, image);
+        doneLoading.setValue(true);
     }
 }

@@ -129,6 +129,7 @@ public class DashboardFragment extends Fragment {
             postAdapter.notifyDataSetChanged();
             updateFilteredList();
         });
+
     }
 
     private void setUpChipClickListener(Chip chip, int category) {

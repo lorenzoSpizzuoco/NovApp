@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface IPostRepository {
 
-    public Task<Void> insert(Post post, Uri image);
+    public void insert(Post post, Uri image);
 
     public Task<List<Post>> getAllPost();
 

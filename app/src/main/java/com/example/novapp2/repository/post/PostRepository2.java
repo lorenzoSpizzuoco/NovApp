@@ -190,6 +190,7 @@ public class PostRepository2 {
                         Log.d(TAG, "fail");
 
                     }
+
                 }
             });
 

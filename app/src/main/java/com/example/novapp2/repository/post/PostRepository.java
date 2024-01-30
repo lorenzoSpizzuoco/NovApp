@@ -10,18 +10,26 @@ import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
+import com.example.novapp2.entity.User;
 import com.example.novapp2.entity.post.GenericPost;
 import com.example.novapp2.entity.post.Post;
+import com.example.novapp2.utils.UploadImage;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
+import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,86 +39,134 @@ public class PostRepository implements IPostRepository{
 
     private FirebaseStorage mStorage = FirebaseStorage.getInstance();
 
+    private static final String TAG = PostRepository.class.getSimpleName();
+
+
     @Override
-    public Task<Void> insert(Post post, Uri image) {
+    public void insert(Post post, Uri image) {
+
         String id = mDatabase.child(DB_POSTS).push().getKey();
         StorageReference storageRef = mStorage.getReference();
         int category = post.getCategory();
 
         if(category == 1 || category == 3) {
-            // postImage(String child, String fileName) filename -> nome.ext
 
-            StorageReference imRef = storageRef.child("postImages").child(id + image.getLastPathSegment());
+            UploadImage.uploadImage(image, "postImages", id).addOnCompleteListener(
+                    new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+                                Uri downloadUri = task.getResult();
+                                post.setPostImage(downloadUri.toString());
+                                Log.d(TAG, post.toString());
+                                Date date = new Date();
+                                long time = date.getTime();
+                                 mDatabase.child(DB_POSTS).child(id).setValue(new GenericPost(id, time, post.getCategory()));
+                                String child = DB_INFOS;
+                                switch (post.getCategory()) {
+                                    case 1:
+                                        child = DB_EVENTS;
+                                        break;
+                                    case 2:
+                                        child = DB_INFOS;
+                                        break;
+                                    case 3:
+                                        child = DB_RIPET;
+                                        break;
+                                    case 4:
+                                        child = DB_GS;
+                                        break;
+                                }
+                                mDatabase.child(child).child(id).setValue(post);
+                            } else {
+                                Log.d(TAG, "failing url task");
+                            }
 
-            Task uptask = imRef.putFile(image);
-            uptask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                @Override
-                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                    if (!task.isSuccessful()) {
-                        throw task.getException();
-                    }
-
-                    // Continue with the task to get the download URL
-                    return imRef.getDownloadUrl();
-                }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                    if (task.isSuccessful()) {
-                        Uri downloadUri = task.getResult();
-                        post.setPostImage(downloadUri.toString());
-
-                        Date date = new Date();
-                        long time = date.getTime();
-                        mDatabase.child(DB_POSTS).child(id).setValue(new GenericPost(id, time, post.getCategory()));
-
-                        switch (post.getCategory()) {
-                            case 1:
-                                mDatabase.child(DB_EVENTS).child(id).setValue(post);
-                                break;
-                            case 2:
-                                mDatabase.child(DB_INFOS).child(id).setValue(post);
-                                break;
-                            case 3:
-                                mDatabase.child(DB_RIPET).child(id).setValue(post);
-                                break;
-                            case 4:
-                                mDatabase.child(DB_GS).child(id).setValue(post);
-                                break;
                         }
-                    } else {
-                        Log.d(TAG, "fail");
 
-                    }
-                }
-            });
-
+                    });
         }
+
         else {
             Date date = new Date();
             long time = date.getTime();
             post.setPostImage(null);
             mDatabase.child(DB_POSTS).child(id).setValue(new GenericPost(id, time, post.getCategory()));
 
+            String child = DB_INFOS;
             switch (post.getCategory()) {
                 case 1:
-                    mDatabase.child(DB_EVENTS).child(id).setValue(post);
+                    child = DB_EVENTS;
                     break;
                 case 2:
-                    mDatabase.child(DB_INFOS).child(id).setValue(post);
+                    child = DB_INFOS;
                     break;
                 case 3:
-                    mDatabase.child(DB_RIPET).child(id).setValue(post);
+                    child = DB_RIPET;
                     break;
                 case 4:
-                    mDatabase.child(DB_GS).child(id).setValue(post);
+                    child = DB_GS;
                     break;
             }
+            mDatabase.child(child).child(id).setValue(post);
         }
     }
 
+
     @Override
     public Task<List<Post>> getAllPost() {
-        return null;
+
+        TaskCompletionSource<List<Post>> taskCompletionSource = new TaskCompletionSource<>();
+        List<Task<DataSnapshot>> tasks = new ArrayList<>();
+
+        mDatabase.child(DB_POSTS)
+                .get().addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.d(TAG, "fail");
+                        taskCompletionSource.setException(task.getException());
+                    } else {
+
+                        List<Post> postList = new ArrayList<>();
+
+                        // genericPosts
+                        for (DataSnapshot ds : task.getResult().getChildren()) {
+                            GenericPost postInfos = ds.getValue(GenericPost.class);
+                            String mainChild = getMainChild(postInfos.getCategoria());
+
+                            // fetching single post
+                            Task<DataSnapshot> innerTask = mDatabase.child(mainChild).child(postInfos.getId()).get();
+                            tasks.add(innerTask);
+                        }
+
+                        // Wait for all inner tasks to complete
+                        Tasks.whenAllSuccess(tasks).addOnCompleteListener(innerTask -> {
+                            for (Task<DataSnapshot> taskInner : tasks) {
+                                if (taskInner.isSuccessful()) {
+                                    Post p = taskInner.getResult().getValue(Post.class);
+                                    postList.add(p);
+                                }
+                            }
+                            taskCompletionSource.setResult(postList);
+                        });
+                    }
+                });
+
+        return taskCompletionSource.getTask();
     }
+
+    private String getMainChild(int categoria) {
+        switch (categoria) {
+            case 1:
+                return DB_EVENTS;
+            case 2:
+                return DB_INFOS;
+            case 3:
+                return DB_RIPET;
+            case 4:
+                return DB_GS;
+            default:
+                return DB_EVENTS;
+        }
+    }
+
 }
