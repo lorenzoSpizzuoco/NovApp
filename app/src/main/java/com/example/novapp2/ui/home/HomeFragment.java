@@ -28,9 +28,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 public class HomeFragment extends Fragment {
 
     private FirebaseAuth mAuth;
-    private User activeUser;
-    private String tokenFCM;
-
+    private static User activeUser;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,16 +50,6 @@ public class HomeFragment extends Fragment {
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(navView, navController);
 
-        Task<String> tokenTask = FirebaseMessaging.getInstance().getToken();
-        tokenTask.addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                tokenFCM = tokenTask.getResult();
-            } else {
-                // TODO Handle the error
-                Toast.makeText(requireContext(), "Error token update", Toast.LENGTH_SHORT).show();
-            }
-        });
-
         mAuth = FirebaseAuth.getInstance();
 
         if (mAuth.getCurrentUser() != null) {
@@ -74,7 +62,6 @@ public class HomeFragment extends Fragment {
                         Bundle args = new Bundle();
                         args.putString("userId", activeUser.getID());
                         args.putString("userEmail", activeUser.getEmail());
-                        args.putString("userToken", tokenFCM);
 
 
                         NavController mainNavController = MainActivity.getNavController();
@@ -100,7 +87,7 @@ public class HomeFragment extends Fragment {
         else return true;
     }
 
-    public User getActiveUser(){
+    public static User getActiveUser(){
         return activeUser;
     }
 

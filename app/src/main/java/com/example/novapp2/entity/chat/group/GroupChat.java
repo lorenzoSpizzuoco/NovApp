@@ -1,6 +1,6 @@
 package com.example.novapp2.entity.chat.group;
 
-import com.example.novapp2.entity.chat.message.MessageModel;
+import com.example.novapp2.entity.chat.message.Message;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ public class GroupChat {
     private String title;
     private String author;
     private String image;
-    private List<MessageModel> messages;
+    private List<Message> messages;
 
 
     public GroupChat() {
@@ -41,7 +41,7 @@ public class GroupChat {
         return image;
     }
 
-    public List<MessageModel> getMessages() {
+    public List<Message> getMessages() {
         return messages;
     }
 }

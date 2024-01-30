@@ -103,4 +103,10 @@
             app:argType="com.example.novapp2.entity.post.Post" />
     </fragment>
 
+    <fragment
+        android:id="@+id/openChatFragment"
+        android:name="com.example.novapp2.ui.home.chat.OpenChatFragment"
+        android:label="fragment_open_chat"
+        tools:layout="@layout/fragment_open_chat" />
+
 </navigation>

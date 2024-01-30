@@ -7,14 +7,14 @@
         android:title="Post" />
 
     <item
-        android:id="@+id/navigation_chat"
+        android:id="@+id/openChatFragment"
         android:icon="@drawable/selector_chat_icon"
         android:title="Chat" />
 
     <item
         android:id="@+id/navigation_add"
         android:icon="@android:drawable/ic_menu_add"
-        android:title="" />
+        android:title="Add" />
 
     <item
         android:id="@+id/navigation_notifications"

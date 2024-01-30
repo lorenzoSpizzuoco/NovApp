@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.novapp2.MainActivity;
 import com.example.novapp2.R;
 import java.util.List;
 

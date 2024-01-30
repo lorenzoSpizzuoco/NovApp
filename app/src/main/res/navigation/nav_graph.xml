@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_flow_nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/loginFragment">
 
     <!-- Start screen -->
     <fragment
@@ -82,9 +82,6 @@
             app:argType="string" />
         <argument
             android:name="userEmail"
-            app:argType="string" />
-        <argument
-            android:name="userToken"
             app:argType="string" />
         <action
             android:id="@+id/action_fullRegister_to_home"
