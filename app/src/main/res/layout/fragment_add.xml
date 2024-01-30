@@ -5,9 +5,6 @@
     android:id="@+id/add_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/bottomAddImageView1"
@@ -17,36 +14,25 @@
             android:alpha="0.55"
             android:scaleType="centerCrop" />
 
-        <RelativeLayout
-            android:id="@+id/topAddRelativeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="160dp">
-
                 <LinearLayout
                     android:id="@+id/first_row_new_post"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
                     android:elevation="8dp"
+                    android:layout_marginTop="160dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/new_post_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="15dp"
                         android:gravity="center_horizontal"
                         android:padding="20dp"
                         android:text="@string/share_something"
-                        android:textColor="@color/md_theme_primary"
+                        android:textColor="@color/md_theme_light_primary"
                         android:textSize="30sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"/>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -60,14 +46,11 @@
                             style="@style/Widget.Material3.Button.ElevatedButton.Icon"
                             android:layout_width="160dp"
                             android:layout_height="70dp"
-                            android:layout_marginRight="8dp"
+                            android:layout_marginEnd="8dp"
                             android:text="@string/button_event"
-                            android:textColor="@color/md_theme_onPrimaryContainer_mediumContrast"
-                            app:backgroundTint="@color/md_theme_primaryContainer_mediumContrast"
                             android:textSize="16sp"
                             app:icon="@drawable/bottom_btn4"
-                            app:iconSize="25dp"
-                            app:iconTint="@color/md_theme_onPrimaryContainer_mediumContrast" />
+                            app:iconSize="25dp" />
 
                         <Button
                             android:id="@+id/new_info_button"
@@ -76,16 +59,13 @@
                             android:layout_height="70dp"
                             android:layout_toEndOf="@+id/new_event_button"
                             android:text="@string/button_info"
-                            android:textColor="@color/md_theme_onPrimaryContainer_mediumContrast"
-                            app:backgroundTint="@color/md_theme_primaryContainer_mediumContrast"
                             android:textSize="16sp"
                             app:icon="@drawable/ic_notifications_black_24dp"
-                            app:iconSize="25dp"
-                            app:iconTint="@color/md_theme_onPrimaryContainer_mediumContrast" />
+                            app:iconSize="25dp"/>
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -96,14 +76,11 @@
                             style="@style/Widget.Material3.Button.ElevatedButton"
                             android:layout_width="160dp"
                             android:layout_height="70dp"
-                            android:layout_marginRight="8dp"
+                            android:layout_marginEnd="8dp"
                             android:text="@string/button_sg"
-                            android:textColor="@color/md_theme_onPrimaryContainer_mediumContrast"
-                            app:backgroundTint="@color/md_theme_primaryContainer_mediumContrast"
                             android:textSize="16sp"
                             app:icon="@drawable/libri"
-                            app:iconSize="25dp"
-                            app:iconTint="@color/md_theme_onPrimaryContainer_mediumContrast" />
+                            app:iconSize="25dp"/>
 
                         <Button
                             android:id="@+id/new_ripetizioni_button"
@@ -112,20 +89,11 @@
                             android:layout_height="70dp"
                             android:layout_toEndOf="@+id/new_gs_button"
                             android:text="@string/button_ripetizioni"
-                            android:textColor="@color/md_theme_onPrimaryContainer_mediumContrast"
-                            app:backgroundTint="@color/md_theme_primaryContainer_mediumContrast"
                             android:textSize="16sp"
                             app:icon="@drawable/online_worlds"
-                            app:iconSize="25dp"
-                            app:iconTint="@color/md_theme_onPrimaryContainer_mediumContrast" />
+                            app:iconSize="25dp" />
 
                     </RelativeLayout>
                 </LinearLayout>
-
-        </RelativeLayout>
-        </RelativeLayout>
-
-
-    </RelativeLayout>
 
 </FrameLayout>
