@@ -42,9 +42,9 @@ public class FullRegisterFragment extends Fragment {
         final TextInputLayout inputSurname = view.findViewById(R.id.full_register_surname);
         final TextInputLayout inputBio = view.findViewById(R.id.full_register_bio);
         final Button finishButton = view.findViewById(R.id.full_register_end_flow_button);
-
+        final Button imageButton = view.findViewById(R.id.full_register_image_button);
         // TODO empty strings
-        // TODO image ???
+        // TODO image ??? don't worry, working on it
         finishButton.setOnClickListener(v -> {
             String name = inputName.getEditText().getText().toString();
             String surname = inputSurname.getEditText().getText().toString();

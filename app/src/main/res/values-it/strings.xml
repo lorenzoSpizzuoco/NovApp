@@ -94,6 +94,7 @@
     <string name="full_register_title">Parlaci di te!</string>
     <string name="full_register_bio_hint">Che cosa è importante sapere di te?</string>
     <string name="full_register_end_flow">Finito!</string>
+    <string name="register_image"> Carica un\'immagine profilo </string>
 
     <!-- General -->
     <string name="name">Nome</string>
