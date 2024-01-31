@@ -65,6 +65,8 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment:$nav_version")
     implementation("androidx.navigation:navigation-ui:$nav_version")
 
+    // refresh
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     // glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
