@@ -139,7 +139,7 @@ public class PostDetailsFragment extends Fragment {
         // colors for icon filtering
         int red = ContextCompat.getColor(this.getContext(), android.R.color.holo_red_dark);
         int white = ContextCompat.getColor(this.getContext(), android.R.color.white);
-
+        favoriteIcon.setColorFilter(white);
 
         // observing livedata
         postViewModel.getIsFavorite(HomeFragment.getActiveUser().getID(), p.getDbId()).observe(getViewLifecycleOwner(), favorite -> {
