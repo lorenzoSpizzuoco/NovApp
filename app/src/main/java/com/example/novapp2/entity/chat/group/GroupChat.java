@@ -15,6 +15,19 @@ public class GroupChat {
     private List<Message> messages;
 
     // TODO costruttore solo id
+    /*
+       public GroupChat() {
+        this(null);
+    }
+
+        public GroupChat(String ID) {
+        this.id = ID;
+        this.title = title;
+        this.author = author;
+        this.image = image;
+        this.messages = null;
+    }
+     */
     public GroupChat() {
         this(null, null, null, null);
     }
