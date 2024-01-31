@@ -24,7 +24,9 @@ import com.bumptech.glide.Glide;
 import com.example.novapp2.R;
 import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.entity.post.PostViewModel;
+import com.example.novapp2.ui.home.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class PostDetailsFragment extends Fragment {
@@ -42,6 +44,8 @@ public class PostDetailsFragment extends Fragment {
     private TextView place;
 
     private TextView username;
+
+    private Chip chip;
 
 
     private FloatingActionButton favoriteIcon;
@@ -62,6 +66,7 @@ public class PostDetailsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
+
     }
 
     @Override
@@ -75,6 +80,7 @@ public class PostDetailsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle bundle) {
 
         Post p = PostDetailsFragmentArgs.fromBundle(getArguments()).getPost();
+        chip = view.findViewById(R.id.postDetailChip);
         image = view.findViewById(R.id.PostdetailsImageView);
         title = view.findViewById(R.id.postTitle);
         date = view.findViewById(R.id.postDate);
@@ -83,6 +89,21 @@ public class PostDetailsFragment extends Fragment {
         favoriteIcon = view.findViewById(R.id.imageview_favorite_post);
         username = view.findViewById(R.id.user_name_post);
         username.setText(p.getAuthor());
+
+        switch (p.getCategory()) {
+            case 1:
+                chip.setText(R.string.event_chip);
+                break;
+            case 2:
+                chip.setText(R.string.infos_chip);
+                break;
+            case 3:
+                chip.setText(R.string.ripet_chip);
+                break;
+            case 4:
+                chip.setText(R.string.gs_chip);
+                break;
+        }
 
         if (p.getPostImage() == null) {
             image.setImageResource(p.getImage());
@@ -104,15 +125,9 @@ public class PostDetailsFragment extends Fragment {
         int red = ContextCompat.getColor(this.getContext(), android.R.color.holo_red_dark);
         int white = ContextCompat.getColor(this.getContext(), android.R.color.white);
 
-        // setting livedata value to 1 if post is listed as favorite
-        if (p.getFavorite() == 1) {
-            favoriteIcon.setImageResource(R.drawable.ic_favorite_24);
-            favoriteIcon.setColorFilter(red);
-            postViewModel.setFavorite(p.getId(), 1);
-        }
 
         // observing livedata
-        postViewModel.getIsFavorite().observe(getViewLifecycleOwner(), favorite -> {
+        postViewModel.getIsFavorite(HomeFragment.getActiveUser().getID(), p.getDbId()).observe(getViewLifecycleOwner(), favorite -> {
             if (favorite == 1) {
                 favoriteIcon.setImageResource(R.drawable.ic_favorite_24);
                 favoriteIcon.setColorFilter(red);
@@ -127,15 +142,11 @@ public class PostDetailsFragment extends Fragment {
         // click listener
         favoriteIcon.setOnClickListener(v -> {
             if (p.getFavorite() == 1) {
-                //p.setFavorite(0);
-                postViewModel.setFavorite(p.getId(), 0);
+                postViewModel.setFavorite(p.getDbId(), 0, p.getCategory());
             }
             else {
-                //p.setFavorite(1);
-                postViewModel.setFavorite(p.getId(), 1);
+                postViewModel.setFavorite(p.getDbId(), 1, p.getCategory());
             }
-
-
         });
 
         NavBackStackEntry navBackStackEntry = Navigation.

@@ -105,4 +105,10 @@
     <string name="ripetizioni_content_desc">Immagine esplicativa ripetizioni</string>
     <string name="share_something">Condividi con gli Utenti</string>
 
+    <!-- POST DETAILS CHIP -->
+    <string name="gs_chip"> gruppo studio</string>
+    <string name="event_chip"> evento </string>
+    <string name="ripet_chip"> ripetizioni </string>
+    <string name="infos_chip"> info uni </string>
+
 </resources>

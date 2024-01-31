@@ -1,10 +1,13 @@
 package com.example.novapp2.entity.chat.group;
 
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.novapp2.R;
@@ -30,6 +33,13 @@ public class GroupChatAdapter extends RecyclerView.Adapter<GroupChatViewHolder> 
         GroupChat item = groupChats.get(position);
         holder.getTitleView().setText(item.getTitle());
         holder.getAuthorView().setText(item.getAuthor());
+
+        holder.itemView.setOnClickListener(v -> {
+            Bundle args = new Bundle();
+            args.putString("chatGroupId", item.getID());
+
+            Navigation.findNavController(v).navigate(R.id.action_navigation_chat_to_openChat, args);
+        });
     }
 
     @Override
