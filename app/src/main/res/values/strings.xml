@@ -109,5 +109,11 @@
     <string name="ripetizioni_content_desc">Immagine esplicativa ripetizioni</string>
     <string name="share_something">Condividi con gli Utenti</string>
 
+    <!-- POST DETAILS CHIP -->
+    <string name="gs_chip"> study group</string>
+    <string name="event_chip"> event </string>
+    <string name="ripet_chip"> repetitions </string>
+    <string name="infos_chip"> uni infos </string>
+
 
 </resources>

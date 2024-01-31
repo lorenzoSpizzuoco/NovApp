@@ -122,9 +122,6 @@ public class OpenChatFragment extends Fragment {
             if (!content.equals("")) {
                 MessageService.createMessage("alalal", content, HomeFragment.getActiveUser().getEmail(), groupId);
                 messageContent.getEditText().setText("");
-                Toast.makeText(requireContext(), "Message sent", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(requireContext(), "Null message", Toast.LENGTH_SHORT).show();
             }
         });
     }
