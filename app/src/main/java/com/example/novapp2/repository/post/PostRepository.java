@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 
 import com.example.novapp2.entity.post.GenericPost;
 import com.example.novapp2.entity.post.Post;
+import com.example.novapp2.service.GroupChatsService;
 import com.example.novapp2.service.UserService;
 import com.example.novapp2.ui.home.HomeFragment;
 import com.example.novapp2.utils.UploadImage;
@@ -77,7 +78,7 @@ public class PostRepository implements IPostRepository{
                                                                 taskCompletionSource.setResult(null);
                                                                 HomeFragment.getActiveUser().groupChats.add(id);
                                                                 UserService.updateUserById(HomeFragment.getActiveUser().userId, HomeFragment.getActiveUser());
-                                                                // TODO creare un gruppo su groupchat con questo id
+                                                                GroupChatsService.createGroupChat(id);
                                                             } else {
                                                                 taskCompletionSource.setException(task2.getException());
                                                             }

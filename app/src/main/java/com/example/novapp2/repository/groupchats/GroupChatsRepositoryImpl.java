@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.example.novapp2.entity.chat.group.GroupChat;
 import com.example.novapp2.entity.chat.message.Message;
+import com.example.novapp2.utils.Constants;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.database.DataSnapshot;
@@ -55,36 +56,47 @@ public class GroupChatsRepositoryImpl implements IGroupChatsRepository {
 
     @Override
     public Task<GroupChat> getGroupChatById(String groupChatId) {
+        GroupChat groupChat = new GroupChat();
+        List<Message> messages = new ArrayList<>();
+
         TaskCompletionSource<GroupChat> taskCompletionSource = new TaskCompletionSource<>();
 
-        mDatabase.child("groupChats").orderByChild("id").equalTo(groupChatId).addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child(Constants.DB_GS).orderByChild("dbId").equalTo(groupChatId).addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                GroupChat groupChat = new GroupChat();
-                List<Message> messages = new ArrayList<>();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Map<String, Object> data = (Map<String, Object>) snapshot.getValue();
 
-                    groupChat.setId(snapshot.child("id").getValue(String.class));
-                    groupChat.setImage(snapshot.child("image").getValue(String.class));
+                    groupChat.setId(snapshot.child("dbId").getValue(String.class));
+                    groupChat.setImage("");
+                    //groupChat.setImage(snapshot.child("image").getValue(String.class));
                     groupChat.setAuthor(snapshot.child("author").getValue(String.class));
                     groupChat.setTitle(snapshot.child("title").getValue(String.class));
-
-                    // Iterate over the children of the "messages" node
-                    for (DataSnapshot messageSnapshot : snapshot.child("messages").getChildren()) {
-                        Map<String, Object> messageData = (Map<String, Object>) messageSnapshot.getValue();
-                        Message message = new Message();
-                        message.setAuthor(messageSnapshot.child("author").getValue(String.class));
-                        message.setContent(messageSnapshot.child("content").getValue(String.class));
-                        messages.add(message);
-                    }
-                    groupChat.setMessages(messages);
                 }
-                taskCompletionSource.setResult(groupChat);
             }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                taskCompletionSource.setException(databaseError.toException());
+            }
+        });
+
+        mDatabase.child("groupChats").orderByChild("id").equalTo(groupChatId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Iterate over the children of the "messages" node
+                for (DataSnapshot messageSnapshot : dataSnapshot.child("messages").getChildren()) {
+                    Map<String, Object> messageData = (Map<String, Object>) messageSnapshot.getValue();
+                    Message message = new Message();
+                    message.setAuthor(messageSnapshot.child("author").getValue(String.class));
+                    message.setContent(messageSnapshot.child("content").getValue(String.class));
+                    messages.add(message);
+                }
+                groupChat.setMessages(messages);
+                taskCompletionSource.setResult(groupChat);
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 taskCompletionSource.setException(databaseError.toException());
