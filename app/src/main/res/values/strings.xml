@@ -5,13 +5,15 @@
     <string name="title_notifications">Avvisi</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="email_error"> Email not valid </string>
-    <string name="hello"> Hello </string>
+    <string name="hello"> Ciao, </string>
+    <string name="esclamation">!</string>
     <string name="saved_elements"> Elementi Salvati </string>
     <string name="button_event"> Eventi </string>
     <string name="button_sg"> Gruppi Studio </string>
     <string name="new_post">Which content you want to create?</string>
     <string name="button_info">Info Uni</string>
     <string name="button_other"> Altro </string>
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="fab_content_desc">New Ad</string>
@@ -111,10 +113,11 @@
     <string name="ripetizioni_content_desc">Immagine esplicativa ripetizioni</string>
     <string name="share_something">Condividi con gli Utenti</string>
 
-
     <!-- POST DETAILS CHIP -->
     <string name="gs_chip"> study group</string>
     <string name="event_chip"> event </string>
     <string name="ripet_chip"> repetitions </string>
     <string name="infos_chip"> uni infos </string>
+
+
 </resources>

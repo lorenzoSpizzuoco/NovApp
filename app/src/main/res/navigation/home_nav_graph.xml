@@ -7,9 +7,16 @@
 
     <fragment
         android:id="@+id/navigation_chat"
-        android:name="com.example.novapp2.ui.home.chat.FragmentChat"
+        android:name="com.example.novapp2.ui.home.chat.ChatFragment"
         android:label="fragment_chat"
-        tools:layout="@layout/fragment_chat"/>
+        tools:layout="@layout/fragment_chat">
+        <argument
+            android:name="chatGroupId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_navigation_chat_to_openChat"
+            app:destination="@id/openChatFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_add"
@@ -66,6 +73,16 @@
         <argument
             android:name="post"
             app:argType="com.example.novapp2.entity.post.Post" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/openChatFragment"
+        android:name="com.example.novapp2.ui.home.chat.OpenChatFragment"
+        android:label="fragment_open_chat"
+        tools:layout="@layout/fragment_open_chat" >
+        <action
+            android:id="@+id/action_openChat_to_navigationChat"
+            app:destination="@id/navigation_chat" />
     </fragment>
 
 </navigation>

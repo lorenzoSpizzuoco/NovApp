@@ -1,8 +1,6 @@
 package com.example.novapp2.entity.post;
 
 
-
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;

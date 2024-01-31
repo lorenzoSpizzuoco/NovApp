@@ -9,9 +9,9 @@ public class GroupChatFactory {
 
     public static List<GroupChat> createGroupChats() {
         list = new ArrayList<>();
-        list.add(new GroupChat("bello", "giorgio", "", ""));
-        list.add(new GroupChat("bello", "giorgio", "", ""));
-        list.add(new GroupChat("bello", "giorgio", "", ""));
+        list.add(new GroupChat("bello1", "giorgio", "", ""));
+        list.add(new GroupChat("bello2", "giorgio", "", ""));
+        list.add(new GroupChat("bello3", "giorgio", "", ""));
         return list;
     }
 }

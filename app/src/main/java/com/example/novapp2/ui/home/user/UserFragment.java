@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.novapp2.R;
 import com.example.novapp2.databinding.FragmentUserBinding;
+import com.example.novapp2.entity.User;
 import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.entity.post.PostAdapter;
 import com.example.novapp2.entity.post.PostViewModel;
@@ -27,6 +28,7 @@ import com.example.novapp2.entity.post.SavedPostAdapter;
 import com.example.novapp2.ui.home.HomeFragment;
 import com.example.novapp2.ui.home.user.UserFragmentDirections;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.common.base.Predicates;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +39,12 @@ public class UserFragment extends Fragment {
 
     private FragmentUserBinding binding;
 
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
 
+    private TextView userMail;
+    private TextView userHi;
     private View root;
     private SavedPostAdapter savedPostAdapter;
     private PostViewModel postViewModel;
@@ -51,8 +58,7 @@ public class UserFragment extends Fragment {
 
     private MaterialAlertDialogBuilder materialAlertDialogBuilder;
 
-    private TextView userEmail;
-    private TextView userName;
+    private User user;
 
     public UserFragment() {
         // Required empty public constructor
@@ -79,15 +85,14 @@ public class UserFragment extends Fragment {
 
         binding = FragmentUserBinding.inflate(inflater, container, false);
         root = binding.getRoot();
+        user = HomeFragment.getActiveUser();
         return root;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        // user infos
-        userName = view.findViewById(R.id.userHiTextView);
-        userEmail = view.findViewById(R.id.userEmail);
+
         userImage = view.findViewById(R.id.userProfilePhoto);
         String imageUrl = HomeFragment.getActiveUser().getProfileImg();
 
@@ -99,17 +104,20 @@ public class UserFragment extends Fragment {
                     .into(userImage);
         }
 
-        String name = getResources().getString(R.string.hello) + " " + HomeFragment.getActiveUser().getName();
-        userName.setText(name);
-        userEmail.setText(HomeFragment.getActiveUser().getEmail());
-
         //elementi salvati
-        mySavedView = view.findViewById(R.id.mySavedPosts);
-        mySavedView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        //elementi postati
+        mySavedView = view.findViewById(R.id.mySavedPosts);
         myPostsView = view.findViewById(R.id.myPosts);
+        userMail = view.findViewById(R.id.userMailTextVew);
+        userHi = view.findViewById(R.id.userHiTextView);
+
+        mySavedView.setLayoutManager(new LinearLayoutManager(requireContext()));
         myPostsView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        if(null !=user && user.notNull()){
+            userMail.setText(HomeFragment.getActiveUser().getEmail());
+            userHi.setText(getString(R.string.hello) + HomeFragment.getActiveUser().getName() + getString(R.string.esclamation));
+        }
 
         RecyclerView mySavedPostsRecyclerView = root.findViewById(R.id.mySavedPosts);
         RecyclerView myPostsRecyclerView = root.findViewById(R.id.myPosts);

@@ -1,8 +1,11 @@
 package com.example.novapp2.repository.groupchats;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.example.novapp2.entity.chat.group.GroupChat;
+import com.example.novapp2.entity.chat.message.Message;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.database.DataSnapshot;
@@ -12,7 +15,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class GroupChatsRepositoryImpl implements IGroupChatsRepository {
 
@@ -56,8 +62,25 @@ public class GroupChatsRepositoryImpl implements IGroupChatsRepository {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 GroupChat groupChat = new GroupChat();
+                List<Message> messages = new ArrayList<>();
+
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    groupChat = snapshot.getValue(GroupChat.class);
+                    Map<String, Object> data = (Map<String, Object>) snapshot.getValue();
+
+                    groupChat.setId(snapshot.child("id").getValue(String.class));
+                    groupChat.setImage(snapshot.child("image").getValue(String.class));
+                    groupChat.setAuthor(snapshot.child("author").getValue(String.class));
+                    groupChat.setTitle(snapshot.child("title").getValue(String.class));
+
+                    // Iterate over the children of the "messages" node
+                    for (DataSnapshot messageSnapshot : snapshot.child("messages").getChildren()) {
+                        Map<String, Object> messageData = (Map<String, Object>) messageSnapshot.getValue();
+                        Message message = new Message();
+                        message.setAuthor(messageSnapshot.child("author").getValue(String.class));
+                        message.setContent(messageSnapshot.child("content").getValue(String.class));
+                        messages.add(message);
+                    }
+                    groupChat.setMessages(messages);
                 }
                 taskCompletionSource.setResult(groupChat);
             }

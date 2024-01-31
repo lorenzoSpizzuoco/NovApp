@@ -5,6 +5,7 @@
     android:id="@+id/main_flow_nav_graph"
     app:startDestination="@id/startScreenFragment">
 
+
     <!-- Start screen -->
     <fragment
         android:id="@+id/startScreenFragment"
@@ -82,9 +83,6 @@
             app:argType="string" />
         <argument
             android:name="userEmail"
-            app:argType="string" />
-        <argument
-            android:name="userToken"
             app:argType="string" />
         <action
             android:id="@+id/action_fullRegister_to_home"

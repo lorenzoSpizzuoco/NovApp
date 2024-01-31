@@ -31,6 +31,8 @@ import com.example.novapp2.entity.post.PostAdapter;
 import com.example.novapp2.entity.post.PostViewModel;
 import com.example.novapp2.utils.Utils;
 import com.google.android.material.chip.Chip;
+import com.google.android.material.search.SearchBar;
+
 import androidx.appcompat.widget.SearchView;
 
 import java.util.ArrayList;
@@ -43,7 +45,9 @@ import java.util.stream.Stream;
 public class DashboardFragment extends Fragment {
 
     private FragmentDashboardBinding binding;
-    private SearchView postSearchView;
+    private com.google.android.material.search.SearchView postSearchView;
+
+    private SearchBar searchBar;
     private RecyclerView postView;
     private PostViewModel postViewModel;
     private PostAdapter postAdapter;
@@ -99,27 +103,30 @@ public class DashboardFragment extends Fragment {
 
         postView.setAdapter(postAdapter);
 
-        // Configure search view
-        postSearchView = view.findViewById(R.id.courseSearchView);
-        postSearchView.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus) {
-                InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(postSearchView, InputMethodManager.SHOW_IMPLICIT);
-            }
+        searchBar = view.findViewById(R.id.search_bar);
+
+        searchBar.setOnClickListener(v -> {
+            searchBar.setFocusable(true);
+            searchBar.setFocusableInTouchMode(true);
+            searchBar.requestFocus();
+
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(searchBar, InputMethodManager.SHOW_IMPLICIT);
         });
 
-        postSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
+        com.google.android.material.search.SearchView searchView = view.findViewById(R.id.post_search_view);
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                filterPostsByTitle(newText);
-                return true;
-            }
-        });
+        // Imposta un listener per il cambiamento del testo di ricerca
+        searchView
+                .getEditText()
+                .setOnEditorActionListener(
+                        (v, actionId, event) -> {
+                            searchBar.setText(searchView.getText());
+                            searchView.hide();
+                            filterPostsByTitle(searchView.getText().toString());
+                            return false;
+                        });
+
 
         // Observing viewModel
         postViewModel.getAllPost().observe(getViewLifecycleOwner(), posts -> {
