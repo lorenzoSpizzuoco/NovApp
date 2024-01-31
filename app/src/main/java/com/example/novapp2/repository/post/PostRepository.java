@@ -77,6 +77,7 @@ public class PostRepository implements IPostRepository{
                                                                 taskCompletionSource.setResult(null);
                                                                 HomeFragment.getActiveUser().groupChats.add(id);
                                                                 UserService.updateUserById(HomeFragment.getActiveUser().userId, HomeFragment.getActiveUser());
+                                                                // TODO creare un gruppo su groupchat con questo id
                                                             } else {
                                                                 taskCompletionSource.setException(task2.getException());
                                                             }
@@ -130,6 +131,17 @@ public class PostRepository implements IPostRepository{
         }
     }
 
+    // TODO getPostById(category, Id)
+    /* TODO
+    getPostById(categoryId, postId).addOnCompleteListener(task -> {
+    if (task.isSuccessful()) {
+        Post post = task.getResult();
+        // Do something with the retrieved post
+    } else {
+        Exception exception = task.getException();
+        // Handle the exception
+    }
+    */
 
     @Override
     public Task<List<Post>> getAllPost() {

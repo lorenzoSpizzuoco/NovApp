@@ -14,6 +14,8 @@ public interface IPostRepository {
 
     public Task<List<Post>> getAllPost();
 
+    // TODO getPostById(category, Id)
+
     public Task<Void> insertSaved(String user, String postId, int category);
 
     public Task<Void> removeSaved(String user, String postId);

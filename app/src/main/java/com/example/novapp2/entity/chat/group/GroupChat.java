@@ -14,7 +14,7 @@ public class GroupChat {
     private String image;
     private List<Message> messages;
 
-
+    // TODO costruttore solo id
     public GroupChat() {
         this(null, null, null, null);
     }
