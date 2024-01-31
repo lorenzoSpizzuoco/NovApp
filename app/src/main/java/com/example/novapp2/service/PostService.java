@@ -28,6 +28,7 @@ public class PostService {
 
     public static final String TAG = PostService.class.getSimpleName();
     private Retrofit retrofit;
+
     private static IPostRepository repository = new PostRepository();
 
     public Task<Void> insert(Post post, Uri image) {
@@ -84,7 +85,7 @@ public class PostService {
         return repository.getAllPost();
     }
 
-    public Task<Void> insertSavedPost(String user, String postId) { return repository.insertSaved(user, postId); }
+    public Task<Void> insertSavedPost(String user, String postId, int category) { return repository.insertSaved(user, postId, category); }
 
     public Task<Void> removeSavedPost(String user, String postId) { return repository.removeSaved(user, postId); }
 
@@ -115,6 +116,10 @@ public class PostService {
         });
 
         return taskCompletionSource.getTask();
+    }
+
+    public Task<List<Post>> getSavedPost(String user) {
+        return repository.getSavedPosts(user);
     }
 
 }

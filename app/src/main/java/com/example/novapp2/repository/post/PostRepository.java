@@ -172,8 +172,8 @@ public class PostRepository implements IPostRepository{
         return mDatabase.child(DB_USERS).child(user).child(DB_SAVEDPOSTS).get();
     }
 
-    public Task<Void> insertSaved(String user, String postId) {
-        return mDatabase.child(DB_USERS).child(user).child(DB_SAVEDPOSTS).child(postId).setValue(postId);
+    public Task<Void> insertSaved(String user, String postId, int category) {
+        return mDatabase.child(DB_USERS).child(user).child(DB_SAVEDPOSTS).child(postId).setValue(category);
     }
 
     @Override
@@ -184,5 +184,47 @@ public class PostRepository implements IPostRepository{
     public Task<DataSnapshot> getIsSaved(String user, String postId) {
         return mDatabase.child(DB_USERS).child(user).child(DB_SAVEDPOSTS).child(postId).get();
 
+    }
+
+    @Override
+    public Task<List<Post>> getSavedPosts(String user) {
+
+        TaskCompletionSource<List<Post>> taskCompletionSource = new TaskCompletionSource<>();
+        List<Task<DataSnapshot>> tasks = new ArrayList<>();
+
+        mDatabase.child(DB_USERS).child(user).child(DB_SAVEDPOSTS)
+                .get().addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.d(TAG, "fail");
+                        taskCompletionSource.setException(task.getException());
+                    } else {
+
+                        List<Post> postList = new ArrayList<>();
+
+                        // genericPosts
+                        for (DataSnapshot ds : task.getResult().getChildren()) {
+                            String id = ds.getKey();
+                            int cat = ds.getValue(Integer.class);
+                            String mainChild = getChildCategory(cat);
+
+                            // fetching single post
+                            Task<DataSnapshot> innerTask = mDatabase.child(mainChild).child(id).get();
+                            tasks.add(innerTask);
+                        }
+
+                        // Wait for all inner tasks to complete
+                        Tasks.whenAllSuccess(tasks).addOnCompleteListener(innerTask -> {
+                            for (Task<DataSnapshot> taskInner : tasks) {
+                                if (taskInner.isSuccessful()) {
+                                    Post p = taskInner.getResult().getValue(Post.class);
+                                    postList.add(p);
+                                }
+                            }
+                            taskCompletionSource.setResult(postList);
+                        });
+                    }
+                });
+
+        return taskCompletionSource.getTask();
     }
 }

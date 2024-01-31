@@ -142,10 +142,10 @@ public class PostDetailsFragment extends Fragment {
         // click listener
         favoriteIcon.setOnClickListener(v -> {
             if (p.getFavorite() == 1) {
-                postViewModel.setFavorite(p.getDbId(), 0);
+                postViewModel.setFavorite(p.getDbId(), 0, p.getCategory());
             }
             else {
-                postViewModel.setFavorite(p.getDbId(), 1);
+                postViewModel.setFavorite(p.getDbId(), 1, p.getCategory());
             }
         });
 
