@@ -83,4 +83,9 @@ public class PostService {
         return repository.getAllPost();
     }
 
+    public Task<Void> insertSavedPost(String user, String postId) { return repository.insertSaved(user, postId); }
+
+    public Task<List<Post>> getSavedPosts(String user) { return repository.getFavoritePosts(user); }
+
+
 }

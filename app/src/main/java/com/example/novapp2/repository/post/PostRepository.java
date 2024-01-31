@@ -5,6 +5,8 @@ import static com.example.novapp2.utils.Constants.DB_GS;
 import static com.example.novapp2.utils.Constants.DB_INFOS;
 import static com.example.novapp2.utils.Constants.DB_POSTS;
 import static com.example.novapp2.utils.Constants.DB_RIPET;
+import static com.example.novapp2.utils.Constants.DB_SAVEDPOSTS;
+import static com.example.novapp2.utils.Constants.DB_USERS;
 
 import android.net.Uri;
 import android.util.Log;
@@ -145,7 +147,7 @@ public class PostRepository implements IPostRepository{
                         // genericPosts
                         for (DataSnapshot ds : task.getResult().getChildren()) {
                             GenericPost postInfos = ds.getValue(GenericPost.class);
-                            String mainChild = getMainChild(postInfos.getCategoria());
+                            String mainChild = getChildCategory(postInfos.getCategoria());
 
                             // fetching single post
                             Task<DataSnapshot> innerTask = mDatabase.child(mainChild).child(postInfos.getId()).get();
@@ -168,19 +170,13 @@ public class PostRepository implements IPostRepository{
         return taskCompletionSource.getTask();
     }
 
-    private String getMainChild(int categoria) {
-        switch (categoria) {
-            case 1:
-                return DB_EVENTS;
-            case 2:
-                return DB_INFOS;
-            case 3:
-                return DB_RIPET;
-            case 4:
-                return DB_GS;
-            default:
-                return DB_EVENTS;
-        }
+    public Task<List<Post>> getFavoritePosts(String user) { return null; }
+
+    public Task<Void> insertSaved(String user, String postId) {
+        return mDatabase.child(DB_USERS).child(user).child(DB_SAVEDPOSTS).setValue(postId);
     }
+
+
+
 
 }

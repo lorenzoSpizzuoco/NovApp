@@ -13,4 +13,8 @@ public interface IPostRepository {
 
     public Task<List<Post>> getAllPost();
 
+    public Task<Void> insertSaved(String user, String postId);
+
+    public Task<List<Post>> getFavoritePosts(String user);
+
 }
