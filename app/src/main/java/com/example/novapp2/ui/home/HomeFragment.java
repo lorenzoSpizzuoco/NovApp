@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -62,6 +63,9 @@ public class HomeFragment extends Fragment {
             activeUserTask.addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     activeUser = task.getResult();
+                    if(activeUser.getGroupChats() == null) {
+                        activeUser.setGroupChats(new ArrayList<>());
+                    }
 
                     if (!userFullyRegistered(activeUser)){
                         Bundle args = new Bundle();

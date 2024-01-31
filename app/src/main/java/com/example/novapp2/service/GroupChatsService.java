@@ -10,8 +10,8 @@ public class GroupChatsService {
 
     private static GroupChatsRepositoryImpl groupChatsRepositoryImpl = new GroupChatsRepositoryImpl();
 
-    public static Task<Void> createGroupChat(String ID, String title, String author, String image) {
-        return groupChatsRepositoryImpl.insertGroupChat(new GroupChat(ID, title, author, image));
+    public static Task<Void> createGroupChat(String ID) {
+        return groupChatsRepositoryImpl.insertGroupChat(new GroupChat(ID));
     }
 
     public static Task<List<GroupChat>> getGroupChats() {

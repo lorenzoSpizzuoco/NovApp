@@ -29,14 +29,11 @@ public class GroupChat {
     }
      */
     public GroupChat() {
-        this(null, null, null, null);
+        this(null);
     }
 
-    public GroupChat(String ID, String title, String author, String image) {
+    public GroupChat(String ID) {
         this.id = ID;
-        this.title = title;
-        this.author = author;
-        this.image = image;
         this.messages = null;
     }
 
@@ -78,5 +75,16 @@ public class GroupChat {
 
     public void setMessages(List<Message> messages) {
         this.messages = messages;
+    }
+
+    @Override
+    public String toString() {
+        return "GroupChat{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", image='" + image + '\'' +
+                ", messages=" + messages +
+                '}';
     }
 }
