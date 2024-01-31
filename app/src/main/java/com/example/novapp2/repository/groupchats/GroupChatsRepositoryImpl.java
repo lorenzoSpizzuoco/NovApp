@@ -25,11 +25,13 @@ public class GroupChatsRepositoryImpl implements IGroupChatsRepository {
 
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
+    // TODO Non serve
     @Override
     public Task<Void> insertGroupChat(GroupChat groupChat) {
         return mDatabase.child("groupChats").child(groupChat.getID()).setValue(groupChat);
     }
 
+    // TODO Non serve
     @Override
     public Task<List<GroupChat>> getAllGroupChat() {
         TaskCompletionSource<List<GroupChat>> taskCompletionSource = new TaskCompletionSource<>();
