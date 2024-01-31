@@ -245,6 +245,7 @@ public class NewEventDialog extends DialogFragment {
             Bundle b = new Bundle();
             b.putParcelable("post", new Post(
                     eventTitle.getText().toString(),
+                    null,
                     HomeFragment.getActiveUser().getEmail(),
                     R.drawable.analisi,
                     null,

@@ -138,7 +138,7 @@ public class UserFragment extends Fragment {
         myPostsView.setAdapter(savedPostAdapter);
         myPostsView.clearFocus();
 
-        postViewModel.getAllPost().observe(getViewLifecycleOwner(), posts -> {
+        postViewModel.getFavoritePosts().observe(getViewLifecycleOwner(), posts -> {
             this.postList.clear();
             this.postList.addAll(posts);
             savedPostAdapter.notifyItemChanged(0, posts.size());

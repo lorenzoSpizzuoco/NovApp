@@ -258,6 +258,7 @@ public class NewRipetDialog extends DialogFragment {
             Bundle b = new Bundle();
             b.putParcelable("post", new Post(
                     ripetTitle.getText().toString(),
+                    null,
                     HomeFragment.getActiveUser().getEmail(),
                     R.drawable.analisi,
                     null,

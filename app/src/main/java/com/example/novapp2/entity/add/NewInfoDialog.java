@@ -187,10 +187,10 @@ public class NewInfoDialog extends DialogFragment {
         }
 
         if (valid) {
-            HomeFragment hf = new HomeFragment();
             Bundle b = new Bundle();
             b.putParcelable("post", new Post(
                     infoTitle.getText().toString(),
+                    null,
                     HomeFragment.getActiveUser().getEmail(),
                     R.drawable.analisi,
                     null,
