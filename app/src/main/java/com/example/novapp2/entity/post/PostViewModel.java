@@ -6,6 +6,7 @@ import android.util.Log;
 
 
 import com.example.novapp2.service.PostService;
+import com.example.novapp2.service.UserService;
 import com.example.novapp2.ui.home.HomeFragment;
 
 import androidx.lifecycle.AndroidViewModel;
@@ -114,6 +115,21 @@ public class PostViewModel extends AndroidViewModel {
                 }
         );
 
+    }
+
+    public MutableLiveData<String> getAuthorImage(String email) {
+
+        MutableLiveData<String> authorImage = new MutableLiveData();
+
+        UserService.getUserByEmail(email).addOnCompleteListener(
+          task -> {
+              if (task.isSuccessful()) {
+                  authorImage.postValue(task.getResult().getProfileImg());
+              }
+          }
+        );
+
+        return authorImage;
     }
 
 }

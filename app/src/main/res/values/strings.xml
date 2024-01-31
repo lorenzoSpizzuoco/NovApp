@@ -26,6 +26,7 @@
     <string name="Save"> Salva </string>
     <string name="event"> Evento </string>
 
+
     <!-- NEW EVENT STRINGS -->
 
     <string name="event_title_hint">Event Name</string>
@@ -99,6 +100,9 @@
     <string name="full_register_title">Share about you!</string>
     <string name="full_register_bio_hint">What key details should we know about you?</string>
     <string name="full_register_end_flow">Finished!</string>
+    <string name="register_image"> load profile image </string>
+    <string name="image_error"> Error loading image </string>
+
 
     <!-- General -->
     <string name="name">Name</string>
