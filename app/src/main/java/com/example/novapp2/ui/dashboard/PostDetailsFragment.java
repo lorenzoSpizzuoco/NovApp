@@ -35,6 +35,8 @@ public class PostDetailsFragment extends Fragment {
 
     private ImageView image;
 
+    private ImageView authorProfileImage;
+
     private TextView title;
 
     private TextView description;
@@ -80,6 +82,7 @@ public class PostDetailsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle bundle) {
 
         Post p = PostDetailsFragmentArgs.fromBundle(getArguments()).getPost();
+        authorProfileImage = view.findViewById(R.id.post_user_image);
         chip = view.findViewById(R.id.postDetailChip);
         image = view.findViewById(R.id.PostdetailsImageView);
         title = view.findViewById(R.id.postTitle);
@@ -89,6 +92,18 @@ public class PostDetailsFragment extends Fragment {
         favoriteIcon = view.findViewById(R.id.imageview_favorite_post);
         username = view.findViewById(R.id.user_name_post);
         username.setText(p.getAuthor());
+
+        postViewModel.getAuthorImage(p.getAuthor()).observe(getViewLifecycleOwner(), imageUrl ->
+                {
+                    if (imageUrl != null) {
+                        Glide.with(view)
+                                .load(imageUrl)
+                                .centerCrop()
+                                .placeholder(R.drawable.analisi)
+                                .into(authorProfileImage);
+                    }
+                }
+        );
 
         switch (p.getCategory()) {
             case 1:

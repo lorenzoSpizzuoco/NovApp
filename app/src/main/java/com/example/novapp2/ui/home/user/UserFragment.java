@@ -14,8 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.novapp2.R;
 import com.example.novapp2.databinding.FragmentUserBinding;
 import com.example.novapp2.entity.User;
@@ -46,6 +48,8 @@ public class UserFragment extends Fragment {
     private View root;
     private SavedPostAdapter savedPostAdapter;
     private PostViewModel postViewModel;
+
+    private ImageView userImage;
 
     private RecyclerView mySavedView;
     private RecyclerView myPostsView;
@@ -87,6 +91,20 @@ public class UserFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+
+        userImage = view.findViewById(R.id.userProfilePhoto);
+        String imageUrl = HomeFragment.getActiveUser().getProfileImg();
+
+        if (imageUrl != null) {
+            Glide.with(view)
+                    .load(imageUrl)
+                    .centerCrop()
+                    .placeholder(R.drawable.analisi)
+                    .into(userImage);
+        }
+
+        //elementi salvati
 
         mySavedView = view.findViewById(R.id.mySavedPosts);
         myPostsView = view.findViewById(R.id.myPosts);
