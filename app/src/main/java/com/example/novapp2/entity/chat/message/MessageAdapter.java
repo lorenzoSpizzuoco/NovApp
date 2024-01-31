@@ -102,6 +102,9 @@ public class MessageAdapter extends RecyclerView.Adapter {
             authorView.setText(messageList.get(position).getAuthor());
         }
     }
-
+    public void updateData(Message newData) {
+        messageList.add(newData);
+        notifyDataSetChanged();
+    }
 
 }

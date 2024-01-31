@@ -19,8 +19,8 @@ public class MessageRepositoryImpl implements IMessageRepository{
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
     @Override
-    public Task<Void> insertMessage(Message message) {
-        return mDatabase.child("messages").child(message.getID()).setValue(message);
+    public Task<Void> insertMessage(Message message, String groupID) {
+        return mDatabase.child("groupChats").child(groupID).child("messages").push().setValue(message);
     }
 
     @Override

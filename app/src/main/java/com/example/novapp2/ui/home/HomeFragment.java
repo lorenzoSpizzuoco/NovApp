@@ -18,6 +18,8 @@ import android.widget.Toast;
 import com.example.novapp2.MainActivity;
 import com.example.novapp2.R;
 import com.example.novapp2.entity.User;
+import com.example.novapp2.entity.chat.group.GroupChat;
+import com.example.novapp2.service.GroupChatsService;
 import com.example.novapp2.service.UserService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IMessageRepository {
 
-    Task<Void> insertMessage(Message message);
+    Task<Void> insertMessage(Message message, String groupID);
 
     Task<List<Message>> getAllMessage();
 

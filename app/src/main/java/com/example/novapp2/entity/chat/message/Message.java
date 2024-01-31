@@ -27,4 +27,25 @@ public class Message {
     public String getID() {
         return ID;
     }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "ID='" + ID + '\'' +
+                ", content='" + content + '\'' +
+                ", author='" + author + '\'' +
+                '}';
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 }

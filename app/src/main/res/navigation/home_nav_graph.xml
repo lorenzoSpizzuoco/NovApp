@@ -9,7 +9,14 @@
         android:id="@+id/navigation_chat"
         android:name="com.example.novapp2.ui.home.chat.ChatFragment"
         android:label="fragment_chat"
-        tools:layout="@layout/fragment_chat"/>
+        tools:layout="@layout/fragment_chat">
+        <argument
+            android:name="chatGroupId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_navigation_chat_to_openChat"
+            app:destination="@id/openChatFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_add"

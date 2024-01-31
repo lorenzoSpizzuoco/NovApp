@@ -9,8 +9,8 @@ import java.util.List;
 public class MessageService {
     private static MessageRepositoryImpl messagesRepositoryImpl = new MessageRepositoryImpl();
 
-    public static Task<Void> createMessage(String ID, String title, String author) {
-        return messagesRepositoryImpl.insertMessage(new Message(ID, title, author));
+    public static Task<Void> createMessage(String ID, String content, String author, String groupID) {
+        return messagesRepositoryImpl.insertMessage(new Message(ID, content, author), groupID);
     }
 
     public static Task<List<Message>> getMessages() {

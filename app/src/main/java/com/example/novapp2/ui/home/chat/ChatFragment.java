@@ -46,39 +46,28 @@ public class ChatFragment extends Fragment {
 
         emptyView.setVisibility(View.GONE);
 
-        Task<List<GroupChat>> groupChatsTask = GroupChatsService.getGroupChats();
-        groupChatsTask.addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
+        List<String> userGroups = HomeFragment.getActiveUser().getGroupChats();
+        if(userGroups != null) {
+            groupChats = new ArrayList<>();
 
-                List<String> userGroups = HomeFragment.getActiveUser().getGroupChats();
-                if(userGroups != null){
-                groupChats = new ArrayList<>();
+            for (String id : userGroups) {
+                Task<GroupChat> groupChatTask = GroupChatsService.getGroupChatById(id);
+                groupChatTask.addOnCompleteListener(t -> {
+                    if (t.isSuccessful()) {
+                        GroupChat groupChat = t.getResult();
+                        groupChats.add(groupChat);
 
-                for (String id : userGroups) {
-                    Task<GroupChat> groupChatTask = GroupChatsService.getGroupChatById(id);
-                    groupChatTask.addOnCompleteListener(t -> {
-                        if (t.isSuccessful()) {
-                            GroupChat groupChat = t.getResult();
-                            groupChats.add(groupChat);
-
-                            GroupChatAdapter adapter = new GroupChatAdapter(groupChats);
-                            recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-                            recyclerView.setAdapter(adapter);
-                        } else {
-                            //TODO error handling
-                        }
-                    });
-                }
-                } else {
-                    //layoutInsert(view,null);
-                    recyclerView.setVisibility(View.GONE);
-                    emptyView.setVisibility(View.VISIBLE);
-                }
-
-            } else {
-                Toast.makeText(requireContext(), "Error occurred", Toast.LENGTH_SHORT).show();
+                        GroupChatAdapter adapter = new GroupChatAdapter(groupChats);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+                        recyclerView.setAdapter(adapter);
+                    } else {
+                        //TODO error handling
+                    }
+                });
             }
-        });
+        } else {
+            recyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        }
     }
-
 }
