@@ -205,6 +205,7 @@ public class NewGsDialog extends DialogFragment {
             Bundle b = new Bundle();
             b.putParcelable("post", new Post(
                     gsTitle.getText().toString(),
+                    null,
                     HomeFragment.getActiveUser().getEmail(),
                     R.drawable.analisi,
                     null,

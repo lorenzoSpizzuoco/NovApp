@@ -12,14 +12,10 @@ import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
-import com.example.novapp2.entity.User;
 import com.example.novapp2.entity.post.GenericPost;
 import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.utils.UploadImage;
-import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -29,7 +25,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,11 +37,14 @@ public class PostRepository implements IPostRepository{
     private FirebaseStorage mStorage = FirebaseStorage.getInstance();
 
     private static final String TAG = PostRepository.class.getSimpleName();
+
     public Task<Void> insert(Post post, Uri image) {
         TaskCompletionSource<Void> taskCompletionSource = new TaskCompletionSource<>();
 
         String id = mDatabase.child(DB_POSTS).push().getKey();
         StorageReference storageRef = mStorage.getReference();
+        post.setDbId(id);
+
         int category = post.getCategory();
 
         if (category == 1 || category == 4) {
@@ -170,13 +168,21 @@ public class PostRepository implements IPostRepository{
         return taskCompletionSource.getTask();
     }
 
-    public Task<List<Post>> getFavoritePosts(String user) { return null; }
-
-    public Task<Void> insertSaved(String user, String postId) {
-        return mDatabase.child(DB_USERS).child(user).child(DB_SAVEDPOSTS).setValue(postId);
+    public Task<DataSnapshot> getFavoritePosts(String user) {
+        return mDatabase.child(DB_USERS).child(user).child(DB_SAVEDPOSTS).get();
     }
 
+    public Task<Void> insertSaved(String user, String postId) {
+        return mDatabase.child(DB_USERS).child(user).child(DB_SAVEDPOSTS).child(postId).setValue(postId);
+    }
 
+    @Override
+    public Task<Void> removeSaved(String user, String postId) {
+        return mDatabase.child(DB_USERS).child(user).child(DB_SAVEDPOSTS).child(postId).removeValue();
+    }
 
+    public Task<DataSnapshot> getIsSaved(String user, String postId) {
+        return mDatabase.child(DB_USERS).child(user).child(DB_SAVEDPOSTS).child(postId).get();
 
+    }
 }

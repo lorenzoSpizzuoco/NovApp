@@ -24,6 +24,7 @@ import com.bumptech.glide.Glide;
 import com.example.novapp2.R;
 import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.entity.post.PostViewModel;
+import com.example.novapp2.ui.home.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -65,6 +66,7 @@ public class PostDetailsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
+
     }
 
     @Override
@@ -123,15 +125,9 @@ public class PostDetailsFragment extends Fragment {
         int red = ContextCompat.getColor(this.getContext(), android.R.color.holo_red_dark);
         int white = ContextCompat.getColor(this.getContext(), android.R.color.white);
 
-        // setting livedata value to 1 if post is listed as favorite
-        if (p.getFavorite() == 1) {
-            favoriteIcon.setImageResource(R.drawable.ic_favorite_24);
-            favoriteIcon.setColorFilter(red);
-            postViewModel.setFavorite(p.getId(), 1);
-        }
 
         // observing livedata
-        postViewModel.getIsFavorite().observe(getViewLifecycleOwner(), favorite -> {
+        postViewModel.getIsFavorite(HomeFragment.getActiveUser().getID(), p.getDbId()).observe(getViewLifecycleOwner(), favorite -> {
             if (favorite == 1) {
                 favoriteIcon.setImageResource(R.drawable.ic_favorite_24);
                 favoriteIcon.setColorFilter(red);
@@ -146,15 +142,11 @@ public class PostDetailsFragment extends Fragment {
         // click listener
         favoriteIcon.setOnClickListener(v -> {
             if (p.getFavorite() == 1) {
-                //p.setFavorite(0);
-                postViewModel.setFavorite(p.getId(), 0);
+                postViewModel.setFavorite(p.getDbId(), 0);
             }
             else {
-                //p.setFavorite(1);
-                postViewModel.setFavorite(p.getId(), 1);
+                postViewModel.setFavorite(p.getDbId(), 1);
             }
-
-
         });
 
         NavBackStackEntry navBackStackEntry = Navigation.

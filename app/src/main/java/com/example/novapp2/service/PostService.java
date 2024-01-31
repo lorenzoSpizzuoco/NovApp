@@ -12,6 +12,7 @@ import com.example.novapp2.repository.post.IPostRepository;
 import com.example.novapp2.repository.post.PostRepository;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
+import com.google.firebase.database.DataSnapshot;
 
 import java.io.IOException;
 import java.util.List;
@@ -61,11 +62,11 @@ public class PostService {
                                 }
 
                             } catch (IOException e) {
-                                Log.e(TAG, "errore");
+                                Log.e(TAG, "Errore");
                             }
                         } else {
                             Log.d(TAG, response.errorBody().toString());
-                            Log.d(TAG, "NESSUNA RISPOSTA");
+                            Log.d(TAG, "Nessuna risposta");
                         }
 
                     }
@@ -85,7 +86,35 @@ public class PostService {
 
     public Task<Void> insertSavedPost(String user, String postId) { return repository.insertSaved(user, postId); }
 
-    public Task<List<Post>> getSavedPosts(String user) { return repository.getFavoritePosts(user); }
+    public Task<Void> removeSavedPost(String user, String postId) { return repository.removeSaved(user, postId); }
 
+    public Task<DataSnapshot> getSavedPosts(String user) { return repository.getFavoritePosts(user); }
+
+    public Task<Integer> getIsSaved(String user, String id) {
+        TaskCompletionSource<Integer> taskCompletionSource = new TaskCompletionSource<>();
+
+        repository.getFavoritePosts(user).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                boolean isSaved = false;
+
+                for (DataSnapshot ds : task.getResult().getChildren()) {
+                    if (ds.getKey().equals(id)) {
+                        isSaved = true;
+                        break;
+                    }
+                }
+
+                if (isSaved) {
+                    taskCompletionSource.setResult(1);
+                } else {
+                    taskCompletionSource.setResult(0);
+                }
+            } else {
+                taskCompletionSource.setException(task.getException());
+            }
+        });
+
+        return taskCompletionSource.getTask();
+    }
 
 }

@@ -2,9 +2,12 @@ package com.example.novapp2.entity.post;
 
 import android.app.Application;
 import android.net.Uri;
+import android.util.Log;
 
 
 import com.example.novapp2.service.PostService;
+import com.example.novapp2.ui.home.HomeFragment;
+
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -16,27 +19,57 @@ public class PostViewModel extends AndroidViewModel {
     static final private String TAG = PostViewModel.class.getSimpleName();
 
     private static PostService postService = new PostService();
-    private long lastelement;
 
-
-    private MutableLiveData<Integer> isFavorite = new MutableLiveData<>();
+    private MutableLiveData<Integer> isFavorite = null;
     private MutableLiveData<Boolean> doneLoading = new MutableLiveData<>();
     private final MutableLiveData<List<Post>> allPost = null;
 
     public PostViewModel (Application application) {
         super(application);
-
-        isFavorite.setValue(0);
-        lastelement = 0;
     }
 
-    public MutableLiveData<Integer> getIsFavorite() {
-        return isFavorite;
+    public MutableLiveData<Integer> getIsFavorite(String user, String id) {
+
+        if (isFavorite == null) {
+            isFavorite = new MutableLiveData<>();
+            postService.getIsSaved(user, id).addOnCompleteListener(
+                    task -> {
+                        if (task.isSuccessful()){
+                            isFavorite.postValue(task.getResult());
+                        }
+                    }
+            );
+
+            return isFavorite;
+        }
+        else {
+            return isFavorite;
+        }
+
     }
 
-    public  void setFavorite(long id, int fav) {
-        isFavorite.setValue(fav);
-        //postRepository.setFavorite(id, fav);
+    public  void setFavorite(String id, int fav) {
+
+        if (fav == 1) {
+            Log.d(TAG, "calling with fav 1");
+            postService.insertSavedPost(HomeFragment.getActiveUser().getID(), id).addOnCompleteListener(
+                    task -> {
+                        if (task.isSuccessful()) {
+                            isFavorite.setValue(fav);
+                        }
+                    }
+            );
+        }
+        else {
+            postService.removeSavedPost(HomeFragment.getActiveUser().getID(), id).addOnCompleteListener(
+                    task -> {
+                        if (task.isSuccessful()) {
+                            isFavorite.setValue(fav);
+                        }
+                    }
+            );
+        }
+
     }
 
     public LiveData<Boolean> getDoneLoading() {
@@ -55,6 +88,7 @@ public class PostViewModel extends AndroidViewModel {
 
         return posts;
     }
+
 
     public void insert(Post post, Uri image) {
         postService.insert(post, image).addOnCompleteListener(
