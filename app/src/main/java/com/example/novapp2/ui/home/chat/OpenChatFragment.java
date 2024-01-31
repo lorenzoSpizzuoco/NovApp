@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -56,21 +57,24 @@ public class OpenChatFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Button backButton = view.findViewById(R.id.backButton);
         Button sendButton = view.findViewById(R.id.send_button);
         TextInputLayout messageContent = view.findViewById(R.id.message_content);
         TextView emptyView = view.findViewById(R.id.noChatText);
+        TextView groupName = view.findViewById(R.id.groupName);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
 
         emptyView.setVisibility(View.GONE);
         Bundle args = getArguments();
         String groupId = args.getString("chatGroupId");
+
         mDatabase = FirebaseDatabase.getInstance().getReference("groupChats").child(groupId).child("messages");
 
         Task<GroupChat> getGroupByIdTask = GroupChatsService.getGroupChatById(groupId);
         getGroupByIdTask.addOnCompleteListener(task -> {
             if(task.isSuccessful()) {
                 GroupChat activeGroup = task.getResult();
-                //List<Message> groupMessages = activeGroup.getMessages();
+                groupName.setText(activeGroup.getTitle());
                 List<Message> groupMessages = new ArrayList<Message>();
 
                 MessageAdapter adapter = new MessageAdapter(groupMessages);
@@ -124,5 +128,7 @@ public class OpenChatFragment extends Fragment {
                 messageContent.getEditText().setText("");
             }
         });
+
+        backButton.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_openChat_to_navigationChat));
     }
 }

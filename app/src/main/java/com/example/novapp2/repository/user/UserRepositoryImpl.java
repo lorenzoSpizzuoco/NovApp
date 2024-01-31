@@ -47,6 +47,32 @@ public class UserRepositoryImpl implements IUserRepository{
     }
 
     @Override
+    public Task<User> getUserByEmail(String email) {
+
+        TaskCompletionSource<User> taskCompletionSource = new TaskCompletionSource<>();
+
+        mDatabase.child("users").orderByChild("email").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<User> users = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    User user = snapshot.getValue(User.class);
+                    users.add(user);
+                }
+                taskCompletionSource.setResult(users.get(0));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Gestire eventuali errori di lettura dal database
+                taskCompletionSource.setException(databaseError.toException());
+            }
+        });
+
+        return taskCompletionSource.getTask();
+    }
+
+    @Override
     public Task<User> getUserById(String userId) {
         TaskCompletionSource<User> taskCompletionSource = new TaskCompletionSource<>();
 

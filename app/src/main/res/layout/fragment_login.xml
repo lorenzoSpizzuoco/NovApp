@@ -23,6 +23,7 @@
             android:id="@+id/logo"
             android:layout_width="263dp"
             android:layout_height="188dp"
+            android:layout_marginTop="48dp"
             android:contentDescription="@string/logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,6 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
             android:text="@string/login"
             android:textSize="34sp"
             android:textStyle="bold"
@@ -47,7 +49,7 @@
             android:id="@+id/text_input_layout_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             app:endIconMode="clear_text"
             app:errorEnabled="true"
@@ -60,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/email"
-                android:inputType="textEmailAddress"/>
+                android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- app:startIconDrawable="@drawable/ic_baseline_vpn_key_24"-->
@@ -70,7 +72,7 @@
             android:id="@+id/text_input_layout_password"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             app:errorEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
@@ -93,7 +95,7 @@
             style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="20dp"
             android:text="@string/forgot_password"
             android:textSize="14sp"
@@ -108,7 +110,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:text="@string/login"
             android:textSize="14sp"
@@ -116,7 +118,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_forgot_password"/>
+            app:layout_constraintTop_toBottomOf="@+id/button_forgot_password" />
 
         <!-- Register button -->
 

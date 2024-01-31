@@ -5,6 +5,7 @@
     android:id="@+id/main_flow_nav_graph"
     app:startDestination="@id/startScreenFragment">
 
+
     <!-- Start screen -->
     <fragment
         android:id="@+id/startScreenFragment"
