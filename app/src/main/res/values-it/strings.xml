@@ -6,11 +6,11 @@
     <string name="title_notifications">Avvisi</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="email_error"> Email not valid </string>
-    <string name="hello"> Ciao, Alessandro! </string>
+    <string name="hello"> Ciao  </string>
     <string name="saved_elements"> Elementi Salvati </string>
     <string name="button_event"> Eventi </string>
     <string name="button_sg"> Gruppi Studio </string>
-    <string name="button_info"> Info Universitarie </string>
+    <string name="button_info">Info Uni</string>
     <string name="button_other"> Altro </string>
     <string name="my_posts">I Miei Posts</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</string>
@@ -102,5 +102,12 @@
     <string name="icon_info_desc">Immagine informazioni universitarie</string>
     <string name="calendar_icon_description">Icona di un calendario</string>
     <string name="ripetizioni_content_desc">Immagine esplicativa ripetizioni</string>
+    <string name="share_something">Condividi con gli Utenti</string>
+
+    <!-- POST DETAILS CHIP -->
+    <string name="gs_chip"> gruppo studio</string>
+    <string name="event_chip"> evento </string>
+    <string name="ripet_chip"> ripetizioni </string>
+    <string name="infos_chip"> info uni </string>
 
 </resources>

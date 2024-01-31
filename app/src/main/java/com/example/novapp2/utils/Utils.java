@@ -1,10 +1,15 @@
 package com.example.novapp2.utils;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import com.example.novapp2.entity.post.Post;
 import com.google.gson.Gson;
 
+import java.io.ByteArrayOutputStream;
+import java.nio.ByteBuffer;
+import java.util.Base64;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;

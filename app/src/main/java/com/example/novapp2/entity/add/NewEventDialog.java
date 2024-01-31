@@ -1,8 +1,11 @@
 package com.example.novapp2.entity.add;
 
+
+
 import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -25,6 +28,7 @@ import androidx.navigation.Navigation;
 
 import com.example.novapp2.R;
 import com.example.novapp2.entity.post.Post;
+import com.example.novapp2.ui.home.HomeFragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
@@ -63,6 +67,8 @@ public class NewEventDialog extends DialogFragment {
 
     private TextInputEditText eventPlaceInner;
 
+    private Uri imageUri;
+
     private TextInputEditText eventDescInner;
 
     private ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
@@ -87,6 +93,7 @@ public class NewEventDialog extends DialogFragment {
                 registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
                     if (uri != null) {
                         ImageView ev = new ImageView(getContext());
+                        imageUri = uri;
                         ev.setImageURI(uri);
                         BitmapDrawable draw = (BitmapDrawable) ev.getDrawable();
                         // image bitmap (don't know what to do with it tho)
@@ -238,16 +245,17 @@ public class NewEventDialog extends DialogFragment {
             Bundle b = new Bundle();
             b.putParcelable("post", new Post(
                     eventTitle.getText().toString(),
-                    "author",
+                    null,
+                    HomeFragment.getActiveUser().getEmail(),
                     R.drawable.analisi,
-                    null ,
+                    null,
                     eventDescInner.getText().toString(),
                     1,
                     eventDateTextInner.getText().toString(),
                     eventPlaceInner.getText().toString(),
                     0 ));
 
-
+            b.putParcelable("image", imageUri);
              Navigation.findNavController(getParentFragment().getView()).navigate(R.id.action_navigation_add_to_loadingFragment, b);
         }
 

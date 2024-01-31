@@ -3,6 +3,7 @@ package com.example.novapp2.entity.post;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.novapp2.MainActivity;
+import com.bumptech.glide.Glide;
 import com.example.novapp2.R;
 import java.util.List;
 
@@ -142,8 +143,13 @@ public class PostAdapter extends  RecyclerView.Adapter{
                 imageView.setImageResource(postList.get(position).getImage());
             }
             else {
-                // convert from base64 to bitmap and ImageView.setImageBitmap
+                Glide.with(context)
+                        .load(postList.get(position).getPostImage())
+                        .centerCrop()
+                        .placeholder(R.drawable.analisi)
+                        .into(imageView);
             }
+
             titleView.setText(postList.get(position).getTitle());
             dateView.setText(postList.get(position).getDate());
             descView.setText(postList.get(position).getContent());
@@ -216,12 +222,16 @@ public class PostAdapter extends  RecyclerView.Adapter{
         }
 
         public void bindView(int position) {
+            /*
             if (postList.get(position).getPostImage() == null) {
                 imageView.setImageResource(postList.get(position).getImage());
             }
             else {
-                // convert from base64 to bitmap and ImageView.setImageBitmap
+                String base64Econded = postList.get(position).getPostImage();
+                //imageView.setImageBitmap(base64ToBitmap(base64Econded));
             }
+            */
+
             titleView.setText(postList.get(position).getTitle());
             descView.setText(postList.get(position).getContent());
             dateView.setText(postList.get(position).getDate());
@@ -259,8 +269,13 @@ public class PostAdapter extends  RecyclerView.Adapter{
                 imageView.setImageResource(postList.get(position).getImage());
             }
             else {
-                // convert from base64 to bitmap and ImageView.setImageBitmap
+                Glide.with(context)
+                        .load(postList.get(position).getPostImage())
+                        .centerCrop()
+                        .placeholder(R.drawable.analisi)
+                        .into(imageView);
             }
+
             titleView.setText(postList.get(position).getTitle());
             descView.setText(postList.get(position).getContent());
             dateView.setText(postList.get(position).getDate());
