@@ -114,4 +114,9 @@ public class User {
     public void setNotifications(List<String> notifications) {
         this.notifications = notifications;
     }
+
+    public boolean notNull() {
+        return userId != null && name != null && email != null;
+    }
+
 }

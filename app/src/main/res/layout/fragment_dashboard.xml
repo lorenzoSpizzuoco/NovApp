@@ -1,37 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.dashboard.DashboardFragment">
+    tools:context=".ui.dashboard.DashboardFragment"
+    android:background="?attr/colorSurfaceContainerLowest">
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/courseSearchView"
-        style="@style/CustomSearchViewStyle"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rounded_background"
-        app:iconifiedByDefault="false"
-        app:layout_constraintTop_toTopOf="parent"
-        app:queryHint="Cerca qui..."
-        app:searchIcon="@drawable/baseline_search_24"
-        tools:layout_editor_absoluteX="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"/>
+        android:layout_height="wrap_content">
+        <com.google.android.material.search.SearchBar
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:forceDefaultNavigationOnClickListener="true"
+            android:hint="@string/button_info" />
 
-
-
-    <HorizontalScrollView
-        android:id="@+id/horizontalScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/courseSearchView"
-        tools:layout_editor_absoluteX="30dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp">
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/courseSearchView"
+            tools:layout_editor_absoluteX="30dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp">
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chipGroup"
@@ -50,6 +44,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:text="@string/button_event"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    app:chipIconTint="?attr/colorOnPrimaryContainer"
                     android:textSize="14sp"/>
 
                 <com.google.android.material.chip.Chip
@@ -59,6 +55,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:text="@string/button_info"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    app:chipIconTint="?attr/colorOnPrimaryContainer"
                     android:textSize="14sp"/>
 
                 <com.google.android.material.chip.Chip
@@ -68,6 +66,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:text="@string/button_sg"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    app:chipIconTint="?attr/colorOnPrimaryContainer"
                     android:textSize="14sp"/>
 
                 <com.google.android.material.chip.Chip
@@ -77,24 +77,35 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:text="@string/button_ripetizioni"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    app:chipIconTint="?attr/colorOnPrimaryContainer"
                     android:textSize="14sp"/>
 
             </com.google.android.material.chip.ChipGroup>
 
         </HorizontalScrollView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/courseView"
+    </com.google.android.material.appbar.AppBarLayout>
+    <com.google.android.material.search.SearchView
+        android:id="@+id/post_search_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:paddingLeft="10dp"
-        android:paddingTop="0dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
-        app:layout_constraintVertical_bias="0.469"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp" />
+        android:layout_height="150dp"
+        android:hint="@string/event_title_hint"
+        app:layout_anchor="@id/search_bar">
+    </com.google.android.material.search.SearchView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/courseView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            app:layout_constraintVertical_bias="0.469"/>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

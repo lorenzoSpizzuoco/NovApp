@@ -6,7 +6,8 @@
     <string name="title_notifications">Avvisi</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="email_error"> Email not valid </string>
-    <string name="hello"> Ciao, Alessandro! </string>
+    <string name="hello"> Ciao, </string>
+    <string name="esclamation">!</string>
     <string name="saved_elements"> Elementi Salvati </string>
     <string name="button_event"> Eventi </string>
     <string name="button_sg"> Gruppi Studio </string>

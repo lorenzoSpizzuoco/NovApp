@@ -14,15 +14,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.novapp2.R;
 import com.example.novapp2.databinding.FragmentUserBinding;
+import com.example.novapp2.entity.User;
 import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.entity.post.PostAdapter;
 import com.example.novapp2.entity.post.PostViewModel;
 import com.example.novapp2.entity.post.SavedPostAdapter;
+import com.example.novapp2.ui.home.HomeFragment;
 import com.example.novapp2.ui.home.user.UserFragmentDirections;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.common.base.Predicates;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +48,9 @@ public class UserFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private TextView userMail;
+    private TextView userHi;
     private View root;
     private SavedPostAdapter savedPostAdapter;
     private PostViewModel postViewModel;
@@ -54,6 +61,8 @@ public class UserFragment extends Fragment {
     private List<Post> postList;
 
     private MaterialAlertDialogBuilder materialAlertDialogBuilder;
+
+    private User user;
 
     public UserFragment() {
         // Required empty public constructor
@@ -95,18 +104,25 @@ public class UserFragment extends Fragment {
 
         binding = FragmentUserBinding.inflate(inflater, container, false);
         root = binding.getRoot();
+        user = HomeFragment.getActiveUser();
         return root;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        //elementi salvati
-        mySavedView = view.findViewById(R.id.mySavedPosts);
-        mySavedView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        //elementi postati
+        mySavedView = view.findViewById(R.id.mySavedPosts);
         myPostsView = view.findViewById(R.id.myPosts);
+        userMail = view.findViewById(R.id.userMailTextVew);
+        userHi = view.findViewById(R.id.userHiTextView);
+
+        mySavedView.setLayoutManager(new LinearLayoutManager(requireContext()));
         myPostsView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        if(null !=user && user.notNull()){
+            userMail.setText(HomeFragment.getActiveUser().getEmail());
+            userHi.setText(getString(R.string.hello) + HomeFragment.getActiveUser().getName() + getString(R.string.esclamation));
+        }
 
         RecyclerView mySavedPostsRecyclerView = root.findViewById(R.id.mySavedPosts);
         RecyclerView myPostsRecyclerView = root.findViewById(R.id.myPosts);
