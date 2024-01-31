@@ -34,6 +34,7 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.search.SearchBar;
 
 import androidx.appcompat.widget.SearchView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -53,10 +54,12 @@ public class DashboardFragment extends Fragment {
     private PostAdapter postAdapter;
     private List<Post> postList;
     private Set<Integer> selectedCategories;
+    SwipeRefreshLayout swipeRefreshLayout;
     private Chip eventsChip;
     private Chip gsChip;
     private Chip infoChip;
     private Chip ripetizioniChip;
+
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +81,7 @@ public class DashboardFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
 
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
         eventsChip = view.findViewById(R.id.chip_event);
         infoChip = view.findViewById(R.id.chip_ui);
         gsChip = view.findViewById(R.id.chip_gs);
@@ -93,6 +97,17 @@ public class DashboardFragment extends Fragment {
         postView = view.findViewById(R.id.courseView);
         postView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
+        swipeRefreshLayout.setOnRefreshListener(
+                () -> {
+                    swipeRefreshLayout.setRefreshing(false);
+                    postViewModel.getAllPost().observe(getViewLifecycleOwner(), posts -> {
+                        postList.clear();
+                        postList.addAll(posts);
+                        postAdapter.notifyDataSetChanged();
+                        updateFilteredList();
+                    });
+                }
+        );
         // creating recyclerView adapter
         postAdapter = new PostAdapter(requireContext(), postList, post -> {
             // navigation to details fragment
