@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.novapp2.R;
 import com.example.novapp2.databinding.FragmentUserBinding;
@@ -21,29 +22,20 @@ import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.entity.post.PostAdapter;
 import com.example.novapp2.entity.post.PostViewModel;
 import com.example.novapp2.entity.post.SavedPostAdapter;
+import com.example.novapp2.ui.home.HomeFragment;
 import com.example.novapp2.ui.home.user.UserFragmentDirections;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link UserFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class UserFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     private FragmentUserBinding binding;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+
     private View root;
     private SavedPostAdapter savedPostAdapter;
     private PostViewModel postViewModel;
@@ -55,24 +47,16 @@ public class UserFragment extends Fragment {
 
     private MaterialAlertDialogBuilder materialAlertDialogBuilder;
 
+    private TextView userEmail;
+    private TextView userName;
+
     public UserFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment UserFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static UserFragment newInstance(String param1, String param2) {
+    public static UserFragment newInstance() {
         UserFragment fragment = new UserFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -82,10 +66,6 @@ public class UserFragment extends Fragment {
         super.onCreate(savedInstanceState);
         postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
         postList = new ArrayList<>();
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -100,6 +80,14 @@ public class UserFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        // user infos
+        userName = view.findViewById(R.id.userHiTextView);
+        userEmail = view.findViewById(R.id.userEmail);
+        String name = getResources().getString(R.string.hello) + " " + HomeFragment.getActiveUser().getName();
+        userName.setText(name);
+        userEmail.setText(HomeFragment.getActiveUser().getEmail());
+
         //elementi salvati
         mySavedView = view.findViewById(R.id.mySavedPosts);
         mySavedView.setLayoutManager(new LinearLayoutManager(requireContext()));
