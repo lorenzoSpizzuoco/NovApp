@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 
 import com.example.novapp2.entity.post.GenericPost;
 import com.example.novapp2.entity.post.Post;
+import com.example.novapp2.service.UserService;
+import com.example.novapp2.ui.home.HomeFragment;
 import com.example.novapp2.utils.UploadImage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -73,6 +75,9 @@ public class PostRepository implements IPostRepository{
                                                         .addOnCompleteListener(task2 -> {
                                                             if (task2.isSuccessful()) {
                                                                 taskCompletionSource.setResult(null);
+                                                                HomeFragment.getActiveUser().groupChats.add(id);
+                                                                UserService.updateUserById(HomeFragment.getActiveUser().userId, HomeFragment.getActiveUser());
+                                                                // TODO creare un gruppo su groupchat con questo id
                                                             } else {
                                                                 taskCompletionSource.setException(task2.getException());
                                                             }
@@ -126,6 +131,17 @@ public class PostRepository implements IPostRepository{
         }
     }
 
+    // TODO getPostById(category, Id)
+    /* TODO
+    getPostById(categoryId, postId).addOnCompleteListener(task -> {
+    if (task.isSuccessful()) {
+        Post post = task.getResult();
+        // Do something with the retrieved post
+    } else {
+        Exception exception = task.getException();
+        // Handle the exception
+    }
+    */
 
     @Override
     public Task<List<Post>> getAllPost() {
