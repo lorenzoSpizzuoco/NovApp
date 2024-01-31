@@ -95,7 +95,7 @@ public class PostDetailsFragment extends Fragment {
 
         postViewModel.getAuthorImage(p.getAuthor()).observe(getViewLifecycleOwner(), imageUrl ->
                 {
-                    if (!imageUrl.trim().equals("")) {
+                    if (imageUrl != null) {
                         Glide.with(view)
                                 .load(imageUrl)
                                 .centerCrop()
