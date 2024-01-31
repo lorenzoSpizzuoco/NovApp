@@ -28,4 +28,6 @@ public class Constants {
 
     public static final String DB_SAVEDPOSTS = "savedPosts";
 
+    public static final String DB_USERS_IMAGES = "userImages";
+
 }
