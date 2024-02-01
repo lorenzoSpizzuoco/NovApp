@@ -39,9 +39,6 @@ public class UserFragment extends Fragment {
 
     private FragmentUserBinding binding;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private TextView userMail;
     private TextView userHi;
@@ -132,7 +129,7 @@ public class UserFragment extends Fragment {
             // navigation to post details fragment
             @Override
             public void onPostItemClick(Post post) {
-                // Naviga verso il dettaglio del post solo se c'è una View valida
+
                 if (getView() != null) {
                     UserFragmentDirections.ActionNavigationProfileToPostDetailsFragmentFragment action =
                             UserFragmentDirections.actionNavigationProfileToPostDetailsFragmentFragment(post);
@@ -151,7 +148,7 @@ public class UserFragment extends Fragment {
         postViewModel.getFavoritePosts().observe(getViewLifecycleOwner(), posts -> {
             this.postList.clear();
             this.postList.addAll(posts);
-            savedPostAdapter.notifyItemChanged(0, posts.size());
+            savedPostAdapter.notifyDataSetChanged();
         });
 
         Button settingsButton = this.root.findViewById(R.id.user_settings_button);

@@ -72,8 +72,7 @@ public class GroupChatsRepositoryImpl implements IGroupChatsRepository {
                     Map<String, Object> data = (Map<String, Object>) snapshot.getValue();
 
                     groupChat.setId(snapshot.child("dbId").getValue(String.class));
-                    groupChat.setImage("");
-                    //groupChat.setImage(snapshot.child("image").getValue(String.class));
+                    groupChat.setImage(snapshot.child("postImage").getValue(String.class));
                     groupChat.setAuthor(snapshot.child("author").getValue(String.class));
                     groupChat.setTitle(snapshot.child("title").getValue(String.class));
                 }

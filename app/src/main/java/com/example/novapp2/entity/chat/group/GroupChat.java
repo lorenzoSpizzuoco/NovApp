@@ -1,6 +1,8 @@
 package com.example.novapp2.entity.chat.group;
 
 
+import androidx.annotation.NonNull;
+
 import com.example.novapp2.entity.chat.message.Message;
 
 import java.util.List;
@@ -14,20 +16,6 @@ public class GroupChat {
     private String image;
     private List<Message> messages;
 
-    // TODO costruttore solo id
-    /*
-       public GroupChat() {
-        this(null);
-    }
-
-        public GroupChat(String ID) {
-        this.id = ID;
-        this.title = title;
-        this.author = author;
-        this.image = image;
-        this.messages = null;
-    }
-     */
     public GroupChat() {
         this(null);
     }
@@ -77,6 +65,7 @@ public class GroupChat {
         this.messages = messages;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "GroupChat{" +

@@ -18,14 +18,13 @@
     </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
     <ScrollView
+
         android:id="@+id/post_scroll_view"
+        android:layout_marginTop="90dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="0dp"
         android:scrollbars="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/backButton"
-        app:layout_constraintStart_toStartOf="parent"
 
 
         app:layout_constraintTop_toBottomOf="@+id/backButton"
@@ -37,17 +36,11 @@
             app:layout_constraintBottom_toTopOf="@+id/floating_button">
 
 
-            <!--android:background="@drawable/post_details_background"-->
-            <ImageView
-                android:id="@+id/PostdetailsImageView"
-                android:layout_width="match_parent"
-                android:layout_height="350dp" />
-
             <RelativeLayout
                 android:id="@+id/post_content_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/PostdetailsImageView"
+
                 android:elevation="10dp"
 
                 android:padding="10dp">
