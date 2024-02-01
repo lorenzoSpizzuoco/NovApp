@@ -102,7 +102,10 @@ public class RegisterFragment extends Fragment {
             String password = textInputLayoutPassword.getEditText().getText().toString();
             String confirmPassword = textInputLayoutPasswordConfirm.getEditText().getText().toString();
 
-            if (!isValidEmail(email)){
+            if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+                Snackbar.make(view, R.string.empty_fields, Snackbar.LENGTH_SHORT).show();
+            }
+            else if (!isValidEmail(email)){
                 Snackbar.make(view, R.string.wrong_email_format, Snackbar.LENGTH_SHORT).show();
                 textInputLayoutEmail.startAnimation(animation);
             } else if (!isValidPassword(password)){
