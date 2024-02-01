@@ -113,7 +113,6 @@ public class PostDetailsFragment extends Fragment {
 
         username.setText(p.getAuthor());
         backButton.setBackgroundTintMode(null);
-        backButton.setImageResource(R.drawable.chevron_left);
         backButton.setOnClickListener(v -> {
             Navigation.findNavController(view).navigateUp();
         });
