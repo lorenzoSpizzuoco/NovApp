@@ -103,7 +103,8 @@ public class DashboardFragment extends Fragment {
 
         //post RecyclerView
         postView = view.findViewById(R.id.courseView);
-        postView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
+        postView.setLayoutManager(linearLayoutManager);
 
         swipeRefreshLayout.setOnRefreshListener(
                 () -> {

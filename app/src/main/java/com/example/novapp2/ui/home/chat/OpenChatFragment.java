@@ -15,14 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.novapp2.R;
 import com.example.novapp2.entity.chat.group.GroupChat;
-import com.example.novapp2.entity.chat.group.GroupChatAdapter;
 import com.example.novapp2.entity.chat.message.Message;
 import com.example.novapp2.entity.chat.message.MessageAdapter;
-import com.example.novapp2.entity.chat.message.MessageFactory;
 import com.example.novapp2.service.GroupChatsService;
 import com.example.novapp2.service.MessageService;
 import com.example.novapp2.ui.home.HomeFragment;
@@ -33,10 +30,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -68,32 +65,31 @@ public class OpenChatFragment extends Fragment {
         Bundle args = getArguments();
         String groupId = args.getString("chatGroupId");
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("groupChats").child(groupId).child("messages");
+        mDatabase = FirebaseDatabase.getInstance()
+                .getReference("groupChats")
+                .child(groupId)
+                .child("messages");
+
 
         Task<GroupChat> getGroupByIdTask = GroupChatsService.getGroupChatById(groupId);
         getGroupByIdTask.addOnCompleteListener(task -> {
             if(task.isSuccessful()) {
                 GroupChat activeGroup = task.getResult();
                 groupName.setText(activeGroup.getTitle());
-                List<Message> groupMessages = new ArrayList<Message>();
+                List<Message> groupMessages = new ArrayList<>();
 
                 MessageAdapter adapter = new MessageAdapter(groupMessages);
 
-                if (groupMessages != null) {
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
-                    layoutManager.setStackFromEnd(true);
-                    recyclerView.setLayoutManager(layoutManager);
-                    recyclerView.setAdapter(adapter);
-                } else {
-                    recyclerView.setVisibility(View.GONE);
-                    emptyView.setVisibility(View.VISIBLE);
-                }
+                LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
+                layoutManager.setStackFromEnd(true);
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setAdapter(adapter);
 
-                mDatabase.addChildEventListener(new ChildEventListener() {
+                mDatabase.orderByChild("timestamp").addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String prevChildKey) {
                         Map<String, Object> value = (Map<String, Object>) dataSnapshot.getValue();
-                        Message message = new Message(dataSnapshot.getKey(), (String) value.get("content"), (String) value.get("author"));
+                        Message message = new Message(dataSnapshot.getKey(), (String) value.get("content"), (String) value.get("author"), (Long) value.get("timestamp"));
                         adapter.updateData(message);
                         recyclerView.scrollToPosition(adapter.getItemCount() - 1);
                     }

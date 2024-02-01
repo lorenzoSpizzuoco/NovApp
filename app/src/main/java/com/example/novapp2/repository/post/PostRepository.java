@@ -76,9 +76,11 @@ public class PostRepository implements IPostRepository{
                                                         .addOnCompleteListener(task2 -> {
                                                             if (task2.isSuccessful()) {
                                                                 taskCompletionSource.setResult(null);
-                                                                HomeFragment.getActiveUser().groupChats.add(id);
-                                                                UserService.updateUserById(HomeFragment.getActiveUser().userId, HomeFragment.getActiveUser());
-                                                                GroupChatsService.createGroupChat(id);
+                                                                if(4 == post.getCategory()) {
+                                                                    HomeFragment.getActiveUser().groupChats.add(id);
+                                                                    UserService.updateUserById(HomeFragment.getActiveUser().userId, HomeFragment.getActiveUser());
+                                                                    GroupChatsService.createGroupChat(id);
+                                                                }
                                                             } else {
                                                                 taskCompletionSource.setException(task2.getException());
                                                             }
@@ -150,7 +152,7 @@ public class PostRepository implements IPostRepository{
         TaskCompletionSource<List<Post>> taskCompletionSource = new TaskCompletionSource<>();
         List<Task<DataSnapshot>> tasks = new ArrayList<>();
 
-        mDatabase.child(DB_POSTS)
+        mDatabase.child(DB_POSTS) //.orderByChild("timestamp")
                 .get().addOnCompleteListener(task -> {
                     if (!task.isSuccessful()) {
                         Log.d(TAG, "fail");
