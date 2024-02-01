@@ -100,6 +100,10 @@ public class PostDetailsFragment extends Fragment {
         username = view.findViewById(R.id.user_name_post);
         username.setText(p.getAuthor());
 
+        if (p.getCategory() == 2) {
+            image.setVisibility(View.GONE);
+        }
+
         ExtendedFloatingActionButton gs_button = view.findViewById(R.id.gsButton);
         gs_button.setVisibility(View.GONE);
 
