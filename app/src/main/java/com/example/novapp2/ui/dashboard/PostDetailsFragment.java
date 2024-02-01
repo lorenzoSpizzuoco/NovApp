@@ -31,6 +31,7 @@ import com.example.novapp2.service.UserService;
 import com.example.novapp2.ui.home.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.chip.Chip;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -56,7 +57,7 @@ public class PostDetailsFragment extends Fragment {
     private Chip chip;
 
 
-    private FloatingActionButton favoriteIcon;
+    private ExtendedFloatingActionButton favoriteIcon;
 
     private PostViewModel postViewModel;
 
@@ -99,7 +100,7 @@ public class PostDetailsFragment extends Fragment {
         username = view.findViewById(R.id.user_name_post);
         username.setText(p.getAuthor());
 
-        Button gs_button = view.findViewById(R.id.gsButton);
+        ExtendedFloatingActionButton gs_button = view.findViewById(R.id.gsButton);
         gs_button.setVisibility(View.GONE);
 
         postViewModel.getAuthorImage(p.getAuthor()).observe(getViewLifecycleOwner(), imageUrl ->
@@ -149,17 +150,16 @@ public class PostDetailsFragment extends Fragment {
         // colors for icon filtering
         int red = ContextCompat.getColor(this.getContext(), android.R.color.holo_red_dark);
         int white = ContextCompat.getColor(this.getContext(), android.R.color.white);
-        favoriteIcon.setColorFilter(white);
 
         // observing livedata
         postViewModel.getIsFavorite(HomeFragment.getActiveUser().getID(), p.getDbId()).observe(getViewLifecycleOwner(), favorite -> {
             if (favorite == 1) {
-                favoriteIcon.setImageResource(R.drawable.ic_favorite_24);
-                favoriteIcon.setColorFilter(red);
+                favoriteIcon.setIconResource(R.drawable.ic_favorite_24);
+                //favoriteIcon.setColorFilter(red);
             }
             else {
-                favoriteIcon.setImageResource(R.drawable.baseline_favorite_border_24);
-                favoriteIcon.setColorFilter(white);
+                favoriteIcon.setIconResource(R.drawable.baseline_favorite_border_24);
+                //favoriteIcon.setColorFilter(white);
             }
             p.setFavorite(favorite);
         });
