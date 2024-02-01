@@ -46,7 +46,7 @@
 
     <string name="gs_title_hint">Event Name</string>
     <string name="gs_date_button">Pick a date</string>
-    <string name="gs_desc">Describe your event</string>
+    <string name="gs_desc">Describe your study group</string>
     <string name="gs_place_text"> Write event place</string>
     <string name="gs_photo">study group photo</string>
     <string name="new_gs_toolbar"> New Study Group</string>
