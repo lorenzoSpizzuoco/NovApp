@@ -79,7 +79,7 @@ public class UserFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
@@ -107,26 +107,26 @@ public class UserFragment extends Fragment {
         //elementi salvati
 
         mySavedView = view.findViewById(R.id.mySavedPosts);
-        myPostsView = view.findViewById(R.id.myPosts);
+        //myPostsView = view.findViewById(R.id.myPosts);
         userMail = view.findViewById(R.id.userMailTextVew);
         userHi = view.findViewById(R.id.userHiTextView);
 
         mySavedView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        myPostsView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        //myPostsView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         if(null !=user && user.notNull()){
             userMail.setText(HomeFragment.getActiveUser().getEmail());
-            userHi.setText(getString(R.string.hello) + HomeFragment.getActiveUser().getName() + getString(R.string.esclamation));
+            String userHiText = getString(R.string.hello) + " " + HomeFragment.getActiveUser().getName() + getString(R.string.esclamation);
+            userHi.setText(userHiText);
         }
 
         RecyclerView mySavedPostsRecyclerView = root.findViewById(R.id.mySavedPosts);
-        RecyclerView myPostsRecyclerView = root.findViewById(R.id.myPosts);
+        //RecyclerView myPostsRecyclerView = root.findViewById(R.id.myPosts);
 
-        // Impostazione dell'orientamento orizzontale
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         mySavedPostsRecyclerView.setLayoutManager(layoutManager);
-        LinearLayoutManager layoutManager2 = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
-        myPostsRecyclerView.setLayoutManager(layoutManager2);
+        //LinearLayoutManager layoutManager2 = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+        //myPostsRecyclerView.setLayoutManager(layoutManager2);
 
         savedPostAdapter = new SavedPostAdapter(requireContext(), postList, new PostAdapter.OnItemClickListener() {
             // navigation to post details fragment
@@ -134,7 +134,6 @@ public class UserFragment extends Fragment {
             public void onPostItemClick(Post post) {
                 // Naviga verso il dettaglio del post solo se c'è una View valida
                 if (getView() != null) {
-                    // navigation to details fragment using Safe Args
                     UserFragmentDirections.ActionNavigationProfileToPostDetailsFragmentFragment action =
                             UserFragmentDirections.actionNavigationProfileToPostDetailsFragmentFragment(post);
                     Navigation.findNavController(getView()).navigate(action);
@@ -146,8 +145,8 @@ public class UserFragment extends Fragment {
         mySavedView.setAdapter(savedPostAdapter);
         mySavedView.clearFocus();
 
-        myPostsView.setAdapter(savedPostAdapter);
-        myPostsView.clearFocus();
+        //myPostsView.setAdapter(savedPostAdapter);
+        //myPostsView.clearFocus();
 
         postViewModel.getFavoritePosts().observe(getViewLifecycleOwner(), posts -> {
             this.postList.clear();

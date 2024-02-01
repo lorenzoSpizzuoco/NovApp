@@ -132,5 +132,6 @@
     <string name="password_dialog_title"> Password constraints</string>
     <string name="password_infos"> \n at least 4 characters long \n\n must contain an uppercase character \n\n Must contain a special symbol</string>
     <string name="empty_fields">Fill every field</string>
+    <string name="group_cont_desc">Study Group Image</string>
 
 </resources>
