@@ -76,9 +76,11 @@ public class PostRepository implements IPostRepository{
                                                         .addOnCompleteListener(task2 -> {
                                                             if (task2.isSuccessful()) {
                                                                 taskCompletionSource.setResult(null);
-                                                                HomeFragment.getActiveUser().groupChats.add(id);
-                                                                UserService.updateUserById(HomeFragment.getActiveUser().userId, HomeFragment.getActiveUser());
-                                                                GroupChatsService.createGroupChat(id);
+                                                                if(4 == post.getCategory()) {
+                                                                    HomeFragment.getActiveUser().groupChats.add(id);
+                                                                    UserService.updateUserById(HomeFragment.getActiveUser().userId, HomeFragment.getActiveUser());
+                                                                    GroupChatsService.createGroupChat(id);
+                                                                }
                                                             } else {
                                                                 taskCompletionSource.setException(task2.getException());
                                                             }
