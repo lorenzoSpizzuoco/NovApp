@@ -152,7 +152,7 @@ public class PostRepository implements IPostRepository{
         TaskCompletionSource<List<Post>> taskCompletionSource = new TaskCompletionSource<>();
         List<Task<DataSnapshot>> tasks = new ArrayList<>();
 
-        mDatabase.child(DB_POSTS)
+        mDatabase.child(DB_POSTS) //.orderByChild("timestamp")
                 .get().addOnCompleteListener(task -> {
                     if (!task.isSuccessful()) {
                         Log.d(TAG, "fail");
