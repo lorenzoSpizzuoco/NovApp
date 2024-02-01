@@ -30,4 +30,11 @@ public class Constants {
 
     public static final String DB_USERS_IMAGES = "userImages";
 
+    /*
+    * Variabili per gestire il file locale su dispositivo utente.
+    * */
+    public static final String USER_LOCAL_FILE = "user_local_variables";
+    public static final String USER_LOCAL_PASSWORD = "user_local_password";
+    public static final String USER_LOCAL_MAIL = "user_local_mail";
+
 }

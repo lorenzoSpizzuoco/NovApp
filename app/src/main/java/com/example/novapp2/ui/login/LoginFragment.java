@@ -1,5 +1,11 @@
 package com.example.novapp2.ui.login;
 
+import static com.example.novapp2.utils.Constants.USER_LOCAL_FILE;
+import static com.example.novapp2.utils.Constants.USER_LOCAL_MAIL;
+import static com.example.novapp2.utils.Constants.USER_LOCAL_PASSWORD;
+
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -34,6 +40,8 @@ public class LoginFragment extends Fragment {
     final private String TAG = LoginFragment.class.getSimpleName();
     private TextInputLayout textInputLayoutEmail;
     private TextInputLayout textInputLayoutPassword;
+
+    private Boolean foundCredentials = false;
 
     // AUTH
     private FirebaseAuth mAuth;
@@ -71,40 +79,56 @@ public class LoginFragment extends Fragment {
         final Button buttonLogin = view.findViewById(R.id.button_login);
         final Button toRegisterPage = view.findViewById(R.id.button_register);
 
-        Animation animation = AnimationUtils.loadAnimation(requireContext(), R.anim.shake);
+        Bundle savedCredentials = getArguments();
+        Log.d("CHECK","" + savedCredentials);
+        if(null != savedCredentials){
+            foundCredentials = true;
+            //TODO se l'auth non va a buon fine deve rimandare sulla login.
+            signInImpl(savedCredentials.getString(USER_LOCAL_MAIL), savedCredentials.getString(USER_LOCAL_PASSWORD), foundCredentials);
+        } else {
 
-        buttonLogin.setOnClickListener(v -> {
+            Animation animation = AnimationUtils.loadAnimation(requireContext(), R.anim.shake);
 
-            String email = textInputLayoutEmail.getEditText().getText().toString();
-            String password = textInputLayoutPassword.getEditText().getText().toString();
+            buttonLogin.setOnClickListener(v -> {
 
-            if (!isValidEmail(email)){
-                Toast.makeText(requireContext(), "Wrong email format", Toast.LENGTH_SHORT).show();
-                textInputLayoutEmail.startAnimation(animation);
-            } else if (!isValidPassword(password)){
-                Toast.makeText(requireContext(), "Wrong password format", Toast.LENGTH_SHORT).show();
-                textInputLayoutPassword.startAnimation(animation);
-            } else {
-                // Start login if email and password are ok
-                signIn(email, password, new SignInCallback() {
-                    @Override
-                    public void onSignInSuccess() {
-                        // Handle success, for example, navigate to the next activity
-                        MainActivity.getNavController().navigate(R.id.action_login_to_home);
-                    }
+                String email = textInputLayoutEmail.getEditText().getText().toString();
+                String password = textInputLayoutPassword.getEditText().getText().toString();
 
-                    @Override
-                    public void onSignInFailure() {
-                        // Handle failure, for example, show an error message
-                        Toast.makeText(requireContext(), "An error occurred!", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                if (!isValidEmail(email)) {
+                    Toast.makeText(requireContext(), "Wrong email format", Toast.LENGTH_SHORT).show();
+                    textInputLayoutEmail.startAnimation(animation);
+                } else if (!isValidPassword(password)) {
+                    Toast.makeText(requireContext(), "Wrong password format", Toast.LENGTH_SHORT).show();
+                    textInputLayoutPassword.startAnimation(animation);
+                } else {
+                    signInImpl(email, password, foundCredentials);
+                }
+            });
+
+            toRegisterPage.setOnClickListener(v -> {
+                Log.i(TAG, "Clicked");
+                MainActivity.getNavController().navigate(R.id.action_login_to_register);
+            });
+        }
+    }
+
+    private void signInImpl(String email, String password, Boolean foundCredentials) {
+        // Start login if email and password are ok
+        signIn(email, password, new SignInCallback() {
+            @Override
+            public void onSignInSuccess() {
+                if (!foundCredentials){
+                    saveUserCredentials(email, password);
+                }
+                // Handle success, for example, navigate to the next activity
+                MainActivity.getNavController().navigate(R.id.action_login_to_home);
             }
-        });
 
-        toRegisterPage.setOnClickListener(v -> {
-            Log.i(TAG, "Clicked");
-            MainActivity.getNavController().navigate(R.id.action_login_to_register);
+            @Override
+            public void onSignInFailure() {
+                // Handle failure, for example, show an error message
+                Toast.makeText(requireContext(), "An error occurred!", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
@@ -146,6 +170,15 @@ public class LoginFragment extends Fragment {
                         callback.onSignInFailure();
                     }
                 });
+    }
+
+    public void saveUserCredentials(String email, String password) {
+        Context context = requireContext();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(USER_LOCAL_FILE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(USER_LOCAL_MAIL, email);
+        editor.putString(USER_LOCAL_PASSWORD, password);
+        editor.apply(); // Salva in modo asincrono
     }
 
 
