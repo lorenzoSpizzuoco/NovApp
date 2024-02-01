@@ -81,7 +81,7 @@ public class LoginFragment extends Fragment {
             String password = textInputLayoutPassword.getEditText().getText().toString();
 
             if (!isValidEmail(email) || !isValidPassword(password)) {
-                Snackbar.make(view, R.string.invalid_input, Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(view, R.string.login_error, Snackbar.LENGTH_SHORT).show();
                 textInputLayoutEmail.startAnimation(animation);
             }
             else {
