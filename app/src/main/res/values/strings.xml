@@ -1,16 +1,17 @@
 <resources>
-    <string name="app_name">NovApp</string>
+    <string name="app_name">B-Club</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_notifications">Avvisi</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="email_error"> Email not valid </string>
-    <string name="hello"> Ciao, Alessandro! </string>
+    <string name="hello"> Ciao, </string>
+    <string name="esclamation">!</string>
     <string name="saved_elements"> Elementi Salvati </string>
     <string name="button_event"> Eventi </string>
     <string name="button_sg"> Gruppi Studio </string>
     <string name="new_post">Which content you want to create?</string>
-    <string name="button_info"> Info Universitarie </string>
+    <string name="button_info">Info Uni</string>
     <string name="button_other"> Altro </string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -23,6 +24,8 @@
     <string name="open">Apri</string>
     <string name="add_to_favourite">Aggiungi ai preferiti</string>
     <string name="Save"> Salva </string>
+    <string name="event"> Evento </string>
+
 
     <!-- NEW EVENT STRINGS -->
 
@@ -97,6 +100,9 @@
     <string name="full_register_title">Share about you!</string>
     <string name="full_register_bio_hint">What key details should we know about you?</string>
     <string name="full_register_end_flow">Finished!</string>
+    <string name="register_image"> load profile image </string>
+    <string name="image_error"> Error loading image </string>
+
 
     <!-- General -->
     <string name="name">Name</string>
@@ -105,6 +111,26 @@
     <string name="icon_info_desc">Immagine informazioni universitarie</string>
     <string name="calendar_icon_description">Icona di un calendario</string>
     <string name="ripetizioni_content_desc">Immagine esplicativa ripetizioni</string>
+    <string name="share_something">Condividi con gli Utenti</string>
 
+    <!-- POST DETAILS CHIP -->
+    <string name="gs_chip"> study group</string>
+    <string name="event_chip"> event </string>
+    <string name="ripet_chip"> repetitions </string>
+    <string name="infos_chip"> uni infos </string>
+
+    <!-- LOGIN -->
+    <string name="login_error"> wrong email or password </string>
+    <string name="invalid_input"> credentials not valid </string>
+
+    <!-- REGISTER -->
+    <string name="wrong_email_format"> wrong email format </string>
+    <string name="wrong_pass_format"> wrong password format </string>
+    <string name="no_pw_match">passwords not matching </string>
+    <string name="pw_pattern">Click here to see password format! </string>
+    <string name="okDialog"> Ok </string>
+    <string name="password_dialog_title"> Password constraints</string>
+    <string name="password_infos"> \n at least 4 characters long \n\n must contain an uppercase character \n\n Must contain a special symbol</string>
+    <string name="empty_fields">Fill every field</string>
 
 </resources>

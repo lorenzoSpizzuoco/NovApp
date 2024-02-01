@@ -23,6 +23,7 @@
             android:id="@+id/logo"
             android:layout_width="263dp"
             android:layout_height="188dp"
+            android:layout_marginTop="48dp"
             android:contentDescription="@string/logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,8 +36,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
             android:text="@string/login"
-            android:textColor="@color/black"
             android:textSize="34sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +49,7 @@
             android:id="@+id/text_input_layout_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             app:endIconMode="clear_text"
             app:errorEnabled="true"
@@ -61,8 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/email"
-                android:inputType="textEmailAddress"
-                android:textColorHighlight="@color/main_red" />
+                android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- app:startIconDrawable="@drawable/ic_baseline_vpn_key_24"-->
@@ -72,7 +72,7 @@
             android:id="@+id/text_input_layout_password"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             app:errorEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
@@ -95,10 +95,9 @@
             style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="20dp"
             android:text="@string/forgot_password"
-            android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password"
@@ -111,18 +110,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
-            android:backgroundTint="@color/main_red"
             android:text="@string/login"
-            android:textColor="@color/white"
             android:textSize="14sp"
             app:defaultNavHost="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_forgot_password"
-            app:rippleColor="@color/main_red" />
+            app:layout_constraintTop_toBottomOf="@+id/button_forgot_password" />
 
         <!-- Register button -->
 
@@ -132,6 +128,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="104dp"
             android:text="@string/new_account"
+            android:layout_marginVertical="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/button_register"
             app:layout_constraintHorizontal_chainStyle="packed"
@@ -143,7 +140,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/register"
-            android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/textview_new_account"
             app:layout_constraintEnd_toEndOf="parent"

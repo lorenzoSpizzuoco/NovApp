@@ -58,8 +58,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Title"
-                    android:inputType="textEmailAddress"
-                    android:textColorHighlight="@color/main_red" />
+                    android:inputType="textEmailAddress"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -86,9 +85,7 @@
                 android:layout_width="363dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="68dp"
-                android:backgroundTint="@color/main_red"
                 android:text="Add"
-                android:textColor="@color/white"
                 android:textSize="14sp"
                 app:defaultNavHost="true"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -96,8 +93,7 @@
                 app:layout_constraintHorizontal_bias="0.416"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_input_layout_content"
-                app:layout_constraintVertical_bias="0.0"
-                app:rippleColor="@color/main_red" />
+                app:layout_constraintVertical_bias="0.0"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

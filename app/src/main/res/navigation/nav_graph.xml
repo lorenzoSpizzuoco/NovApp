@@ -5,6 +5,7 @@
     android:id="@+id/main_flow_nav_graph"
     app:startDestination="@id/startScreenFragment">
 
+
     <!-- Start screen -->
     <fragment
         android:id="@+id/startScreenFragment"
@@ -14,6 +15,15 @@
         <action
             android:id="@+id/action_start_to_onboarding"
             app:destination="@id/onboardingFragment" />
+        <argument
+            android:name="user_local_mail"
+            app:argType="string" />
+        <argument
+            android:name="user_local_password"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_start_to_login"
+            app:destination="@id/loginFragment" />
     </fragment>
 
     <!-- Starting carousel -->
@@ -52,6 +62,12 @@
         android:name="com.example.novapp2.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_home_to_fullRegister"
+            app:destination="@id/fullRegisterFragment" />
+        <action
+            android:id="@+id/action_home_to_login"
+            app:destination="@id/loginFragment" />
     </fragment>
 
     <!-- Onboarding -->
@@ -63,6 +79,23 @@
         <action
             android:id="@+id/action_onboarding_to_login"
             app:destination="@id/loginFragment" />
+    </fragment>
+
+    <!-- Full register -->
+    <fragment
+        android:id="@+id/fullRegisterFragment"
+        android:name="com.example.novapp2.ui.register.FullRegisterFragment"
+        android:label="fragment_full_register"
+        tools:layout="@layout/fragment_full_register" >
+        <argument
+            android:name="userId"
+            app:argType="string" />
+        <argument
+            android:name="userEmail"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_fullRegister_to_home"
+            app:destination="@id/homeFragment" />
     </fragment>
 
 </navigation>

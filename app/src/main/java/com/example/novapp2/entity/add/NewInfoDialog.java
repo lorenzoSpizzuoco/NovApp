@@ -16,8 +16,11 @@ import androidx.activity.result.PickVisualMediaRequest;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.navigation.Navigation;
 
 import com.example.novapp2.R;
+import com.example.novapp2.entity.post.Post;
+import com.example.novapp2.ui.home.HomeFragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
@@ -184,7 +187,22 @@ public class NewInfoDialog extends DialogFragment {
         }
 
         if (valid) {
-            // insert event
+            Bundle b = new Bundle();
+            b.putParcelable("post", new Post(
+                    infoTitle.getText().toString(),
+                    null,
+                    HomeFragment.getActiveUser().getEmail(),
+                    R.drawable.analisi,
+                    null,
+                    infoDesc.getText().toString(),
+                    2,
+                    eventDateTextInner.getText().toString(),
+                    infoPlace.getText().toString(),
+                    0 ));
+
+
+            Navigation.findNavController(getParentFragment().getView()).navigate(R.id.action_navigation_add_to_loadingFragment, b);
+
         }
 
     }

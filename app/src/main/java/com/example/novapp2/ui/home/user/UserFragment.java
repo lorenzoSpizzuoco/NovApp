@@ -14,62 +14,59 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.novapp2.R;
 import com.example.novapp2.databinding.FragmentUserBinding;
+import com.example.novapp2.entity.User;
 import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.entity.post.PostAdapter;
 import com.example.novapp2.entity.post.PostViewModel;
 import com.example.novapp2.entity.post.SavedPostAdapter;
+import com.example.novapp2.ui.home.HomeFragment;
 import com.example.novapp2.ui.home.user.UserFragmentDirections;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.common.base.Predicates;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link UserFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class UserFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     private FragmentUserBinding binding;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private TextView userMail;
+    private TextView userHi;
     private View root;
     private SavedPostAdapter savedPostAdapter;
     private PostViewModel postViewModel;
+
+    private ImageView userImage;
 
     private RecyclerView mySavedView;
     private RecyclerView myPostsView;
 
     private List<Post> postList;
 
+    private MaterialAlertDialogBuilder materialAlertDialogBuilder;
+
+    private User user;
+
     public UserFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment UserFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static UserFragment newInstance(String param1, String param2) {
+    public static UserFragment newInstance() {
         UserFragment fragment = new UserFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -79,10 +76,6 @@ public class UserFragment extends Fragment {
         super.onCreate(savedInstanceState);
         postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
         postList = new ArrayList<>();
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -92,18 +85,39 @@ public class UserFragment extends Fragment {
 
         binding = FragmentUserBinding.inflate(inflater, container, false);
         root = binding.getRoot();
+        user = HomeFragment.getActiveUser();
         return root;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        //elementi salvati
-        mySavedView = view.findViewById(R.id.mySavedPosts);
-        mySavedView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        //elementi postati
+
+        userImage = view.findViewById(R.id.userProfilePhoto);
+        String imageUrl = HomeFragment.getActiveUser().getProfileImg();
+
+        if (imageUrl != null) {
+            Glide.with(view)
+                    .load(imageUrl)
+                    .centerCrop()
+                    .placeholder(R.drawable.analisi)
+                    .into(userImage);
+        }
+
+        //elementi salvati
+
+        mySavedView = view.findViewById(R.id.mySavedPosts);
         myPostsView = view.findViewById(R.id.myPosts);
+        userMail = view.findViewById(R.id.userMailTextVew);
+        userHi = view.findViewById(R.id.userHiTextView);
+
+        mySavedView.setLayoutManager(new LinearLayoutManager(requireContext()));
         myPostsView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        if(null !=user && user.notNull()){
+            userMail.setText(HomeFragment.getActiveUser().getEmail());
+            userHi.setText(getString(R.string.hello) + HomeFragment.getActiveUser().getName() + getString(R.string.esclamation));
+        }
 
         RecyclerView mySavedPostsRecyclerView = root.findViewById(R.id.mySavedPosts);
         RecyclerView myPostsRecyclerView = root.findViewById(R.id.myPosts);
@@ -135,7 +149,7 @@ public class UserFragment extends Fragment {
         myPostsView.setAdapter(savedPostAdapter);
         myPostsView.clearFocus();
 
-        postViewModel.getAllPost().observe(getViewLifecycleOwner(), posts -> {
+        postViewModel.getFavoritePosts().observe(getViewLifecycleOwner(), posts -> {
             this.postList.clear();
             this.postList.addAll(posts);
             savedPostAdapter.notifyItemChanged(0, posts.size());

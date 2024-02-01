@@ -8,7 +8,33 @@ public class Constants {
 
     public static final String POST_DATABASE_NAME = "post_db";
 
-    public static final String PROFANITY_API_BASE_URL = "https://www.purgomalum.com/";
+    public static final String PROFANITY_API_BASE_URL = "https://commentanalyzer.googleapis.com/";
 
-    public static final String CHECK_PROFANITY_ENDPOINT = "service/containsprofanity";
+    public static final String CHECK_PROFANITY_ENDPOINT = "v1alpha1/comments:analyze";
+
+    public static final String API_KEY = "AIzaSyAOsGrRsKeqkYvvV8TYQ-8xjf7eXU3Rqtg";
+
+    public static final String DB_POSTS = "posts";
+
+    public static final String DB_RIPET = "repetitions";
+
+    public static final String DB_GS  = "studyGroups";
+
+    public static final String DB_EVENTS = "events";
+
+    public static final String DB_INFOS = "infos";
+
+    public static final String DB_USERS = "users";
+
+    public static final String DB_SAVEDPOSTS = "savedPosts";
+
+    public static final String DB_USERS_IMAGES = "userImages";
+
+    /*
+    * Variabili per gestire il file locale su dispositivo utente.
+    * */
+    public static final String USER_LOCAL_FILE = "user_local_variables";
+    public static final String USER_LOCAL_PASSWORD = "user_local_password";
+    public static final String USER_LOCAL_MAIL = "user_local_mail";
+
 }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.compose.material3.SnackbarKt;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.novapp2.MainActivity;
 import com.example.novapp2.R;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -28,11 +30,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link LoginFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+// TODO Add loading
 public class LoginFragment extends Fragment {
 
     final private String TAG = LoginFragment.class.getSimpleName();
@@ -82,13 +80,11 @@ public class LoginFragment extends Fragment {
             String email = textInputLayoutEmail.getEditText().getText().toString();
             String password = textInputLayoutPassword.getEditText().getText().toString();
 
-            if (!isValidEmail(email)){
-                Toast.makeText(requireContext(), "Wrong email format", Toast.LENGTH_SHORT).show();
+            if (!isValidEmail(email) || !isValidPassword(password)) {
+                Snackbar.make(view, R.string.login_error, Snackbar.LENGTH_SHORT).show();
                 textInputLayoutEmail.startAnimation(animation);
-            } else if (!isValidPassword(password)){
-                Toast.makeText(requireContext(), "Wrong password format", Toast.LENGTH_SHORT).show();
-                textInputLayoutPassword.startAnimation(animation);
-            } else {
+            }
+            else {
                 // Start login if email and password are ok
                 signIn(email, password, new SignInCallback() {
                     @Override
@@ -100,7 +96,7 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onSignInFailure() {
                         // Handle failure, for example, show an error message
-                        Toast.makeText(requireContext(), "An error occurred!", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(view, R.string.login_error, Snackbar.LENGTH_SHORT).show();
                     }
                 });
             }

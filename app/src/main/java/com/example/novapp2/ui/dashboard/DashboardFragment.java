@@ -21,8 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.core.content.ContextCompat;
 
-import com.example.novapp2.entity.ad.Ad;
-import com.example.novapp2.entity.ad.AdViewModel;
+
 import com.example.novapp2.entity.course.Course;
 import com.example.novapp2.entity.course.CourseAdapter;
 import com.example.novapp2.R;
@@ -32,7 +31,10 @@ import com.example.novapp2.entity.post.PostAdapter;
 import com.example.novapp2.entity.post.PostViewModel;
 import com.example.novapp2.utils.Utils;
 import com.google.android.material.chip.Chip;
+import com.google.android.material.search.SearchBar;
+
 import androidx.appcompat.widget.SearchView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -44,16 +46,28 @@ import java.util.stream.Stream;
 public class DashboardFragment extends Fragment {
 
     private FragmentDashboardBinding binding;
-    private SearchView postSearchView;
+    private com.google.android.material.search.SearchView postSearchView;
+
+    private SearchBar searchBar;
     private RecyclerView postView;
     private PostViewModel postViewModel;
     private PostAdapter postAdapter;
     private List<Post> postList;
     private Set<Integer> selectedCategories;
+    SwipeRefreshLayout swipeRefreshLayout;
     private Chip eventsChip;
     private Chip gsChip;
     private Chip infoChip;
     private Chip ripetizioniChip;
+
+    private void fetchPosts() {
+        postViewModel.getAllPost().observe(getViewLifecycleOwner(), posts -> {
+            postList.clear();
+            postList.addAll(posts);
+            postAdapter.notifyDataSetChanged();
+            updateFilteredList();
+        });
+    }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +89,7 @@ public class DashboardFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
 
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
         eventsChip = view.findViewById(R.id.chip_event);
         infoChip = view.findViewById(R.id.chip_ui);
         gsChip = view.findViewById(R.id.chip_gs);
@@ -90,6 +105,12 @@ public class DashboardFragment extends Fragment {
         postView = view.findViewById(R.id.courseView);
         postView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
+        swipeRefreshLayout.setOnRefreshListener(
+                () -> {
+                    swipeRefreshLayout.setRefreshing(false);
+                    fetchPosts();
+                }
+        );
         // creating recyclerView adapter
         postAdapter = new PostAdapter(requireContext(), postList, post -> {
             // navigation to details fragment
@@ -100,35 +121,40 @@ public class DashboardFragment extends Fragment {
 
         postView.setAdapter(postAdapter);
 
-        // Configure search view
-        postSearchView = view.findViewById(R.id.courseSearchView);
-        postSearchView.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus) {
-                InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(postSearchView, InputMethodManager.SHOW_IMPLICIT);
-            }
+        searchBar = view.findViewById(R.id.search_bar);
+
+        searchBar.setOnClickListener(v -> {
+            searchBar.setFocusable(true);
+            searchBar.setFocusableInTouchMode(true);
+            searchBar.requestFocus();
+
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(searchBar, InputMethodManager.SHOW_IMPLICIT);
         });
 
-        postSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
+        com.google.android.material.search.SearchView searchView = view.findViewById(R.id.post_search_view);
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                filterPostsByTitle(newText);
-                return true;
-            }
-        });
+        // Imposta un listener per il cambiamento del testo di ricerca
+        searchView
+                .getEditText()
+                .setOnEditorActionListener(
+                        (v, actionId, event) -> {
+                            searchBar.setText(searchView.getText());
+                            searchView.hide();
+                            filterPostsByTitle(searchView.getText().toString());
+                            return false;
+                        });
+
 
         // Observing viewModel
-        postViewModel.getAllPost().observe(getViewLifecycleOwner(), posts -> {
+        /*postViewModel.getAllPost().observe(getViewLifecycleOwner(), posts -> {
             postList.clear();
             postList.addAll(posts);
             postAdapter.notifyDataSetChanged();
             updateFilteredList();
-        });
+        });*/
+        fetchPosts();
+
     }
 
     private void setUpChipClickListener(Chip chip, int category) {

@@ -12,6 +12,7 @@ import java.util.UUID;
 public class UserService {
 
     private static UserRepositoryImpl userRepositoryImpl = new UserRepositoryImpl();
+
     public static Task<Void> createUser(String UID, String email) {
         // Static values for the user
         String name = "";
@@ -34,8 +35,12 @@ public class UserService {
         return userRepositoryImpl.getUserById(userID);
     }
 
-    public Task<Void> updateUserById(String userId, User updatedUser){
+    public static Task<Void> updateUserById(String userId, User updatedUser){
         return userRepositoryImpl.updateUserById(userId, updatedUser);
+    }
+
+    public static Task<User> getUserByEmail(String email) {
+        return userRepositoryImpl.getUserByEmail(email);
     }
 
 /*        UserService.getUserById("0bd5a35f-032c-4821-b251-f8592b0c0294").addOnCompleteListener(task -> {

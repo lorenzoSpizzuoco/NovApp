@@ -7,6 +7,27 @@
     tools:context=".ui.onboarding.pages.FirstPageOnboarding">
 
     <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="144dp"
+        android:rotationY="180"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/bg_1" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="366dp"
+        android:layout_height="117dp"
+        android:layout_marginStart="120dp"
+        android:rotation="0"
+        android:rotationX="180"
+        android:rotationY="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bg_1" />
+    <ImageView
         android:id="@+id/pointer1"
         android:layout_width="24dp"
         android:layout_height="24dp"
@@ -91,7 +112,6 @@
         android:lineSpacingExtra="4sp"
         android:text="@string/first_carousel_txt"
         android:textAlignment="center"
-        android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/pointer1"
         app:layout_constraintEnd_toEndOf="parent"

@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background_gray">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,7 +16,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="440dp"
         android:text="@string/my_posts"
-        android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,20 +50,18 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="36dp"
         android:text="@string/hello"
-        android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/userCardView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/userMailTextVew"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="76dp"
         android:text="test@gmail.com"
-        android:textColor="@color/main_grey"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/userCardView"
         app:layout_constraintTop_toTopOf="parent" />
@@ -77,7 +73,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:text="@string/saved_elements"
-        android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -90,9 +85,7 @@
         android:layout_height="wrap_content"
         app:icon="@drawable/bottom_btn4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:rippleColor="@color/main_grey"
-        app:iconTint="@color/main_grey"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mySavedPosts"
@@ -124,7 +117,6 @@
             android:layout_marginTop="148dp"
             android:layout_marginEnd="16dp"
             android:text="Vedi tutti..."
-            android:textColor="@color/main_blue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -135,7 +127,6 @@
             android:layout_marginTop="452dp"
             android:layout_marginEnd="12dp"
             android:text="Vedi tutti..."
-            android:textColor="@color/main_blue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

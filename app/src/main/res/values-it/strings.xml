@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">NovApp</string>
+    <string name="app_name">B-Club</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_notifications">Avvisi</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="email_error"> Email not valid </string>
-    <string name="hello"> Ciao, Alessandro! </string>
+    <string name="hello"> Ciao, </string>
+    <string name="esclamation">!</string>
     <string name="saved_elements"> Elementi Salvati </string>
     <string name="button_event"> Eventi </string>
     <string name="button_sg"> Gruppi Studio </string>
-    <string name="button_info"> Info Universitarie </string>
+    <string name="button_info">Info Uni</string>
     <string name="button_other"> Altro </string>
     <string name="my_posts">I Miei Posts</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</string>
@@ -35,6 +36,7 @@
     <string name="dialog_ok_event_photo_delete"> Elimina </string>
     <string name="image_delete_snackbar">Immagine eliminata</string>
     <string name="new_event_toolbar"> Nuovo Evento </string>
+    <string name="event"> Evento </string>
 
     <!-- NEW GS STRINGS -->
 
@@ -93,6 +95,8 @@
     <string name="full_register_title">Parlaci di te!</string>
     <string name="full_register_bio_hint">Che cosa è importante sapere di te?</string>
     <string name="full_register_end_flow">Finito!</string>
+    <string name="register_image"> Carica un\'immagine profilo </string>
+    <string name="image_error"> Errore durante il caricamento dell\'immagine profilo </string>
 
     <!-- General -->
     <string name="name">Nome</string>
@@ -101,5 +105,29 @@
     <string name="icon_info_desc">Immagine informazioni universitarie</string>
     <string name="calendar_icon_description">Icona di un calendario</string>
     <string name="ripetizioni_content_desc">Immagine esplicativa ripetizioni</string>
+    <string name="share_something">Condividi con gli Utenti</string>
+
+    <!-- POST DETAILS CHIP -->
+    <string name="gs_chip"> gruppo studio</string>
+    <string name="event_chip"> evento </string>
+    <string name="ripet_chip"> ripetizioni </string>
+    <string name="infos_chip"> info uni </string>
+
+    <!-- LOGIN -->
+
+    <string name="login_error"> credenziali errate </string>
+    <string name="invalid_input"> credenziali non valide </string>
+
+    <!-- REGISTER -->
+    <string name="wrong_email_format"> formato email non corretto </string>
+    <string name="wrong_pass_format"> formato password non corretto </string>
+    <string name="no_pw_match"> le password non sono uguali </string>
+    <string name="pw_pattern">clicca qui per vedere il formato corretto della password! </string>
+    <string name="okDialog"> Ok </string>
+    <string name="password_dialog_title"> Vincoli password</string>
+
+    <string name="password_infos"> \n lunghezza minima di 4 caratteri \n\n deve contenere almeno una lettera maiuscola \n\n Deve contenere almeno un carattere speciale</string>
+    <string name="empty_fields">Riempi ogni campo</string>
+
 
 </resources>

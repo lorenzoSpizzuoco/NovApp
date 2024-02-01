@@ -15,6 +15,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+        multiDexEnabled = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -54,23 +55,36 @@ android {
 
 dependencies {
 
+    implementation("com.google.firebase:firebase-messaging:23.4.0")
     val nav_version = "2.7.6"
     val room_version = "2.6.1"
 
+    implementation ("com.squareup.retrofit2:converter-scalars:2.4.0")
+    implementation("com.google.code.gson:gson:2.10.1")
     implementation("com.google.firebase:firebase-auth:22.3.0")
     implementation("androidx.navigation:navigation-fragment:$nav_version")
     implementation("androidx.navigation:navigation-ui:$nav_version")
+
+    // refresh
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    // glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-database")
+    implementation("com.google.firebase:firebase-storage")
+
     implementation("com.google.android.gms:play-services-auth:20.7.0")
 
     // Auth
     implementation("androidx.credentials:credentials:1.3.0-alpha01")
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
+
+    // Chat
+    implementation("androidx.multidex:multidex:2.0.1")
 
 
     // Feature module Support
@@ -89,7 +103,7 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("androidx.navigation:navigation-compose:$nav_version")
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:latest.release")
+    implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
@@ -114,5 +128,6 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     implementation("androidx.viewpager2:viewpager2:1.0.0")
+
 }
 

@@ -1,8 +1,10 @@
 package com.example.novapp2.entity.add;
 
+
 import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -19,8 +21,11 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.navigation.Navigation;
 
 import com.example.novapp2.R;
+import com.example.novapp2.entity.post.Post;
+import com.example.novapp2.ui.home.HomeFragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
@@ -55,6 +60,8 @@ public class NewRipetDialog extends DialogFragment {
 
     private TextView saveEvent;
 
+    private Uri imageUri;
+
     private TextInputEditText ripetTitle;
 
     private TextInputEditText ripetDesc;
@@ -72,6 +79,7 @@ public class NewRipetDialog extends DialogFragment {
 
     public static NewRipetDialog newInstance(String param1, String param2) {
         NewRipetDialog fragment = new NewRipetDialog();
+
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -86,10 +94,11 @@ public class NewRipetDialog extends DialogFragment {
                 registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
                     if (uri != null) {
                         Log.d("PhotoPicker", "Selected URI: " + uri);
+                        imageUri = uri;
                         ImageView ev = new ImageView(getContext());
                         ev.setImageURI(uri);
                         BitmapDrawable draw = (BitmapDrawable) ev.getDrawable();
-                        // image bitmap (don't know what to do with it tho)
+
                         eventPhoto = draw.getBitmap();
                         eventImage.setImageBitmap(eventPhoto);
                         delPhoto.setVisibility(View.VISIBLE);
@@ -126,12 +135,15 @@ public class NewRipetDialog extends DialogFragment {
         eventImage = view.findViewById(R.id.ripet_photo_view);
         eventDateTextInner.setInputType(InputType.TYPE_NULL);
 
+
         photoButton.setOnClickListener(v -> {
 
             pickMedia.launch(new PickVisualMediaRequest.Builder()
                     .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
                     .build());
         });
+
+
 
         delPhoto.setOnClickListener(v -> {
             if (eventImage.getDrawable() != null) {
@@ -242,7 +254,22 @@ public class NewRipetDialog extends DialogFragment {
         }
 
         if (valid) {
-            // insert event
+            HomeFragment hf = new HomeFragment();
+            Bundle b = new Bundle();
+            b.putParcelable("post", new Post(
+                    ripetTitle.getText().toString(),
+                    null,
+                    HomeFragment.getActiveUser().getEmail(),
+                    R.drawable.analisi,
+                    null,
+                    ripetDesc.getText().toString(),
+                    3,
+                    eventDateTextInner.getText().toString(),
+                    ripetPlace.getText().toString(),
+                    0 ));
+
+            b.putParcelable("image", imageUri);
+            Navigation.findNavController(getParentFragment().getView()).navigate(R.id.action_navigation_add_to_loadingFragment, b);
         }
 
     }

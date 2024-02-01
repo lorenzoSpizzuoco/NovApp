@@ -8,13 +8,16 @@
     </style>
 
     <style name="CustomSearchViewStyle" parent="Widget.AppCompat.SearchView">
-        <item name="android:textColor">@color/black</item>
-        <item name="android:textColorHint">@color/main_grey</item>
+        <item name="android:textColor">@color/md_theme_light_primary</item>
+        <item name="android:textColorHint">@color/md_theme_light_tertiary</item>
         <item name="android:inputType">textCapSentences</item>
         <item name="android:background">@drawable/searchview_background</item>
         <!-- Personalizza le icone qui se necessario -->
     </style>
 
+    <style name="Theme" parent="AppTheme">
+        <!-- Configurazioni del tema vanno qui -->
+    </style>
 
 
 </resources>

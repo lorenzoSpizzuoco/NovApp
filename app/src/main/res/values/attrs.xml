@@ -1,0 +1,8 @@
+
+<resources>
+    <attr name="colorMain_Red" format="color" />
+    <attr name="colorOnMain_Red" format="color" />
+    <attr name="colorMain_RedContainer" format="color" />
+    <attr name="colorOnMain_RedContainer" format="color" />
+    <attr name="harmonizeMain_Red" format="boolean" />
+</resources>

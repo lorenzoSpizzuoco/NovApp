@@ -22,7 +22,6 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
-                android:backgroundTint="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:paddingStart="6dp"
@@ -42,8 +41,6 @@
                 android:layout_centerVertical="true"
                 android:id="@+id/save_button_event"
                 android:gravity="center"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/purple_500"
                 android:layout_width="wrap_content"
                 android:textSize="16sp"
                 android:layout_alignEnd="@id/toolbar"
@@ -68,8 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
             android:hint="@string/event_title_hint"
-            android:inputType="textEmailAddress"
-            android:textColorHighlight="@color/main_red">
+            android:inputType="textEmailAddress">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/event_title_inner"
                 android:layout_width="match_parent"
@@ -86,8 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
             android:hint="@string/event_place_text"
-            android:inputType="textEmailAddress"
-            android:textColorHighlight="@color/main_red">
+            android:inputType="textEmailAddress">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/event_place_inner"
                 android:layout_width="match_parent"
@@ -104,8 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
             android:hint="@string/event_desc"
-            android:inputType="textEmailAddress"
-            android:textColorHighlight="@color/main_red">
+            android:inputType="textEmailAddress">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/event_desc_inner"
                 android:layout_width="match_parent"
@@ -122,8 +116,7 @@
             android:layout_marginTop="20sp"
             app:startIconDrawable="@drawable/calendar"
             android:hint="@string/event_date_button"
-            android:inputType="textEmailAddress"
-            android:textColorHighlight="@color/main_red">
+            android:inputType="textEmailAddress">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/date_input_text_inner"
                 android:layout_width="match_parent"
@@ -139,7 +132,6 @@
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:visibility="gone"
                 android:id="@+id/fab_delete_photo"
-                android:backgroundTint="@color/main_red"
                 android:layout_alignParentEnd="true"
                 android:layout_marginRight="20dp"
                 android:src="@drawable/x_close"
