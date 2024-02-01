@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.compose.material3.SnackbarKt;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.novapp2.MainActivity;
 import com.example.novapp2.R;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -78,13 +80,11 @@ public class LoginFragment extends Fragment {
             String email = textInputLayoutEmail.getEditText().getText().toString();
             String password = textInputLayoutPassword.getEditText().getText().toString();
 
-            if (!isValidEmail(email)){
-                Toast.makeText(requireContext(), "Wrong email format", Toast.LENGTH_SHORT).show();
+            if (!isValidEmail(email) || !isValidPassword(password)) {
+                Snackbar.make(view, R.string.invalid_input, Snackbar.LENGTH_SHORT).show();
                 textInputLayoutEmail.startAnimation(animation);
-            } else if (!isValidPassword(password)){
-                Toast.makeText(requireContext(), "Wrong password format", Toast.LENGTH_SHORT).show();
-                textInputLayoutPassword.startAnimation(animation);
-            } else {
+            }
+            else {
                 // Start login if email and password are ok
                 signIn(email, password, new SignInCallback() {
                     @Override
@@ -96,7 +96,7 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onSignInFailure() {
                         // Handle failure, for example, show an error message
-                        Toast.makeText(requireContext(), "An error occurred!", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(view, R.string.login_error, Snackbar.LENGTH_SHORT).show();
                     }
                 });
             }

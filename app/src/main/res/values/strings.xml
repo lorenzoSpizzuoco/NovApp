@@ -119,5 +119,9 @@
     <string name="ripet_chip"> repetitions </string>
     <string name="infos_chip"> uni infos </string>
 
+    <!-- LOGIN -->
+    <string name="login_error"> wrong email or password </string>
+    <string name="invalid_input"> credentials not valid </string>
+
 
 </resources>

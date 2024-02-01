@@ -113,4 +113,9 @@
     <string name="ripet_chip"> ripetizioni </string>
     <string name="infos_chip"> info uni </string>
 
+    <!-- LOGIN -->
+
+    <string name="login_error"> credenziali errate </string>
+    <string name="invalid_input"> credenziali non valide </string>
+
 </resources>
