@@ -81,7 +81,6 @@ public class LoginFragment extends Fragment {
         final Button toRegisterPage = view.findViewById(R.id.button_register);
 
         Bundle savedCredentials = getArguments();
-        Log.d("CHECK","" + savedCredentials);
         if(null != savedCredentials){
             foundCredentials = true;
             //TODO se l'auth non va a buon fine deve rimandare sulla login.
@@ -100,20 +99,7 @@ public class LoginFragment extends Fragment {
                     Snackbar.make(view, R.string.login_error, Snackbar.LENGTH_SHORT).show();
                     textInputLayoutEmail.startAnimation(animation);
                 } else {
-                    // Start login if email and password are ok
-                    signIn(email, password, new SignInCallback() {
-                        @Override
-                        public void onSignInSuccess() {
-                            // Handle success, for example, navigate to the next activity
-                            MainActivity.getNavController().navigate(R.id.action_login_to_home);
-                        }
-
-                        @Override
-                        public void onSignInFailure() {
-                            // Handle failure, for example, show an error message
-                            Snackbar.make(view, R.string.login_error, Snackbar.LENGTH_SHORT).show();
-                        }
-                    });
+                    signInImpl(email, password, foundCredentials);
                 }
             });
 

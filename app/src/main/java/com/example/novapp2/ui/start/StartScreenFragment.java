@@ -53,7 +53,6 @@ public class StartScreenFragment extends Fragment {
                              Bundle savedInstanceState) {
         context = requireContext();
         savedValuesMap = getUserCredentials();
-        Log.d("CHECK","" + savedValuesMap);
         return inflater.inflate(R.layout.fragment_start_screen, container, false);
     }
 
