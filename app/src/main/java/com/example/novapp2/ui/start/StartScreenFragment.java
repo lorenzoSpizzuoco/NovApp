@@ -60,8 +60,6 @@ public class StartScreenFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        checkCredentials();
     }
 
     @Override
@@ -90,20 +88,6 @@ public class StartScreenFragment extends Fragment {
         credentials.put(USER_LOCAL_PASSWORD, sharedPreferences.getString(USER_LOCAL_PASSWORD, null)); // Ritorna null se "Password" non esiste
 
         return (credentials.get(USER_LOCAL_MAIL) != null && credentials.get(USER_LOCAL_PASSWORD) != null) ? credentials : null;
-    }
-
-    private void checkCredentials() {
-        Map<String, String> credentials = getUserCredentials();
-        String savedMail = credentials.get(USER_LOCAL_MAIL);
-        String savedPass = credentials.get(USER_LOCAL_PASSWORD);
-
-        if (savedMail != null && savedPass != null) {
-            // Logica per gestire le credenziali salvate
-            // Ad esempio, potresti confrontarle con quelle inserite dall'utente o procedere direttamente all'accesso
-        } else {
-            // Nessuna credenziale salvata, gestisci di conseguenza
-            // Ad esempio, mostrare la schermata di login
-        }
     }
 
 }
