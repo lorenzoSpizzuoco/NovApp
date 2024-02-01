@@ -112,6 +112,9 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Register button -->
+
+        <!-- Login button -->
+
         <Button
             android:id="@+id/button_register"
             style="@style/Widget.Material3.Button.ElevatedButton"
@@ -128,15 +131,26 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password_confirm"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.216" />
 
-        <!-- Login button -->
+        <Button
+            android:id="@+id/button_pw_info"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/pw_pattern"
+            android:textSize="14sp"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password_confirm"
+            app:textAllCaps="false" />
 
         <TextView
             android:id="@+id/textview_new_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="104dp"
+            android:layout_marginBottom="16dp"
             android:text="@string/have_account"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/button_login"

@@ -113,4 +113,21 @@
     <string name="ripet_chip"> ripetizioni </string>
     <string name="infos_chip"> info uni </string>
 
+    <!-- LOGIN -->
+
+    <string name="login_error"> credenziali errate </string>
+    <string name="invalid_input"> credenziali non valide </string>
+
+    <!-- REGISTER -->
+    <string name="wrong_email_format"> formato email non corretto </string>
+    <string name="wrong_pass_format"> formato password non corretto </string>
+    <string name="no_pw_match"> le password non sono uguali </string>
+    <string name="pw_pattern">clicca qui per vedere il formato corretto della password! </string>
+    <string name="okDialog"> Ok </string>
+    <string name="password_dialog_title"> Vincoli password</string>
+
+    <string name="password_infos"> \n lunghezza minima di 4 caratteri \n\n deve contenere almeno una lettera maiuscola \n\n Deve contenere almeno un carattere speciale</string>
+    <string name="empty_fields">Riempi ogni campo</string>
+
+
 </resources>

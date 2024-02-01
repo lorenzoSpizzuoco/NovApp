@@ -118,9 +118,14 @@
                         android:layout_weight="0.2"
                         android:textSize="20sp" />
 
+                <Button
+                    android:id="@+id/gsButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="GS_button" />
 
 
-                </LinearLayout>
+            </LinearLayout>
 
                 <TextView
                     android:layout_below="@id/postInfosBlock"
@@ -132,7 +137,6 @@
                     android:layout_height="wrap_content"
 
                     android:textSize="16sp" />
-
 
 
         </RelativeLayout>

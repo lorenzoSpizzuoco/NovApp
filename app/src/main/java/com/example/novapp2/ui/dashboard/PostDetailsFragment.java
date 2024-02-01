@@ -17,17 +17,23 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.novapp2.R;
+import com.example.novapp2.entity.chat.group.GroupChat;
 import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.entity.post.PostViewModel;
+import com.example.novapp2.service.UserService;
 import com.example.novapp2.ui.home.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
 
 public class PostDetailsFragment extends Fragment {
 
@@ -93,6 +99,9 @@ public class PostDetailsFragment extends Fragment {
         username = view.findViewById(R.id.user_name_post);
         username.setText(p.getAuthor());
 
+        Button gs_button = view.findViewById(R.id.gsButton);
+        gs_button.setVisibility(View.GONE);
+
         postViewModel.getAuthorImage(p.getAuthor()).observe(getViewLifecycleOwner(), imageUrl ->
                 {
                     if (imageUrl != null) {
@@ -117,6 +126,7 @@ public class PostDetailsFragment extends Fragment {
                 break;
             case 4:
                 chip.setText(R.string.gs_chip);
+                gs_button.setVisibility(View.VISIBLE);
                 break;
         }
 
@@ -173,6 +183,17 @@ public class PostDetailsFragment extends Fragment {
             ((BottomNavigationView) requireActivity().findViewById(R.id.nav_view)).
                     getMenu().findItem(R.id.navigation_dashboard).setChecked(true);
         }
+
+        gs_button.setOnClickListener(v ->{
+            List<String> groupChats = HomeFragment.getActiveUser().getGroupChats();
+            if(!groupChats.contains(p.getDbId())){
+                groupChats.add(p.getDbId());
+                UserService.updateUserById(HomeFragment.getActiveUser().getID(), HomeFragment.getActiveUser());
+                Log.e("AA", "Done");
+            } else {
+                Toast.makeText(requireContext(), "Already in", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 }
