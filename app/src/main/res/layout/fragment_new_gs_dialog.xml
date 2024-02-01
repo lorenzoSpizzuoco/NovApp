@@ -33,7 +33,6 @@
                     android:paddingEnd="16dp"
                     app:contentInsetStartWithNavigation="0dp"
                     app:navigationIcon="@drawable/x_close"
-
                     app:title="@string/new_gs_toolbar"
                     app:titleMarginStart="10dp" />
 
