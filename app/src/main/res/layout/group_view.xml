@@ -6,7 +6,6 @@
     android:id="@+id/groupCardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:maxHeight="300dp"
     android:layout_marginTop="5dp"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
@@ -33,7 +32,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="0dp"
                 android:scaleType="centerCrop"
-                android:contentDescription="TODO" />
+                android:contentDescription="@string/group_cont_desc" />
             <TextView
                 android:id="@+id/groupTitle"
                 android:layout_width="wrap_content"
@@ -96,7 +95,5 @@
                 android:layout_toEndOf="@id/groupDate"/>
 
         </RelativeLayout>
-
-
     </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -128,6 +128,7 @@
 
     <string name="password_infos"> \n lunghezza minima di 4 caratteri \n\n deve contenere almeno una lettera maiuscola \n\n Deve contenere almeno un carattere speciale</string>
     <string name="empty_fields">Riempi ogni campo</string>
+    <string name="group_cont_desc">Immagine gruppo studio</string>
 
 
 </resources>
