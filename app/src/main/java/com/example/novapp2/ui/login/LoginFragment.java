@@ -26,12 +26,15 @@ import android.widget.Toast;
 
 import com.example.novapp2.MainActivity;
 import com.example.novapp2.R;
+import com.example.novapp2.utils.Constants;
+import com.example.novapp2.utils.Utils;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,8 +45,6 @@ public class LoginFragment extends Fragment {
     private TextInputLayout textInputLayoutEmail;
     private TextInputLayout textInputLayoutPassword;
 
-    private Boolean foundCredentials = false;
-
     // AUTH
     private FirebaseAuth mAuth;
 
@@ -52,8 +53,7 @@ public class LoginFragment extends Fragment {
     }
 
     public static LoginFragment newInstance() {
-        LoginFragment fragment = new LoginFragment();
-        return fragment;
+        return new LoginFragment();
     }
 
     @Override
@@ -81,10 +81,8 @@ public class LoginFragment extends Fragment {
         final Button toRegisterPage = view.findViewById(R.id.button_register);
 
         Bundle savedCredentials = getArguments();
-        Log.d("CHECK","" + savedCredentials);
         if(null != savedCredentials){
-            foundCredentials = true;
-            //TODO se l'auth non va a buon fine deve rimandare sulla login.
+            Boolean foundCredentials = true;
             signInImpl(savedCredentials.getString(USER_LOCAL_MAIL), savedCredentials.getString(USER_LOCAL_PASSWORD), foundCredentials);
         } else {
 
@@ -93,24 +91,22 @@ public class LoginFragment extends Fragment {
 
             buttonLogin.setOnClickListener(v -> {
 
-                String email = textInputLayoutEmail.getEditText().getText().toString();
-                String password = textInputLayoutPassword.getEditText().getText().toString();
+                String email = Objects.requireNonNull(textInputLayoutEmail.getEditText()).getText().toString();
+                String password = Objects.requireNonNull(textInputLayoutPassword.getEditText()).getText().toString();
 
-                if (!isValidEmail(email) || !isValidPassword(password)) {
+                if (!Utils.isValidEmail(email) || !Utils.isValidPassword(password)) {
                     Snackbar.make(view, R.string.login_error, Snackbar.LENGTH_SHORT).show();
                     textInputLayoutEmail.startAnimation(animation);
+                    textInputLayoutPassword.startAnimation(animation);
                 } else {
-                    // Start login if email and password are ok
                     signIn(email, password, new SignInCallback() {
                         @Override
                         public void onSignInSuccess() {
-                            // Handle success, for example, navigate to the next activity
                             MainActivity.getNavController().navigate(R.id.action_login_to_home);
                         }
 
                         @Override
                         public void onSignInFailure() {
-                            // Handle failure, for example, show an error message
                             Snackbar.make(view, R.string.login_error, Snackbar.LENGTH_SHORT).show();
                         }
                     });
@@ -118,7 +114,6 @@ public class LoginFragment extends Fragment {
             });
 
             toRegisterPage.setOnClickListener(v -> {
-                Log.i(TAG, "Clicked");
                 MainActivity.getNavController().navigate(R.id.action_login_to_register);
             });
         }
@@ -132,37 +127,16 @@ public class LoginFragment extends Fragment {
                 if (!foundCredentials){
                     saveUserCredentials(email, password);
                 }
-                // Handle success, for example, navigate to the next activity
                 MainActivity.getNavController().navigate(R.id.action_login_to_home);
             }
 
             @Override
             public void onSignInFailure() {
-                // Handle failure, for example, show an error message
                 Toast.makeText(requireContext(), "An error occurred!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    // VALIDATION
-    public static boolean isValidEmail(CharSequence target) {
-        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
-    }
-
-    public static boolean isValidPassword(final String password) {
-
-        Pattern pattern;
-        Matcher matcher;
-        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
-        pattern = Pattern.compile(PASSWORD_PATTERN);
-        matcher = pattern.matcher(password);
-
-        return matcher.matches();
-    }
-
-
-    // SIGN IN PROCESS using AUTH - FIREBASE//
-    // Use of callbacks because mAuth is async
     public interface SignInCallback {
         void onSignInSuccess();
         void onSignInFailure();
@@ -172,13 +146,9 @@ public class LoginFragment extends Fragment {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity(), task -> {
                     if (task.isSuccessful()) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "signInWithEmail:success");
                         FirebaseUser user = mAuth.getCurrentUser();
                         callback.onSignInSuccess();
                     } else {
-                        // If sign in fails, display a message to the user.
-                        Log.w(TAG, "signInWithEmail:failure");
                         callback.onSignInFailure();
                     }
                 });
@@ -190,9 +160,7 @@ public class LoginFragment extends Fragment {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(USER_LOCAL_MAIL, email);
         editor.putString(USER_LOCAL_PASSWORD, password);
-        editor.apply(); // Salva in modo asincrono
+        editor.apply();
     }
-
-
 
 }
