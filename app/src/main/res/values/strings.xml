@@ -123,5 +123,9 @@
     <string name="login_error"> wrong email or password </string>
     <string name="invalid_input"> credentials not valid </string>
 
+    <!-- REGISTER -->
+    <string name="wrong_email_format"> wrong email format </string>
+    <string name="wrong_pass_format"> wrong password format </string>
+    <string name="no_pw_match">passwords not matching </string>
 
 </resources>

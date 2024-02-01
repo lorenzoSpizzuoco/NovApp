@@ -118,4 +118,9 @@
     <string name="login_error"> credenziali errate </string>
     <string name="invalid_input"> credenziali non valide </string>
 
+    <!-- REGISTER -->
+    <string name="wrong_email_format"> formato email non corretto </string>
+    <string name="wrong_pass_format"> formato password non corretto </string>
+    <string name="no_pw_match"> le password non sono uguali </string>
+
 </resources>

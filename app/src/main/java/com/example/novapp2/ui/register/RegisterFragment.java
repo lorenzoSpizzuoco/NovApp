@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.compose.material3.SnackbarKt;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -22,6 +23,7 @@ import com.example.novapp2.MainActivity;
 import com.example.novapp2.R;
 import com.example.novapp2.service.UserService;
 import com.example.novapp2.ui.login.LoginFragment;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -83,14 +85,18 @@ public class RegisterFragment extends Fragment {
 
             String email = textInputLayoutEmail.getEditText().getText().toString();
             String password = textInputLayoutPassword.getEditText().getText().toString();
+            String confirmPassword = textInputLayoutPasswordConfirm.getEditText().getText().toString();
 
             if (!isValidEmail(email)){
-                Toast.makeText(requireContext(), "Wrong email format", Toast.LENGTH_SHORT).show();
+                Snackbar.make(view, R.string.wrong_email_format, Snackbar.LENGTH_SHORT).show();
                 textInputLayoutEmail.startAnimation(animation);
             } else if (!isValidPassword(password)){
-                Toast.makeText(requireContext(), "Wrong password format", Toast.LENGTH_SHORT).show();
+                Snackbar.make(view, R.string.wrong_pass_format, Snackbar.LENGTH_SHORT).show();
                 textInputLayoutPassword.startAnimation(animation);
-            } else {
+            } else if (!password.equals(confirmPassword)) {
+                Snackbar.make(view, R.string.no_pw_match, Snackbar.LENGTH_SHORT).show();
+                textInputLayoutPassword.startAnimation(animation);
+            }else {
                 registerUser(email, password, new RegisterCallback() {
                     @Override
                     public void onRegisterSuccess() {
