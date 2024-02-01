@@ -1,5 +1,7 @@
 package com.example.novapp2.entity.post;
 
+import static java.util.Collections.reverse;
+
 import android.app.Application;
 import android.net.Uri;
 import android.util.Log;
@@ -84,6 +86,8 @@ public class PostViewModel extends AndroidViewModel {
 
         postService.getAllPost().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
+                List<Post> p = task.getResult();
+                reverse(p);
                 posts.postValue(task.getResult());
             }
         });
