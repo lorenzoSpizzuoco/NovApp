@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/customborder"
-    android:orientation="vertical"
-    android:paddingHorizontal="16dp"
-    android:paddingVertical="8dp"
-    android:layout_marginBottom="5dp"
-    android:layout_marginLeft="150dp">
 
-    <TextView
-        android:id="@+id/messageContent"
-        android:layout_width="wrap_content"
+    <com.google.android.material.card.MaterialCardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        />
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="150dp"
+        app:cardBackgroundColor="?attr/colorSurfaceVariant"
+        app:cardCornerRadius="5dp"
+        style="@style/Widget.Material3.CardView.Filled">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/messageContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="10dp"
+            android:textColor="?attr/colorOnSurface"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            />
+    </com.google.android.material.card.MaterialCardView>

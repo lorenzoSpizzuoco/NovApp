@@ -37,7 +37,7 @@
     <string name="image_delete_snackbar">Immagine eliminata</string>
     <string name="new_event_toolbar"> Nuovo Evento </string>
     <string name="event"> Evento </string>
-
+    <string name="search_bar_hint">Cerca i post per Titolo...</string>
     <!-- NEW GS STRINGS -->
 
     <string name="gs_title_hint">Nome Gruppo Studio</string>
@@ -129,6 +129,7 @@
     <string name="password_infos"> \n lunghezza minima di 4 caratteri \n\n deve contenere almeno una lettera maiuscola \n\n Deve contenere almeno un carattere speciale</string>
     <string name="empty_fields">Riempi ogni campo</string>
     <string name="group_cont_desc">Immagine gruppo studio</string>
+    <string name="desc_logo_app">Logo applicazione B-Club</string>
 
 
 </resources>

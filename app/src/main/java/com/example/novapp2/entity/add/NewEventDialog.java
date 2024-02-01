@@ -4,6 +4,7 @@ package com.example.novapp2.entity.add;
 
 import android.app.Dialog;
 import android.graphics.Bitmap;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;

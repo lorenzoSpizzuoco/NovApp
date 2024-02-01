@@ -13,6 +13,7 @@
     <string name="new_post">Which content you want to create?</string>
     <string name="button_info">Info Uni</string>
     <string name="button_other"> Altro </string>
+    <string name="search_bar_hint">Cerca i post per Titolo...</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_register">RegisterActivity</string>
@@ -46,7 +47,7 @@
 
     <string name="gs_title_hint">Event Name</string>
     <string name="gs_date_button">Pick a date</string>
-    <string name="gs_desc">Describe your event</string>
+    <string name="gs_desc">Describe your study group</string>
     <string name="gs_place_text"> Write event place</string>
     <string name="gs_photo">study group photo</string>
     <string name="new_gs_toolbar"> New Study Group</string>
@@ -133,5 +134,6 @@
     <string name="password_infos"> \n at least 4 characters long \n\n must contain an uppercase character \n\n Must contain a special symbol</string>
     <string name="empty_fields">Fill every field</string>
     <string name="group_cont_desc">Study Group Image</string>
+    <string name="desc_logo_app">Logo applicazione B-Club</string>
 
 </resources>
