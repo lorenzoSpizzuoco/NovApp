@@ -1,5 +1,6 @@
 package com.example.novapp2.ui.register;
 
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.compose.material3.SnackbarKt;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -22,6 +25,7 @@ import com.example.novapp2.MainActivity;
 import com.example.novapp2.R;
 import com.example.novapp2.service.UserService;
 import com.example.novapp2.ui.login.LoginFragment;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,17 +35,15 @@ import org.apache.commons.validator.routines.EmailValidator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RegisterFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class RegisterFragment extends Fragment {
 
     final private String TAG = RegisterFragment.class.getSimpleName();
     private TextInputLayout textInputLayoutEmail;
     private TextInputLayout textInputLayoutPassword;
     private TextInputLayout textInputLayoutPasswordConfirm;
+    private Button pwInfos;
+
     private FirebaseAuth mAuth;
 
     public static RegisterFragment newInstance() {
@@ -66,7 +68,7 @@ public class RegisterFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
-
+        pwInfos = view.findViewById(R.id.button_pw_info);
         textInputLayoutEmail = view.findViewById(R.id.text_input_layout_email);
         textInputLayoutPassword = view.findViewById(R.id.text_input_layout_password);
         textInputLayoutPasswordConfirm = view.findViewById(R.id.text_input_layout_password_confirm);
@@ -79,18 +81,38 @@ public class RegisterFragment extends Fragment {
         buttonLogin.setOnClickListener(v ->
                 MainActivity.getNavController().navigate(R.id.action_register_to_login));
 
+        pwInfos.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle(R.string.password_dialog_title);
+            builder.setMessage(R.string.password_infos);
+            builder.setPositiveButton(R.string.okDialog, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+        });
+
         buttonRegister.setOnClickListener(v -> {
 
             String email = textInputLayoutEmail.getEditText().getText().toString();
             String password = textInputLayoutPassword.getEditText().getText().toString();
+            String confirmPassword = textInputLayoutPasswordConfirm.getEditText().getText().toString();
 
             if (!isValidEmail(email)){
-                Toast.makeText(requireContext(), "Wrong email format", Toast.LENGTH_SHORT).show();
+                Snackbar.make(view, R.string.wrong_email_format, Snackbar.LENGTH_SHORT).show();
                 textInputLayoutEmail.startAnimation(animation);
             } else if (!isValidPassword(password)){
-                Toast.makeText(requireContext(), "Wrong password format", Toast.LENGTH_SHORT).show();
+                Snackbar.make(view, R.string.wrong_pass_format, Snackbar.LENGTH_SHORT).show();
                 textInputLayoutPassword.startAnimation(animation);
-            } else {
+            } else if (!password.equals(confirmPassword)) {
+                Snackbar.make(view, R.string.no_pw_match, Snackbar.LENGTH_SHORT).show();
+                textInputLayoutPassword.startAnimation(animation);
+
+            }else {
                 registerUser(email, password, new RegisterCallback() {
                     @Override
                     public void onRegisterSuccess() {

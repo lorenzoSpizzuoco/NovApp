@@ -119,5 +119,17 @@
     <string name="ripet_chip"> repetitions </string>
     <string name="infos_chip"> uni infos </string>
 
+    <!-- LOGIN -->
+    <string name="login_error"> wrong email or password </string>
+    <string name="invalid_input"> credentials not valid </string>
+
+    <!-- REGISTER -->
+    <string name="wrong_email_format"> wrong email format </string>
+    <string name="wrong_pass_format"> wrong password format </string>
+    <string name="no_pw_match">passwords not matching </string>
+    <string name="pw_pattern">Click here to see password format! </string>
+    <string name="okDialog"> Ok </string>
+    <string name="password_dialog_title"> Password constraints</string>
+    <string name="password_infos"> \n at least 4 characters long \n\n must contain an uppercase character \n\n Must contain a special symbol</string>
 
 </resources>
