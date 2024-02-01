@@ -11,11 +11,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
-import android.text.TextUtils;
-import android.util.Log;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,31 +22,20 @@ import android.widget.Toast;
 
 import com.example.novapp2.MainActivity;
 import com.example.novapp2.R;
-import com.example.novapp2.utils.Constants;
 import com.example.novapp2.utils.Utils;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
-import com.google.firebase.auth.FirebaseUser;
-
 import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 // TODO Add loading
 public class LoginFragment extends Fragment {
 
-    final private String TAG = LoginFragment.class.getSimpleName();
     private TextInputLayout textInputLayoutEmail;
     private TextInputLayout textInputLayoutPassword;
 
-    // AUTH
     private FirebaseAuth mAuth;
-
-    public LoginFragment() {
-        // Required empty public constructor
-    }
 
     public static LoginFragment newInstance() {
         return new LoginFragment();
@@ -65,8 +50,6 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
 
@@ -94,10 +77,13 @@ public class LoginFragment extends Fragment {
                 String email = Objects.requireNonNull(textInputLayoutEmail.getEditText()).getText().toString();
                 String password = Objects.requireNonNull(textInputLayoutPassword.getEditText()).getText().toString();
 
-                if (!Utils.isValidEmail(email) || !Utils.isValidPassword(password)) {
+                if (Utils.isValidEmail(email) || Utils.isValidPassword(password)) {
                     Snackbar.make(view, R.string.login_error, Snackbar.LENGTH_SHORT).show();
+
+                    Utils.vibration(requireContext());
                     textInputLayoutEmail.startAnimation(animation);
                     textInputLayoutPassword.startAnimation(animation);
+
                 } else {
                     signIn(email, password, new SignInCallback() {
                         @Override
@@ -113,9 +99,7 @@ public class LoginFragment extends Fragment {
                 }
             });
 
-            toRegisterPage.setOnClickListener(v -> {
-                MainActivity.getNavController().navigate(R.id.action_login_to_register);
-            });
+            toRegisterPage.setOnClickListener(v -> MainActivity.getNavController().navigate(R.id.action_login_to_register));
         }
     }
 
@@ -146,7 +130,6 @@ public class LoginFragment extends Fragment {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity(), task -> {
                     if (task.isSuccessful()) {
-                        FirebaseUser user = mAuth.getCurrentUser();
                         callback.onSignInSuccess();
                     } else {
                         callback.onSignInFailure();

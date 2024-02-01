@@ -1,11 +1,8 @@
 package com.example.novapp2.ui.register;
 
 import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,24 +14,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.compose.material3.SnackbarKt;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import com.example.novapp2.MainActivity;
 import com.example.novapp2.R;
 import com.example.novapp2.service.UserService;
-import com.example.novapp2.ui.login.LoginFragment;
 import com.example.novapp2.utils.Utils;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import org.apache.commons.validator.routines.EmailValidator;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class RegisterFragment extends Fragment {
@@ -106,10 +95,10 @@ public class RegisterFragment extends Fragment {
             if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                 Snackbar.make(view, R.string.empty_fields, Snackbar.LENGTH_SHORT).show();
             }
-            else if (!Utils.isValidEmail(email)){
+            else if (Utils.isValidEmail(email)){
                 Snackbar.make(view, R.string.wrong_email_format, Snackbar.LENGTH_SHORT).show();
                 textInputLayoutEmail.startAnimation(animation);
-            } else if (!Utils.isValidPassword(password)){
+            } else if (Utils.isValidPassword(password)){
                 Snackbar.make(view, R.string.wrong_pass_format, Snackbar.LENGTH_SHORT).show();
                 textInputLayoutPassword.startAnimation(animation);
             } else if (!password.equals(confirmPassword)) {
