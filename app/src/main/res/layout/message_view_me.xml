@@ -4,16 +4,15 @@
     android:layout_height="wrap_content"
     android:background="@drawable/customborder"
     android:orientation="vertical"
-    android:padding="8dp"
-    android:layout_marginLeft="150dp"
-    android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp">
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="8dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginLeft="150dp">
 
     <TextView
         android:id="@+id/messageContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Message Content"
         android:textSize="16sp"
         />
 

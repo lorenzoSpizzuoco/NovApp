@@ -48,11 +48,6 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         BottomNavigationView navView = requireView().findViewById(R.id.nav_view);
-
-        /*AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_dashboard, R.id.navigation_chat, R.id.navigation_add, R.id.navigation_notifications, R.id.navigation_profile)
-                .build();*/
-
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(navView, navController);
 
@@ -83,23 +78,17 @@ public class HomeFragment extends Fragment {
             });
 
         } else {
-            // TODO remove comment
-            //  MainActivity.getNavController().navigate(R.id.action_home_to_login);
+            MainActivity.getNavController().navigate(R.id.action_home_to_login);
         }
 }
 
 
     private boolean userFullyRegistered(User user) {
-        // TODO: implementare sta cosa
-        if (user.name.equals(""))
-            return false;
-        else return true;
+        return !user.name.equals("") && !user.surname.equals("") && !user.bio.equals("");
     }
 
     public static User getActiveUser(){
         return activeUser;
     }
-
-    // TODO if signout, remove token
 
 }
