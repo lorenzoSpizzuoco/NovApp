@@ -149,6 +149,6 @@
     <string name="user_name">Nome utente</string>
     <string name="user_settings">Impostazioni Utente</string>
     <string name="ripet_imageview_cd">Image selezionata per le ripetizioni</string>
-
-
+    <string name="ok_button">Ok</string>
+    <string name="no_photo_reg">Se non scegli un\'immagine profilo ne assegneremo una di default! Va bene?</string>
 </resources>

@@ -149,6 +149,8 @@
     <string name="del_photo_fab_cd">button delete image</string>
     <string name="ripet_imageview_cd">repetitions selected image</string>
     <string name="user_profile_image">User profile image</string>
+    <string name="ok_button">Ok</string>
+    <string name="no_photo_reg">If you don\'t pick a profile image, we\'ll asign you a default one! Is it ok?</string>
 
 
 </resources>

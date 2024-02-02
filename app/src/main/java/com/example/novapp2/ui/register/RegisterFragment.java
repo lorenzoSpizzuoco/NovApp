@@ -20,6 +20,7 @@ import com.example.novapp2.MainActivity;
 import com.example.novapp2.R;
 import com.example.novapp2.service.UserService;
 import com.example.novapp2.utils.Utils;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -104,7 +105,7 @@ public class RegisterFragment extends Fragment {
 
     private void setUpPwInfo(Button pwInfo) {
         pwInfo.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity());
             builder.setTitle(R.string.password_dialog_title);
             builder.setMessage(R.string.password_infos);
             builder.setPositiveButton(R.string.okDialog, (dialog, id) -> {
