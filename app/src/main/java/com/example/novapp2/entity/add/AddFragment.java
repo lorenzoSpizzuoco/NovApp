@@ -47,6 +47,7 @@ public class AddFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle newInstanceState) {
+
         newGs = view.findViewById(R.id.new_gs_button);
         newRipet = view.findViewById(R.id.new_ripetizioni_button);
         newEvent = view.findViewById(R.id.new_event_button);

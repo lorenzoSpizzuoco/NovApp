@@ -20,6 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.novapp2.R;
+import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.shape.CornerFamily;
+
 import java.util.List;
 
 public class PostAdapter extends  RecyclerView.Adapter{
@@ -246,7 +249,7 @@ public class PostAdapter extends  RecyclerView.Adapter{
     }
 
     public class GroupViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        public ImageView imageView;
+        public ShapeableImageView imageView;
         public TextView titleView;
         public TextView descView;
 
@@ -261,6 +264,12 @@ public class PostAdapter extends  RecyclerView.Adapter{
             descView = itemView.findViewById(R.id.groupDesc);
             groupCardView = itemView.findViewById(R.id.groupCardView);
             dateView = itemView.findViewById(R.id.groupDate);
+            imageView.setShapeAppearanceModel(
+                    imageView.getShapeAppearanceModel()
+                            .toBuilder()
+                            .setAllCorners(CornerFamily.ROUNDED, 30)
+                            .build()
+            );
             groupCardView.setOnClickListener(this);
         }
 

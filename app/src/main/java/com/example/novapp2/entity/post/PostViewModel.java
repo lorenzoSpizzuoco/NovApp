@@ -41,30 +41,30 @@ public class PostViewModel extends AndroidViewModel {
 
     public MutableLiveData<Integer> getIsFavorite(String user, String id) {
 
-        if (isFavorite == null) {
-            isFavorite = new MutableLiveData<>();
-            userService.getIsSaved(user, id).addOnCompleteListener(
-                    task -> {
-                        if (task.isSuccessful()){
-                            for (DataSnapshot ds : task.getResult().getChildren()) {
-                                if (ds.getKey().equals(id)) {
-                                    isFavorite.postValue(1);
-                                    break;
-                                }
-                                else {
-                                    isFavorite.postValue(0);
-                                }
-                            }
 
-                        }
+
+        isFavorite = new MutableLiveData<Integer>();
+
+        userService.getIsSaved(user, id).addOnCompleteListener(
+
+                task -> {
+                    if (task.isSuccessful()){
+                        Log.d(TAG, "task success " + task.getResult().getKey().toString());
+
+                         if (task.getResult().getKey().equals(id)) {
+                             isFavorite.postValue(1);
+                         }
+                         else {
+                             isFavorite.postValue(0);
+                         }
+
                     }
-            );
-
-            return isFavorite;
-        }
-        else {
-            return isFavorite;
-        }
+                    else {
+                        Log.e(TAG, task.getException().toString());
+                    }
+                }
+        );
+        return isFavorite;
 
     }
 
