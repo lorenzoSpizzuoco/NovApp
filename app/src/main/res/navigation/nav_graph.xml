@@ -14,7 +14,8 @@
         tools:layout="@layout/fragment_start_screen" >
         <action
             android:id="@+id/action_start_to_onboarding"
-            app:destination="@id/onboardingFragment" />
+            app:destination="@id/onboardingFragment"
+            app:enterAnim="@anim/fade_in" />
         <argument
             android:name="user_local_mail"
             app:argType="string" />
@@ -23,10 +24,12 @@
             app:argType="string" />
         <action
             android:id="@+id/action_start_to_login"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/fade_in" />
         <action
             android:id="@+id/action_start_to_home"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/fade_in" />
     </fragment>
 
     <!-- Starting carousel -->
@@ -42,7 +45,8 @@
             app:destination="@id/registerFragment" />
         <action
             android:id="@+id/action_login_to_home"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/fade_in" />
     </fragment>
 
     <!-- Register -->
@@ -56,7 +60,8 @@
             app:destination="@id/loginFragment" />
         <action
             android:id="@+id/action_register_to_home"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/fade_in" />
     </fragment>
 
     <!-- Home -->
@@ -67,10 +72,12 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_home_to_fullRegister"
-            app:destination="@id/fullRegisterFragment" />
+            app:destination="@id/fullRegisterFragment"
+            app:enterAnim="@anim/fade_in" />
         <action
             android:id="@+id/action_home_to_login"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/fade_in" />
     </fragment>
 
     <!-- Onboarding -->
@@ -81,7 +88,8 @@
         tools:layout="@layout/fragment_view_pager" >
         <action
             android:id="@+id/action_onboarding_to_login"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/fade_in" />
     </fragment>
 
     <!-- Full register -->
@@ -98,10 +106,12 @@
             app:argType="string" />
         <action
             android:id="@+id/action_fullRegister_to_home"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/fade_in" />
     </fragment>
     <action
         android:id="@+id/action_to_login"
-        app:destination="@id/loginFragment" />
+        app:destination="@id/loginFragment"
+        app:enterAnim="@anim/fade_in" />
 
 </navigation>
