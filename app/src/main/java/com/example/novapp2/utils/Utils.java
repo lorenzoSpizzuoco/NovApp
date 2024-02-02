@@ -1,5 +1,9 @@
 package com.example.novapp2.utils;
 
+import static com.example.novapp2.utils.Constants.DB_EVENTS;
+import static com.example.novapp2.utils.Constants.DB_GS;
+import static com.example.novapp2.utils.Constants.DB_INFOS;
+import static com.example.novapp2.utils.Constants.DB_RIPET;
 import static com.example.novapp2.utils.Constants.USER_LOCAL_FILE;
 import static com.example.novapp2.utils.Constants.USER_LOCAL_MAIL;
 import static com.example.novapp2.utils.Constants.USER_LOCAL_PASSWORD;
@@ -40,6 +44,24 @@ public class Utils {
                 .collect(Collectors.toList());
         return filteredList;
     }*/
+
+    // POST CATEGORY
+
+
+    public static String getChildCategory(int category) {
+        switch (category) {
+            case 1:
+                return DB_EVENTS;
+            case 2:
+                return DB_INFOS;
+            case 3:
+                return DB_RIPET;
+            case 4:
+                return DB_GS;
+            default:
+                return DB_INFOS;
+        }
+    }
 
     public static boolean checkResponse(String body) {
         Gson gson = new Gson();

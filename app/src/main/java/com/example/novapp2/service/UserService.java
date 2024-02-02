@@ -1,8 +1,11 @@
 package com.example.novapp2.service;
 
 import com.example.novapp2.entity.User;
+import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.repository.user.UserRepositoryImpl;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
+import com.google.firebase.database.DataSnapshot;
 
 import java.util.Arrays;
 import java.util.List;
@@ -51,6 +54,23 @@ public class UserService {
             Exception exception = task.getException();
             Log.e("User Retrieval Error", exception.getMessage());}
     });*/
+
+
+    public Task<Void> insertSavedPost(String user, String postId, int category) { return userRepositoryImpl.insertSaved(user, postId, category); }
+
+    public Task<Void> removeSavedPost(String user, String postId) { return userRepositoryImpl.removeSaved(user, postId); }
+
+    //public Task<DataSnapshot> getSavedPosts(String user) { return userRepositoryImpl.getFavoritePosts(user); }
+
+    public Task<DataSnapshot> getIsSaved(String user, String id) {
+        return userRepositoryImpl.getIsSaved(user, id);
+    }
+
+
+    public Task<List<Post>> getSavedPost(String user) {
+        return userRepositoryImpl.getSavedPosts(user);
+    }
+
 
 
 }
