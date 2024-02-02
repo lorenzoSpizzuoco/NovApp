@@ -138,5 +138,10 @@
     <string name="desc_logo_app">Logo applicazione B-Club</string>
 
     <string name="invalid_date">Invalid date</string>
+    <string name="join">Partecipa</string>
+    <string name="event_image_cd">Immagine che descrive il contenuto dell\'evento</string>
+    <string name="arrow_back_cd">Freccia per tornare indietro</string>
+    <string name="image_author_post_cd">Immagine che mostra l\'autore del post</string>
+    <string name="user_name">Nome utente</string>
 
 </resources>
