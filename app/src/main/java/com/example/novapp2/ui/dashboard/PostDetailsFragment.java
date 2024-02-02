@@ -134,6 +134,8 @@ public class PostDetailsFragment extends Fragment {
 
         // observing livedata
         postViewModel.getIsFavorite(HomeFragment.getActiveUser().getID(), p.getDbId()).observe(getViewLifecycleOwner(), favorite -> {
+
+            Log.d(TAG, String.valueOf(favorite));
             if (favorite == 1) {
                 favoriteIcon.setIconResource(R.drawable.ic_favorite_24);
             }
@@ -149,6 +151,7 @@ public class PostDetailsFragment extends Fragment {
 
 
     private void setupFavoriteButtonListener() {
+
         // click listener
         favoriteIcon.setOnClickListener(v -> {
             if (p.getFavorite() == 1) {
