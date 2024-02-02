@@ -64,8 +64,6 @@ public class PostViewModel extends AndroidViewModel {
                     }
                 }
         );
-
-
         return isFavorite;
 
     }
