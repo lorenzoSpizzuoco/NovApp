@@ -29,7 +29,7 @@ public class PostService {
     public static final String TAG = PostService.class.getSimpleName();
     private Retrofit retrofit;
 
-    private static IPostRepository repository = new PostRepository();
+    private static IPostRepository postRepository = new PostRepository();
 
     public Task<Void> insert(Post post, Uri image) {
 
@@ -53,7 +53,7 @@ public class PostService {
                                 boolean res = checkResponse(resp);
                                 if (res) {
                                     // insertion
-                                    repository.insert(post, image).addOnCompleteListener(
+                                    postRepository.insert(post, image).addOnCompleteListener(
                                             t -> {
                                                 if (t.isSuccessful()) {
                                                     taskCompletionSource.setResult(t.getResult());
@@ -82,44 +82,8 @@ public class PostService {
     }
 
     public Task<List<Post>> getAllPost() {
-        return repository.getAllPost();
+        return postRepository.getAllPost();
     }
 
-    public Task<Void> insertSavedPost(String user, String postId, int category) { return repository.insertSaved(user, postId, category); }
-
-    public Task<Void> removeSavedPost(String user, String postId) { return repository.removeSaved(user, postId); }
-
-    public Task<DataSnapshot> getSavedPosts(String user) { return repository.getFavoritePosts(user); }
-
-    public Task<Integer> getIsSaved(String user, String id) {
-        TaskCompletionSource<Integer> taskCompletionSource = new TaskCompletionSource<>();
-
-        repository.getFavoritePosts(user).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                boolean isSaved = false;
-
-                for (DataSnapshot ds : task.getResult().getChildren()) {
-                    if (ds.getKey().equals(id)) {
-                        isSaved = true;
-                        break;
-                    }
-                }
-
-                if (isSaved) {
-                    taskCompletionSource.setResult(1);
-                } else {
-                    taskCompletionSource.setResult(0);
-                }
-            } else {
-                taskCompletionSource.setException(task.getException());
-            }
-        });
-
-        return taskCompletionSource.getTask();
-    }
-
-    public Task<List<Post>> getSavedPost(String user) {
-        return repository.getSavedPosts(user);
-    }
 
 }
