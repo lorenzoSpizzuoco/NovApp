@@ -135,18 +135,14 @@ public class DashboardFragment extends Fragment {
         });
     }
 
-
     // setup pull down refresh gesture
     private void setupSwipe() {
         swipeRefreshLayout.setOnRefreshListener(
                 () -> {
                     swipeRefreshLayout.setRefreshing(false);
-                    //fetchPosts();
                     postViewModel.refresh();
                 }
         );
-
-
     }
 
     // setup recycler view showing posts
@@ -164,7 +160,6 @@ public class DashboardFragment extends Fragment {
                     DashboardFragmentDirections.actionNavigationDashboardToPostDetailsFragment(post);
             Navigation.findNavController(view).navigate(action);
         });
-
         postView.setAdapter(postAdapter);
     }
 

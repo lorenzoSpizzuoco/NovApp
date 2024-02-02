@@ -109,6 +109,9 @@
     <string name="ripetizioni_content_desc">Repetitions image</string>
     <string name="share_something">Share with the users</string>
 
+    <!-- POST DETAIL -->
+    <string name="already_in"> Already in </string>
+
     <!-- POST DETAILS CHIP -->
     <string name="gs_chip"> study group</string>
     <string name="event_chip"> event </string>
@@ -152,5 +155,6 @@
     <string name="ok_button">Ok</string>
     <string name="no_photo_reg">If you don\'t pick a profile image, we\'ll asign you a default one! Is it ok?</string>
 
+    <string name="in_group">You joined </string>
 
 </resources>
