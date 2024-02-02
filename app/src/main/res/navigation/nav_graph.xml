@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_start_to_login"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_start_to_home"
+            app:destination="@id/homeFragment" />
     </fragment>
 
     <!-- Starting carousel -->

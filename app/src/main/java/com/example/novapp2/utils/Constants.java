@@ -37,4 +37,6 @@ public class Constants {
     public static final String USER_LOCAL_PASSWORD = "user_local_password";
     public static final String USER_LOCAL_MAIL = "user_local_mail";
 
+    public static final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
+
 }

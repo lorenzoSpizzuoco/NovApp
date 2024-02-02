@@ -33,7 +33,6 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    private FirebaseAuth mAuth;
     private static User activeUser;
 
     @Override
@@ -51,7 +50,7 @@ public class HomeFragment extends Fragment {
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(navView, navController);
 
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         if (mAuth.getCurrentUser() != null) {
             Task<User> activeUserTask = UserService.getUserById(mAuth.getCurrentUser().getUid());
