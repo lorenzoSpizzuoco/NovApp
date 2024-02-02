@@ -45,7 +45,7 @@
 
     <!-- NEW GS STRINGS -->
 
-    <string name="gs_title_hint">Event Name</string>
+    <string name="gs_title_hint">Study group name</string>
     <string name="gs_date_button">Pick a date</string>
     <string name="gs_desc">Describe your study group</string>
     <string name="gs_place_text"> Write event place</string>
@@ -136,5 +136,7 @@
     <string name="empty_fields">Fill every field</string>
     <string name="group_cont_desc">Study Group Image</string>
     <string name="desc_logo_app">Logo applicazione B-Club</string>
+
+    <string name="invalid_date">Invalid date</string>
 
 </resources>

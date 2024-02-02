@@ -134,7 +134,7 @@
                     android:visibility="gone"
                     android:id="@+id/fab_delete_photo"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginEnd="20dp"
                     android:src="@drawable/x_close"
 
                     android:layout_width="wrap_content"

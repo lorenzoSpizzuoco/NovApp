@@ -10,6 +10,7 @@ import android.util.Log;
 import com.example.novapp2.service.PostService;
 import com.example.novapp2.service.UserService;
 import com.example.novapp2.ui.home.HomeFragment;
+import com.google.android.gms.tasks.Task;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -21,10 +22,10 @@ public class PostViewModel extends AndroidViewModel {
 
     static final private String TAG = PostViewModel.class.getSimpleName();
 
-    private static PostService postService = new PostService();
+    private static final PostService postService = new PostService();
 
     private MutableLiveData<Integer> isFavorite = null;
-    private MutableLiveData<Boolean> doneLoading = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> doneLoading = new MutableLiveData<>();
     private final MutableLiveData<List<Post>> savedPosts = null;
     //private final MutableLiveData<List<Post>> allPost = null;
 

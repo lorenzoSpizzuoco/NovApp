@@ -133,5 +133,8 @@
     <string name="group_cont_desc">Immagine gruppo studio</string>
     <string name="desc_logo_app">Logo applicazione B-Club</string>
 
+    <string name="invalid_date">Data non valida</string>
+
+
 
 </resources>
