@@ -27,6 +27,5 @@ public interface IUserRepository {
 
     public Task<List<Post>> getSavedPosts(String user);
 
-
     public Task<List<Post>> getUserPosts(String user);
 }
