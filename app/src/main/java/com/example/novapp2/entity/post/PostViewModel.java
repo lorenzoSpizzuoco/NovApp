@@ -147,6 +147,7 @@ public class PostViewModel extends AndroidViewModel {
 
         if (!calling) {
             calling = true;
+            Log.d(TAG, "doing insert " + post.getTitle());
             postService.insert(post, image).addOnCompleteListener(
                     t -> {
                         doneLoading.setValue(true);
