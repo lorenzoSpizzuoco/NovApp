@@ -139,12 +139,16 @@
 
 
     <string name="invalid_date">Data non valida</string>
+    <string name="user_profile_image">Immagine profilo utente</string>
+
+    <string name="del_photo_fab_cd">bottone elimina immagine</string>
     <string name="join">Partecipa</string>
     <string name="event_image_cd">Immagine che descrive il contenuto dell\'evento</string>
     <string name="arrow_back_cd">Freccia per tornare indietro</string>
     <string name="image_author_post_cd">Immagine che mostra l\'autore del post</string>
     <string name="user_name">Nome utente</string>
     <string name="user_settings">Impostazioni Utente</string>
-    <string name="user_profile_image">User profile image</string>
+    <string name="ripet_imageview_cd">Image selezionata per le ripetizioni</string>
+
 
 </resources>
