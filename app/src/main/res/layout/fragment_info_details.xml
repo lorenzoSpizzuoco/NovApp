@@ -14,9 +14,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:elevation="10dp"
-        app:showMotionSpec="@anim/left_to_right_animation"
         app:srcCompat="@drawable/arrow_back"
-        style="?attr/floatingActionButtonSmallPrimaryStyle">
+        app:backgroundTint="?attr/colorSurfaceContainer"
+        style="?attr/floatingActionButtonSmallPrimaryStyle"
+        android:contentDescription="@string/arrow_back_cd">
 
     </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
@@ -38,22 +39,12 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/floating_button">
 
-
-            <RelativeLayout
-                android:id="@+id/post_content_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
-                android:elevation="10dp"
-
-                android:padding="10dp">
-
                 <com.google.android.material.chip.Chip
                     android:id="@+id/postDetailChip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:clickable="false"
-                    android:text="qualcosa"
+                    android:text="@string/infos_chip"
                     android:textAllCaps="true"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -61,7 +52,8 @@
                     app:chipEndPadding="8dp"
                     app:chipMinHeight="20dp"
                     app:chipStartPadding="8dp"
-                    app:chipStrokeWidth="0dp" />
+                    app:chipStrokeWidth="0dp"
+                    style="?attr/textAppearanceButton"/>
 
                 <LinearLayout
                     android:id="@+id/post_author_layout"
@@ -76,10 +68,11 @@
                         android:id="@+id/post_user_image"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:contentDescription="bla bla"
+                        android:contentDescription="@string/image_author_post_cd"
                         android:scaleType="centerCrop"
                         android:src="@drawable/analisi"
-                        app:shapeAppearanceOverlay="@style/Circular" />
+                        app:shapeAppearanceOverlay="@style/Circular"
+                        tools:ignore="ImageContrastCheck" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -91,9 +84,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:textSize="22sp"
-                            android:textStyle="bold"
-                            tools:text="Titolo" />
+                            android:text="@string/info_title_hint"
+                            style="?attr/textAppearanceHeadline5"/>
 
                         <TextView
                             android:id="@+id/user_name_post"
@@ -101,7 +93,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:textAlignment="center"
-                            android:textSize="14sp"
+                            style="?attr/textAppearanceSubtitle2"
                             android:textStyle="bold" />
 
                         <LinearLayout
@@ -116,18 +108,18 @@
                                 android:id="@+id/postPlace"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="12dp"
-                                android:text="place"
-                                android:textSize="12sp"
-                                android:textStyle="bold" />
+                                android:layout_marginEnd="12dp"
+                                android:text="@string/event_place_text"
+                                android:textStyle="bold"
+                                style="?attr/textAppearanceLabelLarge"/>
 
                             <TextView
                                 android:id="@+id/postDate"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.2"
-                                android:text="data"
-                                android:textSize="12sp" />
+                                android:text="@string/info_date_button"
+                                style="?attr/textAppearanceLabelSmall"/>
 
 
                         </LinearLayout>
@@ -147,15 +139,12 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/post_divider"
                     android:layout_marginBottom="80dp"
-                    android:paddingLeft="8dp"
-                    android:paddingTop="20dp"
-                    android:text="descrizione"
-                    android:textSize="16sp" />
+                    android:layout_marginTop="10dp"
+                    android:padding="8dp"
+                    android:text="@string/info_desc"
+                    style="?attr/textAppearanceBody1"/>
 
             </RelativeLayout>
-
-
-        </RelativeLayout>
 
 
     </ScrollView>
@@ -166,28 +155,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:gravity="end"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-
             android:id="@+id/imageview_favorite_post"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:text="salva"
-            app:icon="@drawable/baseline_favorite_border_24" />
+            android:text="@string/Save"
+            app:icon="@drawable/baseline_favorite_border_24"
+            app:srcCompat="@drawable/arrow_back"
+            style="?attr/floatingActionButtonSmallPrimaryStyle"/>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/gsButton"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_margin="5dp"
             android:layout_marginBottom="20dp"
-            android:layout_weight="1"
-            android:text="partecipa"
-            app:icon="@drawable/chat" />
+            android:text="@string/join"
+            app:icon="@drawable/chat"
+            app:srcCompat="@drawable/arrow_back"
+            style="?attr/floatingActionButtonSmallPrimaryStyle"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
