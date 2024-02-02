@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.Toast;
+
 
 import com.example.novapp2.MainActivity;
 import com.example.novapp2.R;
@@ -71,7 +71,7 @@ public class LoginFragment extends Fragment {
 
                     @Override
                     public void onSignInFailure() {
-                        Toast.makeText(requireContext(), "An error occurred!", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(view, R.string.error, Snackbar.LENGTH_SHORT).show();
                     }
                 });
             } else {

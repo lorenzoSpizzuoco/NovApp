@@ -157,4 +157,6 @@
 
     <string name="in_group">You joined </string>
 
+    <string name="error">An error occurred!</string>
+
 </resources>

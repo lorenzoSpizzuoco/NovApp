@@ -157,4 +157,7 @@
     <string name="no_photo_reg">Se non scegli un\'immagine profilo ne assegneremo una di default! Va bene?</string>
 
     <string name="in_group"> Ora fai parte del gruppo studio  </string>
+
+    <string name="error">Ops! C\'è stato un\'errore</string>
+
 </resources>

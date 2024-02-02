@@ -17,10 +17,11 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
 
 import com.example.novapp2.MainActivity;
 import com.example.novapp2.R;
+import com.google.android.material.snackbar.Snackbar;
 
 
 import java.io.File;
@@ -55,7 +56,7 @@ public class StartScreenFragment extends Fragment {
 
                 @Override
                 public void onSignInFailure() {
-                    Toast.makeText(requireContext(), "An error occurred!", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(getView(), R.string.error, Snackbar.LENGTH_SHORT).show();
                 }
             });
         } else {

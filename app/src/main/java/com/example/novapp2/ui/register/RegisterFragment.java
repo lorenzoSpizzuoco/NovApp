@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -85,13 +85,13 @@ public class RegisterFragment extends Fragment {
                             UserService.createUser(mAuth.getCurrentUser().getUid(), email);
                             MainActivity.getNavController().navigate(R.id.action_register_to_home);
                         } else {
-                            Toast.makeText(requireContext(), "An error occurred!", Toast.LENGTH_SHORT).show();
+                            Snackbar.make(view, R.string.error, Snackbar.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onRegisterFailure() {
-                        Toast.makeText(requireContext(), "An error occurred!", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(view, R.string.error, Snackbar.LENGTH_SHORT).show();
                     }
                 });
             }
