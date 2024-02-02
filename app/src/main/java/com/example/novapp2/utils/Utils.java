@@ -125,5 +125,11 @@ public class Utils {
         return (credentials.get(USER_LOCAL_MAIL) != null && credentials.get(USER_LOCAL_PASSWORD) != null) ? credentials : null;
     }
 
+    public static void deleteUserCredentials(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(USER_LOCAL_FILE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+    }
 
 }

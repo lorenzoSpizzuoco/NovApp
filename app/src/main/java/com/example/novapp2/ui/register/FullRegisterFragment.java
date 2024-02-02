@@ -29,6 +29,7 @@ import com.example.novapp2.entity.User;
 import com.example.novapp2.service.UserService;
 import com.example.novapp2.utils.UploadImage;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import java.util.regex.Pattern;
@@ -92,39 +93,26 @@ public class FullRegisterFragment extends Fragment {
                 UploadImage.uploadImage(imageUri, DB_USERS_IMAGES, userId).addOnCompleteListener(
                         task -> {
                             if (task.isSuccessful()) {
-
                                 Uri downloadUri = task.getResult();
                                 String url = downloadUri.toString();
                                 User updatedUser = new User(userId, name, email, surname, bio, null, null, isBicocca(email), url, null);
-
-                                UserService.updateUserById(userId, updatedUser);
-                                Task<Void> updateTask = UserService.updateUserById(userId, updatedUser);
-                                updateTask.addOnCompleteListener(taskInner -> {
-                                    if (taskInner.isSuccessful()) {
-                                        MainActivity.getNavController().navigate(R.id.action_fullRegister_to_home);
-                                    } else {
-                                        // TODO Handle the error
-                                        Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                                udpateUser(updatedUser);
                             }
                         }
                 );
             }
             else {
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getParentFragment().getActivity()).setTitle(R.string.event_photo)
+                        .setMessage(R.string.no_photo_reg)
+                        .setPositiveButton(R.string.ok_button, (di, i) -> {
+                            User updatedUser = new User(userId, name, email, surname, bio, null, null, isBicocca(email), "", null);
+                            udpateUser(updatedUser);
+                        })
+                        .setNegativeButton(R.string.dialog_close, (di, i) -> {
+                        });
 
-                User updatedUser = new User(userId, name, email, surname, bio, null, null, isBicocca(email), "", null);
-
-                UserService.updateUserById(userId, updatedUser);
-                Task<Void> updateTask = UserService.updateUserById(userId, updatedUser);
-                updateTask.addOnCompleteListener(taskInner -> {
-                    if (taskInner.isSuccessful()) {
-                        MainActivity.getNavController().navigate(R.id.action_fullRegister_to_home);
-                    } else {
-                        // TODO Handle the error
-                        Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                builder.create();
+                builder.show();
 
             }
         });
@@ -134,6 +122,18 @@ public class FullRegisterFragment extends Fragment {
         String regex = ".+@campus\\.unimib\\.it$";
         Pattern pattern = Pattern.compile(regex);
         return pattern.matcher(email).matches();
+    }
+
+    private void udpateUser(User updatedUser) {
+        Task<Void> updateTask = UserService.updateUserById(updatedUser.getID(), updatedUser);
+        updateTask.addOnCompleteListener(taskInner -> {
+            if (taskInner.isSuccessful()) {
+                MainActivity.getNavController().navigate(R.id.action_fullRegister_to_home);
+            } else {
+                // TODO Handle the error
+                Snackbar.make(getView(), "error", Snackbar.LENGTH_SHORT).show();
+            }
+        });
     }
 }
 

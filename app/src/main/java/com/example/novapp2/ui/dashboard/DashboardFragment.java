@@ -59,6 +59,7 @@ public class DashboardFragment extends Fragment {
     private Chip gsChip;
     private Chip infoChip;
     private Chip ripetizioniChip;
+    private com.google.android.material.search.SearchView searchView;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -84,59 +85,19 @@ public class DashboardFragment extends Fragment {
         infoChip = view.findViewById(R.id.chip_ui);
         gsChip = view.findViewById(R.id.chip_gs);
         ripetizioniChip= view.findViewById(R.id.chip_ripetizioni);
+        searchBar = view.findViewById(R.id.search_bar);
+        searchView = view.findViewById(R.id.post_search_view);
 
         // Set up chip click listeners
-        setUpChipClickListener(eventsChip, 1);
-        setUpChipClickListener(infoChip, 2);
-        setUpChipClickListener(gsChip, 4);
-        setUpChipClickListener(ripetizioniChip, 3);
+        setupChipClickListeners();
 
-        //post RecyclerView
-        postView = view.findViewById(R.id.courseView);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
-        postView.setLayoutManager(linearLayoutManager);
+        setupPostRecyclerView(view);
 
-        swipeRefreshLayout.setOnRefreshListener(
-                () -> {
-                    swipeRefreshLayout.setRefreshing(false);
-                    //fetchPosts();
-                    postViewModel.refresh();
-                }
-        );
-        // creating recyclerView adapter
-        postAdapter = new PostAdapter(requireContext(), postList, post -> {
-            // navigation to details fragment
-            DashboardFragmentDirections.ActionNavigationDashboardToPostDetailsFragment action =
-                    DashboardFragmentDirections.actionNavigationDashboardToPostDetailsFragment(post);
-            Navigation.findNavController(view).navigate(action);
-        });
+        setupSwipe();
 
-        postView.setAdapter(postAdapter);
+        setupSearchBar(view);
 
-        searchBar = view.findViewById(R.id.search_bar);
-
-        searchBar.setOnClickListener(v -> {
-            searchBar.setFocusable(true);
-            searchBar.setFocusableInTouchMode(true);
-            searchBar.requestFocus();
-
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(searchBar, InputMethodManager.SHOW_IMPLICIT);
-        });
-
-        com.google.android.material.search.SearchView searchView = view.findViewById(R.id.post_search_view);
-
-        // Imposta un listener per il cambiamento del testo di ricerca
-        searchView
-                .getEditText()
-                .setOnEditorActionListener(
-                        (v, actionId, event) -> {
-                            searchBar.setText(searchView.getText());
-                            searchView.hide();
-                            filterPostsByTitle(searchView.getText().toString());
-                            return false;
-                        });
-
+        setupSearchView();
 
         // Observing viewModel
         postViewModel.getAllPost().observe(getViewLifecycleOwner(), posts -> {
@@ -148,6 +109,74 @@ public class DashboardFragment extends Fragment {
 
     }
 
+    private void setupSearchView() {
+        // listener for text changes
+        searchView
+                .getEditText()
+                .setOnEditorActionListener(
+                        (v, actionId, event) -> {
+                            searchBar.setText(searchView.getText());
+                            searchView.hide();
+                            filterPostsByTitle(searchView.getText().toString());
+                            return false;
+                        });
+
+    }
+
+    private void setupSearchBar(View view) {
+
+        searchBar.setOnClickListener(v -> {
+            searchBar.setFocusable(true);
+            searchBar.setFocusableInTouchMode(true);
+            searchBar.requestFocus();
+
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(searchBar, InputMethodManager.SHOW_IMPLICIT);
+        });
+    }
+
+
+    // setup pull down refresh gesture
+    private void setupSwipe() {
+        swipeRefreshLayout.setOnRefreshListener(
+                () -> {
+                    swipeRefreshLayout.setRefreshing(false);
+                    //fetchPosts();
+                    postViewModel.refresh();
+                }
+        );
+
+
+    }
+
+    // setup recycler view showing posts
+    private void setupPostRecyclerView(View view) {
+        //post RecyclerView
+        postView = view.findViewById(R.id.courseView);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
+        postView.setLayoutManager(linearLayoutManager);
+
+
+        // creating recyclerView adapter
+        postAdapter = new PostAdapter(requireContext(), postList, post -> {
+            // navigation to details fragment
+            DashboardFragmentDirections.ActionNavigationDashboardToPostDetailsFragment action =
+                    DashboardFragmentDirections.actionNavigationDashboardToPostDetailsFragment(post);
+            Navigation.findNavController(view).navigate(action);
+        });
+
+        postView.setAdapter(postAdapter);
+    }
+
+    // setup chip click listeners for list filtering
+    private void setupChipClickListeners() {
+        setUpChipClickListener(eventsChip, 1);
+        setUpChipClickListener(infoChip, 2);
+        setUpChipClickListener(gsChip, 4);
+        setUpChipClickListener(ripetizioniChip, 3);
+    }
+
+
     private void setUpChipClickListener(Chip chip, int category) {
         chip.setOnClickListener(v -> {
             if (chip.isChecked()) {
@@ -158,6 +187,7 @@ public class DashboardFragment extends Fragment {
             updateFilteredList();
         });
     }
+
 
     private void updateFilteredList() {
         if (selectedCategories.isEmpty()) {

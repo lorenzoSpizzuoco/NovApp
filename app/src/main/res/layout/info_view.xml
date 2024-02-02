@@ -47,6 +47,7 @@
 
         <!-- Chip per la data e l'evento -->
         <LinearLayout
+            android:scrollbars="none"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.novapp2.MainActivity;
 import com.example.novapp2.R;
 import com.example.novapp2.databinding.FragmentUserBinding;
 import com.example.novapp2.entity.User;
@@ -29,10 +30,12 @@ import com.example.novapp2.entity.post.PostViewModel;
 import com.example.novapp2.entity.post.SavedPostAdapter;
 import com.example.novapp2.ui.home.HomeFragment;
 import com.example.novapp2.ui.home.user.UserFragmentDirections;
+import com.example.novapp2.utils.Utils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.common.base.Predicates;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,28 +49,30 @@ public class UserFragment extends Fragment {
 
     private TextView userMail;
     private TextView userHi;
+
     private View root;
     private SavedPostAdapter savedPostAdapter;
+    private SavedPostAdapter userPostAdapter;
     private PostViewModel postViewModel;
-
     private BottomSheetBehavior bottomSheetBehavior;
-
     private ImageView userImage;
 
     private RecyclerView mySavedView;
-    private RecyclerView myPostsView;
 
     private List<Post> postList;
 
-    private MaterialAlertDialogBuilder materialAlertDialogBuilder;
+    private List<Post> userPosts;
 
+    private MaterialAlertDialogBuilder materialAlertDialogBuilder;
     private RecyclerView mySavedPostsRecyclerView;
 
+    private RecyclerView userPostsRecyclerView;
+
+
     private FrameLayout bottomSheet;
-
     private User user;
-
     private Button settingsButton;
+    private Button logoutButton;
 
     public UserFragment() {
         // Required empty public constructor
@@ -85,13 +90,12 @@ public class UserFragment extends Fragment {
         super.onCreate(savedInstanceState);
         postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
         postList = new ArrayList<>();
+        userPosts = new ArrayList<>();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
         binding = FragmentUserBinding.inflate(inflater, container, false);
         root = binding.getRoot();
         user = HomeFragment.getActiveUser();
@@ -103,21 +107,26 @@ public class UserFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Inizializzazione e configurazione degli elementi dell'interfaccia utente
-        mySavedView = view.findViewById(R.id.mySavedPosts);
         userMail = view.findViewById(R.id.userMailTextVew);
         userHi = view.findViewById(R.id.userHiTextView);
         bottomSheet = view.findViewById(R.id.bottom_sheet);
         mySavedPostsRecyclerView = view.findViewById(R.id.mySavedPosts);
-        //RecyclerView myPostsRecyclerView = view.findViewById(R.id.myPosts);
+        userPostsRecyclerView = view.findViewById(R.id.myPosts);
         userImage = view.findViewById(R.id.userProfilePhoto);
+        logoutButton = view.findViewById(R.id.logoutButton);
+
         settingsButton = view.findViewById(R.id.user_settings_button);
 
         setupUserProfile();
         setupSavedPostsRecyclerView();
+        setupUserPostsRecyclerView();
         observeSavedPosts();
+        observeUserPosts();
         setupSettingsButton();
+        setupLogoutButton();
         initializeBottomSheet();
     }
+
 
     @Override
     public void onDestroyView() {
@@ -126,7 +135,7 @@ public class UserFragment extends Fragment {
     }
 
     private void setupUserProfile() {
-        // Controlla se l'oggetto user è null
+        // checking if user profile is null
         if (user != null) {
             String imageUrl = user.getProfileImg();
             if (imageUrl != null) {
@@ -146,11 +155,26 @@ public class UserFragment extends Fragment {
         }
     }
 
+    private void setupUserPostsRecyclerView() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+        userPostsRecyclerView.setLayoutManager(layoutManager);
+        // navigation to post details fragment
+        userPostAdapter = new SavedPostAdapter(requireContext(), userPosts, post -> {
+
+            if (getView() != null) {
+                UserFragmentDirections.ActionNavigationProfileToPostDetailsFragmentFragment action =
+                        UserFragmentDirections.actionNavigationProfileToPostDetailsFragmentFragment(post);
+                Navigation.findNavController(getView()).navigate(action);
+            }
+        });
+
+        userPostsRecyclerView.setAdapter(userPostAdapter);
+        userPostsRecyclerView.clearFocus();
+    }
 
     private void setupSavedPostsRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         mySavedPostsRecyclerView.setLayoutManager(layoutManager);
-        mySavedView.setLayoutManager(layoutManager);
         // navigation to post details fragment
         savedPostAdapter = new SavedPostAdapter(requireContext(), postList, post -> {
 
@@ -160,8 +184,8 @@ public class UserFragment extends Fragment {
                 Navigation.findNavController(getView()).navigate(action);
             }
         });
-        mySavedView.setAdapter(savedPostAdapter);
-        mySavedView.clearFocus();
+        mySavedPostsRecyclerView.setAdapter(savedPostAdapter);
+        mySavedPostsRecyclerView.clearFocus();
     }
 
     private void observeSavedPosts() {
@@ -172,6 +196,14 @@ public class UserFragment extends Fragment {
         });
     }
 
+    private void observeUserPosts() {
+        postViewModel.getUserPosts().observe(getViewLifecycleOwner(), posts -> {
+            userPosts.clear();
+            userPosts.addAll(posts);
+            userPostAdapter.notifyDataSetChanged();
+        });
+    }
+
     private void initializeBottomSheet() {
         if (getView() == null) return;
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
@@ -179,6 +211,7 @@ public class UserFragment extends Fragment {
         bottomSheetBehavior.setDraggable(true);
 
     }
+
     private void setupSettingsButton() {
         settingsButton.setOnClickListener(v -> {
             // Alterna tra mostrare e nascondere il Bottom Sheet
@@ -191,13 +224,13 @@ public class UserFragment extends Fragment {
             }
         });
     }
-
-
-
-
-
-
-
+    private void setupLogoutButton() {
+        logoutButton.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            Utils.deleteUserCredentials(requireContext());
+            MainActivity.getNavController().navigate(R.id.action_to_login);
+        });
+    }
 
 }
 
