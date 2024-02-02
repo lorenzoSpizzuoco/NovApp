@@ -141,18 +141,57 @@
 
     <!-- Bottom Sheet -->
     <FrameLayout
+        style="@style/Widget.Material3.BottomSheet"
         android:id="@+id/bottom_sheet"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:background="@android:color/white"
+        android:layout_height="wrap_content"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-        <!-- Contenuto del tuo Bottom Sheet va qui -->
-        <TextView
-            android:layout_width="wrap_content"
+        <!-- RelativeLayout per il contenuto -->
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/title_error"
-            android:layout_gravity="center"/>
+            android:padding="20dp">
+
+            <!-- Drag Handle View -->
+            <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+                android:id="@+id/drag_handle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <!-- Titolo del BottomSheet -->
+            <TextView
+                android:id="@+id/user_settings_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/user_settings"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="?attr/colorOnSurface"
+                android:textAppearance="?attr/textAppearanceTitleLarge"
+                android:layout_below="@id/drag_handle" />
+
+            <!-- Primo switch -->
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switch_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/info_place_text"
+                android:enabled="false"
+                app:switchPadding="10dp"
+                android:layout_below="@+id/user_settings_text" />
+
+            <!-- Secondo switch -->
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switch_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_error"
+                android:enabled="false"
+                app:switchPadding="10dp"
+                android:layout_below="@id/switch_1"/>
+        </RelativeLayout>
     </FrameLayout>
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

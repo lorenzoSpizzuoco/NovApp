@@ -10,6 +10,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,7 +111,6 @@ public class UserFragment extends Fragment {
         //RecyclerView myPostsRecyclerView = view.findViewById(R.id.myPosts);
         userImage = view.findViewById(R.id.userProfilePhoto);
         settingsButton = view.findViewById(R.id.user_settings_button);
-        bottomSheet = view.findViewById(R.id.bottom_sheet);
 
         setupUserProfile();
         setupSavedPostsRecyclerView();
@@ -123,17 +123,6 @@ public class UserFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null; // Rilascia il riferimento al binding
-    }
-
-
-    private void initializeBottomSheet() {
-        if (getView() == null) return;
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-
-        // Imposta lo stato iniziale nascosto
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-
-        bottomSheetBehavior.setDraggable(false);
     }
 
     private void setupUserProfile() {
@@ -160,7 +149,17 @@ public class UserFragment extends Fragment {
 
     private void setupSavedPostsRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+        mySavedPostsRecyclerView.setLayoutManager(layoutManager);
         mySavedView.setLayoutManager(layoutManager);
+        // navigation to post details fragment
+        savedPostAdapter = new SavedPostAdapter(requireContext(), postList, post -> {
+
+            if (getView() != null) {
+                UserFragmentDirections.ActionNavigationProfileToPostDetailsFragmentFragment action =
+                        UserFragmentDirections.actionNavigationProfileToPostDetailsFragmentFragment(post);
+                Navigation.findNavController(getView()).navigate(action);
+            }
+        });
         mySavedView.setAdapter(savedPostAdapter);
         mySavedView.clearFocus();
     }
@@ -173,12 +172,30 @@ public class UserFragment extends Fragment {
         });
     }
 
+    private void initializeBottomSheet() {
+        if (getView() == null) return;
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        bottomSheetBehavior.setDraggable(true);
+
+    }
     private void setupSettingsButton() {
         settingsButton.setOnClickListener(v -> {
-            // Logica per il pulsante delle impostazioni, per esempio mostrare un BottomSheetDialogFragment o navigare a un'altra schermata
-            v.setEnabled(!v.isEnabled()); // Esempio di toggle dell'abilitazione del pulsante
+            // Alterna tra mostrare e nascondere il Bottom Sheet
+            if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+                // Se il Bottom Sheet è già espanso, allora lo nasconde
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+            } else {
+                // Se il Bottom Sheet è nascosto o collassato, allora lo espande
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            }
         });
     }
+
+
+
+
+
 
 
 
