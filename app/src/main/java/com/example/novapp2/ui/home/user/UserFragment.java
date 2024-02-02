@@ -52,16 +52,23 @@ public class UserFragment extends Fragment {
 
     private View root;
     private SavedPostAdapter savedPostAdapter;
+    private SavedPostAdapter userPostAdapter;
     private PostViewModel postViewModel;
     private BottomSheetBehavior bottomSheetBehavior;
     private ImageView userImage;
 
     private RecyclerView mySavedView;
-    private RecyclerView myPostsView;
 
     private List<Post> postList;
+
+    private List<Post> userPosts;
+
     private MaterialAlertDialogBuilder materialAlertDialogBuilder;
     private RecyclerView mySavedPostsRecyclerView;
+
+    private RecyclerView userPostsRecyclerView;
+
+
     private FrameLayout bottomSheet;
     private User user;
     private Button settingsButton;
@@ -83,6 +90,7 @@ public class UserFragment extends Fragment {
         super.onCreate(savedInstanceState);
         postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
         postList = new ArrayList<>();
+        userPosts = new ArrayList<>();
     }
 
     @Override
@@ -99,12 +107,11 @@ public class UserFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Inizializzazione e configurazione degli elementi dell'interfaccia utente
-        mySavedView = view.findViewById(R.id.mySavedPosts);
         userMail = view.findViewById(R.id.userMailTextVew);
         userHi = view.findViewById(R.id.userHiTextView);
         bottomSheet = view.findViewById(R.id.bottom_sheet);
         mySavedPostsRecyclerView = view.findViewById(R.id.mySavedPosts);
-        //RecyclerView myPostsRecyclerView = view.findViewById(R.id.myPosts);
+        userPostsRecyclerView = view.findViewById(R.id.myPosts);
         userImage = view.findViewById(R.id.userProfilePhoto);
         logoutButton = view.findViewById(R.id.logoutButton);
 
@@ -112,7 +119,9 @@ public class UserFragment extends Fragment {
 
         setupUserProfile();
         setupSavedPostsRecyclerView();
+        setupUserPostsRecyclerView();
         observeSavedPosts();
+        observeUserPosts();
         setupSettingsButton();
         setupLogoutButton();
         initializeBottomSheet();
@@ -126,7 +135,7 @@ public class UserFragment extends Fragment {
     }
 
     private void setupUserProfile() {
-        // Controlla se l'oggetto user è null
+        // checking if user profile is null
         if (user != null) {
             String imageUrl = user.getProfileImg();
             if (imageUrl != null) {
@@ -146,11 +155,26 @@ public class UserFragment extends Fragment {
         }
     }
 
+    private void setupUserPostsRecyclerView() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+        userPostsRecyclerView.setLayoutManager(layoutManager);
+        // navigation to post details fragment
+        userPostAdapter = new SavedPostAdapter(requireContext(), userPosts, post -> {
+
+            if (getView() != null) {
+                UserFragmentDirections.ActionNavigationProfileToPostDetailsFragmentFragment action =
+                        UserFragmentDirections.actionNavigationProfileToPostDetailsFragmentFragment(post);
+                Navigation.findNavController(getView()).navigate(action);
+            }
+        });
+
+        userPostsRecyclerView.setAdapter(userPostAdapter);
+        userPostsRecyclerView.clearFocus();
+    }
 
     private void setupSavedPostsRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         mySavedPostsRecyclerView.setLayoutManager(layoutManager);
-        mySavedView.setLayoutManager(layoutManager);
         // navigation to post details fragment
         savedPostAdapter = new SavedPostAdapter(requireContext(), postList, post -> {
 
@@ -160,8 +184,8 @@ public class UserFragment extends Fragment {
                 Navigation.findNavController(getView()).navigate(action);
             }
         });
-        mySavedView.setAdapter(savedPostAdapter);
-        mySavedView.clearFocus();
+        mySavedPostsRecyclerView.setAdapter(savedPostAdapter);
+        mySavedPostsRecyclerView.clearFocus();
     }
 
     private void observeSavedPosts() {
@@ -172,6 +196,14 @@ public class UserFragment extends Fragment {
         });
     }
 
+    private void observeUserPosts() {
+        postViewModel.getUserPosts().observe(getViewLifecycleOwner(), posts -> {
+            userPosts.clear();
+            userPosts.addAll(posts);
+            userPostAdapter.notifyDataSetChanged();
+        });
+    }
+
     private void initializeBottomSheet() {
         if (getView() == null) return;
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
@@ -179,6 +211,7 @@ public class UserFragment extends Fragment {
         bottomSheetBehavior.setDraggable(true);
 
     }
+
     private void setupSettingsButton() {
         settingsButton.setOnClickListener(v -> {
             // Alterna tra mostrare e nascondere il Bottom Sheet
