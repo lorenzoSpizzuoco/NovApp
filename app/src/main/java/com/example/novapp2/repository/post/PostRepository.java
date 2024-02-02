@@ -7,6 +7,7 @@ import static com.example.novapp2.utils.Constants.DB_POSTS;
 import static com.example.novapp2.utils.Constants.DB_RIPET;
 import static com.example.novapp2.utils.Constants.DB_SAVEDPOSTS;
 import static com.example.novapp2.utils.Constants.DB_USERS;
+import static com.example.novapp2.utils.Constants.DB_USER_POSTS;
 
 import android.net.Uri;
 import android.util.Log;
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 
 import com.example.novapp2.entity.post.GenericPost;
 import com.example.novapp2.entity.post.Post;
+import com.example.novapp2.repository.user.UserRepositoryImpl;
 import com.example.novapp2.service.GroupChatsService;
 import com.example.novapp2.service.UserService;
 import com.example.novapp2.ui.home.HomeFragment;
@@ -42,10 +44,12 @@ public class PostRepository implements IPostRepository{
     private static final String TAG = PostRepository.class.getSimpleName();
 
     public Task<Void> insert(Post post, Uri image) {
+
         TaskCompletionSource<Void> taskCompletionSource = new TaskCompletionSource<>();
 
         String id = mDatabase.child(DB_POSTS).push().getKey();
         StorageReference storageRef = mStorage.getReference();
+        String userId = HomeFragment.getActiveUser().getID();
         post.setDbId(id);
 
         int category = post.getCategory();
@@ -75,12 +79,26 @@ public class PostRepository implements IPostRepository{
                                                 mDatabase.child(child).child(id).setValue(post)
                                                         .addOnCompleteListener(task2 -> {
                                                             if (task2.isSuccessful()) {
-                                                                taskCompletionSource.setResult(null);
+
+                                                                mDatabase.child(DB_USERS).child(userId).child(DB_USER_POSTS).child(id).setValue(category).addOnCompleteListener(
+                                                                        taskUser -> {
+                                                                              if (taskUser.isSuccessful()) {
+                                                                                  Log.d(TAG, "SUCCESS TASK");
+                                                                                  taskCompletionSource.setResult(null);
+                                                                              }
+                                                                              else {
+                                                                                  Log.e(TAG, taskUser.getException().toString());
+                                                                                  taskCompletionSource.setException(taskUser.getException());
+                                                                              }
+                                                                        }
+                                                                );
+
                                                                 if(4 == post.getCategory()) {
                                                                     HomeFragment.getActiveUser().groupChats.add(id);
                                                                     UserService.updateUserById(HomeFragment.getActiveUser().userId, HomeFragment.getActiveUser());
                                                                     GroupChatsService.createGroupChat(id);
                                                                 }
+
                                                             } else {
                                                                 taskCompletionSource.setException(task2.getException());
                                                             }
@@ -105,7 +123,18 @@ public class PostRepository implements IPostRepository{
                             mDatabase.child(child).child(id).setValue(post)
                                     .addOnCompleteListener(task1 -> {
                                         if (task1.isSuccessful()) {
-                                            taskCompletionSource.setResult(null);
+                                            mDatabase.child(DB_USERS).child(userId).child(DB_USER_POSTS).child(id).setValue(category).addOnCompleteListener(
+                                                    taskUser -> {
+                                                        if (taskUser.isSuccessful()) {
+                                                            Log.d(TAG, "SUCCESS TASK");
+                                                            taskCompletionSource.setResult(null);
+                                                        }
+                                                        else {
+                                                            Log.e(TAG, taskUser.getException().toString());
+                                                            taskCompletionSource.setException(taskUser.getException());
+                                                        }
+                                                    }
+                                            );
                                         } else {
                                             taskCompletionSource.setException(task1.getException());
                                         }
@@ -248,4 +277,5 @@ public class PostRepository implements IPostRepository{
 
         return taskCompletionSource.getTask();
     }
+
 }

@@ -1,5 +1,8 @@
 package com.example.novapp2.repository.user;
 
+import static com.example.novapp2.utils.Constants.DB_USERS;
+import static com.example.novapp2.utils.Constants.DB_USER_POSTS;
+
 import com.example.novapp2.entity.User;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -127,5 +130,7 @@ public class UserRepositoryImpl implements IUserRepository{
 
         return taskCompletionSource.getTask();
     }
+
+
 
 }

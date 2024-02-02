@@ -30,6 +30,7 @@ public class Constants {
 
     public static final String DB_USERS_IMAGES = "userImages";
 
+    public static final String DB_USER_POSTS = "userPosts";
     /*
     * Variabili per gestire il file locale su dispositivo utente.
     * */
