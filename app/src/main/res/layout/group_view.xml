@@ -10,8 +10,7 @@
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     android:layout_marginBottom="5dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    app:cardCornerRadius="8dp">
 
     <RelativeLayout
         android:id="@+id/groupView"
@@ -90,7 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/button_sg"
-                app:chipIconTint="?attr/colorPrimary"
+                app:chipIconTint="?attr/colorSecondary"
                 app:chipIcon="@drawable/colored_circle_drawable"
                 android:layout_toEndOf="@id/groupDate"/>
 

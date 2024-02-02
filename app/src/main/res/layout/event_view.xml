@@ -10,8 +10,7 @@
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     android:layout_marginBottom="5dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    app:cardCornerRadius="8dp">
 
     <RelativeLayout
         android:id="@+id/eventView"
@@ -88,7 +87,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/button_event"
                         app:chipIcon="@drawable/colored_circle_drawable"
-                        app:chipIconTint="?attr/colorPrimary"
+                        app:chipIconTint="?attr/colorTertiary"
                         android:layout_marginEnd="5dp" />
 
                     <com.google.android.material.chip.Chip
