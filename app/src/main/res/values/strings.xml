@@ -123,6 +123,7 @@
     <!-- LOGIN -->
     <string name="login_error"> wrong email or password </string>
     <string name="invalid_input"> credentials not valid </string>
+    <string name="login_fail"> fail login task </string>
 
     <!-- REGISTER -->
     <string name="wrong_email_format"> wrong email format </string>
