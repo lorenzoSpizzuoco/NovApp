@@ -107,6 +107,10 @@
     <string name="ripetizioni_content_desc">Immagine esplicativa ripetizioni</string>
     <string name="share_something">Condividi con gli Utenti</string>
 
+    <!-- POST DETAIL -->
+
+    <string name="already_in"> Fai già parte di questo gruppo studio </string>
+
     <!-- POST DETAILS CHIP -->
     <string name="gs_chip"> gruppo studio </string>
     <string name="event_chip"> evento </string>
@@ -151,4 +155,6 @@
     <string name="ripet_imageview_cd">Image selezionata per le ripetizioni</string>
     <string name="ok_button">Ok</string>
     <string name="no_photo_reg">Se non scegli un\'immagine profilo ne assegneremo una di default! Va bene?</string>
+
+    <string name="in_group"> Ora fai parte del gruppo studio  </string>
 </resources>
