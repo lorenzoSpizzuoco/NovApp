@@ -60,14 +60,6 @@ public class DashboardFragment extends Fragment {
     private Chip infoChip;
     private Chip ripetizioniChip;
 
-    private void fetchPosts() {
-        postViewModel.getAllPost().observe(getViewLifecycleOwner(), posts -> {
-            postList.clear();
-            postList.addAll(posts);
-            postAdapter.notifyDataSetChanged();
-            updateFilteredList();
-        });
-    }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,7 +99,8 @@ public class DashboardFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(
                 () -> {
                     swipeRefreshLayout.setRefreshing(false);
-                    fetchPosts();
+                    //fetchPosts();
+                    postViewModel.refresh();
                 }
         );
         // creating recyclerView adapter
@@ -146,13 +139,12 @@ public class DashboardFragment extends Fragment {
 
 
         // Observing viewModel
-        /*postViewModel.getAllPost().observe(getViewLifecycleOwner(), posts -> {
+        postViewModel.getAllPost().observe(getViewLifecycleOwner(), posts -> {
             postList.clear();
             postList.addAll(posts);
             postAdapter.notifyDataSetChanged();
             updateFilteredList();
-        });*/
-        fetchPosts();
+        });
 
     }
 
