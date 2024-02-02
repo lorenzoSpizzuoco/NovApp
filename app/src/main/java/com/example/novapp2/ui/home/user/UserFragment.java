@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,6 +28,8 @@ import com.example.novapp2.entity.post.PostViewModel;
 import com.example.novapp2.entity.post.SavedPostAdapter;
 import com.example.novapp2.ui.home.HomeFragment;
 import com.example.novapp2.ui.home.user.UserFragmentDirections;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.common.base.Predicates;
 
@@ -46,6 +49,8 @@ public class UserFragment extends Fragment {
     private SavedPostAdapter savedPostAdapter;
     private PostViewModel postViewModel;
 
+    private BottomSheetBehavior bottomSheetBehavior;
+
     private ImageView userImage;
 
     private RecyclerView mySavedView;
@@ -55,7 +60,13 @@ public class UserFragment extends Fragment {
 
     private MaterialAlertDialogBuilder materialAlertDialogBuilder;
 
+    private RecyclerView mySavedPostsRecyclerView;
+
+    private FrameLayout bottomSheet;
+
     private User user;
+
+    private Button settingsButton;
 
     public UserFragment() {
         // Required empty public constructor
@@ -88,76 +99,90 @@ public class UserFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-
-        userImage = view.findViewById(R.id.userProfilePhoto);
-        String imageUrl = HomeFragment.getActiveUser().getProfileImg();
-
-        if (imageUrl != null) {
-            Glide.with(view)
-                    .load(imageUrl)
-                    .centerCrop()
-                    .placeholder(R.drawable.analisi)
-                    .into(userImage);
-        }
-
-        //elementi salvati
-
+        // Inizializzazione e configurazione degli elementi dell'interfaccia utente
         mySavedView = view.findViewById(R.id.mySavedPosts);
-        //myPostsView = view.findViewById(R.id.myPosts);
         userMail = view.findViewById(R.id.userMailTextVew);
         userHi = view.findViewById(R.id.userHiTextView);
+        bottomSheet = view.findViewById(R.id.bottom_sheet);
+        mySavedPostsRecyclerView = view.findViewById(R.id.mySavedPosts);
+        //RecyclerView myPostsRecyclerView = view.findViewById(R.id.myPosts);
+        userImage = view.findViewById(R.id.userProfilePhoto);
+        settingsButton = view.findViewById(R.id.user_settings_button);
+        bottomSheet = view.findViewById(R.id.bottom_sheet);
 
-        mySavedView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        //myPostsView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        setupUserProfile();
+        setupSavedPostsRecyclerView();
+        observeSavedPosts();
+        setupSettingsButton();
+        initializeBottomSheet();
+    }
 
-        if(null !=user && user.notNull()){
-            userMail.setText(HomeFragment.getActiveUser().getEmail());
-            String userHiText = getString(R.string.hello) + " " + HomeFragment.getActiveUser().getName() + getString(R.string.esclamation);
-            userHi.setText(userHiText);
-        }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null; // Rilascia il riferimento al binding
+    }
 
-        RecyclerView mySavedPostsRecyclerView = root.findViewById(R.id.mySavedPosts);
-        //RecyclerView myPostsRecyclerView = root.findViewById(R.id.myPosts);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
-        mySavedPostsRecyclerView.setLayoutManager(layoutManager);
-        //LinearLayoutManager layoutManager2 = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
-        //myPostsRecyclerView.setLayoutManager(layoutManager2);
+    private void initializeBottomSheet() {
+        if (getView() == null) return;
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
 
-        savedPostAdapter = new SavedPostAdapter(requireContext(), postList, new PostAdapter.OnItemClickListener() {
-            // navigation to post details fragment
-            @Override
-            public void onPostItemClick(Post post) {
+        // Imposta lo stato iniziale nascosto
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 
-                if (getView() != null) {
-                    UserFragmentDirections.ActionNavigationProfileToPostDetailsFragmentFragment action =
-                            UserFragmentDirections.actionNavigationProfileToPostDetailsFragmentFragment(post);
-                    Navigation.findNavController(getView()).navigate(action);
-                }
+        bottomSheetBehavior.setDraggable(false);
+    }
+
+    private void setupUserProfile() {
+        // Controlla se l'oggetto user è null
+        if (user != null) {
+            String imageUrl = user.getProfileImg();
+            if (imageUrl != null) {
+                Glide.with(requireView())
+                        .load(imageUrl)
+                        .centerCrop()
+                        .placeholder(R.drawable.analisi)
+                        .into(userImage);
             }
 
-        });
+            userMail.setText(user.getEmail());
+            String userHiText = getString(R.string.hello) + " " + user.getName() + getString(R.string.esclamation);
+            userHi.setText(userHiText);
+        } else {
+            userMail.setText("Email non disponibile");
+            userHi.setText(getString(R.string.hello));
+        }
+    }
 
+
+    private void setupSavedPostsRecyclerView() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+        mySavedView.setLayoutManager(layoutManager);
         mySavedView.setAdapter(savedPostAdapter);
         mySavedView.clearFocus();
+    }
 
-        //myPostsView.setAdapter(savedPostAdapter);
-        //myPostsView.clearFocus();
-
+    private void observeSavedPosts() {
         postViewModel.getFavoritePosts().observe(getViewLifecycleOwner(), posts -> {
-            this.postList.clear();
-            this.postList.addAll(posts);
+            postList.clear();
+            postList.addAll(posts);
             savedPostAdapter.notifyDataSetChanged();
         });
-
-        Button settingsButton = this.root.findViewById(R.id.user_settings_button);
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View settingsButton) {
-                settingsButton.setEnabled(!settingsButton.isEnabled());
-            }
-        });
-        super.onViewCreated(view, savedInstanceState);
     }
+
+    private void setupSettingsButton() {
+        settingsButton.setOnClickListener(v -> {
+            // Logica per il pulsante delle impostazioni, per esempio mostrare un BottomSheetDialogFragment o navigare a un'altra schermata
+            v.setEnabled(!v.isEnabled()); // Esempio di toggle dell'abilitazione del pulsante
+        });
+    }
+
+
+
 }
+
+
+
