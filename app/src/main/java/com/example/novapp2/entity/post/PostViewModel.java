@@ -10,6 +10,7 @@ import android.util.Log;
 import com.example.novapp2.service.PostService;
 import com.example.novapp2.service.UserService;
 import com.example.novapp2.ui.home.HomeFragment;
+import com.google.android.gms.tasks.Task;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -21,12 +22,14 @@ public class PostViewModel extends AndroidViewModel {
 
     static final private String TAG = PostViewModel.class.getSimpleName();
 
-    private static PostService postService = new PostService();
+    private static final PostService postService = new PostService();
 
     private MutableLiveData<Integer> isFavorite = null;
-    private MutableLiveData<Boolean> doneLoading = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> doneLoading = new MutableLiveData<>();
     private final MutableLiveData<List<Post>> savedPosts = null;
-    private final MutableLiveData<List<Post>> allPost = null;
+    //private final MutableLiveData<List<Post>> allPost = null;
+
+    private MutableLiveData<List<Post>> allPost;
     private boolean calling = false;
 
     public PostViewModel (Application application) {
@@ -81,19 +84,35 @@ public class PostViewModel extends AndroidViewModel {
         return doneLoading;
     }
 
-    public MutableLiveData<List<Post>> getAllPost() {
-
-        MutableLiveData<List<Post>> posts = new MutableLiveData<>();
+    public void refresh() {
 
         postService.getAllPost().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                List<Post> p = task.getResult();
-                reverse(p);
-                posts.postValue(task.getResult());
-            }
+           if (task.isSuccessful()) {
+               List<Post> p = task.getResult();
+               reverse(p);
+               allPost.postValue(task.getResult());
+           }
         });
 
-        return posts;
+    }
+
+
+    public MutableLiveData<List<Post>> getAllPost() {
+
+        if (allPost == null) {
+
+            allPost = new MutableLiveData<>();
+            postService.getAllPost().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    List<Post> p = task.getResult();
+                    reverse(p);
+                    allPost.postValue(task.getResult());
+                }
+            });
+
+        }
+
+        return allPost;
 
     }
 
@@ -128,7 +147,7 @@ public class PostViewModel extends AndroidViewModel {
 
     public MutableLiveData<String> getAuthorImage(String email) {
 
-        MutableLiveData<String> authorImage = new MutableLiveData();
+        MutableLiveData<String> authorImage = new MutableLiveData<>();
 
         UserService.getUserByEmail(email).addOnCompleteListener(
           task -> {

@@ -31,6 +31,8 @@ import com.example.novapp2.R;
 import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.ui.home.HomeFragment;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -39,6 +41,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -97,11 +100,9 @@ public class NewEventDialog extends DialogFragment {
                         imageUri = uri;
                         ev.setImageURI(uri);
                         BitmapDrawable draw = (BitmapDrawable) ev.getDrawable();
-                        // image bitmap (don't know what to do with it tho)
                         eventPhoto = draw.getBitmap();
                         eventImageView.setImageBitmap(eventPhoto);
                         delPhoto.setVisibility(View.VISIBLE);
-                        //delPhoto.setColorFilter(ContextCompat.getColor(this.getContext(), android.R.color.white));
                     }
                 });
 
@@ -166,9 +167,14 @@ public class NewEventDialog extends DialogFragment {
             @Override
             public void onFocusChange(View v, boolean sel) {
                 if(v.getId() == R.id.date_input_text_inner  && sel) {
+
+                    CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder()
+                            .setValidator(DateValidatorPointForward.now());
+
                     MaterialDatePicker<Long> dp = MaterialDatePicker.Builder.datePicker()
                             .setTitleText("Seleziona la data dell'evento")
                             .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                            .setCalendarConstraints(constraintsBuilder.build())
                             .build();
 
                     dp.show(getChildFragmentManager(), "TAG");
@@ -211,7 +217,7 @@ public class NewEventDialog extends DialogFragment {
             eventDateTextInner.setError(ContextCompat.getString(getContext(), R.string.date_error));
         }
         else {
-            eventDateTextInner.setError(null);
+           eventDateTextInner.setError(null);
         }
 
         if (eventTitle.getText().toString().compareTo("") == 0){
