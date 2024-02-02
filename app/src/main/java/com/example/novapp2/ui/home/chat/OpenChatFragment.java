@@ -24,6 +24,7 @@ import com.example.novapp2.service.GroupChatsService;
 import com.example.novapp2.service.MessageService;
 import com.example.novapp2.ui.home.HomeFragment;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -54,7 +55,7 @@ public class OpenChatFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button backButton = view.findViewById(R.id.backButton);
+        FloatingActionButton backButton = view.findViewById(R.id.backButton);
         Button sendButton = view.findViewById(R.id.send_button);
         TextInputLayout messageContent = view.findViewById(R.id.message_content);
         TextView emptyView = view.findViewById(R.id.noChatText);

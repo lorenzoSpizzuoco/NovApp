@@ -115,6 +115,7 @@ public class PostDetailsFragment extends Fragment {
         username = view.findViewById(R.id.user_name_post);
 
 
+
         setUpAuthorImage(view);
 
         setupChip();
