@@ -71,6 +71,10 @@ public class UserService {
         return userRepositoryImpl.getSavedPosts(user);
     }
 
+    public Task<List<Post>> getUserPosts(String user) {
+        return userRepositoryImpl.getUserPosts(user);
+    }
+
 
 
 }

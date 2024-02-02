@@ -30,7 +30,7 @@ public class PostViewModel extends AndroidViewModel {
     private MutableLiveData<Integer> isFavorite = null;
     private final MutableLiveData<Boolean> doneLoading = new MutableLiveData<>();
     private final MutableLiveData<List<Post>> savedPosts = null;
-    //private final MutableLiveData<List<Post>> allPost = null;
+    private MutableLiveData<List<Post>> userPosts;
 
     private MutableLiveData<List<Post>> allPost;
     private boolean calling = false;
@@ -173,4 +173,18 @@ public class PostViewModel extends AndroidViewModel {
         return authorImage;
     }
 
+    public MutableLiveData<List<Post>> getUserPosts() {
+        String user = HomeFragment.getActiveUser().userId;
+        if (userPosts == null) {
+            userPosts = new MutableLiveData<List<Post>>();
+            userService.getUserPosts(user).addOnCompleteListener(
+                    task -> {
+                        if (task.isSuccessful()) {
+                            userPosts.postValue(task.getResult());
+                        }
+                    }
+            );
+        }
+        return userPosts;
+    }
 }
