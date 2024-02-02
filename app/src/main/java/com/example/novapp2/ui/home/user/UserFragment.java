@@ -1,6 +1,13 @@
 package com.example.novapp2.ui.home.user;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,31 +17,19 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.example.novapp2.MainActivity;
 import com.example.novapp2.R;
 import com.example.novapp2.databinding.FragmentUserBinding;
 import com.example.novapp2.entity.User;
 import com.example.novapp2.entity.post.Post;
-import com.example.novapp2.entity.post.PostAdapter;
 import com.example.novapp2.entity.post.PostViewModel;
 import com.example.novapp2.entity.post.SavedPostAdapter;
 import com.example.novapp2.ui.home.HomeFragment;
-import com.example.novapp2.ui.home.user.UserFragmentDirections;
 import com.example.novapp2.utils.Utils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.common.base.Predicates;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -71,7 +66,7 @@ public class UserFragment extends Fragment {
 
     private FrameLayout bottomSheet;
     private User user;
-    private Button settingsButton;
+    private FloatingActionButton settingsButton;
     private Button logoutButton;
 
     public UserFragment() {

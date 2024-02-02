@@ -163,6 +163,7 @@
     <string name="bottom_cloud_onboarding">Bottom cloud</string>
     <string name="next_button">Next button</string>
     <string name="page_number_indicator">Page number indicator</string>
+    <string name="settings">Settings</string>
 
 
 </resources>

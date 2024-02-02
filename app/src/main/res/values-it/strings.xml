@@ -166,4 +166,5 @@
     <string name="bottom_cloud_onboarding">Nuvola inferiore</string>
     <string name="next_button">Bottone per la prossima pagina</string>
     <string name="page_number_indicator">Indicatore del numero di pagina</string>
+    <string name="settings">Settings</string>
 </resources>
