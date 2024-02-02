@@ -102,7 +102,7 @@ public class NewRipetDialog extends DialogFragment {
                         eventPhoto = draw.getBitmap();
                         eventImage.setImageBitmap(eventPhoto);
                         delPhoto.setVisibility(View.VISIBLE);
-                        delPhoto.setColorFilter(ContextCompat.getColor(this.getContext(), android.R.color.white));
+                        //delPhoto.setColorFilter(ContextCompat.getColor(this.getContext(), android.R.color.white));
 
                     } else {
                         Log.d("PhotoPicker", "No media selected");
