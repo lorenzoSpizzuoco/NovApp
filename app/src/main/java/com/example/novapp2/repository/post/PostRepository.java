@@ -8,6 +8,7 @@ import static com.example.novapp2.utils.Constants.DB_RIPET;
 import static com.example.novapp2.utils.Constants.DB_SAVEDPOSTS;
 import static com.example.novapp2.utils.Constants.DB_USERS;
 import static com.example.novapp2.utils.Constants.DB_USER_POSTS;
+import static com.example.novapp2.utils.Utils.getChildCategory;
 
 import android.net.Uri;
 import android.util.Log;
@@ -37,9 +38,9 @@ import java.util.List;
 
 public class PostRepository implements IPostRepository{
 
-    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
-    private FirebaseStorage mStorage = FirebaseStorage.getInstance();
+    private final FirebaseStorage mStorage = FirebaseStorage.getInstance();
 
     private static final String TAG = PostRepository.class.getSimpleName();
 
@@ -148,20 +149,6 @@ public class PostRepository implements IPostRepository{
         return taskCompletionSource.getTask();
     }
 
-    private String getChildCategory(int category) {
-        switch (category) {
-            case 1:
-                return DB_EVENTS;
-            case 2:
-                return DB_INFOS;
-            case 3:
-                return DB_RIPET;
-            case 4:
-                return DB_GS;
-            default:
-                return DB_INFOS;
-        }
-    }
 
     // TODO getPostById(category, Id)
     /* TODO
@@ -188,6 +175,7 @@ public class PostRepository implements IPostRepository{
                         Log.d(TAG, "fail");
                         Log.e(TAG, task.getException().toString());
                         taskCompletionSource.setException(task.getException());
+
                     } else {
 
                         List<Post> postList = new ArrayList<>();
@@ -225,100 +213,4 @@ public class PostRepository implements IPostRepository{
     }
      */
 
-    public Task<Void> insertSaved(String user, String postId, int category) {
-        return mDatabase.child(DB_USERS).child(user).child(DB_SAVEDPOSTS).child(postId).setValue(category);
-    }
-
-    @Override
-    public Task<Void> removeSaved(String user, String postId) {
-        return mDatabase.child(DB_USERS).child(user).child(DB_SAVEDPOSTS).child(postId).removeValue();
-    }
-
-    public Task<DataSnapshot> getIsSaved(String user, String postId) {
-        return mDatabase.child(DB_USERS).child(user).child(DB_SAVEDPOSTS).child(postId).get();
-
-    }
-
-    @Override
-    public Task<List<Post>> getSavedPosts(String user) {
-
-        TaskCompletionSource<List<Post>> taskCompletionSource = new TaskCompletionSource<>();
-        List<Task<DataSnapshot>> tasks = new ArrayList<>();
-
-        mDatabase.child(DB_USERS).child(user).child(DB_SAVEDPOSTS)
-                .get().addOnCompleteListener(task -> {
-                    if (!task.isSuccessful()) {
-                        Log.d(TAG, "fail");
-                        taskCompletionSource.setException(task.getException());
-                    } else {
-
-                        List<Post> postList = new ArrayList<>();
-
-                        // genericPosts
-                        for (DataSnapshot ds : task.getResult().getChildren()) {
-                            String id = ds.getKey();
-                            int cat = ds.getValue(Integer.class);
-                            String mainChild = getChildCategory(cat);
-
-                            // fetching single post
-                            Task<DataSnapshot> innerTask = mDatabase.child(mainChild).child(id).get();
-                            tasks.add(innerTask);
-                        }
-
-                        // Wait for all inner tasks to complete
-                        Tasks.whenAllSuccess(tasks).addOnCompleteListener(innerTask -> {
-                            for (Task<DataSnapshot> taskInner : tasks) {
-                                if (taskInner.isSuccessful()) {
-                                    Post p = taskInner.getResult().getValue(Post.class);
-                                    postList.add(p);
-                                }
-                            }
-                            taskCompletionSource.setResult(postList);
-                        });
-                    }
-                });
-
-        return taskCompletionSource.getTask();
-    }
-
-    @Override
-    public Task<List<Post>> getUserPosts(String user) {
-
-        TaskCompletionSource<List<Post>> taskCompletionSource = new TaskCompletionSource<>();
-        List<Task<DataSnapshot>> tasks = new ArrayList<>();
-        mDatabase.child(DB_USERS).child(user).child(DB_USER_POSTS)
-                .get().addOnCompleteListener(task -> {
-                    if (!task.isSuccessful()) {
-                        Log.d(TAG, "fail");
-                        taskCompletionSource.setException(task.getException());
-                    } else {
-
-                        List<Post> postList = new ArrayList<>();
-
-                        // genericPosts
-                        for (DataSnapshot ds : task.getResult().getChildren()) {
-                            String id = ds.getKey();
-                            int cat = ds.getValue(Integer.class);
-                            String mainChild = getChildCategory(cat);
-
-                            // fetching single post
-                            Task<DataSnapshot> innerTask = mDatabase.child(mainChild).child(id).get();
-                            tasks.add(innerTask);
-                        }
-
-                        // Wait for all inner tasks to complete
-                        Tasks.whenAllSuccess(tasks).addOnCompleteListener(innerTask -> {
-                            for (Task<DataSnapshot> taskInner : tasks) {
-                                if (taskInner.isSuccessful()) {
-                                    Post p = taskInner.getResult().getValue(Post.class);
-                                    postList.add(p);
-                                }
-                            }
-                            taskCompletionSource.setResult(postList);
-                        });
-                    }
-                });
-
-        return taskCompletionSource.getTask();
-    }
 }

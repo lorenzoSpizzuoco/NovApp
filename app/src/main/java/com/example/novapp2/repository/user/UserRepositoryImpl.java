@@ -1,11 +1,17 @@
 package com.example.novapp2.repository.user;
 
+import static com.example.novapp2.utils.Constants.DB_SAVEDPOSTS;
 import static com.example.novapp2.utils.Constants.DB_USERS;
 import static com.example.novapp2.utils.Constants.DB_USER_POSTS;
+import static com.example.novapp2.utils.Utils.getChildCategory;
+
+import android.util.Log;
 
 import com.example.novapp2.entity.User;
+import com.example.novapp2.entity.post.Post;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,6 +24,7 @@ import java.util.List;
 public class UserRepositoryImpl implements IUserRepository{
 
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private static final String TAG = UserRepositoryImpl.class.getSimpleName();
 
     @Override
     public Task<Void> insertUser(User user){
@@ -132,5 +139,101 @@ public class UserRepositoryImpl implements IUserRepository{
     }
 
 
+    public Task<Void> insertSaved(String user, String postId, int category) {
+        return mDatabase.child(DB_USERS).child(user).child(DB_SAVEDPOSTS).child(postId).setValue(category);
+    }
+
+    @Override
+    public Task<Void> removeSaved(String user, String postId) {
+        return mDatabase.child(DB_USERS).child(user).child(DB_SAVEDPOSTS).child(postId).removeValue();
+    }
+
+    public Task<DataSnapshot> getIsSaved(String user, String postId) {
+        return mDatabase.child(DB_USERS).child(user).child(DB_SAVEDPOSTS).child(postId).get();
+
+    }
+
+    @Override
+    public Task<List<Post>> getSavedPosts(String user) {
+
+        TaskCompletionSource<List<Post>> taskCompletionSource = new TaskCompletionSource<>();
+        List<Task<DataSnapshot>> tasks = new ArrayList<>();
+
+        mDatabase.child(DB_USERS).child(user).child(DB_SAVEDPOSTS)
+                .get().addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.d(TAG, "fail");
+                        taskCompletionSource.setException(task.getException());
+                    } else {
+
+                        List<Post> postList = new ArrayList<>();
+
+                        // genericPosts
+                        for (DataSnapshot ds : task.getResult().getChildren()) {
+                            String id = ds.getKey();
+                            int cat = ds.getValue(Integer.class);
+                            String mainChild = getChildCategory(cat);
+
+                            // fetching single post
+                            Task<DataSnapshot> innerTask = mDatabase.child(mainChild).child(id).get();
+                            tasks.add(innerTask);
+                        }
+
+                        // Wait for all inner tasks to complete
+                        Tasks.whenAllSuccess(tasks).addOnCompleteListener(innerTask -> {
+                            for (Task<DataSnapshot> taskInner : tasks) {
+                                if (taskInner.isSuccessful()) {
+                                    Post p = taskInner.getResult().getValue(Post.class);
+                                    postList.add(p);
+                                }
+                            }
+                            taskCompletionSource.setResult(postList);
+                        });
+                    }
+                });
+
+        return taskCompletionSource.getTask();
+    }
+
+    @Override
+    public Task<List<Post>> getUserPosts(String user) {
+
+        TaskCompletionSource<List<Post>> taskCompletionSource = new TaskCompletionSource<>();
+        List<Task<DataSnapshot>> tasks = new ArrayList<>();
+        mDatabase.child(DB_USERS).child(user).child(DB_USER_POSTS)
+                .get().addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.d(TAG, "fail");
+                        taskCompletionSource.setException(task.getException());
+                    } else {
+
+                        List<Post> postList = new ArrayList<>();
+
+                        // genericPosts
+                        for (DataSnapshot ds : task.getResult().getChildren()) {
+                            String id = ds.getKey();
+                            int cat = ds.getValue(Integer.class);
+                            String mainChild = getChildCategory(cat);
+
+                            // fetching single post
+                            Task<DataSnapshot> innerTask = mDatabase.child(mainChild).child(id).get();
+                            tasks.add(innerTask);
+                        }
+
+                        // Wait for all inner tasks to complete
+                        Tasks.whenAllSuccess(tasks).addOnCompleteListener(innerTask -> {
+                            for (Task<DataSnapshot> taskInner : tasks) {
+                                if (taskInner.isSuccessful()) {
+                                    Post p = taskInner.getResult().getValue(Post.class);
+                                    postList.add(p);
+                                }
+                            }
+                            taskCompletionSource.setResult(postList);
+                        });
+                    }
+                });
+
+        return taskCompletionSource.getTask();
+    }
 
 }

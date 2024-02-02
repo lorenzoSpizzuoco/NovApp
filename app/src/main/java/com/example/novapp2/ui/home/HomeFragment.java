@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment {
                         activeUser.setGroupChats(new ArrayList<>());
                     }
 
-                    if (!userFullyRegistered(activeUser)){
+                    if (!userFullyRegistered(activeUser)) {
                         Bundle args = new Bundle();
                         args.putString("userId", activeUser.getID());
                         args.putString("userEmail", activeUser.getEmail());
