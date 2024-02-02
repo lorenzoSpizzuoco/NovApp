@@ -2,18 +2,18 @@
     <string name="app_name">B-Club</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Avvisi</string>
+    <string name="title_notifications">Notifications</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="email_error"> Email not valid </string>
-    <string name="hello"> Ciao, </string>
+    <string name="hello"> Hi, </string>
     <string name="esclamation">!</string>
-    <string name="saved_elements"> Elementi Salvati </string>
-    <string name="button_event"> Eventi </string>
-    <string name="button_sg"> Gruppi Studio </string>
+    <string name="saved_elements"> Salved elements </string>
+    <string name="button_event"> Events </string>
+    <string name="button_sg"> Study groups </string>
     <string name="new_post">Which content you want to create?</string>
     <string name="button_info">Info Uni</string>
-    <string name="button_other"> Altro </string>
-    <string name="search_bar_hint">Cerca i post per Titolo...</string>
+    <string name="button_other"> Other </string>
+    <string name="search_bar_hint">Search posts by title...</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_register">RegisterActivity</string>
@@ -22,10 +22,10 @@
     <string name="button_ripetizioni">Ripetizioni</string>
     <string name="my_posts">I Miei Posts</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</string>
-    <string name="open">Apri</string>
-    <string name="add_to_favourite">Aggiungi ai preferiti</string>
-    <string name="Save"> Salva </string>
-    <string name="event"> Evento </string>
+    <string name="open">open</string>
+    <string name="add_to_favourite">Add to favorites</string>
+    <string name="Save"> Save </string>
+    <string name="event"> Event </string>
 
 
     <!-- NEW EVENT STRINGS -->
@@ -104,10 +104,10 @@
     <string name="name">Name</string>
     <string name="surname">Surname</string>
 
-    <string name="icon_info_desc">Immagine informazioni universitarie</string>
-    <string name="calendar_icon_description">Icona di un calendario</string>
-    <string name="ripetizioni_content_desc">Immagine esplicativa ripetizioni</string>
-    <string name="share_something">Condividi con gli Utenti</string>
+    <string name="icon_info_desc">Uni infos image</string>
+    <string name="calendar_icon_description">calendar icon</string>
+    <string name="ripetizioni_content_desc">Repetitions image</string>
+    <string name="share_something">Share with the users</string>
 
     <!-- POST DETAILS CHIP -->
     <string name="gs_chip"> study group</string>
