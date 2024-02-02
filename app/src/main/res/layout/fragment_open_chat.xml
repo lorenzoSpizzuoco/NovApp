@@ -60,16 +60,21 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="back"
-        android:textSize="14sp"
+        android:layout_margin="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:elevation="10dp"
+        app:tint="?attr/colorOnPrimary"
+        app:srcCompat="@drawable/arrow_back"
+        app:backgroundTint="?attr/colorPrimary"
+        style="?attr/floatingActionButtonSmallPrimaryStyle"
+        android:contentDescription="@string/arrow_back_cd">
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
     <TextView
         android:id="@+id/groupName"

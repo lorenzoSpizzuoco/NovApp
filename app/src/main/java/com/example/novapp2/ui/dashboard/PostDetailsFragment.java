@@ -112,7 +112,6 @@ public class PostDetailsFragment extends Fragment {
         username = view.findViewById(R.id.user_name_post);
 
         username.setText(p.getAuthor());
-        backButton.setBackgroundTintMode(null);
         backButton.setOnClickListener(v -> {
             Navigation.findNavController(view).navigateUp();
         });
