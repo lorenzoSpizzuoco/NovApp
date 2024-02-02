@@ -117,6 +117,8 @@
 
     <string name="login_error"> credenziali errate </string>
     <string name="invalid_input"> credenziali non valide </string>
+    <string name="login_fail"> fail task di login </string>
+
 
     <!-- REGISTER -->
     <string name="wrong_email_format"> formato email non corretto </string>
