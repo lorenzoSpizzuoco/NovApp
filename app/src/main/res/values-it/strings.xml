@@ -108,7 +108,7 @@
     <string name="share_something">Condividi con gli Utenti</string>
 
     <!-- POST DETAILS CHIP -->
-    <string name="gs_chip"> gruppo studio</string>
+    <string name="gs_chip"> gruppo studio </string>
     <string name="event_chip"> evento </string>
     <string name="ripet_chip"> ripetizioni </string>
     <string name="infos_chip"> info uni </string>
@@ -117,6 +117,8 @@
 
     <string name="login_error"> credenziali errate </string>
     <string name="invalid_input"> credenziali non valide </string>
+    <string name="login_fail"> fail task di login </string>
+
 
     <!-- REGISTER -->
     <string name="wrong_email_format"> formato email non corretto </string>

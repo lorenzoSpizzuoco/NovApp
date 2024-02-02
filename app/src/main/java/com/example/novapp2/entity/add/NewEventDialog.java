@@ -101,7 +101,7 @@ public class NewEventDialog extends DialogFragment {
                         eventPhoto = draw.getBitmap();
                         eventImageView.setImageBitmap(eventPhoto);
                         delPhoto.setVisibility(View.VISIBLE);
-                        delPhoto.setColorFilter(ContextCompat.getColor(this.getContext(), android.R.color.white));
+                        //delPhoto.setColorFilter(ContextCompat.getColor(this.getContext(), android.R.color.white));
                     }
                 });
 

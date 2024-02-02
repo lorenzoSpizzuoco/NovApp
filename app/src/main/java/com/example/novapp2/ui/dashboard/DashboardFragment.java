@@ -78,8 +78,6 @@ public class DashboardFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        DashboardViewModel dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
 
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -178,10 +176,13 @@ public class DashboardFragment extends Fragment {
                     .collect(Collectors.toList());
             postAdapter.setPostList(newFilteredList);
         }
+
         postAdapter.notifyDataSetChanged();
+
     }
 
     private void filterPostsByTitle(String query) {
+
         Stream<Post> stream = postList.stream()
                 .filter(post -> post.getTitle().toLowerCase().contains(query.toLowerCase()));
 

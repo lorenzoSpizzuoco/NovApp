@@ -22,6 +22,7 @@ import com.example.novapp2.entity.chat.group.GroupChat;
 import com.example.novapp2.service.GroupChatsService;
 import com.example.novapp2.service.UserService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -71,8 +72,7 @@ public class HomeFragment extends Fragment {
                         mainNavController.navigate(R.id.action_home_to_fullRegister, args);
                     }
                 } else {
-                    // TODO Handle the error
-                    Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(view, R.string.login_fail, Snackbar.LENGTH_SHORT).show();
                 }
             });
 
