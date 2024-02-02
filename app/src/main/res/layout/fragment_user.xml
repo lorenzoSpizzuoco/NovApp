@@ -44,7 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:contentDescription="bla bla"
+                    android:contentDescription="@string/user_profile_image"
                     android:src="@drawable/user_1" />
 
             </androidx.cardview.widget.CardView>
@@ -67,7 +67,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="76dp"
-                android:text="test@gmail.com"
                 android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@+id/userCardView"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -190,6 +189,18 @@
                 android:enabled="false"
                 app:switchPadding="10dp"
                 android:layout_below="@id/switch_1"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/logoutButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/switch_1"
+                android:layout_alignEnd="@+id/drag_handle"
+                android:layout_alignBottom="@+id/switch_2"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/logout" />
         </RelativeLayout>
     </FrameLayout>
 

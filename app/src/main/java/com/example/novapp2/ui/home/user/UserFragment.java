@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.novapp2.MainActivity;
 import com.example.novapp2.R;
 import com.example.novapp2.databinding.FragmentUserBinding;
 import com.example.novapp2.entity.User;
@@ -29,10 +30,12 @@ import com.example.novapp2.entity.post.PostViewModel;
 import com.example.novapp2.entity.post.SavedPostAdapter;
 import com.example.novapp2.ui.home.HomeFragment;
 import com.example.novapp2.ui.home.user.UserFragmentDirections;
+import com.example.novapp2.utils.Utils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.common.base.Predicates;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,28 +49,23 @@ public class UserFragment extends Fragment {
 
     private TextView userMail;
     private TextView userHi;
+
     private View root;
     private SavedPostAdapter savedPostAdapter;
     private PostViewModel postViewModel;
-
     private BottomSheetBehavior bottomSheetBehavior;
-
     private ImageView userImage;
 
     private RecyclerView mySavedView;
     private RecyclerView myPostsView;
 
     private List<Post> postList;
-
     private MaterialAlertDialogBuilder materialAlertDialogBuilder;
-
     private RecyclerView mySavedPostsRecyclerView;
-
     private FrameLayout bottomSheet;
-
     private User user;
-
     private Button settingsButton;
+    private Button logoutButton;
 
     public UserFragment() {
         // Required empty public constructor
@@ -90,8 +88,6 @@ public class UserFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
         binding = FragmentUserBinding.inflate(inflater, container, false);
         root = binding.getRoot();
         user = HomeFragment.getActiveUser();
@@ -110,14 +106,18 @@ public class UserFragment extends Fragment {
         mySavedPostsRecyclerView = view.findViewById(R.id.mySavedPosts);
         //RecyclerView myPostsRecyclerView = view.findViewById(R.id.myPosts);
         userImage = view.findViewById(R.id.userProfilePhoto);
+        logoutButton = view.findViewById(R.id.logoutButton);
+
         settingsButton = view.findViewById(R.id.user_settings_button);
 
         setupUserProfile();
         setupSavedPostsRecyclerView();
         observeSavedPosts();
         setupSettingsButton();
+        setupLogoutButton();
         initializeBottomSheet();
     }
+
 
     @Override
     public void onDestroyView() {
@@ -191,13 +191,13 @@ public class UserFragment extends Fragment {
             }
         });
     }
-
-
-
-
-
-
-
+    private void setupLogoutButton() {
+        logoutButton.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            Utils.deleteUserCredentials(requireContext());
+            MainActivity.getNavController().navigate(R.id.action_to_login);
+        });
+    }
 
 }
 

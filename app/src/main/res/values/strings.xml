@@ -78,11 +78,6 @@
     <string name="date_error">Insert date</string>
     <string name="desc_error">Insert description</string>
 
-    <!-- Login strings -->
-    <string name="login">Login</string>
-    <string name="new_account">Don\'t have an account?</string>
-    <string name="forgot_password">Forgot Password?</string>
-
     <!-- Register strings -->
     <string name="have_account">You already have an account?</string>
     <string name="register">Register</string>
@@ -121,6 +116,9 @@
     <string name="infos_chip"> uni infos </string>
 
     <!-- LOGIN -->
+    <string name="login">Login</string>
+    <string name="new_account">Don\'t have an account?</string>
+    <string name="forgot_password">Forgot Password?</string>
     <string name="login_error"> wrong email or password </string>
     <string name="invalid_input"> credentials not valid </string>
     <string name="login_fail"> fail login task </string>
@@ -137,6 +135,9 @@
     <string name="group_cont_desc">Study Group Image</string>
     <string name="desc_logo_app">Logo applicazione B-Club</string>
 
+    <!-- USER LOGOUT -->
+    <string name="logout">Logout</string>
+
     <string name="invalid_date">Invalid date</string>
     <string name="join">Partecipa</string>
     <string name="event_image_cd">Immagine che descrive il contenuto dell\'evento</string>
@@ -144,4 +145,5 @@
     <string name="image_author_post_cd">Immagine che mostra l\'autore del post</string>
     <string name="user_name">Nome utente</string>
     <string name="user_settings">Impostazioni Utente</string>
+    <string name="user_profile_image">User profile image</string>
 </resources>
