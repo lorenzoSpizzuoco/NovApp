@@ -27,4 +27,6 @@ public interface IPostRepository {
     public Task<List<Post>> getSavedPosts(String user);
 
 
+    public Task<List<Post>> getUserPosts(String user);
+
 }
