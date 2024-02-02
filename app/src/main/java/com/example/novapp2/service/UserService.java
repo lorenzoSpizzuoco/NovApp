@@ -63,35 +63,7 @@ public class UserService {
     //public Task<DataSnapshot> getSavedPosts(String user) { return userRepositoryImpl.getFavoritePosts(user); }
 
     public Task<DataSnapshot> getIsSaved(String user, String id) {
-
-        //TaskCompletionSource<Integer> taskCompletionSource = new TaskCompletionSource<>();
-        /*
-        userRepositoryImpl.getFavoritePosts(user).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                boolean isSaved = false;
-
-                for (DataSnapshot ds : task.getResult().getChildren()) {
-                    if (ds.getKey().equals(id)) {
-                        isSaved = true;
-                        break;
-                    }
-                }
-
-                if (isSaved) {
-                    taskCompletionSource.setResult(1);
-                } else {
-                    taskCompletionSource.setResult(0);
-                }
-            } else {
-                taskCompletionSource.setException(task.getException());
-            }
-        });
-        */
-        //return taskCompletionSource.getTask();
-
         return userRepositoryImpl.getIsSaved(user, id);
-
-
     }
 
 
