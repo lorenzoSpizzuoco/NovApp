@@ -42,56 +42,66 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/login_button"
+        style="@style/Widget.Material3.Button.ElevatedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/login"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/bottomCloud" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/next_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginBottom="24dp"
-        android:text="Next"
+        android:text="@string/login"
+        android:textSize="26sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/next_button"
+        style="?attr/floatingActionButtonSmallPrimaryStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="@string/next_button"
+        android:rotationY="180"
+        app:backgroundTint="?attr/colorSurfaceContainer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/arrow_back">
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
 
     <!-- POINTERS -->
     <ImageView
         android:id="@+id/pointer0"
         android:layout_width="30dp"
         android:layout_height="15dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="32dp"
         android:background="?attr/colorPrimary"
-        android:contentDescription="TODO"
-        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/page_number_indicator"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/next_button" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/pointer1"
         android:layout_width="30dp"
         android:layout_height="8dp"
         android:layout_marginStart="4dp"
+        android:layout_marginBottom="32dp"
         android:background="?attr/colorPrimary"
-        android:contentDescription="TODO"
-        app:layout_constraintStart_toEndOf="@+id/pointer0"
+        android:contentDescription="@string/page_number_indicator"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/next_button"  />
+        app:layout_constraintStart_toEndOf="@+id/pointer0" />
 
     <ImageView
         android:id="@+id/pointer2"
         android:layout_width="30dp"
         android:layout_height="8dp"
         android:layout_marginStart="4dp"
+        android:layout_marginBottom="32dp"
         android:background="?attr/colorPrimary"
-        android:contentDescription="TODO"
-        app:layout_constraintStart_toEndOf="@+id/pointer1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/next_button" />
+        android:contentDescription="@string/page_number_indicator"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomCloud"
+        app:layout_constraintStart_toEndOf="@+id/pointer1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

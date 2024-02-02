@@ -39,7 +39,7 @@
         android:id="@+id/imageView7"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="100dp"
         android:src="@drawable/blog"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,16 +53,16 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginEnd="48dp"
-        android:layout_marginBottom="110dp"
         android:lineSpacingExtra="4sp"
         android:text="@string/third_carousel_txt"
         android:textAlignment="center"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/pointer0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView7"
+        android:textColor="?attr/colorOnSurface"
+        android:textAppearance="?attr/textAppearanceBodyMedium"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

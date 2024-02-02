@@ -155,6 +155,8 @@
     <!-- ONBOARDING -->
     <string name="top_cloud_onboarding">Top cloud</string>
     <string name="bottom_cloud_onboarding">Bottom cloud</string>
+    <string name="next_button">Next button</string>
+    <string name="page_number_indicator">Page number indicator</string>
 
 
 </resources>

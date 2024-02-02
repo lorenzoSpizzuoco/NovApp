@@ -155,4 +155,6 @@
     <!-- ONBOARDING -->
     <string name="top_cloud_onboarding">Nuvola superiore</string>
     <string name="bottom_cloud_onboarding">Nuvola inferiore</string>
+    <string name="next_button">Next button</string>
+    <string name="page_number_indicator">Page number indicator</string>
 </resources>
