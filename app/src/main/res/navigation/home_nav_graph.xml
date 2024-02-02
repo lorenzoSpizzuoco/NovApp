@@ -15,7 +15,8 @@
             app:argType="string" />
         <action
             android:id="@+id/action_navigation_chat_to_openChat"
-            app:destination="@id/openChatFragment" />
+            app:destination="@id/openChatFragment"
+            app:enterAnim="@anim/fade_in_fast" />
     </fragment>
 
     <fragment
@@ -25,7 +26,8 @@
         tools:layout="@layout/fragment_add" >
         <action
             android:id="@+id/action_navigation_add_to_loadingFragment"
-            app:destination="@id/loadingFragment" />
+            app:destination="@id/loadingFragment"
+            app:enterAnim="@anim/fade_in" />
     </fragment>
 
     <fragment
@@ -41,7 +43,8 @@
         tools:layout="@layout/fragment_user" >
         <action
             android:id="@+id/action_navigation_profile_to_postDetailsFragmentFragment"
-            app:destination="@id/postDetailsFragmentFragment" />
+            app:destination="@id/postDetailsFragmentFragment"
+            app:enterAnim="@anim/fade_in" />
     </fragment>
 
     <fragment
@@ -51,7 +54,8 @@
         tools:layout="@layout/fragment_loading" >
         <action
             android:id="@+id/action_loadingFragment_to_navigation_dashboard"
-            app:destination="@id/navigation_dashboard" />
+            app:destination="@id/navigation_dashboard"
+            app:enterAnim="@anim/fade_in" />
     </fragment>
 
     <fragment
@@ -82,7 +86,8 @@
         tools:layout="@layout/fragment_open_chat" >
         <action
             android:id="@+id/action_openChat_to_navigationChat"
-            app:destination="@id/navigation_chat" />
+            app:destination="@id/navigation_chat"
+            app:enterAnim="@anim/fade_in_fast" />
     </fragment>
 
 </navigation>
