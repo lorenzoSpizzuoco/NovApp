@@ -27,6 +27,7 @@ public class PostViewModel extends AndroidViewModel {
     private MutableLiveData<Boolean> doneLoading = new MutableLiveData<>();
     private final MutableLiveData<List<Post>> savedPosts = null;
     private final MutableLiveData<List<Post>> allPost = null;
+    private boolean calling = false;
 
     public PostViewModel (Application application) {
         super(application);
@@ -113,11 +114,15 @@ public class PostViewModel extends AndroidViewModel {
 
     public void insert(Post post, Uri image) {
 
-        postService.insert(post, image).addOnCompleteListener(
-                t -> {
-                    doneLoading.setValue(true);
-                }
-        );
+        if (!calling) {
+            calling = true;
+            postService.insert(post, image).addOnCompleteListener(
+                    t -> {
+                        doneLoading.setValue(true);
+                        calling = false;
+                    }
+            );
+        }
 
     }
 
