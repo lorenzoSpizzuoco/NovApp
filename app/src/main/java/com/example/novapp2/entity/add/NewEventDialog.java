@@ -20,6 +20,7 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -65,7 +66,7 @@ public class NewEventDialog extends DialogFragment {
 
     private FloatingActionButton delPhoto;
 
-    private TextView saveEvent;
+    private Button saveEvent;
 
     private TextInputEditText eventTitle;
 
