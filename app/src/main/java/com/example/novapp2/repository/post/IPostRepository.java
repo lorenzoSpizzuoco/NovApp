@@ -16,14 +16,6 @@ public interface IPostRepository {
 
     // TODO getPostById(category, Id)
 
-    public Task<Void> insertSaved(String user, String postId, int category);
 
-    public Task<Void> removeSaved(String user, String postId);
-
-    public Task<DataSnapshot> getFavoritePosts(String user);
-
-    public Task<DataSnapshot> getIsSaved(String user, String postId);
-
-    public Task<List<Post>> getSavedPosts(String user);
 
 }

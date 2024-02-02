@@ -10,7 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.novapp2.R;
+import com.example.novapp2.ui.home.HomeFragment;
 
 import java.util.List;
 
@@ -33,6 +35,13 @@ public class GroupChatAdapter extends RecyclerView.Adapter<GroupChatViewHolder> 
         GroupChat item = groupChats.get(position);
         holder.getTitleView().setText(item.getTitle());
         holder.getAuthorView().setText(item.getAuthor());
+        String imageUrl = item.getImage();
+
+        if (imageUrl != null) {
+            Glide.with(holder.getImageView())
+                    .load(imageUrl)
+                    .centerCrop().placeholder(R.drawable.analisi).into(holder.getImageView());
+        }
 
         holder.itemView.setOnClickListener(v -> {
             Bundle args = new Bundle();

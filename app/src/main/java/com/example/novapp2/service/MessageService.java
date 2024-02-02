@@ -4,13 +4,16 @@ import com.example.novapp2.entity.chat.message.Message;
 import com.example.novapp2.repository.message.MessageRepositoryImpl;
 import com.google.android.gms.tasks.Task;
 
+import java.util.Date;
 import java.util.List;
 
 public class MessageService {
     private static MessageRepositoryImpl messagesRepositoryImpl = new MessageRepositoryImpl();
 
     public static Task<Void> createMessage(String ID, String content, String author, String groupID) {
-        return messagesRepositoryImpl.insertMessage(new Message(ID, content, author), groupID);
+        Date date = new Date();
+        long timestamp = date.getTime();
+        return messagesRepositoryImpl.insertMessage(new Message(ID, content, author, timestamp), groupID);
     }
 
     public static Task<List<Message>> getMessages() {

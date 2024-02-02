@@ -1,5 +1,7 @@
 package com.example.novapp2.entity.post;
 
+import static java.util.Collections.reverse;
+
 import android.app.Application;
 import android.net.Uri;
 import android.util.Log;
@@ -8,6 +10,8 @@ import android.util.Log;
 import com.example.novapp2.service.PostService;
 import com.example.novapp2.service.UserService;
 import com.example.novapp2.ui.home.HomeFragment;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -19,12 +23,17 @@ public class PostViewModel extends AndroidViewModel {
 
     static final private String TAG = PostViewModel.class.getSimpleName();
 
-    private static PostService postService = new PostService();
+    private static final PostService postService = new PostService();
+
+    private static final UserService userService = new UserService();
 
     private MutableLiveData<Integer> isFavorite = null;
-    private MutableLiveData<Boolean> doneLoading = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> doneLoading = new MutableLiveData<>();
     private final MutableLiveData<List<Post>> savedPosts = null;
-    private final MutableLiveData<List<Post>> allPost = null;
+    private MutableLiveData<List<Post>> userPosts;
+
+    private MutableLiveData<List<Post>> allPost;
+    private boolean calling = false;
 
     public PostViewModel (Application application) {
         super(application);
@@ -34,10 +43,19 @@ public class PostViewModel extends AndroidViewModel {
 
         if (isFavorite == null) {
             isFavorite = new MutableLiveData<>();
-            postService.getIsSaved(user, id).addOnCompleteListener(
+            userService.getIsSaved(user, id).addOnCompleteListener(
                     task -> {
                         if (task.isSuccessful()){
-                            isFavorite.postValue(task.getResult());
+                            for (DataSnapshot ds : task.getResult().getChildren()) {
+                                if (ds.getKey().equals(id)) {
+                                    isFavorite.postValue(1);
+                                    break;
+                                }
+                                else {
+                                    isFavorite.postValue(0);
+                                }
+                            }
+
                         }
                     }
             );
@@ -54,7 +72,7 @@ public class PostViewModel extends AndroidViewModel {
 
         if (fav == 1) {
             Log.d(TAG, "calling with fav 1");
-            postService.insertSavedPost(HomeFragment.getActiveUser().getID(), id, category).addOnCompleteListener(
+            userService.insertSavedPost(HomeFragment.getActiveUser().getID(), id, category).addOnCompleteListener(
                     task -> {
                         if (task.isSuccessful()) {
                             isFavorite.setValue(fav);
@@ -63,7 +81,7 @@ public class PostViewModel extends AndroidViewModel {
             );
         }
         else {
-            postService.removeSavedPost(HomeFragment.getActiveUser().getID(), id).addOnCompleteListener(
+            userService.removeSavedPost(HomeFragment.getActiveUser().getID(), id).addOnCompleteListener(
                     task -> {
                         if (task.isSuccessful()) {
                             isFavorite.setValue(fav);
@@ -78,17 +96,35 @@ public class PostViewModel extends AndroidViewModel {
         return doneLoading;
     }
 
-    public MutableLiveData<List<Post>> getAllPost() {
-
-        MutableLiveData<List<Post>> posts = new MutableLiveData<>();
+    public void refresh() {
 
         postService.getAllPost().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                posts.postValue(task.getResult());
-            }
+           if (task.isSuccessful()) {
+               List<Post> p = task.getResult();
+               reverse(p);
+               allPost.postValue(task.getResult());
+           }
         });
 
-        return posts;
+    }
+
+
+    public MutableLiveData<List<Post>> getAllPost() {
+
+        if (allPost == null) {
+
+            allPost = new MutableLiveData<>();
+            postService.getAllPost().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    List<Post> p = task.getResult();
+                    reverse(p);
+                    allPost.postValue(task.getResult());
+                }
+            });
+
+        }
+
+        return allPost;
 
     }
 
@@ -96,7 +132,7 @@ public class PostViewModel extends AndroidViewModel {
 
         MutableLiveData<List<Post>> posts = new MutableLiveData<>();
 
-        postService.getSavedPost(HomeFragment.getActiveUser().getID()).addOnCompleteListener(task -> {
+        userService.getSavedPost(HomeFragment.getActiveUser().getID()).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 posts.postValue(task.getResult());
             }
@@ -109,17 +145,22 @@ public class PostViewModel extends AndroidViewModel {
 
     public void insert(Post post, Uri image) {
 
-        postService.insert(post, image).addOnCompleteListener(
-                t -> {
-                    doneLoading.setValue(true);
-                }
-        );
+        if (!calling) {
+            calling = true;
+            Log.d(TAG, "doing insert " + post.getTitle());
+            postService.insert(post, image).addOnCompleteListener(
+                    t -> {
+                        doneLoading.setValue(true);
+                        calling = false;
+                    }
+            );
+        }
 
     }
 
     public MutableLiveData<String> getAuthorImage(String email) {
 
-        MutableLiveData<String> authorImage = new MutableLiveData();
+        MutableLiveData<String> authorImage = new MutableLiveData<>();
 
         UserService.getUserByEmail(email).addOnCompleteListener(
           task -> {
@@ -132,4 +173,18 @@ public class PostViewModel extends AndroidViewModel {
         return authorImage;
     }
 
+    public MutableLiveData<List<Post>> getUserPosts() {
+        String user = HomeFragment.getActiveUser().userId;
+        if (userPosts == null) {
+            userPosts = new MutableLiveData<List<Post>>();
+            userService.getUserPosts(user).addOnCompleteListener(
+                    task -> {
+                        if (task.isSuccessful()) {
+                            userPosts.postValue(task.getResult());
+                        }
+                    }
+            );
+        }
+        return userPosts;
+    }
 }

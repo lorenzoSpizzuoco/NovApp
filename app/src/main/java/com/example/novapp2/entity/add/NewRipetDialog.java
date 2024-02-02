@@ -27,6 +27,8 @@ import com.example.novapp2.R;
 import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.ui.home.HomeFragment;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -98,11 +100,10 @@ public class NewRipetDialog extends DialogFragment {
                         ImageView ev = new ImageView(getContext());
                         ev.setImageURI(uri);
                         BitmapDrawable draw = (BitmapDrawable) ev.getDrawable();
-
                         eventPhoto = draw.getBitmap();
                         eventImage.setImageBitmap(eventPhoto);
                         delPhoto.setVisibility(View.VISIBLE);
-                        delPhoto.setColorFilter(ContextCompat.getColor(this.getContext(), android.R.color.white));
+
 
                     } else {
                         Log.d("PhotoPicker", "No media selected");
@@ -170,8 +171,13 @@ public class NewRipetDialog extends DialogFragment {
             public void onFocusChange(View v, boolean sel) {
 
                 if(v.getId() == R.id.date_input_text_inner_ripet  && sel) {
+
+                    CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder()
+                            .setValidator(DateValidatorPointForward.now());
+
                     MaterialDatePicker<Long> dp = MaterialDatePicker.Builder.datePicker()
                             .setTitleText("Seleziona la data dell'evento")
+                            .setCalendarConstraints(constraintsBuilder.build())
                             .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                             .build();
 

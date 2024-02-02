@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
     app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,7 +36,8 @@
             android:id="@+id/infodesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:maxLines="3"
             tools:text="Desc"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
@@ -46,6 +47,7 @@
 
         <!-- Chip per la data e l'evento -->
         <LinearLayout
+            android:scrollbars="none"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -69,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/button_info"
-                app:chipIconTint="?attr/colorPrimary"
+                app:chipIconTint="?attr/colorPrimaryInverse"
                 app:chipIcon="@drawable/colored_circle_drawable"
                 tools:ignore="TouchTargetSizeCheck" />
         </LinearLayout>

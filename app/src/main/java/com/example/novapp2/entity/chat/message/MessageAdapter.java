@@ -13,6 +13,8 @@ import com.example.novapp2.R;
 import com.example.novapp2.entity.post.PostAdapter;
 import com.example.novapp2.ui.home.HomeFragment;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter {
@@ -104,6 +106,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
     }
     public void updateData(Message newData) {
         messageList.add(newData);
+
         notifyDataSetChanged();
     }
 

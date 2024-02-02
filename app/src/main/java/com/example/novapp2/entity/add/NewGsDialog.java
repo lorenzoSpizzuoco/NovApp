@@ -94,7 +94,7 @@ public class NewGsDialog extends DialogFragment {
                         eventPhoto = draw.getBitmap();
                         eventImage.setImageBitmap(eventPhoto);
                         delPhoto.setVisibility(View.VISIBLE);
-                        delPhoto.setColorFilter(ContextCompat.getColor(this.getContext(), android.R.color.black));
+                        //delPhoto.setColorFilter(ContextCompat.getColor(this.getContext(), android.R.color.black));
 
                     } else {
                         Log.d("PhotoPicker", "No media selected");

@@ -60,14 +60,6 @@ public class DashboardFragment extends Fragment {
     private Chip infoChip;
     private Chip ripetizioniChip;
 
-    private void fetchPosts() {
-        postViewModel.getAllPost().observe(getViewLifecycleOwner(), posts -> {
-            postList.clear();
-            postList.addAll(posts);
-            postAdapter.notifyDataSetChanged();
-            updateFilteredList();
-        });
-    }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,8 +70,6 @@ public class DashboardFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        DashboardViewModel dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
 
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -103,12 +93,14 @@ public class DashboardFragment extends Fragment {
 
         //post RecyclerView
         postView = view.findViewById(R.id.courseView);
-        postView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
+        postView.setLayoutManager(linearLayoutManager);
 
         swipeRefreshLayout.setOnRefreshListener(
                 () -> {
                     swipeRefreshLayout.setRefreshing(false);
-                    fetchPosts();
+                    //fetchPosts();
+                    postViewModel.refresh();
                 }
         );
         // creating recyclerView adapter
@@ -147,13 +139,12 @@ public class DashboardFragment extends Fragment {
 
 
         // Observing viewModel
-        /*postViewModel.getAllPost().observe(getViewLifecycleOwner(), posts -> {
+        postViewModel.getAllPost().observe(getViewLifecycleOwner(), posts -> {
             postList.clear();
             postList.addAll(posts);
             postAdapter.notifyDataSetChanged();
             updateFilteredList();
-        });*/
-        fetchPosts();
+        });
 
     }
 
@@ -177,10 +168,13 @@ public class DashboardFragment extends Fragment {
                     .collect(Collectors.toList());
             postAdapter.setPostList(newFilteredList);
         }
+
         postAdapter.notifyDataSetChanged();
+
     }
 
     private void filterPostsByTitle(String query) {
+
         Stream<Post> stream = postList.stream()
                 .filter(post -> post.getTitle().toLowerCase().contains(query.toLowerCase()));
 

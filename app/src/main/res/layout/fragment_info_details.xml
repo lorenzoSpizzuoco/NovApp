@@ -22,14 +22,13 @@
     </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
     <ScrollView
+
         android:id="@+id/post_scroll_view"
+        android:layout_marginTop="90dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="0dp"
         android:scrollbars="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/backButton"
-        app:layout_constraintStart_toStartOf="parent"
 
 
         app:layout_constraintTop_toBottomOf="@+id/backButton"
@@ -40,30 +39,14 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/floating_button">
 
-
-            <!--android:background="@drawable/post_details_background"-->
-            <ImageView
-                android:id="@+id/PostdetailsImageView"
-                android:layout_width="match_parent"
-                android:layout_height="350dp"
-                android:contentDescription="@string/event_image_cd" />
-
-            <RelativeLayout
-                android:id="@+id/post_content_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/PostdetailsImageView"
-                android:elevation="10dp"
-
-                android:padding="10dp">
-
                 <com.google.android.material.chip.Chip
                     android:id="@+id/postDetailChip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:clickable="false"
-                    android:textAllCaps="true"
                     android:text="@string/infos_chip"
+                    android:textAllCaps="true"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     app:chipCornerRadius="3dp"
                     app:chipEndPadding="8dp"
@@ -101,7 +84,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            tools:text="Titolo"
+                            android:text="@string/info_title_hint"
                             style="?attr/textAppearanceHeadline5"/>
 
                         <TextView
@@ -110,8 +93,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:textAlignment="center"
-                            android:text="@string/user_name"
-                            style="?attr/textAppearanceSubtitle2"/>
+                            style="?attr/textAppearanceSubtitle2"
+                            android:textStyle="bold" />
 
                         <LinearLayout
                             android:id="@+id/postInfosBlock"
@@ -126,7 +109,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="12dp"
-                                android:text="@string/info_place_text"
+                                android:text="@string/event_place_text"
                                 android:textStyle="bold"
                                 style="?attr/textAppearanceLabelLarge"/>
 
@@ -136,8 +119,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.2"
                                 android:text="@string/info_date_button"
-                                style="?attr/textAppearanceLabelSmall"
-                                />
+                                style="?attr/textAppearanceLabelSmall"/>
 
 
                         </LinearLayout>
@@ -157,16 +139,12 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/post_divider"
                     android:layout_marginBottom="80dp"
-                    android:paddingStart="8dp"
-                    android:paddingTop="20dp"
+                    android:layout_marginTop="10dp"
+                    android:padding="8dp"
                     android:text="@string/info_desc"
-                    style="?attr/textAppearanceBody1"
-                    tools:ignore="RtlSymmetry" />
+                    style="?attr/textAppearanceBody1"/>
 
             </RelativeLayout>
-
-
-        </RelativeLayout>
 
 
     </ScrollView>
@@ -181,7 +159,6 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-
             android:id="@+id/imageview_favorite_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

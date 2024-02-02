@@ -10,10 +10,12 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,6 +29,8 @@ import com.example.novapp2.entity.post.PostViewModel;
 import com.example.novapp2.entity.post.SavedPostAdapter;
 import com.example.novapp2.ui.home.HomeFragment;
 import com.example.novapp2.ui.home.user.UserFragmentDirections;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.common.base.Predicates;
 
@@ -39,26 +43,36 @@ public class UserFragment extends Fragment {
 
     private FragmentUserBinding binding;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private TextView userMail;
     private TextView userHi;
     private View root;
     private SavedPostAdapter savedPostAdapter;
+    private SavedPostAdapter userPostAdapter;
     private PostViewModel postViewModel;
+
+    private BottomSheetBehavior bottomSheetBehavior;
 
     private ImageView userImage;
 
     private RecyclerView mySavedView;
-    private RecyclerView myPostsView;
 
     private List<Post> postList;
 
+    private List<Post> userPosts;
+
     private MaterialAlertDialogBuilder materialAlertDialogBuilder;
 
+    private RecyclerView mySavedPostsRecyclerView;
+
+    private RecyclerView userPostsRecyclerView;
+
+
+    private FrameLayout bottomSheet;
+
     private User user;
+
+    private Button settingsButton;
 
     public UserFragment() {
         // Required empty public constructor
@@ -76,10 +90,11 @@ public class UserFragment extends Fragment {
         super.onCreate(savedInstanceState);
         postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
         postList = new ArrayList<>();
+        userPosts = new ArrayList<>();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
@@ -91,77 +106,123 @@ public class UserFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-
-        userImage = view.findViewById(R.id.userProfilePhoto);
-        String imageUrl = HomeFragment.getActiveUser().getProfileImg();
-
-        if (imageUrl != null) {
-            Glide.with(view)
-                    .load(imageUrl)
-                    .centerCrop()
-                    .placeholder(R.drawable.analisi)
-                    .into(userImage);
-        }
-
-        //elementi salvati
-
-        mySavedView = view.findViewById(R.id.mySavedPosts);
-        myPostsView = view.findViewById(R.id.myPosts);
+        // Inizializzazione e configurazione degli elementi dell'interfaccia utente
         userMail = view.findViewById(R.id.userMailTextVew);
         userHi = view.findViewById(R.id.userHiTextView);
+        bottomSheet = view.findViewById(R.id.bottom_sheet);
+        mySavedPostsRecyclerView = view.findViewById(R.id.mySavedPosts);
+        userPostsRecyclerView = view.findViewById(R.id.myPosts);
+        userImage = view.findViewById(R.id.userProfilePhoto);
+        settingsButton = view.findViewById(R.id.user_settings_button);
 
-        mySavedView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        myPostsView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        setupUserProfile();
+        setupSavedPostsRecyclerView();
+        setupUserPostsRecyclerView();
+        observeSavedPosts();
+        observeUserPosts();
+        setupSettingsButton();
+        initializeBottomSheet();
+    }
 
-        if(null !=user && user.notNull()){
-            userMail.setText(HomeFragment.getActiveUser().getEmail());
-            userHi.setText(getString(R.string.hello) + HomeFragment.getActiveUser().getName() + getString(R.string.esclamation));
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null; // Rilascia il riferimento al binding
+    }
+
+    private void setupUserProfile() {
+        // checking if user profile is null
+        if (user != null) {
+            String imageUrl = user.getProfileImg();
+            if (imageUrl != null) {
+                Glide.with(requireView())
+                        .load(imageUrl)
+                        .centerCrop()
+                        .placeholder(R.drawable.analisi)
+                        .into(userImage);
+            }
+
+            userMail.setText(user.getEmail());
+            String userHiText = getString(R.string.hello) + " " + user.getName() + getString(R.string.esclamation);
+            userHi.setText(userHiText);
+        } else {
+            userMail.setText("Email non disponibile");
+            userHi.setText(getString(R.string.hello));
         }
+    }
 
-        RecyclerView mySavedPostsRecyclerView = root.findViewById(R.id.mySavedPosts);
-        RecyclerView myPostsRecyclerView = root.findViewById(R.id.myPosts);
+    private void setupUserPostsRecyclerView() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+        userPostsRecyclerView.setLayoutManager(layoutManager);
+        // navigation to post details fragment
+        userPostAdapter = new SavedPostAdapter(requireContext(), userPosts, post -> {
 
-        // Impostazione dell'orientamento orizzontale
+            if (getView() != null) {
+                UserFragmentDirections.ActionNavigationProfileToPostDetailsFragmentFragment action =
+                        UserFragmentDirections.actionNavigationProfileToPostDetailsFragmentFragment(post);
+                Navigation.findNavController(getView()).navigate(action);
+            }
+        });
+
+        userPostsRecyclerView.setAdapter(userPostAdapter);
+        userPostsRecyclerView.clearFocus();
+    }
+
+    private void setupSavedPostsRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         mySavedPostsRecyclerView.setLayoutManager(layoutManager);
-        LinearLayoutManager layoutManager2 = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
-        myPostsRecyclerView.setLayoutManager(layoutManager2);
+        // navigation to post details fragment
+        savedPostAdapter = new SavedPostAdapter(requireContext(), postList, post -> {
 
-        savedPostAdapter = new SavedPostAdapter(requireContext(), postList, new PostAdapter.OnItemClickListener() {
-            // navigation to post details fragment
-            @Override
-            public void onPostItemClick(Post post) {
-                // Naviga verso il dettaglio del post solo se c'è una View valida
-                if (getView() != null) {
-                    // navigation to details fragment using Safe Args
-                    UserFragmentDirections.ActionNavigationProfileToPostDetailsFragmentFragment action =
-                            UserFragmentDirections.actionNavigationProfileToPostDetailsFragmentFragment(post);
-                    Navigation.findNavController(getView()).navigate(action);
-                }
+            if (getView() != null) {
+                UserFragmentDirections.ActionNavigationProfileToPostDetailsFragmentFragment action =
+                        UserFragmentDirections.actionNavigationProfileToPostDetailsFragmentFragment(post);
+                Navigation.findNavController(getView()).navigate(action);
             }
-
         });
+        mySavedPostsRecyclerView.setAdapter(savedPostAdapter);
+        mySavedPostsRecyclerView.clearFocus();
+    }
 
-        mySavedView.setAdapter(savedPostAdapter);
-        mySavedView.clearFocus();
-
-        myPostsView.setAdapter(savedPostAdapter);
-        myPostsView.clearFocus();
-
+    private void observeSavedPosts() {
         postViewModel.getFavoritePosts().observe(getViewLifecycleOwner(), posts -> {
-            this.postList.clear();
-            this.postList.addAll(posts);
-            savedPostAdapter.notifyItemChanged(0, posts.size());
+            postList.clear();
+            postList.addAll(posts);
+            savedPostAdapter.notifyDataSetChanged();
         });
+    }
 
-        Button settingsButton = this.root.findViewById(R.id.user_settings_button);
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View settingsButton) {
-                settingsButton.setEnabled(!settingsButton.isEnabled());
+    private void observeUserPosts() {
+        postViewModel.getUserPosts().observe(getViewLifecycleOwner(), posts -> {
+            userPosts.clear();
+            userPosts.addAll(posts);
+            userPostAdapter.notifyDataSetChanged();
+        });
+    }
+
+    private void initializeBottomSheet() {
+        if (getView() == null) return;
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        bottomSheetBehavior.setDraggable(true);
+
+    }
+
+    private void setupSettingsButton() {
+        settingsButton.setOnClickListener(v -> {
+            // Alterna tra mostrare e nascondere il Bottom Sheet
+            if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+                // Se il Bottom Sheet è già espanso, allora lo nasconde
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+            } else {
+                // Se il Bottom Sheet è nascosto o collassato, allora lo espande
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
             }
         });
-        super.onViewCreated(view, savedInstanceState);
     }
 }
+
+
+

@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +58,8 @@ public class PostDetailsFragment extends Fragment {
 
     private Chip chip;
 
+    private FloatingActionButton backButton;
+
 
     private ExtendedFloatingActionButton favoriteIcon;
 
@@ -82,6 +86,11 @@ public class PostDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Post p = PostDetailsFragmentArgs.fromBundle(getArguments()).getPost();
+        if (p.getCategory() == 2) {
+            return inflater.inflate(R.layout.fragment_info_details, container, false);
+        }
+
         return inflater.inflate(R.layout.fragment_post_details, container, false);
     }
 
@@ -89,31 +98,43 @@ public class PostDetailsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle bundle) {
 
         Post p = PostDetailsFragmentArgs.fromBundle(getArguments()).getPost();
+        backButton = view.findViewById(R.id.backButton);
         authorProfileImage = view.findViewById(R.id.post_user_image);
         chip = view.findViewById(R.id.postDetailChip);
-        image = view.findViewById(R.id.PostdetailsImageView);
+
+
+
         title = view.findViewById(R.id.postTitle);
         date = view.findViewById(R.id.postDate);
         place = view.findViewById(R.id.postPlace);
         description = view.findViewById(R.id.postDescription);
         favoriteIcon = view.findViewById(R.id.imageview_favorite_post);
         username = view.findViewById(R.id.user_name_post);
+
         username.setText(p.getAuthor());
+        backButton.setBackgroundTintMode(null);
+        backButton.setOnClickListener(v -> {
+            Navigation.findNavController(view).navigateUp();
+        });
+
+
 
         ExtendedFloatingActionButton gs_button = view.findViewById(R.id.gsButton);
         gs_button.setVisibility(View.GONE);
 
-        postViewModel.getAuthorImage(p.getAuthor()).observe(getViewLifecycleOwner(), imageUrl ->
-                {
-                    if (imageUrl != null) {
-                        Glide.with(view)
-                                .load(imageUrl)
-                                .centerCrop()
-                                .placeholder(R.drawable.analisi)
-                                .into(authorProfileImage);
+
+
+            postViewModel.getAuthorImage(p.getAuthor()).observe(getViewLifecycleOwner(), imageUrl ->
+                    {
+                        if (imageUrl != null) {
+                            Glide.with(view)
+                                    .load(imageUrl)
+                                    .centerCrop()
+                                    .placeholder(R.drawable.analisi)
+                                    .into(authorProfileImage);
+                        }
                     }
-                }
-        );
+            );
 
         switch (p.getCategory()) {
             case 1:
@@ -131,15 +152,18 @@ public class PostDetailsFragment extends Fragment {
                 break;
         }
 
-        if (p.getPostImage() == null) {
-            image.setImageResource(p.getImage());
-        }
-        else {
-            Glide.with(getContext())
-                    .load(p.getPostImage())
-                    .centerCrop()
-                    .placeholder(R.drawable.analisi)
-                    .into(image);
+        if (p.getCategory() != 2) {
+            image = view.findViewById(R.id.PostdetailsImageView);
+
+            if (p.getPostImage() == null) {
+                image.setImageResource(p.getImage());
+            } else {
+                Glide.with(getContext())
+                        .load(p.getPostImage())
+                        .centerCrop()
+                        .placeholder(R.drawable.analisi)
+                        .into(image);
+            }
         }
 
         title.setText(p.getTitle());
