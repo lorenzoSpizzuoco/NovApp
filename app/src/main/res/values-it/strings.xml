@@ -151,4 +151,8 @@
     <string name="ripet_imageview_cd">Image selezionata per le ripetizioni</string>
     <string name="ok_button">Ok</string>
     <string name="no_photo_reg">Se non scegli un\'immagine profilo ne assegneremo una di default! Va bene?</string>
+
+    <!-- ONBOARDING -->
+    <string name="top_cloud_onboarding">Nuvola superiore</string>
+    <string name="bottom_cloud_onboarding">Nuvola inferiore</string>
 </resources>

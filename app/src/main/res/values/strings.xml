@@ -152,5 +152,9 @@
     <string name="ok_button">Ok</string>
     <string name="no_photo_reg">If you don\'t pick a profile image, we\'ll asign you a default one! Is it ok?</string>
 
+    <!-- ONBOARDING -->
+    <string name="top_cloud_onboarding">Top cloud</string>
+    <string name="bottom_cloud_onboarding">Bottom cloud</string>
+
 
 </resources>

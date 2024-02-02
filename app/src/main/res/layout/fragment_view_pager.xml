@@ -6,6 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".ui.onboarding.ViewPagerFragment">
 
+    <ImageView
+        android:id="@+id/bottomCloud"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="120dp"
+        android:rotationY="180"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/bg_1"
+        android:contentDescription="@string/bottom_cloud_onboarding" />
+
+    <ImageView
+        android:id="@+id/topCloud"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="120dp"
+        android:rotation="0"
+        android:rotationX="180"
+        android:rotationY="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bg_1"
+        android:contentDescription="@string/top_cloud_onboarding" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/pager"
@@ -14,5 +37,61 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" >
+    </androidx.viewpager2.widget.ViewPager2>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bottomCloud" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/next_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:text="Next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- POINTERS -->
+    <ImageView
+        android:id="@+id/pointer0"
+        android:layout_width="30dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="24dp"
+        android:background="?attr/colorPrimary"
+        android:contentDescription="TODO"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/next_button" />
+
+    <ImageView
+        android:id="@+id/pointer1"
+        android:layout_width="30dp"
+        android:layout_height="8dp"
+        android:layout_marginStart="4dp"
+        android:background="?attr/colorPrimary"
+        android:contentDescription="TODO"
+        app:layout_constraintStart_toEndOf="@+id/pointer0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/next_button"  />
+
+    <ImageView
+        android:id="@+id/pointer2"
+        android:layout_width="30dp"
+        android:layout_height="8dp"
+        android:layout_marginStart="4dp"
+        android:background="?attr/colorPrimary"
+        android:contentDescription="TODO"
+        app:layout_constraintStart_toEndOf="@+id/pointer1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/next_button" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

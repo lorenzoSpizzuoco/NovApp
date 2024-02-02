@@ -6,62 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.onboarding.pages.FirstPageOnboarding">
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="144dp"
-        android:rotationY="180"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/bg_1" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="366dp"
-        android:layout_height="117dp"
-        android:layout_marginStart="120dp"
-        android:rotation="0"
-        android:rotationX="180"
-        android:rotationY="0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/bg_1" />
-
-    <ImageView
-        android:id="@+id/pointer1"
-        android:layout_width="14dp"
-        android:layout_height="14dp"
-        android:src="@drawable/blank_point"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toStartOf="@+id/pointer2"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
-
-    <ImageView
-        android:id="@+id/pointer2"
-        android:layout_width="14dp"
-        android:layout_height="14dp"
-        android:src="@drawable/blank_point"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toStartOf="@+id/pointer3"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/pointer1"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
-
-    <ImageView
-        android:id="@+id/pointer3"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/filled_point"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/pointer2"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
-
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
@@ -95,7 +39,7 @@
         android:id="@+id/imageView7"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="60dp"
         android:src="@drawable/blog"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -114,21 +58,11 @@
         android:text="@string/third_carousel_txt"
         android:textAlignment="center"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/pointer1"
+        app:layout_constraintBottom_toTopOf="@+id/pointer0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView7" />
 
-    <Button
-        android:id="@+id/login_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
-        android:text="@string/login"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
