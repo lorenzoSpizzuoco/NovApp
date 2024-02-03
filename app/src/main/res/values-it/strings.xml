@@ -176,4 +176,7 @@
     <string name="message_leave_group_chat">Sei sicuro di voler lasciare questo gruppo?</string>
     <string name="chosen_image">Immagine scelta</string>
     <string name="max_char_text">caratteri massimi!</string>
+    <string name="no_email_error">Email non disponibile</string>
+    <string name="event_logout">Vuoi disconnetterti?</string>
+    <string name="message_logout">Stai per disconnetterti, sei sicuro?</string>
 </resources>

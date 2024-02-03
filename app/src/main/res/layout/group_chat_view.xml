@@ -60,7 +60,6 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/deleteButton"
             android:layout_centerVertical="true"
-            android:layout_alignLeft="@id/groupTitleDisplay"
             style="?attr/floatingActionButtonSmallPrimaryStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -173,5 +173,8 @@
     <string name="message_leave_group_chat">You are leaving this group, are you sure?</string>
     <string name="chosen_image">Choosen image</string>
     <string name="max_char_text">maximum characters allowed!</string>
+    <string name="no_email_error">Email not avaible</string>
+    <string name="event_logout">You want to logout?</string>
+    <string name="message_logout">You are going to logout, are you sure?</string>
 
 </resources>

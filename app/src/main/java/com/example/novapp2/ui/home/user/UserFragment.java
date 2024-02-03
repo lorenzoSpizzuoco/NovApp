@@ -48,13 +48,12 @@ public class UserFragment extends Fragment {
     private TextView userMail;
     private TextView userHi;
 
-    private View root;
     private SavedPostAdapter savedPostAdapter;
     private SavedPostAdapter userPostAdapter;
     private PostViewModel postViewModel;
     private BottomSheetBehavior bottomSheetBehavior;
     private ImageView userImage;
-    private static UserViewModel userViewModel = new UserViewModel();
+    private static final UserViewModel userViewModel = new UserViewModel();
 
     private RecyclerView mySavedView;
 
@@ -67,7 +66,7 @@ public class UserFragment extends Fragment {
 
     private RecyclerView userPostsRecyclerView;
 
-    private UserService userService = new UserService();
+    private final UserService userService = new UserService();
     private FrameLayout bottomSheet;
     private User user;
     private FloatingActionButton settingsButton;
@@ -96,8 +95,8 @@ public class UserFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentUserBinding.inflate(inflater, container, false);
-        root = binding.getRoot();
-        user = userService.getCurrentUser();//HomeFragment.getActiveUser();
+        View root = binding.getRoot();
+        user = userService.getCurrentUser();
         return root;
     }
 
@@ -130,7 +129,7 @@ public class UserFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null; // Rilascia il riferimento al binding
+        binding = null;
     }
 
     private void setupUserProfile() {
@@ -149,7 +148,7 @@ public class UserFragment extends Fragment {
             String userHiText = getString(R.string.hello) + " " + user.getName() + getString(R.string.esclamation);
             userHi.setText(userHiText);
         } else {
-            userMail.setText("Email non disponibile");
+            userMail.setText(getString(R.string.no_email_error));
             userHi.setText(getString(R.string.hello));
         }
     }
@@ -188,15 +187,6 @@ public class UserFragment extends Fragment {
     }
 
     private void observeSavedPosts() {
-        /*
-        userViewModel.getSavedPosts().observe(getViewLifecycleOwner(), posts -> {
-            postList.clear();
-            postList.addAll(posts);
-            savedPostAdapter.notifyDataSetChanged();
-        });
-
-         */
-
         userViewModel.getSavedPosts().observe(getViewLifecycleOwner(), posts -> {
             postList.clear();
             postList.addAll(posts);
@@ -234,11 +224,25 @@ public class UserFragment extends Fragment {
     }
     private void setupLogoutButton() {
         logoutButton.setOnClickListener(v -> {
-            userService.setRemoteSaved();
-            FirebaseAuth.getInstance().signOut();
-            AuthService.deleteUserCredentials(requireContext());
-            MainActivity.getNavController().navigate(R.id.action_to_login);
+
+            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext()).setTitle(R.string.event_logout)
+                    .setMessage(R.string.message_logout)
+                    .setPositiveButton(R.string.ok_button, (di, i) -> {
+                        logout();
+                    })
+                    .setNegativeButton(R.string.dialog_close, (di, i) -> {
+                    });
+
+            builder.create();
+            builder.show();
         });
+    }
+
+    private void logout() {
+        userService.setRemoteSaved();
+        FirebaseAuth.getInstance().signOut();
+        AuthService.deleteUserCredentials(requireContext());
+        MainActivity.getNavController().navigate(R.id.action_to_login);
     }
 
 }
