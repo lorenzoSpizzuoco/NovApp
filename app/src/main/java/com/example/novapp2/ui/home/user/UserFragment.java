@@ -51,10 +51,9 @@ public class UserFragment extends Fragment {
     private View root;
     private SavedPostAdapter savedPostAdapter;
     private SavedPostAdapter userPostAdapter;
-    private PostViewModel postViewModel;
     private BottomSheetBehavior bottomSheetBehavior;
     private ImageView userImage;
-    private static UserViewModel userViewModel = new UserViewModel();
+    private final UserViewModel userViewModel = new UserViewModel();
 
     private RecyclerView mySavedView;
 

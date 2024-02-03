@@ -168,16 +168,17 @@ public class UserRepositoryImpl implements IUserRepository{
                     } else {
 
                         List<Post> postList = new ArrayList<>();
+                        List<String> ids = new ArrayList<>();
 
-                        // genericPosts
                         for (DataSnapshot ds : task.getResult().getChildren()) {
-                            String id = ds.getKey();
-                            int cat = ds.getValue(Integer.class);
-                            String mainChild = getChildCategory(cat);
 
-                            // fetching single post
-                            Task<DataSnapshot> innerTask = mDatabase.child(mainChild).child(id).get();
-                            tasks.add(innerTask);
+                                String id = ds.getKey();
+                                int cat = ds.getValue(Integer.class);
+                                String mainChild = getChildCategory(cat);
+                                // fetching single post
+                                Task<DataSnapshot> innerTask = mDatabase.child(mainChild).child(id).get();
+                                tasks.add(innerTask);
+                                ids.add(id);
                         }
 
                         // Wait for all inner tasks to complete
@@ -186,6 +187,10 @@ public class UserRepositoryImpl implements IUserRepository{
                                 if (taskInner.isSuccessful()) {
                                     Post p = taskInner.getResult().getValue(Post.class);
                                     postList.add(p);
+                                }
+                                else {
+                                    String id = ids.get(tasks.indexOf(taskInner));
+                                    mDatabase.child(DB_USERS).child(DB_SAVEDPOSTS).child(id).removeValue();
                                 }
                             }
                             taskCompletionSource.setResult(postList);

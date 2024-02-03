@@ -182,5 +182,13 @@
             app:icon="@drawable/chat"
             app:srcCompat="@drawable/arrow_back"
             style="?attr/floatingActionButtonSmallPrimaryStyle"/>
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/delete_post_button"
+            android:layout_width="wrap_content"
+            android:layout_margin="5dp"
+            app:icon="@drawable/delete_icon"
+            android:layout_height="wrap_content">
+
+        </com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
