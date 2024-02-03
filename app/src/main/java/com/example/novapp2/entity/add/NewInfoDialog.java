@@ -3,6 +3,7 @@ package com.example.novapp2.entity.add;
 import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,8 @@ import com.example.novapp2.R;
 import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.service.UserService;
 import com.example.novapp2.ui.home.HomeFragment;
+import com.example.novapp2.utils.Constants;
+import com.example.novapp2.utils.Utils;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
@@ -107,6 +110,12 @@ public class NewInfoDialog extends DialogFragment {
         eventDateText = view.findViewById(R.id.date_picker_input_text_info);
         eventDateTextInner = view.findViewById(R.id.date_input_text_inner_info);
         eventDateTextInner.setInputType(InputType.TYPE_NULL);
+
+        InputFilter[] filters = Utils.setMaxCharFilter(Constants.MAX_NUM_CHAR_SMALL_TEXT, requireView(), requireContext());
+        infoTitle.setFilters(filters);
+        infoPlace.setFilters(filters);
+        filters = Utils.setMaxCharFilter(Constants.MAX_NUM_CHAR_LONG_TEXT, requireView(), requireContext());
+        infoDesc.setFilters(filters);
 
         eventDateTextInner.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 

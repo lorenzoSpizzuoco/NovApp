@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
+import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +30,8 @@ import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.service.UserService;
 import com.example.novapp2.ui.home.HomeFragment;
 import com.example.novapp2.ui.home.HomeFragmentDirections;
+import com.example.novapp2.utils.Constants;
+import com.example.novapp2.utils.Utils;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
@@ -125,6 +128,11 @@ public class NewGsDialog extends DialogFragment {
         delPhoto = view.findViewById(R.id.fab_delete_photo);
         toolbar = view.findViewById(R.id.toolbar_gs);
         photoButton = view.findViewById(R.id.gs_photo_button);
+
+        InputFilter[] filters = Utils.setMaxCharFilter(Constants.MAX_NUM_CHAR_SMALL_TEXT, requireView(), requireContext());
+        gsTitle.setFilters(filters);
+        filters = Utils.setMaxCharFilter(Constants.MAX_NUM_CHAR_LONG_TEXT, requireView(), requireContext());
+        gsDesc.setFilters(filters);
 
 
         toolbar.setNavigationOnClickListener(v -> dismiss());
