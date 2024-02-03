@@ -10,6 +10,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
+    private static final String TAG = HomeFragment.class.getSimpleName();
     //private static User activeUser;
     private UserViewModel userViewModel;
 
@@ -57,6 +59,7 @@ public class HomeFragment extends Fragment {
         NavigationUI.setupWithNavController(navView, navController);
 
         userViewModel.getUser().observe(this.getViewLifecycleOwner(), activeUser -> {
+            Log.d(TAG, activeUser.getEmail());
             if (!userFullyRegistered(activeUser)) {
                 Bundle args = new Bundle();
                 args.putString("userId", activeUser.getID());
@@ -65,7 +68,8 @@ public class HomeFragment extends Fragment {
                 mainNavController.navigate(R.id.action_home_to_fullRegister, args);
             }
             else {
-                MainActivity.getNavController().navigate(R.id.action_home_to_login);
+                //MainActivity.getNavController().navigate();
+                //MainActivity.getNavController().navigate(R.id.action_home_to_login);
             }
         });
 

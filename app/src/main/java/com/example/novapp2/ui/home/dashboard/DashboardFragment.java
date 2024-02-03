@@ -67,7 +67,7 @@ public class DashboardFragment extends Fragment {
         return binding.getRoot();
     }
 
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
         eventsChip = view.findViewById(R.id.chip_event);

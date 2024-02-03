@@ -26,6 +26,7 @@ import androidx.navigation.Navigation;
 
 import com.example.novapp2.R;
 import com.example.novapp2.entity.post.Post;
+import com.example.novapp2.service.UserService;
 import com.example.novapp2.ui.home.HomeFragment;
 import com.example.novapp2.ui.home.HomeFragmentDirections;
 import com.google.android.material.button.MaterialButton;
@@ -46,6 +47,8 @@ public class NewGsDialog extends DialogFragment {
 
     private static final String TAG = NewEventDialog.class.getSimpleName();
     private Toolbar toolbar;
+
+    private final UserService userService = new UserService();
 
     private TextInputEditText gsTitle;
 
@@ -206,7 +209,7 @@ public class NewGsDialog extends DialogFragment {
             b.putParcelable("post", new Post(
                     gsTitle.getText().toString(),
                     null,
-                    HomeFragment.getActiveUser().getEmail(),
+                    userService.getCurrentUser().getEmail(),
                     R.drawable.analisi,
                     null,
                     gsDesc.getText().toString(),

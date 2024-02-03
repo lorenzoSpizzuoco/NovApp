@@ -20,6 +20,7 @@ import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.repository.user.UserRepositoryImpl;
 import com.example.novapp2.service.GroupChatsService;
 import com.example.novapp2.service.UserService;
+import com.example.novapp2.sources.UserLogged;
 import com.example.novapp2.ui.home.HomeFragment;
 import com.example.novapp2.utils.UploadImage;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -50,7 +51,7 @@ public class PostRepository implements IPostRepository{
 
         String id = mDatabase.child(DB_POSTS).push().getKey();
         StorageReference storageRef = mStorage.getReference();
-        String userId = HomeFragment.getActiveUser().getID();
+        String userId = UserLogged.getUser().getID();
         post.setDbId(id);
 
         int category = post.getCategory();
@@ -95,8 +96,8 @@ public class PostRepository implements IPostRepository{
                                                                 );
 
                                                                 if(4 == post.getCategory()) {
-                                                                    HomeFragment.getActiveUser().groupChats.add(id);
-                                                                    UserService.updateUserById(HomeFragment.getActiveUser().userId, HomeFragment.getActiveUser());
+                                                                    UserLogged.getUser().groupChats.add(id);
+                                                                    UserService.updateUserById(UserLogged.getUser().userId, UserLogged.getUser());
                                                                     GroupChatsService.createGroupChat(id);
                                                                 }
 

@@ -75,6 +75,13 @@ public class UserService {
         return userRepositoryImpl.getUserPosts(user);
     }
 
+    public void setCurrentUser(User user) {
+        userRepositoryImpl.setCurrentUser(user);
+    }
+
+    public User getCurrentUser() {
+        return userRepositoryImpl.getCurrentUser();
+    }
 
 
 }

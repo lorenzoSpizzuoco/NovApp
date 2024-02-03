@@ -29,7 +29,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.Navigation;
 
 import com.example.novapp2.R;
+import com.example.novapp2.entity.User;
 import com.example.novapp2.entity.post.Post;
+import com.example.novapp2.service.UserService;
 import com.example.novapp2.ui.home.HomeFragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.CalendarConstraints;
@@ -51,6 +53,9 @@ import java.util.Locale;
 public class NewEventDialog extends DialogFragment {
 
     private static final String TAG = NewEventDialog.class.getSimpleName();
+
+    private final UserService userService = new UserService();
+
     private Toolbar toolbar;
     private DatePicker eventDatePicker;
 
@@ -254,7 +259,7 @@ public class NewEventDialog extends DialogFragment {
             b.putParcelable("post", new Post(
                     eventTitle.getText().toString(),
                     null,
-                    HomeFragment.getActiveUser().getEmail(),
+                    userService.getCurrentUser().getEmail(),
                     R.drawable.analisi,
                     null,
                     eventDescInner.getText().toString(),
