@@ -72,7 +72,7 @@ public class GroupChatAdapter extends RecyclerView.Adapter<GroupChatViewHolder> 
         UserLogged.getUser().getGroupChats().remove(item.getID());
         UserService.updateUserById(UserLogged.getUser().getID(), UserLogged.getUser());
         Snackbar.make(v, R.string.removed_group_chat, Snackbar.LENGTH_SHORT).show();
-        MessageService.createMessage(UserLogged.getUser().getEmail() + " " + R.string.left_group_chat_msg, UserLogged.getUser().getEmail(), item.getID());
+        MessageService.createMessage(UserLogged.getUser().getEmail() + " " + v.getContext().getString(R.string.left_group_chat_msg), UserLogged.getUser().getEmail(), item.getID());
         notifyDataSetChanged();
     }
 

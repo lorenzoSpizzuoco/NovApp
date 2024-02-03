@@ -172,5 +172,6 @@
     <string name="event_leave_group_chat">Leave the group</string>
     <string name="message_leave_group_chat">You are leaving this group, are you sure?</string>
     <string name="chosen_image">Choosen image</string>
+    <string name="max_char_text">maximum characters allowed!</string>
 
 </resources>

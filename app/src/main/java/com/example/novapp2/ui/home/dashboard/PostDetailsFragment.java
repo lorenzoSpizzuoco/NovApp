@@ -158,7 +158,7 @@ public class PostDetailsFragment extends Fragment {
                     String t = getString(R.string.in_group) + " " + p.getTitle() + "!";
 
                     Snackbar.make(view, t, Snackbar.LENGTH_SHORT).show();
-                    MessageService.createMessage(userService.getCurrentUser().getEmail() + " " + R.string.join_group_chat_msg, userService.getCurrentUser().getEmail(), p.getDbId());
+                    MessageService.createMessage(userService.getCurrentUser().getEmail() + " " + getString(R.string.join_group_chat_msg), userService.getCurrentUser().getEmail(), p.getDbId());
 
                 } else {
                     Snackbar.make(view, R.string.already_in, Snackbar.LENGTH_SHORT).show();

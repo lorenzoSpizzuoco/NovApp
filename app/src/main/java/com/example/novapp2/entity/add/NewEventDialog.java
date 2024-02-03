@@ -4,7 +4,6 @@ package com.example.novapp2.entity.add;
 
 import android.app.Dialog;
 import android.graphics.Bitmap;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,7 +11,7 @@ import android.os.Bundle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
@@ -24,16 +23,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.Navigation;
 
 import com.example.novapp2.R;
-import com.example.novapp2.entity.User;
 import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.service.UserService;
-import com.example.novapp2.ui.home.HomeFragment;
 import com.example.novapp2.utils.Constants;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.CalendarConstraints;
@@ -46,7 +42,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -133,9 +128,9 @@ public class NewEventDialog extends DialogFragment {
         eventPlaceInner = view.findViewById(R.id.event_place_inner);
         eventDescInner = view.findViewById(R.id.event_desc_inner);
 
-        /*InputFilter[] filters = new InputFilter[1];
-        filters[0] = new InputFilter.LengthFilter(Constants.MAX_NUM_CHAR);
-        eventTitle.setFilters(filters);*/
+        InputFilter[] filters = setMaxCharFilter();
+        eventTitle.setFilters(filters);
+        eventPlaceInner.setFilters(filters);
 
         saveEvent = view.findViewById(R.id.save_button_event);
         delPhoto = view.findViewById(R.id.fab_delete_photo);
@@ -210,6 +205,21 @@ public class NewEventDialog extends DialogFragment {
             return true;
         });
 
+    }
+
+    @NonNull
+    private InputFilter[] setMaxCharFilter() {
+        InputFilter[] filters = new InputFilter[1];
+        filters[0] = (source, start, end, dest, dstart, dend) -> {
+            for (int i = start; i < end; i++) {
+                if (dest.length() >= Constants.MAX_NUM_CHAR) {
+                    Snackbar.make(requireView(), Constants.MAX_NUM_CHAR + " " + getString(R.string.max_char_text), Snackbar.LENGTH_SHORT).show();
+                    return "";
+                }
+            }
+            return null;
+        };
+        return filters;
     }
 
     @Override
