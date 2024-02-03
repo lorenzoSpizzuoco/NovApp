@@ -21,6 +21,7 @@ public class UserViewModel extends ViewModel {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     MutableLiveData<User> currentUser;
     MutableLiveData<List<Post>> savedPosts = null;
+    private MutableLiveData<List<Post>> userPosts = null;
 
     private final UserService userService = new UserService();
 
@@ -92,4 +93,20 @@ public class UserViewModel extends ViewModel {
     public void removeFavorite(Post post) {
         userService.removeLocalFavorite(post);
     }
+
+    public MutableLiveData<List<Post>> getUserPosts() {
+        String user = userService.getCurrentUser().getID();
+
+        userPosts = new MutableLiveData<List<Post>>();
+        userService.getUserPosts(user).addOnCompleteListener(
+                task -> {
+                    if (task.isSuccessful()) {
+                        userPosts.postValue(task.getResult());
+                    }
+                }
+        );
+
+        return userPosts;
+    }
+
 }

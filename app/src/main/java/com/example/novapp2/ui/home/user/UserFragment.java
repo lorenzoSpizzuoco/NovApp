@@ -188,14 +188,6 @@ public class UserFragment extends Fragment {
     }
 
     private void observeSavedPosts() {
-        /*
-        userViewModel.getSavedPosts().observe(getViewLifecycleOwner(), posts -> {
-            postList.clear();
-            postList.addAll(posts);
-            savedPostAdapter.notifyDataSetChanged();
-        });
-
-         */
 
         userViewModel.getSavedPosts().observe(getViewLifecycleOwner(), posts -> {
             postList.clear();
@@ -205,7 +197,7 @@ public class UserFragment extends Fragment {
     }
 
     private void observeUserPosts() {
-        postViewModel.getUserPosts().observe(getViewLifecycleOwner(), posts -> {
+        userViewModel.getUserPosts().observe(getViewLifecycleOwner(), posts -> {
             userPosts.clear();
             userPosts.addAll(posts);
             userPostAdapter.notifyDataSetChanged();
