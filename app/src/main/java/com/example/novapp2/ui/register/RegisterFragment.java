@@ -80,6 +80,7 @@ public class RegisterFragment extends Fragment {
                     public void onRegisterSuccess() {
                         if (mAuth.getCurrentUser() != null) {
                             UserService.createUser(mAuth.getCurrentUser().getUid(), email);
+                            AuthService.saveUserCredentials(email, password, requireContext());
                             MainActivity.getNavController().navigate(R.id.action_register_to_home);
                         } else {
                             Snackbar.make(view, R.string.error, Snackbar.LENGTH_SHORT).show();
