@@ -15,9 +15,12 @@ import android.widget.TextView;
 
 
 import com.example.novapp2.R;
+import com.example.novapp2.entity.User;
 import com.example.novapp2.entity.chat.group.GroupChat;
 import com.example.novapp2.entity.chat.group.GroupChatAdapter;
 import com.example.novapp2.service.GroupChatsService;
+import com.example.novapp2.service.UserService;
+import com.example.novapp2.ui.UserViewModel;
 import com.example.novapp2.ui.home.HomeFragment;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -29,6 +32,7 @@ import java.util.List;
 public class ChatFragment extends Fragment {
 
     private List<GroupChat> groupChats;
+    private UserService userService = new UserService();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,7 +48,8 @@ public class ChatFragment extends Fragment {
 
         emptyView.setVisibility(View.GONE);
 
-        List<String> userGroups = HomeFragment.getActiveUser().getGroupChats();
+        //List<String> userGroups = HomeFragment.getActiveUser().getGroupChats();
+        List<String> userGroups = userService.getCurrentUser().getGroupChats();
         if(!userGroups.isEmpty()) {
             groupChats = new ArrayList<>();
 

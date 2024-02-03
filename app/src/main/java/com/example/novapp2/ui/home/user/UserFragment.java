@@ -25,6 +25,7 @@ import com.example.novapp2.entity.User;
 import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.entity.post.PostViewModel;
 import com.example.novapp2.entity.post.SavedPostAdapter;
+import com.example.novapp2.service.UserService;
 import com.example.novapp2.service.AuthService;
 import com.example.novapp2.ui.home.HomeFragment;
 import com.example.novapp2.utils.Utils;
@@ -64,7 +65,7 @@ public class UserFragment extends Fragment {
 
     private RecyclerView userPostsRecyclerView;
 
-
+    private UserService userService = new UserService();
     private FrameLayout bottomSheet;
     private User user;
     private FloatingActionButton settingsButton;
@@ -94,7 +95,7 @@ public class UserFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentUserBinding.inflate(inflater, container, false);
         root = binding.getRoot();
-        user = HomeFragment.getActiveUser();
+        user = userService.getCurrentUser();//HomeFragment.getActiveUser();
         return root;
     }
 

@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.novapp2.R;
+import com.example.novapp2.entity.User;
 import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.entity.post.PostViewModel;
 import com.example.novapp2.service.MessageService;
@@ -42,6 +43,8 @@ public class PostDetailsFragment extends Fragment {
     private TextView title;
 
     private TextView description;
+
+    private static final UserService userService = new UserService();
 
     private TextView date;
 
@@ -117,7 +120,7 @@ public class PostDetailsFragment extends Fragment {
 
 
         // observing livedata
-        postViewModel.getIsFavorite(HomeFragment.getActiveUser().getID(), p.getDbId()).observe(getViewLifecycleOwner(), favorite -> {
+        postViewModel.getIsFavorite(userService.getCurrentUser().getID(), p.getDbId()).observe(getViewLifecycleOwner(), favorite -> {
 
             Log.d(TAG, String.valueOf(favorite));
             if (favorite == 1) {
@@ -128,9 +131,6 @@ public class PostDetailsFragment extends Fragment {
             }
             p.setFavorite(favorite);
         });
-
-
-
     }
 
 
@@ -151,14 +151,14 @@ public class PostDetailsFragment extends Fragment {
         if (p.getCategory() == 4) {
             gs_button.setVisibility(View.VISIBLE);
             gs_button.setOnClickListener(v ->{
-                List<String> groupChats = HomeFragment.getActiveUser().getGroupChats();
+                List<String> groupChats = userService.getCurrentUser().getGroupChats();
                 if(!groupChats.contains(p.getDbId())){
                     groupChats.add(p.getDbId());
-                    UserService.updateUserById(HomeFragment.getActiveUser().getID(), HomeFragment.getActiveUser());
+                    UserService.updateUserById(userService.getCurrentUser().getID(), userService.getCurrentUser());
                     String t = getString(R.string.in_group) + " " + p.getTitle() + "!";
 
                     Snackbar.make(view, t, Snackbar.LENGTH_SHORT).show();
-                    MessageService.createMessage(HomeFragment.getActiveUser().getEmail() + " " + R.string.join_group_chat_msg, HomeFragment.getActiveUser().getEmail(), p.getDbId());
+                    MessageService.createMessage(userService.getCurrentUser().getEmail() + " " + R.string.join_group_chat_msg, userService.getCurrentUser().getEmail(), p.getDbId());
 
                 } else {
                     Snackbar.make(view, R.string.already_in, Snackbar.LENGTH_SHORT).show();

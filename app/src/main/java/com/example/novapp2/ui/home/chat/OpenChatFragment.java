@@ -17,11 +17,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.novapp2.R;
+import com.example.novapp2.entity.User;
 import com.example.novapp2.entity.chat.group.GroupChat;
 import com.example.novapp2.entity.chat.message.Message;
 import com.example.novapp2.entity.chat.message.MessageAdapter;
 import com.example.novapp2.service.GroupChatsService;
 import com.example.novapp2.service.MessageService;
+import com.example.novapp2.service.UserService;
+import com.example.novapp2.sources.UserLogged;
 import com.example.novapp2.ui.home.HomeFragment;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -43,6 +46,8 @@ import java.util.Objects;
 public class OpenChatFragment extends Fragment {
 
     private DatabaseReference mDatabase;
+    private ValueEventListener mListener;
+    private UserService userService = new UserService();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -120,7 +125,7 @@ public class OpenChatFragment extends Fragment {
         sendButton.setOnClickListener(v -> {
             String content = Objects.requireNonNull(messageContent.getEditText()).getText().toString();
             if (!content.equals("")) {
-                MessageService.createMessage(content, HomeFragment.getActiveUser().getEmail(), groupId);
+                MessageService.createMessage(content, userService.getCurrentUser().getEmail(), groupId);
                 messageContent.getEditText().setText("");
             }
         });

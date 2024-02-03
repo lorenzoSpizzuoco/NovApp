@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.example.novapp2.entity.User;
 import com.example.novapp2.entity.post.Post;
+import com.example.novapp2.sources.UserLogged;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.gms.tasks.Tasks;
@@ -236,4 +237,11 @@ public class UserRepositoryImpl implements IUserRepository{
         return taskCompletionSource.getTask();
     }
 
+    public void setCurrentUser(User user) {
+        UserLogged.setUser(user);
+    }
+
+    public User getCurrentUser() {
+        return UserLogged.getUser();
+    }
 }

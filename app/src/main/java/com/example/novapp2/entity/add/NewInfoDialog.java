@@ -20,6 +20,7 @@ import androidx.navigation.Navigation;
 
 import com.example.novapp2.R;
 import com.example.novapp2.entity.post.Post;
+import com.example.novapp2.service.UserService;
 import com.example.novapp2.ui.home.HomeFragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.CalendarConstraints;
@@ -40,6 +41,8 @@ public class NewInfoDialog extends DialogFragment {
     private static final String TAG = NewEventDialog.class.getSimpleName();
     private Toolbar toolbar;
     private DatePicker eventDatePicker;
+
+    private final UserService userService = new UserService();
 
     private TextInputLayout eventDateText;
 
@@ -198,7 +201,7 @@ public class NewInfoDialog extends DialogFragment {
             b.putParcelable("post", new Post(
                     infoTitle.getText().toString(),
                     null,
-                    HomeFragment.getActiveUser().getEmail(),
+                    userService.getCurrentUser().getEmail(),
                     R.drawable.analisi,
                     null,
                     infoDesc.getText().toString(),
