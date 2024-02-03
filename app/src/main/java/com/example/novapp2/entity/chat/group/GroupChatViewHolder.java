@@ -10,12 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.novapp2.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.imageview.ShapeableImageView;
 
 public class GroupChatViewHolder extends RecyclerView.ViewHolder {
 
     private final TextView titleView;
     private final TextView authorView;
-    private final ImageView imageView;
+    private final ShapeableImageView imageView;
     private final FloatingActionButton deleteButtonView;
     private final Context context;
 

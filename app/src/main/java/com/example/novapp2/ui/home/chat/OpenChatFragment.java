@@ -27,6 +27,7 @@ import com.example.novapp2.service.UserService;
 import com.example.novapp2.sources.UserLogged;
 import com.example.novapp2.ui.home.HomeFragment;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.ChildEventListener;
@@ -59,7 +60,7 @@ public class OpenChatFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         FloatingActionButton backButton = view.findViewById(R.id.backButton);
-        Button sendButton = view.findViewById(R.id.send_button);
+        ExtendedFloatingActionButton sendButton = view.findViewById(R.id.send_button);
         TextInputLayout messageContent = view.findViewById(R.id.message_content);
         TextView emptyView = view.findViewById(R.id.noChatText);
         TextView groupName = view.findViewById(R.id.groupName);
@@ -134,7 +135,7 @@ public class OpenChatFragment extends Fragment {
         });
     }
 
-    private void setUpSendButton(Button sendButton, TextInputLayout messageContent, String groupId) {
+    private void setUpSendButton(ExtendedFloatingActionButton sendButton, TextInputLayout messageContent, String groupId) {
         sendButton.setOnClickListener(v -> {
             String content = Objects.requireNonNull(messageContent.getEditText()).getText().toString();
             if (!content.equals("")) {

@@ -36,17 +36,7 @@ public class Utils {
         courseList.sort(Comparator.comparing(Post::getTitle));
     }
 
-
-    /* TODO remove this
-    public static List<Post> sortCourseByString(List<Post> courseList, String newText) {
-        List<Post> filteredList = courseList.stream()
-                .filter(course -> course.getTitle().toUpperCase().contains(newText.toUpperCase()))
-                .collect(Collectors.toList());
-        return filteredList;
-    }*/
-
     // POST CATEGORY
-
 
     public static String getChildCategory(int category) {
         switch (category) {
