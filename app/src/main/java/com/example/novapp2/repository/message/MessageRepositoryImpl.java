@@ -20,7 +20,9 @@ public class MessageRepositoryImpl implements IMessageRepository{
 
     @Override
     public Task<Void> insertMessage(Message message, String groupID) {
-        return mDatabase.child("groupChats").child(groupID).child("messages").push().setValue(message);
+        String id = mDatabase.child("groupChats").child(groupID).child("messages").push().getKey();
+        message.setID(id);
+        return mDatabase.child("groupChats").child(groupID).child("messages").child(id).setValue(message);
     }
 
     @Override

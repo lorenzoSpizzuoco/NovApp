@@ -33,7 +33,7 @@
 
 
         app:layout_constraintTop_toBottomOf="@+id/backButton"
-        tools:context=".ui.dashboard.PostDetailsFragment">
+        tools:context=".ui.home.dashboard.PostDetailsFragment">
 
         <RelativeLayout
             android:layout_width="match_parent"

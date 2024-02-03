@@ -1,6 +1,13 @@
 package com.example.novapp2.ui.home.user;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,31 +17,22 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.example.novapp2.MainActivity;
 import com.example.novapp2.R;
 import com.example.novapp2.databinding.FragmentUserBinding;
 import com.example.novapp2.entity.User;
 import com.example.novapp2.entity.post.Post;
-import com.example.novapp2.entity.post.PostAdapter;
 import com.example.novapp2.entity.post.PostViewModel;
 import com.example.novapp2.entity.post.SavedPostAdapter;
+import com.example.novapp2.service.UserService;
+import com.example.novapp2.service.AuthService;
+import com.example.novapp2.ui.UserViewModel;
 import com.example.novapp2.ui.home.HomeFragment;
-import com.example.novapp2.ui.home.user.UserFragmentDirections;
 import com.example.novapp2.utils.Utils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.common.base.Predicates;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -56,6 +54,7 @@ public class UserFragment extends Fragment {
     private PostViewModel postViewModel;
     private BottomSheetBehavior bottomSheetBehavior;
     private ImageView userImage;
+    private static UserViewModel userViewModel = new UserViewModel();
 
     private RecyclerView mySavedView;
 
@@ -68,10 +67,10 @@ public class UserFragment extends Fragment {
 
     private RecyclerView userPostsRecyclerView;
 
-
+    private UserService userService = new UserService();
     private FrameLayout bottomSheet;
     private User user;
-    private Button settingsButton;
+    private FloatingActionButton settingsButton;
     private Button logoutButton;
 
     public UserFragment() {
@@ -98,7 +97,7 @@ public class UserFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentUserBinding.inflate(inflater, container, false);
         root = binding.getRoot();
-        user = HomeFragment.getActiveUser();
+        user = userService.getCurrentUser();//HomeFragment.getActiveUser();
         return root;
     }
 
@@ -189,7 +188,16 @@ public class UserFragment extends Fragment {
     }
 
     private void observeSavedPosts() {
-        postViewModel.getFavoritePosts().observe(getViewLifecycleOwner(), posts -> {
+        /*
+        userViewModel.getSavedPosts().observe(getViewLifecycleOwner(), posts -> {
+            postList.clear();
+            postList.addAll(posts);
+            savedPostAdapter.notifyDataSetChanged();
+        });
+
+         */
+
+        userViewModel.getSavedPosts().observe(getViewLifecycleOwner(), posts -> {
             postList.clear();
             postList.addAll(posts);
             savedPostAdapter.notifyDataSetChanged();
@@ -226,8 +234,9 @@ public class UserFragment extends Fragment {
     }
     private void setupLogoutButton() {
         logoutButton.setOnClickListener(v -> {
+            userService.setRemoteSaved();
             FirebaseAuth.getInstance().signOut();
-            Utils.deleteUserCredentials(requireContext());
+            AuthService.deleteUserCredentials(requireContext());
             MainActivity.getNavController().navigate(R.id.action_to_login);
         });
     }

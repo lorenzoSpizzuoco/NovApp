@@ -3,8 +3,7 @@ package com.example.novapp2.ui.start;
 import static com.example.novapp2.utils.Constants.USER_LOCAL_MAIL;
 import static com.example.novapp2.utils.Constants.USER_LOCAL_PASSWORD;
 
-import com.example.novapp2.ui.login.LoginFragment;
-import com.example.novapp2.utils.Utils;
+import com.example.novapp2.service.AuthService;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -17,10 +16,11 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
 
 import com.example.novapp2.MainActivity;
 import com.example.novapp2.R;
+import com.google.android.material.snackbar.Snackbar;
 
 
 import java.io.File;
@@ -34,7 +34,7 @@ public class StartScreenFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Context context = requireContext();
-        savedValuesMap = Utils.getUserCredentials(context);
+        savedValuesMap = AuthService.getUserCredentials(context);
         return inflater.inflate(R.layout.fragment_start_screen, container, false);
     }
 
@@ -47,7 +47,7 @@ public class StartScreenFragment extends Fragment {
     public void onStart() {
         super.onStart();
         if (null != savedValuesMap) {
-            Utils.signIn(savedValuesMap.get(USER_LOCAL_MAIL), savedValuesMap.get(USER_LOCAL_PASSWORD), requireActivity(), new Utils.SignInCallback() {
+            AuthService.signIn(savedValuesMap.get(USER_LOCAL_MAIL), savedValuesMap.get(USER_LOCAL_PASSWORD), requireActivity(), new AuthService.SignInCallback() {
                 @Override
                 public void onSignInSuccess() {
                     MainActivity.getNavController().navigate(R.id.action_start_to_home);
@@ -55,7 +55,7 @@ public class StartScreenFragment extends Fragment {
 
                 @Override
                 public void onSignInFailure() {
-                    Toast.makeText(requireContext(), "An error occurred!", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(getView(), R.string.error, Snackbar.LENGTH_SHORT).show();
                 }
             });
         } else {

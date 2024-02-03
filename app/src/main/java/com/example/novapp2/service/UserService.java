@@ -22,7 +22,7 @@ public class UserService {
         String surname = "";
         String bio = "";
         List<String> groupChats = null;
-        List<String> favourites = null;
+        List<Post> favourites = null;
         Boolean isBiccoccaUser = false; // Non è un utente di Biccocca
         String profileImg = "";
         List<String> notifications = null;
@@ -75,6 +75,25 @@ public class UserService {
         return userRepositoryImpl.getUserPosts(user);
     }
 
+    public void setCurrentUser(User user) {
+        userRepositoryImpl.setCurrentUser(user);
+    }
 
+    public User getCurrentUser() {
+        return userRepositoryImpl.getCurrentUser();
+    }
 
+    public void setLocalFavorite(Post post) { userRepositoryImpl.setLocalFavorite(post); }
+
+    public List<Post> getLocalFavorite() { return userRepositoryImpl.getLocalFavorite(); }
+
+    public Boolean isFavorite(Post post) {
+        return getLocalFavorite().contains(post);
+    }
+
+    public void removeLocalFavorite(Post post) {
+        userRepositoryImpl.removeLocalFavorite(post);
+    }
+
+    public void setRemoteSaved() { userRepositoryImpl.setRemoveSaved(); }
 }

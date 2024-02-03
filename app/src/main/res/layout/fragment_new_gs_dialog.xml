@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -103,7 +103,6 @@
 
             <!-- RelativeLayout a destra -->
             <RelativeLayout
-                android:layout_centerVertical="true"
                 android:layout_width="fill_parent"
                 android:layout_marginStart="15dp"
                 android:layout_height="150dp">
@@ -112,11 +111,12 @@
                     android:visibility="gone"
                     android:id="@+id/fab_delete_photo"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="20dp"
+
                     android:src="@drawable/x_close"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="?attr/floatingActionButtonSmallPrimaryStyle"/>
+                    style="?attr/floatingActionButtonSmallPrimaryStyle"
+                    android:contentDescription="@string/chosen_image" />
 
                 <ImageView
                     android:layout_centerHorizontal="true"

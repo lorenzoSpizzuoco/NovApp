@@ -10,7 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.novapp2.R;
+import com.example.novapp2.entity.User;
 import com.example.novapp2.entity.post.PostAdapter;
+import com.example.novapp2.service.UserService;
 import com.example.novapp2.ui.home.HomeFragment;
 
 import java.util.Collections;
@@ -19,7 +21,8 @@ import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter {
 
-    private List<Message> messageList;
+    private final List<Message> messageList;
+    private UserService userService = new UserService();
 
     public MessageAdapter(List<Message> messages) {
         messageList = messages;
@@ -61,14 +64,14 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        if(messageList.get(position).getAuthor().equals(HomeFragment.getActiveUser().getEmail()))
+        if(messageList.get(position).getAuthor().equals(userService.getCurrentUser().getEmail()))
             return 0;
         else return 1;
     }
 
     public class meMessageViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView contentView;
+        private final TextView contentView;
 
         public meMessageViewHolder(@NonNull View view)  {
             super(view);
@@ -86,13 +89,13 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
     public class otherMessageViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView contentView;
-        private TextView authorView;
+        private final TextView contentView;
+        private final TextView authorView;
 
         public otherMessageViewHolder(@NonNull View view)  {
             super(view);
-            contentView = (TextView) view.findViewById(R.id.messageContent);
-            authorView = (TextView) view.findViewById(R.id.messageAuthor);
+            contentView = view.findViewById(R.id.messageContent);
+            authorView = view.findViewById(R.id.messageAuthor);
         }
 
         public TextView getContentView() {

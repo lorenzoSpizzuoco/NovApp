@@ -1,5 +1,6 @@
 package com.example.novapp2.entity;
 
+import com.example.novapp2.entity.post.Post;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public class User {
     public String surname;
     public String bio;
     public List<String> groupChats;
-    public List<String> favourites;
+    public List<Post> favourites;
     public Boolean isBicoccaUser;
     public String profileImg;
     public List<String> notifications;
@@ -22,7 +23,7 @@ public class User {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String userId, String name, String email, String surname, String bio, List<String> groupChats, List<String> favourites, Boolean isBicoccaUser, String profileImg, List<String> notifications) {
+    public User(String userId, String name, String email, String surname, String bio, List<String> groupChats, List<Post> favourites, Boolean isBicoccaUser, String profileImg, List<String> notifications) {
         this.userId = userId;
         this.name = name;
         this.email = email;
@@ -83,11 +84,11 @@ public class User {
         this.groupChats = groupChats;
     }
 
-    public List<String> getFavourites() {
+    public List<Post> getFavourites() {
         return favourites;
     }
 
-    public void setFavourites(List<String> favourites) {
+    public void setFavourites(List<Post> favourites) {
         this.favourites = favourites;
     }
 

@@ -6,10 +6,10 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.example.novapp2.ui.onboarding.pages.FirstPageOnboarding;
 import com.example.novapp2.ui.onboarding.pages.SecondPageOnboarding;
 import com.example.novapp2.ui.onboarding.pages.ThirdPageOnboarding;
+import com.example.novapp2.utils.Constants;
+
 
 public class ScreenSlidePagerAdapter extends FragmentStateAdapter {
-
-    private static final int NUM_PAGES = 3;
 
     public ScreenSlidePagerAdapter(ViewPagerFragment viewPagerFragment) {
         super(viewPagerFragment);
@@ -30,8 +30,7 @@ public class ScreenSlidePagerAdapter extends FragmentStateAdapter {
         }
     }
 
-    @Override
     public int getItemCount() {
-        return NUM_PAGES;
+        return Constants.NUM_PAGES;
     }
 }

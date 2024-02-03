@@ -107,6 +107,10 @@
     <string name="ripetizioni_content_desc">Immagine esplicativa ripetizioni</string>
     <string name="share_something">Condividi con gli Utenti</string>
 
+    <!-- POST DETAIL -->
+
+    <string name="already_in"> Fai già parte di questo gruppo studio </string>
+
     <!-- POST DETAILS CHIP -->
     <string name="gs_chip"> gruppo studio </string>
     <string name="event_chip"> evento </string>
@@ -151,4 +155,25 @@
     <string name="ripet_imageview_cd">Image selezionata per le ripetizioni</string>
     <string name="ok_button">Ok</string>
     <string name="no_photo_reg">Se non scegli un\'immagine profilo ne assegneremo una di default! Va bene?</string>
+
+    <string name="in_group"> Ora fai parte del gruppo studio  </string>
+
+    <string name="error">Ops! C\'è stato un\'errore</string>
+
+
+    <!-- ONBOARDING -->
+    <string name="top_cloud_onboarding">Nuvola superiore</string>
+    <string name="bottom_cloud_onboarding">Nuvola inferiore</string>
+    <string name="next_button">Bottone per la prossima pagina</string>
+    <string name="page_number_indicator">Indicatore del numero di pagina</string>
+    <string name="settings">Settings</string>
+    <string name="group_is_bicocca">Accesso permesso solo a utenti Bicocca</string>
+    <string name="error_group_chat">Errore nel caricare le chat, riavvia l\'applicazione</string>
+    <string name="removed_group_chat">Chat di gruppo rimossa!</string>
+    <string name="left_group_chat_msg">è uscito dal gruppo</string>
+    <string name="join_group_chat_msg">è entrato nel gruppo</string>
+    <string name="event_leave_group_chat">Esci dal gruppo</string>
+    <string name="message_leave_group_chat">Sei sicuro di voler lasciare questo gruppo?</string>
+    <string name="chosen_image">Immagine scelta</string>
+    <string name="max_char_text">caratteri massimi!</string>
 </resources>

@@ -54,7 +54,7 @@
                 android:id="@+id/userHiTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="36dp"
                 android:text="@string/hello"
                 android:textSize="20sp"
@@ -66,7 +66,7 @@
                 android:id="@+id/userMailTextVew"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="76dp"
                 android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@+id/userCardView"
@@ -84,57 +84,42 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/userCardView" />
 
-            <Button
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/user_settings_button"
-                style="@style/Widget.Material3.Button.IconButton"
+                style="?attr/floatingActionButtonSmallPrimaryStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:icon="@drawable/bottom_btn4"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:contentDescription="@string/settings"
+                app:backgroundTint="?attr/colorPrimary"
+                app:elevation="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/bottom_btn4"
+                app:tint="?attr/colorOnPrimary">
+            </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/mySavedPosts"
                 android:layout_width="0dp"
                 android:layout_height="250dp"
+                android:layout_marginTop="8dp"
                 android:scrollbars="none"
-                app:layout_constraintTop_toBottomOf="@+id/savedElementTextView"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                tools:layout_editor_absoluteX="0dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/savedElementTextView" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/myPosts"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="8dp"
                 android:scrollbars="none"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/myPostsTextView"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2" />
-
-                <TextView
-                    android:id="@+id/seeAllTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="148dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="Vedi tutti..."
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/seeAllTextView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="452dp"
-                    android:layout_marginEnd="12dp"
-                    android:text="Vedi tutti..."
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

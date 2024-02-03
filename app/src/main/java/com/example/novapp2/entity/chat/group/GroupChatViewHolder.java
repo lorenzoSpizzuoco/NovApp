@@ -1,5 +1,6 @@
 package com.example.novapp2.entity.chat.group;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -8,18 +9,24 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.novapp2.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.imageview.ShapeableImageView;
 
 public class GroupChatViewHolder extends RecyclerView.ViewHolder {
 
     private final TextView titleView;
     private final TextView authorView;
-    private final ImageView imageView;
+    private final ShapeableImageView imageView;
+    private final FloatingActionButton deleteButtonView;
+    private final Context context;
 
     public GroupChatViewHolder(@NonNull View view) {
         super(view);
+        context = view.getContext();
         titleView = view.findViewById(R.id.groupTitleDisplay);
         authorView = view.findViewById(R.id.groupAuthorDisplay);
         imageView = view.findViewById(R.id.imageView);
+        deleteButtonView = view.findViewById(R.id.deleteButton);
     }
 
     public TextView getTitleView() {
@@ -33,4 +40,13 @@ public class GroupChatViewHolder extends RecyclerView.ViewHolder {
     public ImageView getImageView() {
         return imageView;
     }
+
+    public FloatingActionButton getDeleteButtonView() {
+        return deleteButtonView;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
 }

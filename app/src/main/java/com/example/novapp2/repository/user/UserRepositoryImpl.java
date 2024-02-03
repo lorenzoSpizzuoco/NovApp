@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.example.novapp2.entity.User;
 import com.example.novapp2.entity.post.Post;
+import com.example.novapp2.sources.UserLogged;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.gms.tasks.Tasks;
@@ -234,6 +235,37 @@ public class UserRepositoryImpl implements IUserRepository{
                 });
 
         return taskCompletionSource.getTask();
+    }
+
+    public void setCurrentUser(User user) {
+        UserLogged.setUser(user);
+    }
+
+    public User getCurrentUser() {
+        return UserLogged.getUser();
+    }
+
+    public void setLocalFavorite(Post post) {
+        UserLogged.getUser().favourites.add(post);
+    }
+
+    public List<Post> getLocalFavorite() {
+        return UserLogged.getUser().favourites;
+    }
+
+    public void removeLocalFavorite(Post post) {
+        UserLogged.getUser().favourites.remove(post);
+    }
+
+    public void setRemoveSaved() {
+        ArrayList<Post> posts = (ArrayList<Post>) UserLogged.getUser().getFavourites();
+        String userId = UserLogged.getUser().getID();
+
+        mDatabase.child(DB_USERS).child(userId).child(DB_SAVEDPOSTS).removeValue();
+
+        for (Post post : posts) {
+            mDatabase.child(DB_USERS).child(userId).child(DB_SAVEDPOSTS).child(post.getDbId()).setValue(post.getCategory());
+        }
     }
 
 }
