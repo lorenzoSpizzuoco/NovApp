@@ -46,8 +46,7 @@ import java.util.Objects;
 public class OpenChatFragment extends Fragment {
 
     private DatabaseReference mDatabase;
-    private ValueEventListener mListener;
-    private UserService userService = new UserService();
+    private final UserService userService = new UserService();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,6 +75,14 @@ public class OpenChatFragment extends Fragment {
                 .child("messages");
 
 
+        loadGroupChatMessages(groupName, recyclerView, groupId);
+
+        setUpSendButton(sendButton, messageContent, groupId);
+
+        setUpBackButton(backButton);
+    }
+
+    private void loadGroupChatMessages(TextView groupName, RecyclerView recyclerView, String groupId) {
         Task<GroupChat> getGroupByIdTask = GroupChatsService.getGroupChatById(groupId);
         getGroupByIdTask.addOnCompleteListener(task -> {
             if(task.isSuccessful()) {
@@ -90,38 +97,44 @@ public class OpenChatFragment extends Fragment {
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(adapter);
 
-                mDatabase.orderByChild("timestamp").addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String prevChildKey) {
-                        Map<String, Object> value = (Map<String, Object>) dataSnapshot.getValue();
-                        Message message = new Message(dataSnapshot.getKey(), (String) value.get("content"), (String) value.get("author"), (Long) value.get("timestamp"));
-                        adapter.updateData(message);
-                        recyclerView.scrollToPosition(adapter.getItemCount() - 1);
-                    }
-
-                    @Override
-                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                    }
-
-                    @Override
-                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-                    }
-
-                    @Override
-                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError error) {
-                        Log.e("OpenChat", "Failed to read value.", error.toException());
-                    }
-                });
+                setUpOnDataChangeListener(recyclerView, adapter);
             }
         });
+    }
 
+    private void setUpOnDataChangeListener(RecyclerView recyclerView, MessageAdapter adapter) {
+        mDatabase.orderByChild("timestamp").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String prevChildKey) {
+                Map<String, Object> value = (Map<String, Object>) dataSnapshot.getValue();
+                Message message = new Message(dataSnapshot.getKey(), (String) value.get("content"), (String) value.get("author"), (Long) value.get("timestamp"));
+                adapter.updateData(message);
+                recyclerView.scrollToPosition(adapter.getItemCount() - 1);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("OpenChat", "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    private void setUpSendButton(Button sendButton, TextInputLayout messageContent, String groupId) {
         sendButton.setOnClickListener(v -> {
             String content = Objects.requireNonNull(messageContent.getEditText()).getText().toString();
             if (!content.equals("")) {
@@ -129,7 +142,9 @@ public class OpenChatFragment extends Fragment {
                 messageContent.getEditText().setText("");
             }
         });
+    }
 
+    private static void setUpBackButton(FloatingActionButton backButton) {
         backButton.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_openChat_to_navigationChat));
     }
 }

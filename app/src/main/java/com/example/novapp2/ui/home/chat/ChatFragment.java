@@ -48,7 +48,6 @@ public class ChatFragment extends Fragment {
 
         emptyView.setVisibility(View.GONE);
 
-        //List<String> userGroups = HomeFragment.getActiveUser().getGroupChats();
         List<String> userGroups = userService.getCurrentUser().getGroupChats();
         if(!userGroups.isEmpty()) {
             groupChats = new ArrayList<>();
