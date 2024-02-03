@@ -174,4 +174,5 @@
     <string name="join_group_chat_msg">è entrato nel gruppo</string>
     <string name="event_leave_group_chat">Esci dal gruppo</string>
     <string name="message_leave_group_chat">Sei sicuro di voler lasciare questo gruppo?</string>
+    <string name="chosen_image">Immagine scelta</string>
 </resources>
