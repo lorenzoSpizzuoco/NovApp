@@ -1,7 +1,7 @@
 package com.example.novapp2.entity.chat.group;
 
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.novapp2.R;
-import com.example.novapp2.entity.User;
 import com.example.novapp2.service.MessageService;
 import com.example.novapp2.service.UserService;
-import com.example.novapp2.ui.home.HomeFragment;
+import com.example.novapp2.sources.UserLogged;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -70,10 +69,10 @@ public class GroupChatAdapter extends RecyclerView.Adapter<GroupChatViewHolder> 
 
     private void removeGroup(GroupChat item, View v) {
         groupChats.remove(item);
-        HomeFragment.getActiveUser().getGroupChats().remove(item.getID());
-        UserService.updateUserById(HomeFragment.getActiveUser().getID(), HomeFragment.getActiveUser());
+        UserLogged.getUser().getGroupChats().remove(item.getID());
+        UserService.updateUserById(UserLogged.getUser().getID(), UserLogged.getUser());
         Snackbar.make(v, R.string.removed_group_chat, Snackbar.LENGTH_SHORT).show();
-        MessageService.createMessage(HomeFragment.getActiveUser().getEmail() + " " + R.string.left_group_chat_msg, HomeFragment.getActiveUser().getEmail(), item.getID());
+        MessageService.createMessage(UserLogged.getUser().getEmail() + " " + R.string.left_group_chat_msg, UserLogged.getUser().getEmail(), item.getID());
         notifyDataSetChanged();
     }
 
