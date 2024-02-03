@@ -23,6 +23,7 @@ import com.example.novapp2.R;
 import com.example.novapp2.entity.User;
 import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.entity.post.PostViewModel;
+import com.example.novapp2.service.MessageService;
 import com.example.novapp2.service.UserService;
 import com.example.novapp2.ui.home.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -109,17 +110,11 @@ public class PostDetailsFragment extends Fragment {
 
 
         setUpAuthorImage(view);
-
         setupChip();
-
         setupImage(view);
-
         setupFields(view);
-
         setupStudyGroupButton(view);
-
         fixBottomBar(view);
-
         setupFavoriteButtonListener();
 
 
@@ -158,15 +153,13 @@ public class PostDetailsFragment extends Fragment {
             gs_button.setOnClickListener(v ->{
                 List<String> groupChats = userService.getCurrentUser().getGroupChats();
                 if(!groupChats.contains(p.getDbId())){
-                    if (userService.getCurrentUser().isBicoccaUser) {
-                        groupChats.add(p.getDbId());
-                        UserService.updateUserById(userService.getCurrentUser().getID(), userService.getCurrentUser());
-                        String t = getString(R.string.in_group) + " " + p.getTitle() + "!";
+                    groupChats.add(p.getDbId());
+                    UserService.updateUserById(userService.getCurrentUser().getID(), userService.getCurrentUser());
+                    String t = getString(R.string.in_group) + " " + p.getTitle() + "!";
 
-                        Snackbar.make(view, t, Snackbar.LENGTH_SHORT).show();
-                    } else {
-                        Snackbar.make(view, R.string.group_is_bicocca, Snackbar.LENGTH_SHORT).show();
-                    }
+                    Snackbar.make(view, t, Snackbar.LENGTH_SHORT).show();
+                    MessageService.createMessage(userService.getCurrentUser().getEmail() + " " + R.string.join_group_chat_msg, userService.getCurrentUser().getEmail(), p.getDbId());
+
                 } else {
                     Snackbar.make(view, R.string.already_in, Snackbar.LENGTH_SHORT).show();
                 }
