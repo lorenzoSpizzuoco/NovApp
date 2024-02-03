@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class OpenChatFragment extends Fragment {
@@ -119,9 +120,9 @@ public class OpenChatFragment extends Fragment {
         });
 
         sendButton.setOnClickListener(v -> {
-            String content = messageContent.getEditText().getText().toString();
+            String content = Objects.requireNonNull(messageContent.getEditText()).getText().toString();
             if (!content.equals("")) {
-                MessageService.createMessage("alalal", content, HomeFragment.getActiveUser().getEmail(), groupId);
+                MessageService.createMessage(content, HomeFragment.getActiveUser().getEmail(), groupId);
                 messageContent.getEditText().setText("");
             }
         });

@@ -60,7 +60,7 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.novapp2.ui.dashboard.DashboardFragment"
+        android:name="com.example.novapp2.ui.home.dashboard.DashboardFragment"
         android:label="fragment_dashboard"
         tools:layout="@layout/fragment_dashboard">
         <action
@@ -71,7 +71,7 @@
 
     <fragment
         android:id="@+id/postDetailsFragmentFragment"
-        android:name="com.example.novapp2.ui.dashboard.PostDetailsFragment"
+        android:name="com.example.novapp2.ui.home.dashboard.PostDetailsFragment"
         android:label="fragment_post_details_fragment"
         tools:layout="@layout/fragment_post_details" >
         <argument

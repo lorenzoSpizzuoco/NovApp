@@ -1,14 +1,10 @@
-package com.example.novapp2.ui.dashboard;
+package com.example.novapp2.ui.home.dashboard;
 
 
-import android.content.res.ColorStateList;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavBackStackEntry;
@@ -18,15 +14,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 
 import com.bumptech.glide.Glide;
 import com.example.novapp2.R;
-import com.example.novapp2.entity.chat.group.GroupChat;
 import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.entity.post.PostViewModel;
 import com.example.novapp2.service.UserService;
@@ -42,8 +35,6 @@ import java.util.List;
 public class PostDetailsFragment extends Fragment {
 
     private static final String TAG = PostDetailsFragment.class.getSimpleName();
-
-    private ImageView image;
 
     private ImageView authorProfileImage;
 
@@ -75,9 +66,7 @@ public class PostDetailsFragment extends Fragment {
     }
 
     public static PostDetailsFragment newInstance(String param1, String param2) {
-        PostDetailsFragment fragment = new PostDetailsFragment();
-
-        return fragment;
+        return new PostDetailsFragment();
     }
 
     @Override
@@ -88,7 +77,7 @@ public class PostDetailsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate right layout based on post category
         Post p = PostDetailsFragmentArgs.fromBundle(getArguments()).getPost();
@@ -169,11 +158,15 @@ public class PostDetailsFragment extends Fragment {
             gs_button.setOnClickListener(v ->{
                 List<String> groupChats = HomeFragment.getActiveUser().getGroupChats();
                 if(!groupChats.contains(p.getDbId())){
-                    groupChats.add(p.getDbId());
-                    UserService.updateUserById(HomeFragment.getActiveUser().getID(), HomeFragment.getActiveUser());
-                    String t = getString(R.string.in_group) + " " + p.getTitle() + "!";
+                    if (HomeFragment.getActiveUser().isBicoccaUser) {
+                        groupChats.add(p.getDbId());
+                        UserService.updateUserById(HomeFragment.getActiveUser().getID(), HomeFragment.getActiveUser());
+                        String t = getString(R.string.in_group) + " " + p.getTitle() + "!";
 
-                    Snackbar.make(view, t, Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(view, t, Snackbar.LENGTH_SHORT).show();
+                    } else {
+                        Snackbar.make(view, R.string.group_is_bicocca, Snackbar.LENGTH_SHORT).show();
+                    }
                 } else {
                     Snackbar.make(view, R.string.already_in, Snackbar.LENGTH_SHORT).show();
                 }
@@ -213,7 +206,7 @@ public class PostDetailsFragment extends Fragment {
 
     private void setupImage(View view) {
         if (p.getCategory() != 2) {
-            image = view.findViewById(R.id.PostdetailsImageView);
+            ImageView image = view.findViewById(R.id.PostdetailsImageView);
 
             if (p.getPostImage() == null) {
                 image.setImageResource(p.getImage());

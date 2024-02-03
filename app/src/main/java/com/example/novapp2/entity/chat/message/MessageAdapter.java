@@ -19,7 +19,7 @@ import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter {
 
-    private List<Message> messageList;
+    private final List<Message> messageList;
 
     public MessageAdapter(List<Message> messages) {
         messageList = messages;
@@ -68,7 +68,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
     public class meMessageViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView contentView;
+        private final TextView contentView;
 
         public meMessageViewHolder(@NonNull View view)  {
             super(view);
@@ -86,13 +86,13 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
     public class otherMessageViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView contentView;
-        private TextView authorView;
+        private final TextView contentView;
+        private final TextView authorView;
 
         public otherMessageViewHolder(@NonNull View view)  {
             super(view);
-            contentView = (TextView) view.findViewById(R.id.messageContent);
-            authorView = (TextView) view.findViewById(R.id.messageAuthor);
+            contentView = view.findViewById(R.id.messageContent);
+            authorView = view.findViewById(R.id.messageAuthor);
         }
 
         public TextView getContentView() {

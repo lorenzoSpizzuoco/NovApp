@@ -1,29 +1,21 @@
-package com.example.novapp2.ui.dashboard;
+package com.example.novapp2.ui.home.dashboard;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
 
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.core.content.ContextCompat;
 
-
-import com.example.novapp2.entity.course.Course;
-import com.example.novapp2.entity.course.CourseAdapter;
 import com.example.novapp2.R;
 import com.example.novapp2.databinding.FragmentDashboardBinding;
 import com.example.novapp2.entity.post.Post;
@@ -33,12 +25,12 @@ import com.example.novapp2.utils.Utils;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.search.SearchBar;
 
-import androidx.appcompat.widget.SearchView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -49,7 +41,6 @@ public class DashboardFragment extends Fragment {
     private com.google.android.material.search.SearchView postSearchView;
 
     private SearchBar searchBar;
-    private RecyclerView postView;
     private PostViewModel postViewModel;
     private PostAdapter postAdapter;
     private List<Post> postList;
@@ -73,9 +64,7 @@ public class DashboardFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-        return root;
+        return binding.getRoot();
     }
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
@@ -130,7 +119,7 @@ public class DashboardFragment extends Fragment {
             searchBar.setFocusableInTouchMode(true);
             searchBar.requestFocus();
 
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.showSoftInput(searchBar, InputMethodManager.SHOW_IMPLICIT);
         });
     }
@@ -148,7 +137,7 @@ public class DashboardFragment extends Fragment {
     // setup recycler view showing posts
     private void setupPostRecyclerView(View view) {
         //post RecyclerView
-        postView = view.findViewById(R.id.courseView);
+        RecyclerView postView = view.findViewById(R.id.courseView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
         postView.setLayoutManager(linearLayoutManager);
 

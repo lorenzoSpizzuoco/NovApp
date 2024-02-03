@@ -6,10 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,18 +16,13 @@ import android.view.ViewGroup;
 import com.example.novapp2.MainActivity;
 import com.example.novapp2.R;
 import com.example.novapp2.entity.User;
-import com.example.novapp2.entity.chat.group.GroupChat;
-import com.example.novapp2.service.GroupChatsService;
 import com.example.novapp2.service.UserService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 
 public class HomeFragment extends Fragment {

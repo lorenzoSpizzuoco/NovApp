@@ -10,10 +10,10 @@ import java.util.List;
 public class MessageService {
     private static MessageRepositoryImpl messagesRepositoryImpl = new MessageRepositoryImpl();
 
-    public static Task<Void> createMessage(String ID, String content, String author, String groupID) {
+    public static Task<Void> createMessage(String content, String author, String groupID) {
         Date date = new Date();
         long timestamp = date.getTime();
-        return messagesRepositoryImpl.insertMessage(new Message(ID, content, author, timestamp), groupID);
+        return messagesRepositoryImpl.insertMessage(new Message("", content, author, timestamp), groupID);
     }
 
     public static Task<List<Message>> getMessages() {
