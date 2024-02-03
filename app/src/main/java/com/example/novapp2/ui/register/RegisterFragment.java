@@ -1,8 +1,6 @@
 package com.example.novapp2.ui.register;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +17,11 @@ import androidx.fragment.app.Fragment;
 import com.example.novapp2.MainActivity;
 import com.example.novapp2.R;
 import com.example.novapp2.service.UserService;
-import com.example.novapp2.utils.Utils;
+import com.example.novapp2.service.AuthService;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
@@ -121,11 +118,11 @@ public class RegisterFragment extends Fragment {
             Snackbar.make(view, R.string.empty_fields, Snackbar.LENGTH_SHORT).show();
             return false;
         }
-        else if (!Utils.isValidEmail(email)){
+        else if (!AuthService.isValidEmail(email)){
             Snackbar.make(view, R.string.wrong_email_format, Snackbar.LENGTH_SHORT).show();
             textInputLayoutEmail.startAnimation(animation);
             return false;
-        } else if (!Utils.isValidPassword(password)){
+        } else if (!AuthService.isValidPassword(password)){
             Snackbar.make(view, R.string.wrong_pass_format, Snackbar.LENGTH_SHORT).show();
             textInputLayoutPassword.startAnimation(animation);
             return false;

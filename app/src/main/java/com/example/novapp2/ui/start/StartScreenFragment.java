@@ -3,8 +3,7 @@ package com.example.novapp2.ui.start;
 import static com.example.novapp2.utils.Constants.USER_LOCAL_MAIL;
 import static com.example.novapp2.utils.Constants.USER_LOCAL_PASSWORD;
 
-import com.example.novapp2.ui.login.LoginFragment;
-import com.example.novapp2.utils.Utils;
+import com.example.novapp2.service.AuthService;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -35,7 +34,7 @@ public class StartScreenFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Context context = requireContext();
-        savedValuesMap = Utils.getUserCredentials(context);
+        savedValuesMap = AuthService.getUserCredentials(context);
         return inflater.inflate(R.layout.fragment_start_screen, container, false);
     }
 
@@ -48,7 +47,7 @@ public class StartScreenFragment extends Fragment {
     public void onStart() {
         super.onStart();
         if (null != savedValuesMap) {
-            Utils.signIn(savedValuesMap.get(USER_LOCAL_MAIL), savedValuesMap.get(USER_LOCAL_PASSWORD), requireActivity(), new Utils.SignInCallback() {
+            AuthService.signIn(savedValuesMap.get(USER_LOCAL_MAIL), savedValuesMap.get(USER_LOCAL_PASSWORD), requireActivity(), new AuthService.SignInCallback() {
                 @Override
                 public void onSignInSuccess() {
                     MainActivity.getNavController().navigate(R.id.action_start_to_home);

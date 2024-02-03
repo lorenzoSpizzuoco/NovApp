@@ -17,6 +17,7 @@ import android.widget.Button;
 
 import com.example.novapp2.MainActivity;
 import com.example.novapp2.R;
+import com.example.novapp2.service.AuthService;
 import com.example.novapp2.utils.Utils;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
@@ -61,11 +62,11 @@ public class LoginFragment extends Fragment {
             String email = Objects.requireNonNull(textInputLayoutEmail.getEditText()).getText().toString();
             String password = Objects.requireNonNull(textInputLayoutPassword.getEditText()).getText().toString();
 
-            if (Utils.isValidEmail(email) && Utils.isValidPassword(password)) {
-                Utils.signIn(email, password, requireActivity(), new Utils.SignInCallback() {
+            if (AuthService.isValidEmail(email) && AuthService.isValidPassword(password)) {
+                AuthService.signIn(email, password, requireActivity(), new AuthService.SignInCallback() {
                     @Override
                     public void onSignInSuccess() {
-                        Utils.saveUserCredentials(email, password, requireContext());
+                        AuthService.saveUserCredentials(email, password, requireContext());
                         MainActivity.getNavController().navigate(R.id.action_login_to_home);
                     }
 

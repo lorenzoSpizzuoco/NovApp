@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,12 +20,10 @@ import com.example.novapp2.entity.chat.group.GroupChatAdapter;
 import com.example.novapp2.service.GroupChatsService;
 import com.example.novapp2.ui.home.HomeFragment;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 
 public class ChatFragment extends Fragment {
@@ -52,23 +49,31 @@ public class ChatFragment extends Fragment {
             groupChats = new ArrayList<>();
 
             for (String id : userGroups) {
-                Task<GroupChat> groupChatTask = GroupChatsService.getGroupChatById(id);
-                groupChatTask.addOnCompleteListener(t -> {
-                    if (t.isSuccessful()) {
-                        GroupChat groupChat = t.getResult();
-                        groupChats.add(groupChat);
-
-                        GroupChatAdapter adapter = new GroupChatAdapter(groupChats);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-                        recyclerView.setAdapter(adapter);
-                    } else {
-                        Snackbar.make(requireView(), R.string.error_group_chat, Snackbar.LENGTH_SHORT).show();
-                    }
-                });
+                showChat(recyclerView, id);
             }
         } else {
-            recyclerView.setVisibility(View.GONE);
-            emptyView.setVisibility(View.VISIBLE);
+            showEmptyChats(emptyView, recyclerView);
         }
+    }
+
+    private static void showEmptyChats(TextView emptyView, RecyclerView recyclerView) {
+        recyclerView.setVisibility(View.GONE);
+        emptyView.setVisibility(View.VISIBLE);
+    }
+
+    private void showChat(RecyclerView recyclerView, String id) {
+        Task<GroupChat> groupChatTask = GroupChatsService.getGroupChatById(id);
+        groupChatTask.addOnCompleteListener(t -> {
+            if (t.isSuccessful()) {
+                GroupChat groupChat = t.getResult();
+                groupChats.add(groupChat);
+
+                GroupChatAdapter adapter = new GroupChatAdapter(groupChats);
+                recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+                recyclerView.setAdapter(adapter);
+            } else {
+                Snackbar.make(requireView(), R.string.error_group_chat, Snackbar.LENGTH_SHORT).show();
+            }
+        });
     }
 }

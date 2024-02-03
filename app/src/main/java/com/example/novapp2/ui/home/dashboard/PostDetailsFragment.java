@@ -107,17 +107,11 @@ public class PostDetailsFragment extends Fragment {
 
 
         setUpAuthorImage(view);
-
         setupChip();
-
         setupImage(view);
-
         setupFields(view);
-
         setupStudyGroupButton(view);
-
         fixBottomBar(view);
-
         setupFavoriteButtonListener();
 
 
@@ -164,7 +158,7 @@ public class PostDetailsFragment extends Fragment {
                     String t = getString(R.string.in_group) + " " + p.getTitle() + "!";
 
                     Snackbar.make(view, t, Snackbar.LENGTH_SHORT).show();
-                    MessageService.createMessage(HomeFragment.getActiveUser().getEmail() + " " + "joined the chat", HomeFragment.getActiveUser().getEmail(), p.getDbId());
+                    MessageService.createMessage(HomeFragment.getActiveUser().getEmail() + " " + R.string.join_group_chat_msg, HomeFragment.getActiveUser().getEmail(), p.getDbId());
 
                 } else {
                     Snackbar.make(view, R.string.already_in, Snackbar.LENGTH_SHORT).show();

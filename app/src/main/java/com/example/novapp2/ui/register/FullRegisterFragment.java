@@ -46,7 +46,6 @@ public class FullRegisterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_full_register, container, false);
     }
 
@@ -75,12 +74,11 @@ public class FullRegisterFragment extends Fragment {
         final Button finishButton = view.findViewById(R.id.full_register_end_flow_button);
         final Button imageButton = view.findViewById(R.id.full_register_image_button);
 
-        imageButton.setOnClickListener(v -> {
-            pickMedia.launch(new PickVisualMediaRequest.Builder()
-                    .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
-                    .build());
-        });
+        setUpImageButton(imageButton);
+        setUpFinishButton(args, inputName, inputSurname, inputBio, finishButton);
+    }
 
+    private void setUpFinishButton(Bundle args, TextInputLayout inputName, TextInputLayout inputSurname, TextInputLayout inputBio, Button finishButton) {
         finishButton.setOnClickListener(v -> {
             String name = inputName.getEditText().getText().toString();
             String surname = inputSurname.getEditText().getText().toString();
@@ -101,19 +99,30 @@ public class FullRegisterFragment extends Fragment {
                 );
             }
             else {
-                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getParentFragment().getActivity()).setTitle(R.string.event_photo)
-                        .setMessage(R.string.no_photo_reg)
-                        .setPositiveButton(R.string.ok_button, (di, i) -> {
-                            User updatedUser = new User(userId, name, email, surname, bio, null, null, isBicocca(email), "", null);
-                            udpateUser(updatedUser);
-                        })
-                        .setNegativeButton(R.string.dialog_close, (di, i) -> {
-                        });
-
-                builder.create();
-                builder.show();
-
+                createAlert(name, surname, bio, userId, email);
             }
+        });
+    }
+
+    private void createAlert(String name, String surname, String bio, String userId, String email) {
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getParentFragment().getActivity()).setTitle(R.string.event_photo)
+                .setMessage(R.string.no_photo_reg)
+                .setPositiveButton(R.string.ok_button, (di, i) -> {
+                    User updatedUser = new User(userId, name, email, surname, bio, null, null, isBicocca(email), "", null);
+                    udpateUser(updatedUser);
+                })
+                .setNegativeButton(R.string.dialog_close, (di, i) -> {
+                });
+
+        builder.create();
+        builder.show();
+    }
+
+    private void setUpImageButton(Button imageButton) {
+        imageButton.setOnClickListener(v -> {
+            pickMedia.launch(new PickVisualMediaRequest.Builder()
+                    .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
+                    .build());
         });
     }
 

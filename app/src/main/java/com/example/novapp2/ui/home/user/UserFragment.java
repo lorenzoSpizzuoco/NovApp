@@ -25,6 +25,7 @@ import com.example.novapp2.entity.User;
 import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.entity.post.PostViewModel;
 import com.example.novapp2.entity.post.SavedPostAdapter;
+import com.example.novapp2.service.AuthService;
 import com.example.novapp2.ui.home.HomeFragment;
 import com.example.novapp2.utils.Utils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -222,7 +223,7 @@ public class UserFragment extends Fragment {
     private void setupLogoutButton() {
         logoutButton.setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();
-            Utils.deleteUserCredentials(requireContext());
+            AuthService.deleteUserCredentials(requireContext());
             MainActivity.getNavController().navigate(R.id.action_to_login);
         });
     }
