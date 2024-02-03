@@ -126,19 +126,7 @@ public class PostViewModel extends AndroidViewModel {
 
     }
 
-    public MutableLiveData<List<Post>> getFavoritePosts() {
 
-        MutableLiveData<List<Post>> posts = new MutableLiveData<>();
-
-        userService.getSavedPost(userService.getCurrentUser().getID()).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                posts.postValue(task.getResult());
-            }
-        });
-
-        return posts;
-
-    }
 
 
     public void insert(Post post, Uri image) {

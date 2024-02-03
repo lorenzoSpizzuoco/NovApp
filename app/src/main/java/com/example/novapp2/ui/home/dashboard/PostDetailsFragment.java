@@ -25,6 +25,7 @@ import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.entity.post.PostViewModel;
 import com.example.novapp2.service.MessageService;
 import com.example.novapp2.service.UserService;
+import com.example.novapp2.ui.UserViewModel;
 import com.example.novapp2.ui.home.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.chip.Chip;
@@ -45,6 +46,8 @@ public class PostDetailsFragment extends Fragment {
     private TextView description;
 
     private static final UserService userService = new UserService();
+
+    private static final UserViewModel userViewModel = new UserViewModel();
 
     private TextView date;
 
@@ -120,7 +123,7 @@ public class PostDetailsFragment extends Fragment {
 
 
         // observing livedata
-        postViewModel.getIsFavorite(userService.getCurrentUser().getID(), p.getDbId()).observe(getViewLifecycleOwner(), favorite -> {
+        /*postViewModel.getIsFavorite(userService.getCurrentUser().getID(), p.getDbId()).observe(getViewLifecycleOwner(), favorite -> {
 
             Log.d(TAG, String.valueOf(favorite));
             if (favorite == 1) {
@@ -131,6 +134,18 @@ public class PostDetailsFragment extends Fragment {
             }
             p.setFavorite(favorite);
         });
+
+         */
+
+        if (userViewModel.isSaved(p)) {
+            favoriteIcon.setIconResource(R.drawable.ic_favorite_24);
+            p.setFavorite(1);
+        }
+        else {
+            favoriteIcon.setIconResource(R.drawable.baseline_favorite_border_24);
+            p.setFavorite(0);
+        }
+
     }
 
 
@@ -139,10 +154,17 @@ public class PostDetailsFragment extends Fragment {
         // click listener
         favoriteIcon.setOnClickListener(v -> {
             if (p.getFavorite() == 1) {
-                postViewModel.setFavorite(p.getDbId(), 0, p.getCategory());
+                p.setFavorite(0);
+                //postViewModel.setFavorite(p.getDbId(), 0, p.getCategory());
+                userViewModel.removeFavorite(p);
+                favoriteIcon.setIconResource(R.drawable.baseline_favorite_border_24);
             }
             else {
-                postViewModel.setFavorite(p.getDbId(), 1, p.getCategory());
+                p.setFavorite(1);
+                //postViewModel.setFavorite(p.getDbId(), 1, p.getCategory());
+                userViewModel.setFavorite(p);
+                favoriteIcon.setIconResource(R.drawable.ic_favorite_24);
+
             }
         });
     }

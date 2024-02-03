@@ -27,6 +27,7 @@ import com.example.novapp2.entity.post.PostViewModel;
 import com.example.novapp2.entity.post.SavedPostAdapter;
 import com.example.novapp2.service.UserService;
 import com.example.novapp2.service.AuthService;
+import com.example.novapp2.ui.UserViewModel;
 import com.example.novapp2.ui.home.HomeFragment;
 import com.example.novapp2.utils.Utils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -53,6 +54,7 @@ public class UserFragment extends Fragment {
     private PostViewModel postViewModel;
     private BottomSheetBehavior bottomSheetBehavior;
     private ImageView userImage;
+    private static UserViewModel userViewModel = new UserViewModel();
 
     private RecyclerView mySavedView;
 
@@ -186,7 +188,16 @@ public class UserFragment extends Fragment {
     }
 
     private void observeSavedPosts() {
-        postViewModel.getFavoritePosts().observe(getViewLifecycleOwner(), posts -> {
+        /*
+        userViewModel.getSavedPosts().observe(getViewLifecycleOwner(), posts -> {
+            postList.clear();
+            postList.addAll(posts);
+            savedPostAdapter.notifyDataSetChanged();
+        });
+
+         */
+
+        userViewModel.getSavedPosts().observe(getViewLifecycleOwner(), posts -> {
             postList.clear();
             postList.addAll(posts);
             savedPostAdapter.notifyDataSetChanged();
@@ -223,6 +234,7 @@ public class UserFragment extends Fragment {
     }
     private void setupLogoutButton() {
         logoutButton.setOnClickListener(v -> {
+            userService.setRemoteSaved();
             FirebaseAuth.getInstance().signOut();
             AuthService.deleteUserCredentials(requireContext());
             MainActivity.getNavController().navigate(R.id.action_to_login);
