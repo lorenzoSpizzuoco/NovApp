@@ -22,6 +22,7 @@ import com.example.novapp2.service.GroupChatsService;
 import com.example.novapp2.ui.home.HomeFragment;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +62,7 @@ public class ChatFragment extends Fragment {
                         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
                         recyclerView.setAdapter(adapter);
                     } else {
-                        //TODO error handling
+                        Snackbar.make(requireView(), R.string.error_group_chat, Snackbar.LENGTH_SHORT).show();
                     }
                 });
             }

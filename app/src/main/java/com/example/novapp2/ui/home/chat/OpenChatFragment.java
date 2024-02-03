@@ -42,9 +42,7 @@ import java.util.Objects;
 
 public class OpenChatFragment extends Fragment {
 
-    private List<Message> messages;
     private DatabaseReference mDatabase;
-    private ValueEventListener mListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

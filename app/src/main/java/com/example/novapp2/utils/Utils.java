@@ -16,8 +16,10 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.view.View;
 
 import com.example.novapp2.entity.post.Post;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 
@@ -36,6 +38,7 @@ public class Utils {
     public static void sortCourseByName(List<Post> courseList){
         courseList.sort(Comparator.comparing(Post::getTitle));
     }
+
 
     /* TODO remove this
     public static List<Post> sortCourseByString(List<Post> courseList, String newText) {

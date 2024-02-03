@@ -12,12 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.novapp2.R;
+import com.example.novapp2.service.MessageService;
+import com.example.novapp2.service.UserService;
 import com.example.novapp2.ui.home.HomeFragment;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
 public class GroupChatAdapter extends RecyclerView.Adapter<GroupChatViewHolder> {
-    private List<GroupChat> groupChats;
+    private final List<GroupChat> groupChats;
 
     public GroupChatAdapter(List<GroupChat> gChats) {
         groupChats = gChats;
@@ -42,6 +45,15 @@ public class GroupChatAdapter extends RecyclerView.Adapter<GroupChatViewHolder> 
                     .load(imageUrl)
                     .centerCrop().placeholder(R.drawable.analisi).into(holder.getImageView());
         }
+
+        holder.getDeleteButtonView().setOnClickListener(v -> {
+            groupChats.remove(item);
+            HomeFragment.getActiveUser().getGroupChats().remove(item.getID());
+            UserService.updateUserById(HomeFragment.getActiveUser().getID(), HomeFragment.getActiveUser());
+            Snackbar.make(v, R.string.removed_group_chat, Snackbar.LENGTH_SHORT).show();
+            MessageService.createMessage(HomeFragment.getActiveUser().getEmail() + " " + "left the chat", HomeFragment.getActiveUser().getEmail(), item.getID());
+            notifyDataSetChanged();
+        });
 
         holder.itemView.setOnClickListener(v -> {
             Bundle args = new Bundle();

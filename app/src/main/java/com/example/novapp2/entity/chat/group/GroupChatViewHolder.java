@@ -8,18 +8,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.novapp2.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class GroupChatViewHolder extends RecyclerView.ViewHolder {
 
     private final TextView titleView;
     private final TextView authorView;
     private final ImageView imageView;
+    private final FloatingActionButton deleteButtonView;
+
 
     public GroupChatViewHolder(@NonNull View view) {
         super(view);
         titleView = view.findViewById(R.id.groupTitleDisplay);
         authorView = view.findViewById(R.id.groupAuthorDisplay);
         imageView = view.findViewById(R.id.imageView);
+        deleteButtonView = view.findViewById(R.id.deleteButton);
     }
 
     public TextView getTitleView() {
@@ -32,5 +36,9 @@ public class GroupChatViewHolder extends RecyclerView.ViewHolder {
 
     public ImageView getImageView() {
         return imageView;
+    }
+
+    public FloatingActionButton getDeleteButtonView() {
+        return deleteButtonView;
     }
 }
