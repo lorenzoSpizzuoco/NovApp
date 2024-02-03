@@ -179,4 +179,12 @@ public class Post implements Parcelable{
                 String.valueOf(this.getCategory()) +
                 this.getContent();
     }
+
+
+    @Override
+    public boolean equals(Object p) {
+        if (p instanceof Post)
+            return ((Post) p).getDbId().equals(this.dbId);
+        return false;
+    }
 }

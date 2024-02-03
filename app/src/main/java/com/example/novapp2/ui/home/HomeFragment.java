@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment {
     private static final String TAG = HomeFragment.class.getSimpleName();
     //private static User activeUser;
     private UserViewModel userViewModel;
-
+    private final UserService userService = new UserService();
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +59,11 @@ public class HomeFragment extends Fragment {
         NavigationUI.setupWithNavController(navView, navController);
 
         userViewModel.getUser().observe(this.getViewLifecycleOwner(), activeUser -> {
+
+            userViewModel.getSavedPosts().observe(this.getViewLifecycleOwner(), savedPosts -> {
+                userService.getCurrentUser().setFavourites(savedPosts);
+            });
+
             Log.d(TAG, activeUser.getEmail());
             if (!userFullyRegistered(activeUser)) {
                 Bundle args = new Bundle();

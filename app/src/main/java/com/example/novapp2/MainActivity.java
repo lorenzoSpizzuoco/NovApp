@@ -9,6 +9,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.example.novapp2.entity.User;
+import com.example.novapp2.service.UserService;
 import com.example.novapp2.utils.FixCursorWindow;
 
 import java.io.BufferedReader;
@@ -25,6 +27,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     private static NavController navController ;
+    private final UserService userService = new UserService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +44,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        userService.setRemoteSaved();
+    }
+    @Override
     protected void onDestroy() {
         super.onDestroy();
+
 /*        String fileContents = "Hello world!";
         try (FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE)) {
             fos.write(fileContents.toByteArray());
