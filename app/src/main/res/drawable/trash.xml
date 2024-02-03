@@ -1,13 +1,9 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
+    android:viewportWidth="960"
+    android:viewportHeight="960">
   <path
-      android:pathData="m14.74,9 l-0.346,9m-4.788,0L9.26,9m9.968,-3.21c0.342,0.052 0.682,0.107 1.022,0.166m-1.022,-0.165L18.16,19.673a2.25,2.25 0,0 1,-2.244 2.077H8.084a2.25,2.25 0,0 1,-2.244 -2.077L4.772,5.79m14.456,0a48.108,48.108 0,0 0,-3.478 -0.397m-12,0.562c0.34,-0.059 0.68,-0.114 1.022,-0.165m0,0a48.11,48.11 0,0 1,3.478 -0.397m7.5,0v-0.916c0,-1.18 -0.91,-2.164 -2.09,-2.201a51.964,51.964 0,0 0,-3.32 0c-1.18,0.037 -2.09,1.022 -2.09,2.201v0.916m7.5,0a48.667,48.667 0,0 0,-7.5 0"
-      android:strokeLineJoin="round"
-      android:strokeWidth="1.5"
-      android:fillColor="#00000000"
-      android:strokeColor="?attr/colorPrimary"
-      android:strokeLineCap="round"/>
+      android:fillColor="#FF000000"
+      android:pathData="M280,840q-33,0 -56.5,-23.5T200,760v-520h-40v-80h200v-40h240v40h200v80h-40v520q0,33 -23.5,56.5T680,840L280,840ZM680,240L280,240v520h400v-520ZM360,680h80v-360h-80v360ZM520,680h80v-360h-80v360ZM280,240v520,-520Z"/>
 </vector>
