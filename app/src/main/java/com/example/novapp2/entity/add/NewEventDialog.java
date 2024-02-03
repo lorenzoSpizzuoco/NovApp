@@ -16,6 +16,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
+import android.text.InputFilter;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,7 @@ import com.example.novapp2.entity.User;
 import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.service.UserService;
 import com.example.novapp2.ui.home.HomeFragment;
+import com.example.novapp2.utils.Constants;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
@@ -127,16 +129,21 @@ public class NewEventDialog extends DialogFragment {
 
         super.onViewCreated(view, savedInstanceState);
 
-        saveEvent = view.findViewById(R.id.save_button_event);
+        eventTitle = view.findViewById(R.id.event_title_inner);
         eventPlaceInner = view.findViewById(R.id.event_place_inner);
+        eventDescInner = view.findViewById(R.id.event_desc_inner);
+
+        /*InputFilter[] filters = new InputFilter[1];
+        filters[0] = new InputFilter.LengthFilter(Constants.MAX_NUM_CHAR);
+        eventTitle.setFilters(filters);*/
+
+        saveEvent = view.findViewById(R.id.save_button_event);
         delPhoto = view.findViewById(R.id.fab_delete_photo);
         toolbar = view.findViewById(R.id.toolbar);
         eventDateText = view.findViewById(R.id.date_picker_input_text);
         eventDateTextInner = view.findViewById(R.id.date_input_text_inner);
-        eventDescInner = view.findViewById(R.id.event_desc_inner);
         photoButton = view.findViewById(R.id.event_photo_button);
         eventImageView = view.findViewById(R.id.event_photo_view);
-        eventTitle = view.findViewById(R.id.event_title_inner);
         eventDateTextInner.setInputType(InputType.TYPE_NULL);
 
         photoButton.setOnClickListener(v -> {

@@ -31,15 +31,18 @@ public class Constants {
     public static final String DB_USERS_IMAGES = "userImages";
 
     public static final String DB_USER_POSTS = "userPosts";
-    /*
-    * Variabili per gestire il file locale su dispositivo utente.
-    * */
+
+    // User data on local
     public static final String USER_LOCAL_FILE = "user_local_variables";
     public static final String USER_LOCAL_PASSWORD = "user_local_password";
     public static final String USER_LOCAL_MAIL = "user_local_mail";
 
     public static final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
 
+    // Onboarding
     public static final int NUM_PAGES = 3;
+
+    // Text input fields
+    public static final int MAX_NUM_CHAR = 20;
 
 }

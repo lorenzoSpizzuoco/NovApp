@@ -116,7 +116,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="?attr/floatingActionButtonSmallPrimaryStyle"
-                    android:contentDescription="@string/ima" />
+                    android:contentDescription="@string/chosen_image" />
 
                 <ImageView
                     android:layout_centerHorizontal="true"
