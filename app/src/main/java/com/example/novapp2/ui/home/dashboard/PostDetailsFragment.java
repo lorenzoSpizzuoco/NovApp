@@ -159,16 +159,13 @@ public class PostDetailsFragment extends Fragment {
             gs_button.setOnClickListener(v ->{
                 List<String> groupChats = HomeFragment.getActiveUser().getGroupChats();
                 if(!groupChats.contains(p.getDbId())){
-                    if (true){ //(HomeFragment.getActiveUser().isBicoccaUser) {
-                        groupChats.add(p.getDbId());
-                        UserService.updateUserById(HomeFragment.getActiveUser().getID(), HomeFragment.getActiveUser());
-                        String t = getString(R.string.in_group) + " " + p.getTitle() + "!";
+                    groupChats.add(p.getDbId());
+                    UserService.updateUserById(HomeFragment.getActiveUser().getID(), HomeFragment.getActiveUser());
+                    String t = getString(R.string.in_group) + " " + p.getTitle() + "!";
 
-                        Snackbar.make(view, t, Snackbar.LENGTH_SHORT).show();
-                        MessageService.createMessage(HomeFragment.getActiveUser().getEmail() + " " + "joined the chat", HomeFragment.getActiveUser().getEmail(), p.getDbId());
-                    } else {
-                        Snackbar.make(view, R.string.group_is_bicocca, Snackbar.LENGTH_SHORT).show();
-                    }
+                    Snackbar.make(view, t, Snackbar.LENGTH_SHORT).show();
+                    MessageService.createMessage(HomeFragment.getActiveUser().getEmail() + " " + "joined the chat", HomeFragment.getActiveUser().getEmail(), p.getDbId());
+
                 } else {
                     Snackbar.make(view, R.string.already_in, Snackbar.LENGTH_SHORT).show();
                 }
