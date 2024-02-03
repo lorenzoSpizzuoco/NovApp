@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
@@ -16,7 +18,9 @@ import android.view.ViewGroup;
 import com.example.novapp2.MainActivity;
 import com.example.novapp2.R;
 import com.example.novapp2.entity.User;
+import com.example.novapp2.entity.post.PostViewModel;
 import com.example.novapp2.service.UserService;
+import com.example.novapp2.ui.UserViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,8 +31,15 @@ import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
-    private static User activeUser;
+    //private static User activeUser;
+    private UserViewModel userViewModel;
 
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,48 +50,30 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+
         super.onViewCreated(view, savedInstanceState);
         BottomNavigationView navView = requireView().findViewById(R.id.nav_view);
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(navView, navController);
 
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        userViewModel.getUser().observe(this.getViewLifecycleOwner(), activeUser -> {
+            if (!userFullyRegistered(activeUser)) {
+                Bundle args = new Bundle();
+                args.putString("userId", activeUser.getID());
+                args.putString("userEmail", activeUser.getEmail());
+                NavController mainNavController = MainActivity.getNavController();
+                mainNavController.navigate(R.id.action_home_to_fullRegister, args);
+            }
+            else {
+                MainActivity.getNavController().navigate(R.id.action_home_to_login);
+            }
+        });
 
-        if (mAuth.getCurrentUser() != null) {
-            Task<User> activeUserTask = UserService.getUserById(mAuth.getCurrentUser().getUid());
-            activeUserTask.addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    activeUser = task.getResult();
-                    if(activeUser.getGroupChats() == null) {
-                        activeUser.setGroupChats(new ArrayList<>());
-                    }
-
-                    if (!userFullyRegistered(activeUser)) {
-                        Bundle args = new Bundle();
-                        args.putString("userId", activeUser.getID());
-                        args.putString("userEmail", activeUser.getEmail());
-
-
-                        NavController mainNavController = MainActivity.getNavController();
-                        mainNavController.navigate(R.id.action_home_to_fullRegister, args);
-                    }
-                } else {
-                    Snackbar.make(view, R.string.login_fail, Snackbar.LENGTH_SHORT).show();
-                }
-            });
-
-        } else {
-            MainActivity.getNavController().navigate(R.id.action_home_to_login);
-        }
-}
-
+    }
 
     private boolean userFullyRegistered(User user) {
         return !user.name.equals("") && !user.surname.equals("") && !user.bio.equals("");
     }
 
-    public static User getActiveUser(){
-        return activeUser;
-    }
 
 }

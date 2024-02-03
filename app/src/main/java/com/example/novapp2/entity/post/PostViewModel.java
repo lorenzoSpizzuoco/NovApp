@@ -40,9 +40,7 @@ public class PostViewModel extends AndroidViewModel {
     }
 
     public MutableLiveData<Integer> getIsFavorite(String user, String id) {
-
-
-
+        
         isFavorite = new MutableLiveData<Integer>();
 
         userService.getIsSaved(user, id).addOnCompleteListener(
