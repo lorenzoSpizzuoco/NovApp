@@ -27,9 +27,12 @@
         android:layout_height="64dp"
         android:layout_marginTop="48dp"
         app:layout_constraintStart_toStartOf="@+id/guideline_sx"
-        app:layout_constraintTop_toBottomOf="@+id/full_register_title">
+        app:layout_constraintTop_toBottomOf="@+id/full_register_title"
+        app:counterEnabled="true"
+        app:counterMaxLength="25">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/full_register_name_inner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/name"
@@ -43,9 +46,12 @@
         android:layout_height="64dp"
         android:layout_marginTop="48dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline_dx"
-        app:layout_constraintTop_toBottomOf="@+id/full_register_title">
+        app:layout_constraintTop_toBottomOf="@+id/full_register_title"
+        app:counterEnabled="true"
+        app:counterMaxLength="25">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/full_register_surname_inner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/surname"
@@ -56,17 +62,18 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/full_register_bio"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="100dp"
         android:layout_marginTop="45dp"
-        android:layout_marginBottom="220dp"
         android:hint="@string/full_register_bio_hint"
         android:textAlignment="gravity"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:counterEnabled="true"
+        app:counterMaxLength="250"
         app:layout_constraintEnd_toStartOf="@+id/guideline_dx"
         app:layout_constraintStart_toStartOf="@+id/guideline_sx"
         app:layout_constraintTop_toBottomOf="@+id/full_register_name">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/full_register_bio_inner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="top"
@@ -75,32 +82,66 @@
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- End flow button -->
-    <com.google.android.material.button.MaterialButton
-        style="@style/Widget.Material3.Button.ElevatedButton"
-        android:id="@+id/full_register_image_button"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/imageLinearLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/register_image"
-
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="32dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/guideline_dx"
         app:layout_constraintStart_toStartOf="@+id/guideline_sx"
-        app:layout_constraintTop_toBottomOf="@+id/full_register_bio"
-        app:layout_constraintVertical_bias="0.138" />
+        app:layout_constraintTop_toBottomOf="@+id/full_register_bio">
 
-    <!-- Guidelines -->
+        <!-- Bottone a sinistra -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/full_register_photo_button"
+            style="@style/Widget.Material3.Button.ElevatedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/event_photo_button" />
+
+        <!-- RelativeLayout a destra -->
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="150dp"
+            android:layout_marginStart="15dp">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_delete_photo"
+                style="?attr/floatingActionButtonSmallPrimaryStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:contentDescription="@string/chosen_image"
+                android:src="@drawable/x_close"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/full_register_photo_view"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/border_group_chat_view"
+                android:contentDescription="@string/chosen_image"
+                android:padding="10dp"
+                android:scaleType="centerCrop" />
+        </RelativeLayout>
+    </LinearLayout>
+
     <Button
         android:id="@+id/full_register_end_flow_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:text="@string/full_register_end_flow"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline_dx"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="@+id/guideline_sx"
-        app:layout_constraintTop_toBottomOf="@+id/full_register_bio"
-        app:layout_constraintVertical_bias="0.605" />
+        app:layout_constraintTop_toBottomOf="@+id/imageLinearLayout" />
+
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_sx"

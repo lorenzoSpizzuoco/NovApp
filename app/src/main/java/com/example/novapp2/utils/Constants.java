@@ -43,6 +43,7 @@ public class Constants {
     public static final int NUM_PAGES = 3;
 
     // Text input fields
-    public static final int MAX_NUM_CHAR = 20;
+    public static final int MAX_NUM_CHAR_SMALL_TEXT = 25;
+    public static final int MAX_NUM_CHAR_LONG_TEXT = 250;
 
 }

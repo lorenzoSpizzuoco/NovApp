@@ -14,10 +14,14 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
+import com.example.novapp2.R;
 import com.example.novapp2.entity.post.Post;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -68,6 +72,22 @@ public class Utils {
             vibrator.cancel();
             vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK));
         }
+    }
+
+    @NonNull
+    public static InputFilter[] setMaxCharFilter(int maxNumber, View view, Context context) {
+        InputFilter[] filters = new InputFilter[1];
+        filters[0] = (source, start, end, dest, dstart, dend) -> {
+            for (int i = start; i < end; i++) {
+                if (dest.length() >= maxNumber) {
+                    Snackbar.make(view, maxNumber + " " + context.getString(R.string.max_char_text), Snackbar.LENGTH_SHORT).show();
+                    vibration(context);
+                    return "";
+                }
+            }
+            return null;
+        };
+        return filters;
     }
 
 }

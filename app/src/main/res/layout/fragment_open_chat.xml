@@ -50,8 +50,8 @@
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/send_button"
         app:shapeAppearanceOverlay="@style/Circular"
-        app:iconTint="?attr/colorPrimary"
-        app:backgroundTint="?attr/colorOnPrimary"
+        app:iconTint="?attr/colorOnPrimary"
+        app:backgroundTint="?attr/colorPrimary"
         android:layout_width="0dp"
         app:icon="@drawable/send_fill0_wght400_grad0_opsz24"
         android:layout_height="wrap_content"
@@ -84,8 +84,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:text="TextView"
-        android:textStyle="italic"
 
         android:textColor="?attr/colorOnSurface"
         android:textAppearance="?attr/textAppearanceHeadline6"

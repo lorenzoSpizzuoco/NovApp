@@ -31,6 +31,7 @@ import com.example.novapp2.R;
 import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.service.UserService;
 import com.example.novapp2.utils.Constants;
+import com.example.novapp2.utils.Utils;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
@@ -120,18 +121,13 @@ public class NewEventDialog extends DialogFragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
 
         eventTitle = view.findViewById(R.id.event_title_inner);
         eventPlaceInner = view.findViewById(R.id.event_place_inner);
         eventDescInner = view.findViewById(R.id.event_desc_inner);
-
-        InputFilter[] filters = setMaxCharFilter();
-        eventTitle.setFilters(filters);
-        eventPlaceInner.setFilters(filters);
-
         saveEvent = view.findViewById(R.id.save_button_event);
         delPhoto = view.findViewById(R.id.fab_delete_photo);
         toolbar = view.findViewById(R.id.toolbar);
@@ -141,11 +137,15 @@ public class NewEventDialog extends DialogFragment {
         eventImageView = view.findViewById(R.id.event_photo_view);
         eventDateTextInner.setInputType(InputType.TYPE_NULL);
 
-        photoButton.setOnClickListener(v -> {
-            pickMedia.launch(new PickVisualMediaRequest.Builder()
-                    .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
-                    .build());
-        });
+        InputFilter[] filters = Utils.setMaxCharFilter(Constants.MAX_NUM_CHAR_SMALL_TEXT, requireView(), requireContext());
+        eventTitle.setFilters(filters);
+        eventPlaceInner.setFilters(filters);
+        filters = Utils.setMaxCharFilter(Constants.MAX_NUM_CHAR_LONG_TEXT, requireView(), requireContext());
+        eventDescInner.setFilters(filters);
+
+        photoButton.setOnClickListener(v -> pickMedia.launch(new PickVisualMediaRequest.Builder()
+                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
+                .build()));
 
         saveEvent.setOnClickListener(v -> {
             checkModal(view);
@@ -207,20 +207,6 @@ public class NewEventDialog extends DialogFragment {
 
     }
 
-    @NonNull
-    private InputFilter[] setMaxCharFilter() {
-        InputFilter[] filters = new InputFilter[1];
-        filters[0] = (source, start, end, dest, dstart, dend) -> {
-            for (int i = start; i < end; i++) {
-                if (dest.length() >= Constants.MAX_NUM_CHAR) {
-                    Snackbar.make(requireView(), Constants.MAX_NUM_CHAR + " " + getString(R.string.max_char_text), Snackbar.LENGTH_SHORT).show();
-                    return "";
-                }
-            }
-            return null;
-        };
-        return filters;
-    }
 
     @Override
     public void onStart() {

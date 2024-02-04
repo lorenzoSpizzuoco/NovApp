@@ -24,6 +24,7 @@ import com.example.novapp2.ui.UserViewModel;
 import com.example.novapp2.ui.home.HomeFragment;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ public class ChatFragment extends Fragment {
 
     private List<GroupChat> groupChats;
     private UserService userService = new UserService();
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,6 +57,7 @@ public class ChatFragment extends Fragment {
             for (String id : userGroups) {
                 showChat(recyclerView, id);
             }
+
         } else {
             showEmptyChats(emptyView, recyclerView);
         }

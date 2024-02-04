@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +29,8 @@ import com.example.novapp2.R;
 import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.service.UserService;
 import com.example.novapp2.ui.home.HomeFragment;
+import com.example.novapp2.utils.Constants;
+import com.example.novapp2.utils.Utils;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
@@ -139,6 +142,12 @@ public class NewRipetDialog extends DialogFragment {
         photoButton = view.findViewById(R.id.ripet_photo_button);
         eventImage = view.findViewById(R.id.ripet_photo_view);
         eventDateTextInner.setInputType(InputType.TYPE_NULL);
+
+        InputFilter[] filters = Utils.setMaxCharFilter(Constants.MAX_NUM_CHAR_SMALL_TEXT, requireView(), requireContext());
+        ripetTitle.setFilters(filters);
+        ripetPlace.setFilters(filters);
+        filters = Utils.setMaxCharFilter(Constants.MAX_NUM_CHAR_LONG_TEXT, requireView(), requireContext());
+        ripetDesc.setFilters(filters);
 
 
         photoButton.setOnClickListener(v -> {

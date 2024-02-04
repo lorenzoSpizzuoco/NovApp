@@ -58,7 +58,9 @@
                 android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
                 android:hint="@string/gs_title_hint"
-                android:inputType="textEmailAddress">
+                android:inputType="textEmailAddress"
+                app:counterEnabled="true"
+                app:counterMaxLength="25">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/new_gs_title_inner"
                     android:layout_width="match_parent"
@@ -77,7 +79,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
                 android:hint="@string/gs_desc"
-                android:inputType="textEmailAddress">
+                android:inputType="textEmailAddress"
+                app:counterEnabled="true"
+                app:counterMaxLength="250">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/new_gs_desc_inner"
                     android:layout_width="match_parent"
