@@ -2,6 +2,7 @@ package com.novapp.bclub.ui.home;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -26,7 +27,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class HomeFragment extends Fragment {
 
     private static final String TAG = HomeFragment.class.getSimpleName();
-    //private static User activeUser;
     private UserViewModel userViewModel;
     private final UserService userService = new UserService();
 
@@ -39,7 +39,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
@@ -65,12 +64,18 @@ public class HomeFragment extends Fragment {
                 NavController mainNavController = MainActivity.getNavController();
                 mainNavController.navigate(R.id.action_home_to_fullRegister, args);
             }
-            else {
-                //MainActivity.getNavController().navigate();
-                //MainActivity.getNavController().navigate(R.id.action_home_to_login);
-            }
         });
 
+        disableBackButton();
+    }
+
+    private void disableBackButton() {
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                // Disable back button
+            }
+        });
     }
 
     private boolean userFullyRegistered(User user) {

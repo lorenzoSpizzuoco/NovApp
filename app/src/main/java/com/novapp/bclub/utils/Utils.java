@@ -5,6 +5,7 @@ import static com.novapp.bclub.utils.Constants.DB_GS;
 import static com.novapp.bclub.utils.Constants.DB_INFOS;
 import static com.novapp.bclub.utils.Constants.DB_RIPET;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
