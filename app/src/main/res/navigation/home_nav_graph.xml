@@ -31,12 +31,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.novapp.bclub.ui.home.notifications.NotificationsFragment"
-        android:label="fragment_notifications"
-        tools:layout="@layout/fragment_notifications" />
-
-    <fragment
         android:id="@+id/navigation_profile"
         android:name="com.novapp.bclub.ui.home.user.UserFragment"
         android:label="fragment_user"
