@@ -36,7 +36,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/name"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:inputType="textCapWords"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Surname input field -->
@@ -55,7 +56,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/surname"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:inputType="textCapWords"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Bio input field -->
@@ -77,9 +79,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="top"
-            android:inputType="textMultiLine"
+            android:inputType="textMultiLine||textCapWords"
             android:singleLine="false"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout

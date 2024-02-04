@@ -61,12 +61,14 @@
                 android:hint="@string/event_title_hint"
                 android:inputType="textEmailAddress"
                 app:counterEnabled="true"
-                app:counterMaxLength="25">
+                app:counterMaxLength="25"
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/event_title_inner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -87,7 +89,7 @@
                     android:id="@+id/event_place_inner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:ignore="TextContrastCheck" />
+                    android:inputType="textCapWords"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -106,7 +108,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/event_desc_inner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
