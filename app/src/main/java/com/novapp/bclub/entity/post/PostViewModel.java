@@ -133,8 +133,16 @@ public class PostViewModel extends AndroidViewModel {
             Log.d(TAG, "doing insert " + post.getTitle());
             postService.insert(post, image).addOnCompleteListener(
                     t -> {
-                        doneLoading.setValue(true);
-                        calling = false;
+                        if (t.isSuccessful()) {
+                            doneLoading.setValue(true);
+                            calling = false;
+                        }
+                        else {
+                            Log.d(TAG, "FAIL CHIAMATA");
+                            doneLoading.setValue(true);
+                            calling = false;
+                        }
+
                     }
             );
         }

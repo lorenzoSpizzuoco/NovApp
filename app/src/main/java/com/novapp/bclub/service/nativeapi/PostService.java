@@ -75,6 +75,7 @@ public class PostService {
                                 Log.e(TAG, "Errore");
                             }
                         } else {
+                            taskCompletionSource.setException(new Exception("fail"));
                             Log.d(TAG, response.errorBody().toString());
                             Log.d(TAG, "Nessuna risposta");
                         }
