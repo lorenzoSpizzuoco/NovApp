@@ -16,7 +16,9 @@ import com.google.android.gms.tasks.TaskCompletionSource;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,6 +36,13 @@ public class PostService {
     public Task<Void> insert(Post post, Uri image) {
 
         TaskCompletionSource<Void> taskCompletionSource = new TaskCompletionSource<>();
+
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
+                .build();
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(PROFANITY_API_BASE_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
@@ -66,6 +75,7 @@ public class PostService {
                                 Log.e(TAG, "Errore");
                             }
                         } else {
+                            taskCompletionSource.setException(new Exception("fail"));
                             Log.d(TAG, response.errorBody().toString());
                             Log.d(TAG, "Nessuna risposta");
                         }

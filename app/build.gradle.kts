@@ -83,6 +83,9 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
 
+    // OkHttp
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    
     // Chat
     implementation("androidx.multidex:multidex:2.0.1")
 
