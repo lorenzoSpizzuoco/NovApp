@@ -190,7 +190,7 @@ public class NewGsDialog extends DialogFragment {
                     gsTitle.getText().toString(),
                     null,
                     userService.getCurrentUser().getEmail(),
-                    R.drawable.analisi,
+                    R.mipmap.ic_launcher,
                     null,
                     gsDesc.getText().toString(),
                     4,

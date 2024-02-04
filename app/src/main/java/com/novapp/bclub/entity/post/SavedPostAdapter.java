@@ -88,7 +88,7 @@ public class SavedPostAdapter extends  RecyclerView.Adapter{
                 Glide.with(context)
                         .load(postList.get(position).getPostImage())
                         .centerCrop()
-                        .placeholder(R.drawable.analisi)
+                        .placeholder(R.mipmap.ic_launcher)
                         .into(imageView);
 
             }

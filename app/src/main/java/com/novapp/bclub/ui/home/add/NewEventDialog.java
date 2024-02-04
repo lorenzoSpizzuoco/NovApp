@@ -228,7 +228,7 @@ public class NewEventDialog extends DialogFragment {
                     eventTitle.getText().toString(),
                     null,
                     userService.getCurrentUser().getEmail(),
-                    R.drawable.analisi,
+                    R.mipmap.ic_launcher,
                     null,
                     eventDescInner.getText().toString(),
                     1,

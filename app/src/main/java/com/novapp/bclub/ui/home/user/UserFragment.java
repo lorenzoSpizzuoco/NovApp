@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,21 +20,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.material.switchmaterial.SwitchMaterial;
-import com.novapp.bclub.MainActivity;
-import com.novapp.bclub.R;
-import com.novapp.bclub.databinding.FragmentUserBinding;
-import com.novapp.bclub.entity.user.User;
-import com.novapp.bclub.entity.post.Post;
-import com.novapp.bclub.entity.post.PostViewModel;
-import com.novapp.bclub.entity.post.SavedPostAdapter;
-import com.novapp.bclub.service.nativeapi.UserService;
-import com.novapp.bclub.service.nativeapi.AuthService;
-import com.novapp.bclub.entity.user.UserViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.auth.FirebaseAuth;
+import com.novapp.bclub.MainActivity;
+import com.novapp.bclub.R;
+import com.novapp.bclub.databinding.FragmentUserBinding;
+import com.novapp.bclub.entity.post.Post;
+import com.novapp.bclub.entity.post.PostViewModel;
+import com.novapp.bclub.entity.post.SavedPostAdapter;
+import com.novapp.bclub.entity.user.User;
+import com.novapp.bclub.entity.user.UserViewModel;
+import com.novapp.bclub.service.nativeapi.AuthService;
+import com.novapp.bclub.service.nativeapi.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,8 +105,6 @@ public class UserFragment extends Fragment {
         setupSettingsButton();
         setupLogoutButton();
         initializeBottomSheet();
-
-
         setUpDarkModeButton();
     }
 
@@ -117,14 +114,11 @@ public class UserFragment extends Fragment {
 
         nightModeButton.setChecked(isNightModeEnabled);
 
-        nightModeButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                }
+        nightModeButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             }
         });
     }
@@ -145,7 +139,7 @@ public class UserFragment extends Fragment {
                 Glide.with(requireView())
                         .load(imageUrl)
                         .centerCrop()
-                        .placeholder(R.drawable.analisi)
+                        .placeholder(R.mipmap.ic_launcher)
                         .into(userImage);
             }
 
@@ -239,11 +233,10 @@ public class UserFragment extends Fragment {
     }
 
     private void logout() {
-        MainActivity mainActivity = new MainActivity();
         userService.setRemoteSaved();
         FirebaseAuth.getInstance().signOut();
         AuthService.deleteUserCredentials(requireContext());
-        mainActivity.getNavController().navigate(R.id.action_to_login);
+        MainActivity.getNavController().navigate(R.id.action_to_login);
     }
 
 }

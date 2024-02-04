@@ -244,7 +244,7 @@ public class NewRipetDialog extends DialogFragment {
                     ripetTitle.getText().toString(),
                     null,
                     userService.getCurrentUser().getEmail(),
-                    R.drawable.analisi,
+                    R.mipmap.ic_launcher,
                     null,
                     ripetDesc.getText().toString(),
                     3,

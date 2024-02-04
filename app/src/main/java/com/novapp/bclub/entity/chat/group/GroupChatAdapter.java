@@ -80,7 +80,7 @@ public class GroupChatAdapter extends RecyclerView.Adapter<GroupChatViewHolder> 
         if (imageUrl != null) {
             Glide.with(holder.getImageView())
                     .load(imageUrl)
-                    .centerCrop().placeholder(R.drawable.analisi).into(holder.getImageView());
+                    .centerCrop().placeholder(R.mipmap.ic_launcher).into(holder.getImageView());
         }
     }
 

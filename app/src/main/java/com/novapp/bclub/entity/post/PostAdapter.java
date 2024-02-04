@@ -144,7 +144,7 @@ public class PostAdapter extends  RecyclerView.Adapter{
                 Glide.with(context)
                         .load(postList.get(position).getPostImage())
                         .centerCrop()
-                        .placeholder(R.drawable.analisi)
+                        .placeholder(R.mipmap.ic_launcher)
                         .into(imageView);
             }
 
@@ -266,7 +266,7 @@ public class PostAdapter extends  RecyclerView.Adapter{
                 Glide.with(context)
                         .load(postList.get(position).getPostImage())
                         .centerCrop()
-                        .placeholder(R.drawable.analisi)
+                        .placeholder(R.mipmap.ic_launcher)
                         .into(imageView);
             }
 

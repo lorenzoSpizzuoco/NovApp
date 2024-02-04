@@ -198,7 +198,7 @@ public class PostDetailsFragment extends Fragment {
                 Glide.with(view)
                         .load(p.getPostImage())
                         .centerCrop()
-                        .placeholder(R.drawable.analisi)
+                        .placeholder(R.mipmap.ic_launcher)
                         .into(image);
             }
         }
@@ -213,7 +213,7 @@ public class PostDetailsFragment extends Fragment {
                         Glide.with(view)
                                 .load(imageUrl)
                                 .centerCrop()
-                                .placeholder(R.drawable.analisi)
+                                .placeholder(R.mipmap.ic_launcher)
                                 .into(authorProfileImage);
                     }
                 }

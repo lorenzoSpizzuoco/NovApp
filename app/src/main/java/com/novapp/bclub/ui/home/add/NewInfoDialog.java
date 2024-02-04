@@ -166,7 +166,7 @@ public class NewInfoDialog extends DialogFragment {
                     infoTitle.getText().toString(),
                     null,
                     userService.getCurrentUser().getEmail(),
-                    R.drawable.analisi,
+                    R.mipmap.ic_launcher,
                     null,
                     infoDesc.getText().toString(),
                     2,
