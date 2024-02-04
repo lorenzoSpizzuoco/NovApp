@@ -3,25 +3,21 @@ package com.novapp.bclub.ui.start;
 import static com.novapp.bclub.utils.Constants.USER_LOCAL_MAIL;
 import static com.novapp.bclub.utils.Constants.USER_LOCAL_PASSWORD;
 
-import com.novapp.bclub.service.nativeapi.AuthService;
-
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.novapp.bclub.MainActivity;
 import com.novapp.bclub.R;
-import com.google.android.material.snackbar.Snackbar;
-
+import com.novapp.bclub.service.nativeapi.AuthService;
 
 import java.util.Map;
 
@@ -54,14 +50,12 @@ public class StartScreenFragment extends Fragment {
 
                 @Override
                 public void onSignInFailure() {
-                    Snackbar.make(getView(), R.string.error, Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(requireView(), R.string.error, Snackbar.LENGTH_SHORT).show();
                 }
             });
         } else {
             final Handler handler = new Handler();
-            handler.postDelayed(() -> {
-                MainActivity.getNavController().navigate(R.id.action_start_to_onboarding);
-            }, 1500);
+            handler.postDelayed(() -> MainActivity.getNavController().navigate(R.id.action_start_to_onboarding), 1500);
         }
     }
 

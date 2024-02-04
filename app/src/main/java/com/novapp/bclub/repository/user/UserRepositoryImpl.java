@@ -7,6 +7,8 @@ import static com.novapp.bclub.utils.Utils.getChildCategory;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.novapp.bclub.entity.user.User;
 import com.novapp.bclub.entity.post.Post;
 import com.novapp.bclub.sources.UserSource;
@@ -21,10 +23,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class UserRepositoryImpl implements IUserRepository{
 
-    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private static final String TAG = UserRepositoryImpl.class.getSimpleName();
 
     @Override
@@ -38,7 +41,7 @@ public class UserRepositoryImpl implements IUserRepository{
 
         mDatabase.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<User> users = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     User user = snapshot.getValue(User.class);
@@ -48,8 +51,7 @@ public class UserRepositoryImpl implements IUserRepository{
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Gestire eventuali errori di lettura dal database
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 taskCompletionSource.setException(databaseError.toException());
             }
         });
@@ -64,7 +66,7 @@ public class UserRepositoryImpl implements IUserRepository{
 
         mDatabase.child("users").orderByChild("email").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<User> users = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     User user = snapshot.getValue(User.class);
@@ -74,8 +76,7 @@ public class UserRepositoryImpl implements IUserRepository{
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Gestire eventuali errori di lettura dal database
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 taskCompletionSource.setException(databaseError.toException());
             }
         });
@@ -90,7 +91,7 @@ public class UserRepositoryImpl implements IUserRepository{
         mDatabase.child("users").orderByChild("id").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = new User();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     user = snapshot.getValue(User.class);
@@ -99,8 +100,7 @@ public class UserRepositoryImpl implements IUserRepository{
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Gestire eventuali errori di lettura dal database
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 taskCompletionSource.setException(databaseError.toException());
             }
         });
@@ -112,17 +112,16 @@ public class UserRepositoryImpl implements IUserRepository{
     public Task<Void> updateUserById(String userId, User updatedUser) {
         TaskCompletionSource<Void> taskCompletionSource = new TaskCompletionSource<>();
 
-        // Assuming mDatabase is your DatabaseReference instance
         DatabaseReference userRef = mDatabase.child("users").child(userId);
 
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     // The user with the given userId exists, update the user
                     userRef.setValue(updatedUser)
                             .addOnSuccessListener(aVoid -> taskCompletionSource.setResult(null))
-                            .addOnFailureListener(e -> taskCompletionSource.setException(e));
+                            .addOnFailureListener(taskCompletionSource::setException);
                 } else {
                     // User with the given userId does not exist
                     taskCompletionSource.setException(new Exception("User not found"));
@@ -130,7 +129,7 @@ public class UserRepositoryImpl implements IUserRepository{
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Handle any database error
                 taskCompletionSource.setException(databaseError.toException());
             }
@@ -164,7 +163,7 @@ public class UserRepositoryImpl implements IUserRepository{
                 .get().addOnCompleteListener(task -> {
                     if (!task.isSuccessful()) {
                         Log.d(TAG, "fail");
-                        taskCompletionSource.setException(task.getException());
+                        taskCompletionSource.setException(Objects.requireNonNull(task.getException()));
                     } else {
 
                         List<Post> postList = new ArrayList<>();
@@ -176,7 +175,7 @@ public class UserRepositoryImpl implements IUserRepository{
                             String mainChild = getChildCategory(cat);
 
                             // fetching single post
-                            Task<DataSnapshot> innerTask = mDatabase.child(mainChild).child(id).get();
+                            Task<DataSnapshot> innerTask = mDatabase.child(mainChild).child(Objects.requireNonNull(id)).get();
                             tasks.add(innerTask);
                         }
 
@@ -205,7 +204,7 @@ public class UserRepositoryImpl implements IUserRepository{
                 .get().addOnCompleteListener(task -> {
                     if (!task.isSuccessful()) {
                         Log.d(TAG, "fail");
-                        taskCompletionSource.setException(task.getException());
+                        taskCompletionSource.setException(Objects.requireNonNull(task.getException()));
                     } else {
 
                         List<Post> postList = new ArrayList<>();
@@ -217,6 +216,7 @@ public class UserRepositoryImpl implements IUserRepository{
                             String mainChild = getChildCategory(cat);
 
                             // fetching single post
+                            assert id != null;
                             Task<DataSnapshot> innerTask = mDatabase.child(mainChild).child(id).get();
                             tasks.add(innerTask);
                         }

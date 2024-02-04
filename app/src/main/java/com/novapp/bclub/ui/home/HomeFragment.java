@@ -1,6 +1,9 @@
 package com.novapp.bclub.ui.home;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -10,18 +13,12 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.novapp.bclub.MainActivity;
 import com.novapp.bclub.R;
 import com.novapp.bclub.entity.user.User;
-import com.novapp.bclub.service.nativeapi.UserService;
 import com.novapp.bclub.entity.user.UserViewModel;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.novapp.bclub.service.nativeapi.UserService;
 
 
 public class HomeFragment extends Fragment {
@@ -51,15 +48,14 @@ public class HomeFragment extends Fragment {
 
         userViewModel.getUser().observe(this.getViewLifecycleOwner(), activeUser -> {
 
-            userViewModel.getSavedPosts().observe(this.getViewLifecycleOwner(), savedPosts -> {
-                userService.getCurrentUser().setFavourites(savedPosts);
-            });
+            userViewModel.getSavedPosts().observe(this.getViewLifecycleOwner(), savedPosts -> userService.getCurrentUser().setFavourites(savedPosts));
 
             if (!userFullyRegistered(activeUser)) {
+                MainActivity mainActivity = new MainActivity();
                 Bundle args = new Bundle();
                 args.putString("userId", activeUser.getID());
                 args.putString("userEmail", activeUser.getEmail());
-                NavController mainNavController = MainActivity.getNavController();
+                NavController mainNavController = mainActivity.getNavController();
                 mainNavController.navigate(R.id.action_home_to_fullRegister, args);
             }
         });

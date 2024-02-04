@@ -178,5 +178,7 @@
     <string name="event_logout">You want to logout?</string>
     <string name="message_logout">You are going to logout, are you sure?</string>
     <string name="error_fullregister">Error in uploading your credentials, please retry</string>
+    <string name="event_data_pick">Pick the date for the event</string>
+    <string name="tag" translatable="false">TAG</string>
 
 </resources>

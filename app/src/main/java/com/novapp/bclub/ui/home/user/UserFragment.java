@@ -53,13 +53,10 @@ public class UserFragment extends Fragment {
     private ImageView userImage;
     private static final UserViewModel userViewModel = new UserViewModel();
 
-    private RecyclerView mySavedView;
-
     private List<Post> postList;
 
     private List<Post> userPosts;
 
-    private MaterialAlertDialogBuilder materialAlertDialogBuilder;
     private RecyclerView mySavedPostsRecyclerView;
 
     private RecyclerView userPostsRecyclerView;
@@ -72,13 +69,6 @@ public class UserFragment extends Fragment {
 
     public UserFragment() {
         // Required empty public constructor
-    }
-
-    public static UserFragment newInstance() {
-        UserFragment fragment = new UserFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -102,7 +92,6 @@ public class UserFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Inizializzazione e configurazione degli elementi dell'interfaccia utente
         userMail = view.findViewById(R.id.userMailTextVew);
         userHi = view.findViewById(R.id.userHiTextView);
         bottomSheet = view.findViewById(R.id.bottom_sheet);
@@ -226,9 +215,7 @@ public class UserFragment extends Fragment {
 
             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext()).setTitle(R.string.event_logout)
                     .setMessage(R.string.message_logout)
-                    .setPositiveButton(R.string.ok_button, (di, i) -> {
-                        logout();
-                    })
+                    .setPositiveButton(R.string.ok_button, (di, i) -> logout())
                     .setNegativeButton(R.string.dialog_close, (di, i) -> {
                     });
 
@@ -238,10 +225,11 @@ public class UserFragment extends Fragment {
     }
 
     private void logout() {
+        MainActivity mainActivity = new MainActivity();
         userService.setRemoteSaved();
         FirebaseAuth.getInstance().signOut();
         AuthService.deleteUserCredentials(requireContext());
-        MainActivity.getNavController().navigate(R.id.action_to_login);
+        mainActivity.getNavController().navigate(R.id.action_to_login);
     }
 
 }

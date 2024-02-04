@@ -8,33 +8,27 @@ import static com.novapp.bclub.utils.Utils.getChildCategory;
 import android.net.Uri;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
-import com.novapp.bclub.entity.post.GenericPost;
-import com.novapp.bclub.entity.post.Post;
-import com.novapp.bclub.service.nativeapi.GroupChatsService;
-import com.novapp.bclub.service.nativeapi.UserService;
-import com.novapp.bclub.sources.UserSource;
-import com.novapp.bclub.utils.Utils;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+import com.novapp.bclub.entity.post.GenericPost;
+import com.novapp.bclub.entity.post.Post;
+import com.novapp.bclub.service.nativeapi.GroupChatsService;
+import com.novapp.bclub.service.nativeapi.UserService;
+import com.novapp.bclub.sources.UserSource;
+import com.novapp.bclub.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class PostRepositoryImpl implements IPostRepository{
 
     private final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-
-    private final FirebaseStorage mStorage = FirebaseStorage.getInstance();
 
     private static final String TAG = PostRepositoryImpl.class.getSimpleName();
 
@@ -43,7 +37,6 @@ public class PostRepositoryImpl implements IPostRepository{
         TaskCompletionSource<Void> taskCompletionSource = new TaskCompletionSource<>();
 
         String id = mDatabase.child(DB_POSTS).push().getKey();
-        StorageReference storageRef = mStorage.getReference();
         String userId = UserSource.getUser().getID();
         post.setDbId(id);
 
@@ -59,59 +52,56 @@ public class PostRepositoryImpl implements IPostRepository{
             }
 
             Utils.uploadImage(image, mainChild, id).addOnCompleteListener(
-                    new OnCompleteListener<Uri>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Uri> task) {
-                            if (task.isSuccessful()) {
-                                Uri downloadUri = task.getResult();
-                                post.setPostImage(downloadUri.toString());
-                                Date date = new Date();
-                                long time = date.getTime();
-                                mDatabase.child(DB_POSTS).child(id).setValue(new GenericPost(id, time, post.getCategory()))
-                                        .addOnCompleteListener(task1 -> {
-                                            if (task1.isSuccessful()) {
-                                                String child = getChildCategory(post.getCategory());
-                                                mDatabase.child(child).child(id).setValue(post)
-                                                        .addOnCompleteListener(task2 -> {
-                                                            if (task2.isSuccessful()) {
+                    task -> {
+                        if (task.isSuccessful()) {
+                            Uri downloadUri = task.getResult();
+                            post.setPostImage(downloadUri.toString());
+                            Date date = new Date();
+                            long time = date.getTime();
+                            mDatabase.child(DB_POSTS).child(Objects.requireNonNull(id)).setValue(new GenericPost(id, time, post.getCategory()))
+                                    .addOnCompleteListener(task1 -> {
+                                        if (task1.isSuccessful()) {
+                                            String child = getChildCategory(post.getCategory());
+                                            mDatabase.child(child).child(id).setValue(post)
+                                                    .addOnCompleteListener(task2 -> {
+                                                        if (task2.isSuccessful()) {
 
-                                                                mDatabase.child(DB_USERS).child(userId).child(DB_USER_POSTS).child(id).setValue(category).addOnCompleteListener(
-                                                                        taskUser -> {
-                                                                              if (taskUser.isSuccessful()) {
-                                                                                  Log.d(TAG, "SUCCESS TASK");
-                                                                                  taskCompletionSource.setResult(null);
-                                                                              }
-                                                                              else {
-                                                                                  Log.e(TAG, taskUser.getException().toString());
-                                                                                  taskCompletionSource.setException(taskUser.getException());
-                                                                              }
-                                                                        }
-                                                                );
+                                                            mDatabase.child(DB_USERS).child(userId).child(DB_USER_POSTS).child(id).setValue(category).addOnCompleteListener(
+                                                                    taskUser -> {
+                                                                          if (taskUser.isSuccessful()) {
+                                                                              Log.d(TAG, "SUCCESS TASK");
+                                                                              taskCompletionSource.setResult(null);
+                                                                          }
+                                                                          else {
+                                                                              Log.e(TAG, Objects.requireNonNull(taskUser.getException()).toString());
+                                                                              taskCompletionSource.setException(taskUser.getException());
+                                                                          }
+                                                                    }
+                                                            );
 
-                                                                if(4 == post.getCategory()) {
-                                                                    UserSource.getUser().groupChats.add(id);
-                                                                    UserService.updateUserById(UserSource.getUser().userId, UserSource.getUser());
-                                                                    GroupChatsService.createGroupChat(id);
-                                                                }
-
-                                                            } else {
-                                                                taskCompletionSource.setException(task2.getException());
+                                                            if(4 == post.getCategory()) {
+                                                                UserSource.getUser().groupChats.add(id);
+                                                                UserService.updateUserById(UserSource.getUser().userId, UserSource.getUser());
+                                                                GroupChatsService.createGroupChat(id);
                                                             }
-                                                        });
-                                            } else {
-                                                taskCompletionSource.setException(task1.getException());
-                                            }
-                                        });
-                            } else {
-                                taskCompletionSource.setException(task.getException());
-                            }
+
+                                                        } else {
+                                                            taskCompletionSource.setException(Objects.requireNonNull(task2.getException()));
+                                                        }
+                                                    });
+                                        } else {
+                                            taskCompletionSource.setException(Objects.requireNonNull(task1.getException()));
+                                        }
+                                    });
+                        } else {
+                            taskCompletionSource.setException(Objects.requireNonNull(task.getException()));
                         }
                     });
         } else {
             Date date = new Date();
             long time = date.getTime();
             post.setPostImage(null);
-            mDatabase.child(DB_POSTS).child(id).setValue(new GenericPost(id, time, post.getCategory()))
+            mDatabase.child(DB_POSTS).child(Objects.requireNonNull(id)).setValue(new GenericPost(id, time, post.getCategory()))
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             String child = getChildCategory(post.getCategory());
@@ -125,17 +115,17 @@ public class PostRepositoryImpl implements IPostRepository{
                                                             taskCompletionSource.setResult(null);
                                                         }
                                                         else {
-                                                            Log.e(TAG, taskUser.getException().toString());
+                                                            Log.e(TAG, Objects.requireNonNull(taskUser.getException()).toString());
                                                             taskCompletionSource.setException(taskUser.getException());
                                                         }
                                                     }
                                             );
                                         } else {
-                                            taskCompletionSource.setException(task1.getException());
+                                            taskCompletionSource.setException(Objects.requireNonNull(task1.getException()));
                                         }
                                     });
                         } else {
-                            taskCompletionSource.setException(task.getException());
+                            taskCompletionSource.setException(Objects.requireNonNull(task.getException()));
                         }
                     });
         }
@@ -154,7 +144,7 @@ public class PostRepositoryImpl implements IPostRepository{
                 .get().addOnCompleteListener(task -> {
                     if (!task.isSuccessful()) {
                         Log.d(TAG, "fail");
-                        Log.e(TAG, task.getException().toString());
+                        Log.e(TAG, Objects.requireNonNull(task.getException()).toString());
                         taskCompletionSource.setException(task.getException());
 
                     } else {
@@ -164,6 +154,7 @@ public class PostRepositoryImpl implements IPostRepository{
                         // genericPosts
                         for (DataSnapshot ds : task.getResult().getChildren()) {
                             GenericPost postInfos = ds.getValue(GenericPost.class);
+                            assert postInfos != null;
                             String mainChild = getChildCategory(postInfos.getCategoria());
 
                             // fetching single post

@@ -1,7 +1,6 @@
 package com.novapp.bclub.ui.home.add;
 
 import android.app.Dialog;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -9,77 +8,44 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.ImageView;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.PickVisualMediaRequest;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.navigation.Navigation;
 
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.DateValidatorPointForward;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.textfield.TextInputEditText;
 import com.novapp.bclub.R;
 import com.novapp.bclub.entity.post.Post;
 import com.novapp.bclub.service.nativeapi.UserService;
 import com.novapp.bclub.utils.Constants;
 import com.novapp.bclub.utils.Utils;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.datepicker.CalendarConstraints;
-import com.google.android.material.datepicker.DateValidatorPointForward;
-import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 
 public class NewInfoDialog extends DialogFragment {
 
-    private static final String TAG = NewEventDialog.class.getSimpleName();
-    private Toolbar toolbar;
-    private DatePicker eventDatePicker;
-
     private final UserService userService = new UserService();
 
-    private TextInputLayout eventDateText;
-
-    private ImageView eventImage;
-
-    private Bitmap eventPhoto;
-
     private TextInputEditText eventDateTextInner;
-
-    private MaterialButton photoButton;
-
-    private FloatingActionButton delPhoto;
-
-    private Button saveEvent;
 
     private TextInputEditText infoTitle;
     private TextInputEditText infoPlace;
     private TextInputEditText infoDesc;
 
 
-
-    private ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
-
     public NewInfoDialog() {
         // Required empty public constructor
     }
 
-
-
-    public static NewInfoDialog newInstance(String param1, String param2) {
-        NewInfoDialog fragment = new NewInfoDialog();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -97,15 +63,14 @@ public class NewInfoDialog extends DialogFragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
         infoTitle = view.findViewById(R.id.new_info_title_inner);
         infoDesc = view.findViewById(R.id.new_info_desc_inner);
         infoPlace = view.findViewById(R.id.new_info_place_inner);
-        saveEvent = view.findViewById(R.id.save_button_info);
-        toolbar = view.findViewById(R.id.toolbar_info);
-        eventDateText = view.findViewById(R.id.date_picker_input_text_info);
+        Button saveEvent = view.findViewById(R.id.save_button_info);
+        Toolbar toolbar = view.findViewById(R.id.toolbar_info);
         eventDateTextInner = view.findViewById(R.id.date_input_text_inner_info);
         eventDateTextInner.setInputType(InputType.TYPE_NULL);
 
@@ -115,32 +80,25 @@ public class NewInfoDialog extends DialogFragment {
         filters = Utils.setMaxCharFilter(Constants.MAX_NUM_CHAR_LONG_TEXT, requireView(), requireContext());
         infoDesc.setFilters(filters);
 
-        eventDateTextInner.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        eventDateTextInner.setOnFocusChangeListener((v, sel) -> {
 
-            @Override
-            public void onFocusChange(View v, boolean sel) {
+            if(v.getId() == R.id.date_input_text_inner_info  && sel) {
 
-                if(v.getId() == R.id.date_input_text_inner_info  && sel) {
+                CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder()
+                        .setValidator(DateValidatorPointForward.now());
 
-                    CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder()
-                            .setValidator(DateValidatorPointForward.now());
+                MaterialDatePicker<Long> dp = MaterialDatePicker.Builder.datePicker()
+                        .setTitleText(getString(R.string.event_data_pick))
+                        .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                        .setCalendarConstraints(constraintsBuilder.build())
+                        .build();
 
-                    MaterialDatePicker<Long> dp = MaterialDatePicker.Builder.datePicker()
-                            .setTitleText("Seleziona la data dell'evento")
-                            .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-                            .setCalendarConstraints(constraintsBuilder.build())
-                            .build();
+                dp.show(getChildFragmentManager(), getString(R.string.tag));
 
-                    dp.show(getChildFragmentManager(), "TAG");
-
-                    dp.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
-                        @Override
-                        public void onPositiveButtonClick(Long selection) {
-                            String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date(selection));
-                            eventDateTextInner.setText(date);
-                        }
-                    });
-                }
+                dp.addOnPositiveButtonClickListener(selection -> {
+                    String date = new SimpleDateFormat(Constants.DATA_PATTERN, Locale.getDefault()).format(new Date(selection));
+                    eventDateTextInner.setText(date);
+                });
             }
         });
 
@@ -151,9 +109,7 @@ public class NewInfoDialog extends DialogFragment {
             return true;
         });
 
-        saveEvent.setOnClickListener(v -> {
-            checkModal();
-        });
+        saveEvent.setOnClickListener(v -> checkModal());
     }
 
     @Override
@@ -163,7 +119,7 @@ public class NewInfoDialog extends DialogFragment {
         if (dialog != null) {
             int width = ViewGroup.LayoutParams.MATCH_PARENT;
             int height = ViewGroup.LayoutParams.MATCH_PARENT;
-            dialog.getWindow().setLayout(width, height);
+            Objects.requireNonNull(dialog.getWindow()).setLayout(width, height);
             dialog.getWindow().setWindowAnimations(R.style.Theme_NovApp2_Slide);
         }
     }
@@ -172,33 +128,33 @@ public class NewInfoDialog extends DialogFragment {
         boolean valid = true;
 
         // checking event modal
-        if (eventDateTextInner.getText().toString().compareTo("") == 0) {
+        if (Objects.requireNonNull(eventDateTextInner.getText()).toString().compareTo("") == 0) {
             valid = false;
-            eventDateTextInner.setError(ContextCompat.getString(getContext(), R.string.date_error));
+            eventDateTextInner.setError(ContextCompat.getString(requireContext(), R.string.date_error));
         }
         else{
             eventDateTextInner.setError(null);
         }
 
-        if (infoTitle.getText().toString().compareTo("") == 0){
+        if (Objects.requireNonNull(infoTitle.getText()).toString().compareTo("") == 0){
             valid = false;
-            infoTitle.setError(ContextCompat.getString(getContext(), R.string.title_error));
+            infoTitle.setError(ContextCompat.getString(requireContext(), R.string.title_error));
         }
         else{
             infoTitle.setError(null);
         }
 
-        if(infoPlace.getText().toString().compareTo("") == 0) {
+        if(Objects.requireNonNull(infoPlace.getText()).toString().compareTo("") == 0) {
             valid = false;
-            infoPlace.setError(ContextCompat.getString(getContext(), R.string.place_error));
+            infoPlace.setError(ContextCompat.getString(requireContext(), R.string.place_error));
         }
         else{
             infoPlace.setError(null);
         }
 
-        if(infoDesc.getText().toString().compareTo("") == 0) {
+        if(Objects.requireNonNull(infoDesc.getText()).toString().compareTo("") == 0) {
             valid = false;
-            infoDesc.setError(ContextCompat.getString(getContext(), R.string.desc_error));
+            infoDesc.setError(ContextCompat.getString(requireContext(), R.string.desc_error));
         }
         else{
             infoDesc.setError(null);
@@ -219,7 +175,7 @@ public class NewInfoDialog extends DialogFragment {
                     0 ));
 
 
-            Navigation.findNavController(getParentFragment().getView()).navigate(R.id.action_navigation_add_to_loadingFragment, b);
+            Navigation.findNavController(requireParentFragment().requireView()).navigate(R.id.action_navigation_add_to_loadingFragment, b);
 
         }
 

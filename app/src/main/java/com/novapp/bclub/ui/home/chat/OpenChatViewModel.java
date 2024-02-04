@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class OpenChatViewModel extends AndroidViewModel {
 
@@ -32,7 +33,7 @@ public class OpenChatViewModel extends AndroidViewModel {
 
         if (lastMessage == null) {
 
-            lastMessage = new MutableLiveData<Message>();
+            lastMessage = new MutableLiveData<>();
 
             Task<GroupChat> getGroupByIdTask = GroupChatsService.getGroupChatById(groupId);
             getGroupByIdTask.addOnCompleteListener(task -> {
@@ -58,7 +59,7 @@ public class OpenChatViewModel extends AndroidViewModel {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String prevChildKey) {
                 Map<String, Object> value = (Map<String, Object>) dataSnapshot.getValue();
-                Message message = new Message(dataSnapshot.getKey(), (String) value.get("content"), (String) value.get("author"), (Long) value.get("timestamp"));
+                Message message = new Message(dataSnapshot.getKey(), (String) Objects.requireNonNull(value).get("content"), (String) value.get("author"), (Long) value.get("timestamp"));
                 lastMessage.setValue(message);
             }
 

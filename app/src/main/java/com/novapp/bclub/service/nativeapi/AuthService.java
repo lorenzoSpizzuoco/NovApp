@@ -48,8 +48,8 @@ public class AuthService {
     public static Map<String, String> getUserCredentials(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(USER_LOCAL_FILE, Context.MODE_PRIVATE);
         Map<String, String> credentials = new HashMap<>();
-        credentials.put(USER_LOCAL_MAIL, sharedPreferences.getString(USER_LOCAL_MAIL, null)); // Ritorna null se "Email" non esiste
-        credentials.put(USER_LOCAL_PASSWORD, sharedPreferences.getString(USER_LOCAL_PASSWORD, null)); // Ritorna null se "Password" non esiste
+        credentials.put(USER_LOCAL_MAIL, sharedPreferences.getString(USER_LOCAL_MAIL, null));
+        credentials.put(USER_LOCAL_PASSWORD, sharedPreferences.getString(USER_LOCAL_PASSWORD, null));
 
         return (credentials.get(USER_LOCAL_MAIL) != null && credentials.get(USER_LOCAL_PASSWORD) != null) ? credentials : null;
     }

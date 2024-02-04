@@ -7,6 +7,8 @@ import static com.novapp.bclub.utils.Utils.checkResponse;
 import android.net.Uri;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.novapp.bclub.entity.post.Post;
 import com.novapp.bclub.repository.post.IPostRepository;
 import com.novapp.bclub.repository.post.PostRepositoryImpl;
@@ -16,6 +18,7 @@ import com.google.android.gms.tasks.TaskCompletionSource;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -27,14 +30,13 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class PostService {
 
     public static final String TAG = PostService.class.getSimpleName();
-    private Retrofit retrofit;
 
-    private static IPostRepository postRepository = new PostRepositoryImpl();
+    private static final IPostRepository postRepository = new PostRepositoryImpl();
 
     public Task<Void> insert(Post post, Uri image) {
 
         TaskCompletionSource<Void> taskCompletionSource = new TaskCompletionSource<>();
-        retrofit = new Retrofit.Builder()
+        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(PROFANITY_API_BASE_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .build();
@@ -44,7 +46,7 @@ public class PostService {
                         "{comment: {text: \"" + post.getTitle() + " " + post.getContent() + "\" }, requestedAttributes: {PROFANITY:{}, TOXICITY:{}} }")
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
 
                         if (response.isSuccessful() && response.body() != null) {
                             try {
@@ -66,7 +68,7 @@ public class PostService {
                                 Log.e(TAG, "Errore");
                             }
                         } else {
-                            Log.d(TAG, response.errorBody().toString());
+                            Log.d(TAG, Objects.requireNonNull(response.errorBody()).toString());
                             Log.d(TAG, "Nessuna risposta");
                         }
 

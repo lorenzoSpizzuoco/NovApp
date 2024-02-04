@@ -1,5 +1,7 @@
 package com.novapp.bclub.entity.chat.message;
 
+import androidx.annotation.NonNull;
+
 public class Message {
 
     private String ID;
@@ -50,6 +52,7 @@ public class Message {
         this.timestamp = timestamp;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Message{" +

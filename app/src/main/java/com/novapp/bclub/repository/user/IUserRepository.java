@@ -9,23 +9,23 @@ import java.util.List;
 
 public interface IUserRepository {
 
-    public Task<Void> insertUser(User user);
+    Task<Void> insertUser(User user);
 
-    public Task<List<User>> getAllUsers();
+    Task<List<User>> getAllUsers();
 
-    public Task<User> getUserById(String userId);
+    Task<User> getUserById(String userId);
 
-    public Task<Void> updateUserById(String userId, User updatedUser);
+    Task<Void> updateUserById(String userId, User updatedUser);
 
-    public Task<User> getUserByEmail(String email);
+    Task<User> getUserByEmail(String email);
 
-    public Task<Void> insertSaved(String user, String postId, int category);
+    Task<Void> insertSaved(String user, String postId, int category);
 
-    public Task<Void> removeSaved(String user, String postId);
+    Task<Void> removeSaved(String user, String postId);
 
-    public Task<DataSnapshot> getIsSaved(String user, String postId);
+    Task<DataSnapshot> getIsSaved(String user, String postId);
 
-    public Task<List<Post>> getSavedPosts(String user);
+    Task<List<Post>> getSavedPosts(String user);
 
-    public Task<List<Post>> getUserPosts(String user);
+    Task<List<Post>> getUserPosts(String user);
 }

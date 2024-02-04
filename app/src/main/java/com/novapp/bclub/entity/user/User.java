@@ -92,11 +92,11 @@ public class User {
         this.favourites = favourites;
     }
 
-    public Boolean getBiccoccaUser() {
+    public Boolean getBicoccaUser() {
         return isBicoccaUser;
     }
 
-    public void setBiccoccaUser(Boolean biccoccaUser) {
+    public void setBicoccaUser(Boolean biccoccaUser) {
         isBicoccaUser = biccoccaUser;
     }
 

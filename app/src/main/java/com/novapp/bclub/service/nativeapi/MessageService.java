@@ -8,12 +8,12 @@ import java.util.Date;
 import java.util.List;
 
 public class MessageService {
-    private static MessageRepositoryImpl messagesRepositoryImpl = new MessageRepositoryImpl();
+    private static final MessageRepositoryImpl messagesRepositoryImpl = new MessageRepositoryImpl();
 
-    public static Task<Void> createMessage(String content, String author, String groupID) {
+    public static void createMessage(String content, String author, String groupID) {
         Date date = new Date();
         long timestamp = date.getTime();
-        return messagesRepositoryImpl.insertMessage(new Message("", content, author, timestamp), groupID);
+        messagesRepositoryImpl.insertMessage(new Message("", content, author, timestamp), groupID);
     }
 
     public static Task<List<Message>> getMessages() {

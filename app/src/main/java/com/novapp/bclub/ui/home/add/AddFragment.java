@@ -15,11 +15,6 @@ import com.novapp.bclub.R;
 
 public class AddFragment extends Fragment {
 
-    private Button newEvent;
-    private Button newGs;
-    private Button newInfo;
-    private Button newRipet;
-
 
     public AddFragment() {
         // Required empty public constructor
@@ -41,32 +36,23 @@ public class AddFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_add, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle newInstanceState) {
 
-        newGs = view.findViewById(R.id.new_gs_button);
-        newRipet = view.findViewById(R.id.new_ripetizioni_button);
-        newEvent = view.findViewById(R.id.new_event_button);
-        newInfo = view.findViewById(R.id.new_info_button);
+        Button newGs = view.findViewById(R.id.new_gs_button);
+        Button newRipet = view.findViewById(R.id.new_ripetizioni_button);
+        Button newEvent = view.findViewById(R.id.new_event_button);
+        Button newInfo = view.findViewById(R.id.new_info_button);
 
-        newGs.setOnClickListener(v -> {
-            new NewGsDialog().show(getChildFragmentManager(), null);
-        });
+        newGs.setOnClickListener(v -> new NewGsDialog().show(getChildFragmentManager(), null));
 
-        newRipet.setOnClickListener(v -> {
-            new NewRipetDialog().show(getChildFragmentManager(), null);
-        });
+        newRipet.setOnClickListener(v -> new NewRipetDialog().show(getChildFragmentManager(), null));
 
-        newEvent.setOnClickListener(v -> {
-            new NewEventDialog().show(getChildFragmentManager(), null);
-        });
+        newEvent.setOnClickListener(v -> new NewEventDialog().show(getChildFragmentManager(), null));
 
-        newInfo.setOnClickListener(v -> {
-            new NewInfoDialog().show(getChildFragmentManager(), null);
-        });
+        newInfo.setOnClickListener(v -> new NewInfoDialog().show(getChildFragmentManager(), null));
     }
 }

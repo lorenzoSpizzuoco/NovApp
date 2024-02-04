@@ -57,13 +57,7 @@ public class OpenChatFragment extends Fragment {
 
         emptyView.setVisibility(View.GONE);
         Bundle args = getArguments();
-        String groupId = args.getString("chatGroupId");
-
-        /*mDatabase = FirebaseDatabase.getInstance()
-                .getReference("groupChats")
-                .child(groupId)
-                .child("messages");*/
-
+        String groupId = Objects.requireNonNull(args).getString("chatGroupId");
 
         loadGroupChatMessages(groupName, recyclerView, groupId);
 
