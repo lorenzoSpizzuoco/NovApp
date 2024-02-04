@@ -104,7 +104,7 @@
             android:id="@+id/full_register_photo_button"
             style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_citnanto ontent"
+            android:layout_height="wrap_content"
             android:text="@string/event_photo_button" />
 
         <!-- RelativeLayout a destra -->

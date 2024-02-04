@@ -180,5 +180,7 @@
     <string name="error_fullregister">Error in uploading your credentials, please retry</string>
     <string name="event_data_pick">Pick the date for the event</string>
     <string name="tag" translatable="false">TAG</string>
+    <string name="onboarding_image">Onboarding image</string>
+    <string name="msg_hint">Type...</string>
 
 </resources>

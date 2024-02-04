@@ -182,4 +182,6 @@
     <string name="message_logout">Stai per disconnetterti, sei sicuro?</string>
     <string name="error_fullregister">C\'è stato un errore nell\'aggiornare il tuo profilo, per favore riprova</string>
     <string name="event_data_pick">Seleziona la data dell\'evento</string>
+    <string name="onboarding_image">Immagine del carosello</string>
+    <string name="msg_hint">Scrivi...</string>
 </resources>
