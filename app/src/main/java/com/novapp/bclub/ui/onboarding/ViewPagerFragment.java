@@ -46,10 +46,12 @@ public class ViewPagerFragment extends Fragment {
         loginButton = view.findViewById(R.id.login_button);
         loginButton.setVisibility(View.GONE);
         FloatingActionButton nextScreenButton = view.findViewById(R.id.next_button);
+        FloatingActionButton previousScreenButton = view.findViewById(R.id.previous_button);
 
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
+                previousScreenButton.setVisibility(View.VISIBLE);
                 super.onPageSelected(position);
                 togglePointer(position);
                 if (position == Constants.NUM_PAGES-1) {
@@ -57,6 +59,7 @@ public class ViewPagerFragment extends Fragment {
                     //toggleVisibility(View.VISIBLE, loginButton);
                     nextScreenButton.setVisibility(View.GONE);
                 } else {
+                    if (position == 0) previousScreenButton.setVisibility(View.GONE);
                     //toggleVisibility(View.GONE, loginButton);
                     loginButton.setVisibility(View.GONE);
                     nextScreenButton.setVisibility(View.VISIBLE);
@@ -69,6 +72,7 @@ public class ViewPagerFragment extends Fragment {
 
         loginButton.setOnClickListener(v -> MainActivity.getNavController().navigate(R.id.action_onboarding_to_login));
         nextScreenButton.setOnClickListener(v -> viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true));
+        previousScreenButton.setOnClickListener(v -> viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true));
     }
 
     private void togglePointer(int position) {

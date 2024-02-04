@@ -26,7 +26,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeFragment extends Fragment {
 
-    private static final String TAG = HomeFragment.class.getSimpleName();
     private UserViewModel userViewModel;
     private final UserService userService = new UserService();
 
@@ -56,7 +55,6 @@ public class HomeFragment extends Fragment {
                 userService.getCurrentUser().setFavourites(savedPosts);
             });
 
-            Log.d(TAG, activeUser.getEmail());
             if (!userFullyRegistered(activeUser)) {
                 Bundle args = new Bundle();
                 args.putString("userId", activeUser.getID());
