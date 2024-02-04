@@ -13,16 +13,17 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MessageRepositoryImpl implements IMessageRepository{
 
-    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
     @Override
     public Task<Void> insertMessage(Message message, String groupID) {
         String id = mDatabase.child("groupChats").child(groupID).child("messages").push().getKey();
         message.setID(id);
-        return mDatabase.child("groupChats").child(groupID).child("messages").child(id).setValue(message);
+        return mDatabase.child("groupChats").child(groupID).child("messages").child(Objects.requireNonNull(id)).setValue(message);
     }
 
     @Override
@@ -31,7 +32,7 @@ public class MessageRepositoryImpl implements IMessageRepository{
 
         mDatabase.child("messages").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<Message> messages = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Message message = snapshot.getValue(Message.class);
@@ -41,7 +42,7 @@ public class MessageRepositoryImpl implements IMessageRepository{
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 taskCompletionSource.setException(databaseError.toException());
             }
         });
@@ -81,7 +82,7 @@ public class MessageRepositoryImpl implements IMessageRepository{
 
         messageRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     messageRef.setValue(updatedMessage)
                             .addOnSuccessListener(aVoid -> taskCompletionSource.setResult(null))

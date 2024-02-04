@@ -37,7 +37,6 @@ import java.util.stream.Stream;
 public class DashboardFragment extends Fragment {
 
     private FragmentDashboardBinding binding;
-    private com.google.android.material.search.SearchView postSearchView;
 
     private SearchBar searchBar;
     private PostViewModel postViewModel;
@@ -83,7 +82,7 @@ public class DashboardFragment extends Fragment {
 
         setupSwipe();
 
-        setupSearchBar(view);
+        setupSearchBar();
 
         setupSearchView();
 
@@ -111,7 +110,7 @@ public class DashboardFragment extends Fragment {
 
     }
 
-    private void setupSearchBar(View view) {
+    private void setupSearchBar() {
 
         searchBar.setOnClickListener(v -> {
             searchBar.setFocusable(true);
@@ -205,7 +204,4 @@ public class DashboardFragment extends Fragment {
         binding = null;
     }
 
-    public void addItemsToList() {
-        Utils.sortCourseByName(postList);
-    }
 }

@@ -165,6 +165,7 @@
     <string name="top_cloud_onboarding">Nuvola superiore</string>
     <string name="bottom_cloud_onboarding">Nuvola inferiore</string>
     <string name="next_button">Bottone per la prossima pagina</string>
+    <string name="previous_button">Bottone per la pagine precedente</string>
     <string name="page_number_indicator">Indicatore del numero di pagina</string>
     <string name="settings">Settings</string>
     <string name="group_is_bicocca">Accesso permesso solo a utenti Bicocca</string>
@@ -180,4 +181,5 @@
     <string name="event_logout">Vuoi disconnetterti?</string>
     <string name="message_logout">Stai per disconnetterti, sei sicuro?</string>
     <string name="error_fullregister">C\'è stato un errore nell\'aggiornare il tuo profilo, per favore riprova</string>
+    <string name="event_data_pick">Seleziona la data dell\'evento</string>
 </resources>

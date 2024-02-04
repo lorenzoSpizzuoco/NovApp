@@ -1,13 +1,6 @@
 package com.novapp.bclub.utils;
 
 public class Constants {
-    public static final int DATABASE_VERSION = 1;
-
-    public static final int POST_DATABASE_VERSION = 4;
-    public static final String AD_DATABASE_NAME = "ad_db";
-
-    public static final String POST_DATABASE_NAME = "post_db";
-
     public static final String PROFANITY_API_BASE_URL = "https://commentanalyzer.googleapis.com/";
 
     public static final String CHECK_PROFANITY_ENDPOINT = "v1alpha1/comments:analyze";
@@ -45,5 +38,9 @@ public class Constants {
     // Text input fields
     public static final int MAX_NUM_CHAR_SMALL_TEXT = 25;
     public static final int MAX_NUM_CHAR_LONG_TEXT = 250;
+
+    public static final String DATA_PATTERN = "dd-MM-yyyy";
+
+    public static final String BICOCCA_REGEX = ".+@campus\\.unimib\\.it$";
 
 }

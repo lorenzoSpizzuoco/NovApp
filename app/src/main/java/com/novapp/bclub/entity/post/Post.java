@@ -168,13 +168,14 @@ public class Post implements Parcelable{
     }
 
 
+    @NonNull
     @Override
     public String toString() {
 
         return this.getTitle() +
                 " " +
                 dbId + " " +
-                String.valueOf(this.getCategory()) +
+                this.getCategory() +
                 this.getContent();
     }
 

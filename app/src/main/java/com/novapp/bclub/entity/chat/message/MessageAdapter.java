@@ -16,7 +16,7 @@ import java.util.List;
 public class MessageAdapter extends RecyclerView.Adapter {
 
     private final List<Message> messageList;
-    private UserService userService = new UserService();
+    private final UserService userService = new UserService();
 
     public MessageAdapter(List<Message> messages) {
         messageList = messages;

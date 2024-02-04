@@ -20,9 +20,9 @@ import java.util.List;
 
 public class SavedPostAdapter extends  RecyclerView.Adapter{
 
-    private Context context;
+    private final Context context;
     private List<Post> postList;
-    private PostAdapter.OnItemClickListener onItemClickListener;
+    private final PostAdapter.OnItemClickListener onItemClickListener;
 
     public SavedPostAdapter(Context context, List<Post> postList, PostAdapter.OnItemClickListener onItemClickListener) {
         this.postList = postList;

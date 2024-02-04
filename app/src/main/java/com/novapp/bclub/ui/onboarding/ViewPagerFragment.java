@@ -1,8 +1,5 @@
 package com.novapp.bclub.ui.onboarding;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
 import android.content.res.Resources;
 import android.os.Bundle;
 
@@ -46,34 +43,40 @@ public class ViewPagerFragment extends Fragment {
         loginButton = view.findViewById(R.id.login_button);
         loginButton.setVisibility(View.GONE);
         FloatingActionButton nextScreenButton = view.findViewById(R.id.next_button);
+        FloatingActionButton previousScreenButton = view.findViewById(R.id.previous_button);
 
-        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                togglePointer(position);
-                if (position == Constants.NUM_PAGES-1) {
-                    loginButton.setVisibility(View.VISIBLE);
-                    //toggleVisibility(View.VISIBLE, loginButton);
-                    nextScreenButton.setVisibility(View.GONE);
-                } else {
-                    //toggleVisibility(View.GONE, loginButton);
-                    loginButton.setVisibility(View.GONE);
-                    nextScreenButton.setVisibility(View.VISIBLE);
-                }
-            }
-        });
+        onPageChange(nextScreenButton, previousScreenButton);
 
         FragmentStateAdapter pagerAdapter = new ScreenSlidePagerAdapter(this);
         viewPager.setAdapter(pagerAdapter);
 
         loginButton.setOnClickListener(v -> MainActivity.getNavController().navigate(R.id.action_onboarding_to_login));
         nextScreenButton.setOnClickListener(v -> viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true));
+        previousScreenButton.setOnClickListener(v -> viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true));
+    }
+
+    private void onPageChange(FloatingActionButton nextScreenButton, FloatingActionButton previousScreenButton) {
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                previousScreenButton.setVisibility(View.VISIBLE);
+                super.onPageSelected(position);
+                togglePointer(position);
+                if (position == Constants.NUM_PAGES-1) {
+                    loginButton.setVisibility(View.VISIBLE);
+                    nextScreenButton.setVisibility(View.GONE);
+                } else {
+                    if (position == 0) previousScreenButton.setVisibility(View.GONE);
+                    loginButton.setVisibility(View.GONE);
+                    nextScreenButton.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     private void togglePointer(int position) {
         for (int i = 0; i < Constants.NUM_PAGES; i++) {
-            int id = 0;  // Move id inside the loop to get the correct id for each iteration
+            int id = 0;
             switch (i) {
                 case 0:
                     id = R.id.pointer0;
@@ -114,35 +117,6 @@ public class ViewPagerFragment extends Fragment {
 
     private void toggleActivePointer(View pointer) {
         setPointerSizeAndColor(pointer, ACTIVE_HEIGHT, androidx.transition.R.attr.colorPrimary);
-    }
-
-
-    private void toggleVisibility(int status, MaterialButton button) {
-        float from, to;
-        if (status == View.VISIBLE) {
-            from = 0f;
-            to = 1f;
-        } else {
-            from = 1f;
-            to = 0f;
-        }
-        ObjectAnimator fade = ObjectAnimator.ofFloat(button, "alpha", from, to);
-        fade.setDuration(100);
-        fade.start();
-
-        if (status == View.GONE) {
-            fade.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    super.onAnimationEnd(animation);
-                    // Set the visibility after the animation ends
-                    button.setVisibility(status);
-                }
-            });
-        } else {
-            button.setVisibility(status);
-        }
-
     }
 
     @Override

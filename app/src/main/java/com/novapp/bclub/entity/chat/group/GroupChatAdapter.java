@@ -56,9 +56,7 @@ public class GroupChatAdapter extends RecyclerView.Adapter<GroupChatViewHolder> 
 
             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(holder.getContext()).setTitle(R.string.event_leave_group_chat)
                     .setMessage(R.string.message_leave_group_chat)
-                    .setPositiveButton(R.string.ok_button, (di, i) -> {
-                        removeGroup(item, v);
-                    })
+                    .setPositiveButton(R.string.ok_button, (di, i) -> removeGroup(item, v))
                     .setNegativeButton(R.string.dialog_close, (di, i) -> {
                     });
 

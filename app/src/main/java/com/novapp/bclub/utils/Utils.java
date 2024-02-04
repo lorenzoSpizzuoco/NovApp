@@ -15,15 +15,13 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
-import com.novapp.bclub.R;
-import com.novapp.bclub.entity.post.Post;
-import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
+import com.novapp.bclub.R;
+import com.novapp.bclub.entity.post.Post;
 
 import java.util.Comparator;
 import java.util.List;
@@ -93,16 +91,13 @@ public class Utils {
         StorageReference imRef = ref.child(child).child(name + image.getLastPathSegment());
 
         return imRef.putFile(image).continueWithTask(
-                new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                    @Override
-                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                        if (!task.isSuccessful()) {
-                            throw Objects.requireNonNull(task.getException());
-                        }
-
-                        // Continue with the task to get the download URL
-                        return imRef.getDownloadUrl();
+                task -> {
+                    if (!task.isSuccessful()) {
+                        throw Objects.requireNonNull(task.getException());
                     }
+
+                    // Continue with the task to get the download URL
+                    return imRef.getDownloadUrl();
                 });
     }
 
