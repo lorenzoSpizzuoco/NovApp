@@ -59,7 +59,9 @@
                 android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
                 android:hint="@string/event_title_hint"
-                android:inputType="textEmailAddress">
+                android:inputType="textEmailAddress"
+                app:counterEnabled="true"
+                app:counterMaxLength="25">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/event_title_inner"
@@ -77,7 +79,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
                 android:hint="@string/event_place_text"
-                android:inputType="textEmailAddress">
+                android:inputType="textEmailAddress"
+                app:counterEnabled="true"
+                app:counterMaxLength="25">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/event_place_inner"
@@ -96,7 +100,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
                 android:hint="@string/event_desc"
-                android:inputType="textEmailAddress">
+                android:inputType="textEmailAddress"
+                app:counterEnabled="true"
+                app:counterMaxLength="250">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/event_desc_inner"
                     android:layout_width="match_parent"

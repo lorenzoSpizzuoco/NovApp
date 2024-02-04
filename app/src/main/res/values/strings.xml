@@ -176,5 +176,6 @@
     <string name="no_email_error">Email not avaible</string>
     <string name="event_logout">You want to logout?</string>
     <string name="message_logout">You are going to logout, are you sure?</string>
+    <string name="error_fullregister">Error in uploading your credentials, please retry</string>
 
 </resources>

@@ -179,4 +179,5 @@
     <string name="no_email_error">Email non disponibile</string>
     <string name="event_logout">Vuoi disconnetterti?</string>
     <string name="message_logout">Stai per disconnetterti, sei sicuro?</string>
+    <string name="error_fullregister">C\'è stato un errore nell\'aggiornare il tuo profilo, per favore riprova</string>
 </resources>
