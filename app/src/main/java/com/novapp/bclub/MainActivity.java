@@ -6,8 +6,10 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Bundle;
 
-import com.novapp.bclub.service.nativeapi.UserService;
 import com.novapp.bclub.R;
+
+import com.novapp.bclub.service.nativeapi.UserService;
+
 
 public class MainActivity extends AppCompatActivity {
 
