@@ -4,8 +4,11 @@ import static com.novapp.bclub.utils.Constants.API_KEY;
 import static com.novapp.bclub.utils.Constants.PROFANITY_API_BASE_URL;
 import static com.novapp.bclub.utils.Utils.checkResponse;
 
+import android.app.Application;
 import android.net.Uri;
 import android.util.Log;
+
+import androidx.lifecycle.MutableLiveData;
 
 import com.novapp.bclub.entity.post.Post;
 import com.novapp.bclub.repository.post.IPostRepository;
@@ -28,10 +31,17 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class PostService {
 
+
+
     public static final String TAG = PostService.class.getSimpleName();
     private Retrofit retrofit;
 
-    private static IPostRepository postRepository = new PostRepositoryImpl();
+    private IPostRepository postRepository;
+
+    public PostService(Application application) {
+        postRepository = new PostRepositoryImpl(application);
+    }
+
 
     public Task<Void> insert(Post post, Uri image) {
 
@@ -93,6 +103,10 @@ public class PostService {
 
     public Task<List<Post>> getAllPost() {
         return postRepository.getAllPost();
+    }
+
+    public MutableLiveData<List<Post>> getRoomSaved() {
+        return postRepository.getRoomSaved();
     }
 
 

@@ -2,6 +2,8 @@ package com.novapp.bclub.repository.post;
 
 import android.net.Uri;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.novapp.bclub.entity.post.Post;
 import com.google.android.gms.tasks.Task;
 
@@ -13,7 +15,7 @@ public interface IPostRepository {
 
     public Task<List<Post>> getAllPost();
 
-    // TODO getPostById(category, Id)
+    public MutableLiveData<List<Post>> getRoomSaved();
 
 
 

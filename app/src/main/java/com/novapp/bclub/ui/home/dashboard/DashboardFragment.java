@@ -54,6 +54,7 @@ public class DashboardFragment extends Fragment {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
         postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
         postList = new ArrayList<>();
         selectedCategories = new HashSet<>();

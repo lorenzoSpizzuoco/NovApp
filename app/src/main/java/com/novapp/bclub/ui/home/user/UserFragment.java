@@ -186,7 +186,16 @@ public class UserFragment extends Fragment {
     }
 
     private void observeSavedPosts() {
+        /*
         userViewModel.getSavedPosts().observe(getViewLifecycleOwner(), posts -> {
+            postList.clear();
+            postList.addAll(posts);
+            savedPostAdapter.notifyDataSetChanged();
+        });
+
+         */
+
+        postViewModel.getRoomSaved().observe(getViewLifecycleOwner(), posts -> {
             postList.clear();
             postList.addAll(posts);
             savedPostAdapter.notifyDataSetChanged();

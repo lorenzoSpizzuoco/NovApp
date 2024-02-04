@@ -5,13 +5,18 @@ import static com.novapp.bclub.utils.Constants.DB_USERS;
 import static com.novapp.bclub.utils.Constants.DB_USER_POSTS;
 import static com.novapp.bclub.utils.Utils.getChildCategory;
 
+import android.app.Application;
 import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
 
+import com.novapp.bclub.database.PostDao;
+import com.novapp.bclub.database.PostRoomDatabase;
 import com.novapp.bclub.entity.post.GenericPost;
 import com.novapp.bclub.entity.post.Post;
+import com.novapp.bclub.entity.user.User;
 import com.novapp.bclub.service.nativeapi.GroupChatsService;
 import com.novapp.bclub.service.nativeapi.UserService;
 import com.novapp.bclub.sources.UserSource;
@@ -37,6 +42,26 @@ public class PostRepositoryImpl implements IPostRepository{
     private final FirebaseStorage mStorage = FirebaseStorage.getInstance();
 
     private static final String TAG = PostRepositoryImpl.class.getSimpleName();
+    private PostDao postDao;
+    private UserService userService;
+
+    private MutableLiveData<List<Post>> savedRoomPosts;
+
+    public PostRepositoryImpl(Application application) {
+        PostRoomDatabase db = PostRoomDatabase.getDatabase(application);
+        postDao = db.postDao();
+        userService = new UserService();
+        savedRoomPosts = new MutableLiveData<List<Post>>();
+
+        userService.getSavedPost(userService.getCurrentUser().getID()).addOnCompleteListener(
+                task -> {
+                    if (task.isSuccessful()) {
+                        savedRoomPosts.postValue(task.getResult());
+                    }
+                }
+        );
+
+    }
 
     public Task<Void> insert(Post post, Uri image) {
 
@@ -186,4 +211,16 @@ public class PostRepositoryImpl implements IPostRepository{
 
         return taskCompletionSource.getTask();
     }
+
+
+    public MutableLiveData<List<Post>> getRoomSaved() {
+        return savedRoomPosts;
+    };
+
+    void insert(Post post) {
+        PostRoomDatabase.databaseWriteExecutor.execute(() -> {
+            postDao.insert(post);
+        });
+    }
+
 }

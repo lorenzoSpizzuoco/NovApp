@@ -20,20 +20,24 @@ public class PostViewModel extends AndroidViewModel {
 
     static final private String TAG = PostViewModel.class.getSimpleName();
 
-    private static final PostService postService = new PostService();
+    private final PostService postService;
 
-    private static final UserService userService = new UserService();
+    private final UserService userService = new UserService();
 
     private MutableLiveData<Integer> isFavorite = null;
     private final MutableLiveData<Boolean> doneLoading = new MutableLiveData<>();
     private final MutableLiveData<List<Post>> savedPosts = null;
+    private final MutableLiveData<List<Post>> roomSavedPosts;
     private MutableLiveData<List<Post>> userPosts;
-
     private MutableLiveData<List<Post>> allPost;
     private boolean calling = false;
 
     public PostViewModel (Application application) {
+
         super(application);
+        postService = new PostService(application);
+        roomSavedPosts = postService.getRoomSaved();
+
     }
 
     public MutableLiveData<Integer> getIsFavorite(String user, String id) {
@@ -175,5 +179,11 @@ public class PostViewModel extends AndroidViewModel {
             );
         }
         return userPosts;
+    }
+
+
+
+    public MutableLiveData<List<Post>> getRoomSaved() {
+        return savedPosts;
     }
 }
