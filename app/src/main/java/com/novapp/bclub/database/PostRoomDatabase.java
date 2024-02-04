@@ -23,7 +23,6 @@ import java.util.concurrent.Executors;
 public abstract class PostRoomDatabase extends RoomDatabase {
 
 
-
     public abstract PostDao postDao();
 
     private static volatile PostRoomDatabase INSTANCE;
@@ -45,17 +44,14 @@ public abstract class PostRoomDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
+    private static final RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
 
 
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-            // If you want to keep data through app restarts,
-            // comment out the following block
             databaseWriteExecutor.execute(() -> {
-                // Populate the database in the background.
-                // If you want to start with more words, just add them.
+
                 PostDao postDao = INSTANCE.postDao();
 
                 postDao.deleteAll();

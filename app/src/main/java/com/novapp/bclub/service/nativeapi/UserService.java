@@ -92,5 +92,5 @@ public class UserService {
         userRepositoryImpl.removeLocalFavorite(post);
     }
 
-    public void setRemoteSaved() { userRepositoryImpl.setRemoveSaved(); }
+    public void setRemoteSaved(List<Post> posts) { userRepositoryImpl.setRemoveSaved(posts); }
 }

@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.novapp.bclub.MainActivity;
 import com.novapp.bclub.R;
 import com.novapp.bclub.databinding.FragmentUserBinding;
+import com.novapp.bclub.entity.post.SavedPostsViewModel;
 import com.novapp.bclub.entity.user.User;
 import com.novapp.bclub.entity.post.Post;
 import com.novapp.bclub.entity.post.PostViewModel;
@@ -48,7 +49,8 @@ public class UserFragment extends Fragment {
 
     private SavedPostAdapter savedPostAdapter;
     private SavedPostAdapter userPostAdapter;
-    private PostViewModel postViewModel;
+    //private PostViewModel postViewModel = new ViewModelProvider(this).get(PostViewModel.class);;
+    private SavedPostsViewModel savedPostsViewModel;
     private BottomSheetBehavior bottomSheetBehavior;
     private ImageView userImage;
     private static final UserViewModel userViewModel = new UserViewModel();
@@ -65,6 +67,7 @@ public class UserFragment extends Fragment {
     private RecyclerView userPostsRecyclerView;
 
     private final UserService userService = new UserService();
+    private PostViewModel postViewModel;
     private FrameLayout bottomSheet;
     private User user;
     private FloatingActionButton settingsButton;
@@ -84,7 +87,7 @@ public class UserFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
+        savedPostsViewModel = new ViewModelProvider(this).get(SavedPostsViewModel.class);
         postList = new ArrayList<>();
         userPosts = new ArrayList<>();
     }
@@ -116,8 +119,8 @@ public class UserFragment extends Fragment {
         setupUserProfile();
         setupSavedPostsRecyclerView();
         setupUserPostsRecyclerView();
-        observeSavedPosts();
-        observeUserPosts();
+        //observeSavedPosts();
+        //observeUserPosts();
         setupSettingsButton();
         setupLogoutButton();
         initializeBottomSheet();
@@ -186,22 +189,24 @@ public class UserFragment extends Fragment {
     }
 
     private void observeSavedPosts() {
-        /*
-        userViewModel.getSavedPosts().observe(getViewLifecycleOwner(), posts -> {
+
+        savedPostsViewModel.getSavedPosts().observe(getViewLifecycleOwner(), posts -> {
             postList.clear();
             postList.addAll(posts);
             savedPostAdapter.notifyDataSetChanged();
         });
-
-         */
+    }
+    /*
 
         postViewModel.getRoomSaved().observe(getViewLifecycleOwner(), posts -> {
             postList.clear();
             postList.addAll(posts);
             savedPostAdapter.notifyDataSetChanged();
         });
-    }
 
+
+    }
+ */
     private void observeUserPosts() {
         postViewModel.getUserPosts().observe(getViewLifecycleOwner(), posts -> {
             userPosts.clear();
@@ -209,6 +214,8 @@ public class UserFragment extends Fragment {
             userPostAdapter.notifyDataSetChanged();
         });
     }
+
+
 
     private void initializeBottomSheet() {
         if (getView() == null) return;
@@ -247,7 +254,7 @@ public class UserFragment extends Fragment {
     }
 
     private void logout() {
-        userService.setRemoteSaved();
+        //userService.setRemoteSaved();
         FirebaseAuth.getInstance().signOut();
         AuthService.deleteUserCredentials(requireContext());
         MainActivity.getNavController().navigate(R.id.action_to_login);

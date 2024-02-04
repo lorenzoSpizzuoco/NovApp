@@ -257,8 +257,8 @@ public class UserRepositoryImpl implements IUserRepository{
         UserSource.getUser().favourites.remove(post);
     }
 
-    public void setRemoveSaved() {
-        ArrayList<Post> posts = (ArrayList<Post>) UserSource.getUser().getFavourites();
+    public void setRemoveSaved(List<Post> posts) {
+        //ArrayList<Post> posts = (ArrayList<Post>) UserSource.getUser().getFavourites();
         String userId = UserSource.getUser().getID();
 
         mDatabase.child(DB_USERS).child(userId).child(DB_SAVEDPOSTS).removeValue();

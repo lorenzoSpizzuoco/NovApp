@@ -10,10 +10,12 @@ import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.novapp.bclub.database.PostDao;
 import com.novapp.bclub.database.PostRoomDatabase;
+import com.novapp.bclub.database.PostRoomDatabase_Impl;
 import com.novapp.bclub.entity.post.GenericPost;
 import com.novapp.bclub.entity.post.Post;
 import com.novapp.bclub.entity.user.User;
@@ -48,21 +50,10 @@ public class PostRepositoryImpl implements IPostRepository{
     private MutableLiveData<List<Post>> savedRoomPosts;
 
     public PostRepositoryImpl(Application application) {
-
         PostRoomDatabase db = PostRoomDatabase.getDatabase(application);
         postDao = db.postDao();
         userService = new UserService();
-        savedRoomPosts = new MutableLiveData<List<Post>>();
-
-        userService.getSavedPost(userService.getCurrentUser().getID()).addOnCompleteListener(
-                task -> {
-                    if (task.isSuccessful()) {
-                        savedRoomPosts.postValue(task.getResult());
-                    }
-                }
-        );
-
-    }
+    };
 
     public Task<Void> insert(Post post, Uri image) {
 
@@ -215,12 +206,44 @@ public class PostRepositoryImpl implements IPostRepository{
 
 
     public MutableLiveData<List<Post>> getRoomSaved() {
+
+        if (savedRoomPosts == null) {
+            savedRoomPosts = new MutableLiveData<List<Post>>();
+            userService.getSavedPost(userService.getCurrentUser().getID()).addOnCompleteListener(
+                    task -> {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "TASK SUCCESS");
+                            savedRoomPosts.postValue(task.getResult());
+                            for (Post p : task.getResult()) {
+                                insertLocal(p);
+                            }
+                        }
+                    }
+            );
+        }
+
         return savedRoomPosts;
     };
 
-    void insert(Post post) {
+    public void insertLocal(Post post) {
         PostRoomDatabase.databaseWriteExecutor.execute(() -> {
             postDao.insert(post);
+        });
+    }
+
+    public LiveData<Post> isFavorite(Post p) {
+        return postDao.getPost(p.getDbId());
+    }
+
+    public void removeSaved(Post p) {
+        PostRoomDatabase.databaseWriteExecutor.execute(() -> {
+            postDao.delete(p);
+        });
+    }
+
+    public void deleteAll() {
+        PostRoomDatabase.databaseWriteExecutor.execute(() -> {
+            postDao.deleteAll();
         });
     }
 

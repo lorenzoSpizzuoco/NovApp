@@ -28,7 +28,7 @@ public class PostViewModel extends AndroidViewModel {
     private MutableLiveData<Integer> isFavorite = null;
     private final MutableLiveData<Boolean> doneLoading = new MutableLiveData<>();
     private final MutableLiveData<List<Post>> savedPosts = null;
-    private final MutableLiveData<List<Post>> roomSavedPosts;
+    //private final MutableLiveData<List<Post>> roomSavedPosts;
     private MutableLiveData<List<Post>> userPosts;
     private MutableLiveData<List<Post>> allPost;
     private boolean calling = false;
@@ -37,7 +37,7 @@ public class PostViewModel extends AndroidViewModel {
 
         super(application);
         postService = new PostService(application);
-        roomSavedPosts = postService.getRoomSaved();
+        //roomSavedPosts = postService.getRoomSaved();
 
     }
 

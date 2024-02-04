@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavBackStackEntry;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.novapp.bclub.R;
 import com.novapp.bclub.entity.post.Post;
 import com.novapp.bclub.entity.post.PostViewModel;
+import com.novapp.bclub.entity.post.SavedPostsViewModel;
 import com.novapp.bclub.service.nativeapi.MessageService;
 import com.novapp.bclub.service.nativeapi.UserService;
 import com.novapp.bclub.entity.user.UserViewModel;
@@ -45,6 +47,8 @@ public class PostDetailsFragment extends Fragment {
     private static final UserService userService = new UserService();
 
     private static final UserViewModel userViewModel = new UserViewModel();
+
+    private SavedPostsViewModel savedPostsViewModel;
 
     private TextView date;
 
@@ -77,6 +81,7 @@ public class PostDetailsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
+        savedPostsViewModel = new ViewModelProvider(this).get(SavedPostsViewModel.class);
 
     }
 
@@ -107,8 +112,6 @@ public class PostDetailsFragment extends Fragment {
         favoriteIcon = view.findViewById(R.id.imageview_favorite_post);
         username = view.findViewById(R.id.user_name_post);
 
-
-
         setUpAuthorImage(view);
         setupChip();
         setupImage(view);
@@ -116,35 +119,28 @@ public class PostDetailsFragment extends Fragment {
         setupStudyGroupButton(view);
         fixBottomBar(view);
         setupFavoriteButtonListener();
-
-
-
-        // observing livedata
-        /*postViewModel.getIsFavorite(userService.getCurrentUser().getID(), p.getDbId()).observe(getViewLifecycleOwner(), favorite -> {
-
-            Log.d(TAG, String.valueOf(favorite));
-            if (favorite == 1) {
-                favoriteIcon.setIconResource(R.drawable.ic_favorite_24);
-            }
-            else {
-                favoriteIcon.setIconResource(R.drawable.baseline_favorite_border_24);
-            }
-            p.setFavorite(favorite);
-        });
-
-         */
-
-        if (userViewModel.isSaved(p)) {
-            favoriteIcon.setIconResource(R.drawable.ic_favorite_24);
-            p.setFavorite(1);
-        }
-        else {
-            favoriteIcon.setIconResource(R.drawable.baseline_favorite_border_24);
-            p.setFavorite(0);
-        }
+        observeIsFavorite();
 
     }
 
+    private void observeIsFavorite() {
+
+        savedPostsViewModel.isFavorite(p).observe(getViewLifecycleOwner(), post -> {
+            Log.d(TAG, p.getDbId());
+            //Log.d(TAG, post.toString());
+
+            if (post != null) {
+                Log.d(TAG, "salvato");
+                favoriteIcon.setIconResource(R.drawable.ic_favorite_24);
+                p.setFavorite(1);
+            }
+            else {
+                Log.d(TAG, "non salvato");
+                favoriteIcon.setIconResource(R.drawable.baseline_favorite_border_24);
+                p.setFavorite(0);
+            }
+        });
+    }
 
     private void setupFavoriteButtonListener() {
 
@@ -152,14 +148,12 @@ public class PostDetailsFragment extends Fragment {
         favoriteIcon.setOnClickListener(v -> {
             if (p.getFavorite() == 1) {
                 p.setFavorite(0);
-                //postViewModel.setFavorite(p.getDbId(), 0, p.getCategory());
-                userViewModel.removeFavorite(p);
+                savedPostsViewModel.removeSaved(p);
                 favoriteIcon.setIconResource(R.drawable.baseline_favorite_border_24);
             }
             else {
                 p.setFavorite(1);
-                //postViewModel.setFavorite(p.getDbId(), 1, p.getCategory());
-                userViewModel.setFavorite(p);
+                savedPostsViewModel.savePost(p);
                 favoriteIcon.setIconResource(R.drawable.ic_favorite_24);
 
             }
@@ -230,7 +224,6 @@ public class PostDetailsFragment extends Fragment {
                         .into(image);
             }
         }
-
     }
 
     private void setUpAuthorImage(View view) {

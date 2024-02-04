@@ -8,11 +8,13 @@ import android.app.Application;
 import android.net.Uri;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.novapp.bclub.entity.post.Post;
 import com.novapp.bclub.repository.post.IPostRepository;
 import com.novapp.bclub.repository.post.PostRepositoryImpl;
+import com.novapp.bclub.repository.user.UserRepositoryImpl;
 import com.novapp.bclub.service.api.ProfanityApiService;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -38,9 +40,13 @@ public class PostService {
 
     private final IPostRepository postRepository;
 
+
     public PostService(Application application) {
+        //postRepository = new PostRepositoryImpl(application);
         postRepository = new PostRepositoryImpl(application);
     }
+
+
 
 
     public Task<Void> insert(Post post, Uri image) {
@@ -105,9 +111,30 @@ public class PostService {
         return postRepository.getAllPost();
     }
 
+
     public MutableLiveData<List<Post>> getRoomSaved() {
+
         return postRepository.getRoomSaved();
     }
+
+    public LiveData<Post> isFavorite(Post p) {
+        return postRepository.isFavorite(p);
+    }
+
+    public void insertSaved(Post p) {
+        postRepository.insertLocal(p);
+    }
+
+    public void removeSaved(Post p) {
+        postRepository.removeSaved(p);
+    }
+
+
+    public void deleteAll() {
+        postRepository.deleteAll();
+    }
+
+
 
 
 }
