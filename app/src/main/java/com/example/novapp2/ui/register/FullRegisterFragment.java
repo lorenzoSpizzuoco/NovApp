@@ -11,7 +11,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import android.text.InputFilter;
@@ -23,10 +22,9 @@ import android.widget.ImageView;
 
 import com.example.novapp2.MainActivity;
 import com.example.novapp2.R;
-import com.example.novapp2.entity.User;
-import com.example.novapp2.service.UserService;
+import com.example.novapp2.entity.user.User;
+import com.example.novapp2.service.nativeapi.UserService;
 import com.example.novapp2.utils.Constants;
-import com.example.novapp2.utils.UploadImage;
 import com.example.novapp2.utils.Utils;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
@@ -135,7 +133,7 @@ public class FullRegisterFragment extends Fragment {
 
             if(!name.isEmpty() && !surname.isEmpty() && !bio.isEmpty()) {
                 if (imageUri != null) {
-                    UploadImage.uploadImage(imageUri, DB_USERS_IMAGES, userId).addOnCompleteListener(
+                    Utils.uploadImage(imageUri, DB_USERS_IMAGES, userId).addOnCompleteListener(
                             task -> {
                                 if (task.isSuccessful()) {
                                     Uri downloadUri = task.getResult();

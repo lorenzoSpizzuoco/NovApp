@@ -1,4 +1,4 @@
-package com.example.novapp2.entity;
+package com.example.novapp2.entity.user;
 
 import com.example.novapp2.entity.post.Post;
 import com.google.firebase.database.IgnoreExtraProperties;

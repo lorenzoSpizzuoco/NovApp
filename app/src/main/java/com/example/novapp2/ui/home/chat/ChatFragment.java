@@ -15,16 +15,12 @@ import android.widget.TextView;
 
 
 import com.example.novapp2.R;
-import com.example.novapp2.entity.User;
 import com.example.novapp2.entity.chat.group.GroupChat;
 import com.example.novapp2.entity.chat.group.GroupChatAdapter;
-import com.example.novapp2.service.GroupChatsService;
-import com.example.novapp2.service.UserService;
-import com.example.novapp2.ui.UserViewModel;
-import com.example.novapp2.ui.home.HomeFragment;
+import com.example.novapp2.service.nativeapi.GroupChatsService;
+import com.example.novapp2.service.nativeapi.UserService;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 import java.util.List;

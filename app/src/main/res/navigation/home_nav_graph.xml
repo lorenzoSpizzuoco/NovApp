@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/navigation_add"
-        android:name="com.example.novapp2.entity.add.AddFragment"
+        android:name="com.example.novapp2.ui.home.add.AddFragment"
         android:label="fragment_add"
         tools:layout="@layout/fragment_add" >
         <action
@@ -49,7 +49,7 @@
 
     <fragment
         android:id="@+id/loadingFragment"
-        android:name="com.example.novapp2.ui.LoadingFragment"
+        android:name="com.example.novapp2.ui.home.add.LoadingFragment"
         android:label="fragment_loading"
         tools:layout="@layout/fragment_loading" >
         <action

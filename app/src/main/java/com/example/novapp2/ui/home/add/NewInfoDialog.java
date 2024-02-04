@@ -1,4 +1,4 @@
-package com.example.novapp2.entity.add;
+package com.example.novapp2.ui.home.add;
 
 import android.app.Dialog;
 import android.graphics.Bitmap;
@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.PickVisualMediaRequest;
@@ -22,8 +21,7 @@ import androidx.navigation.Navigation;
 
 import com.example.novapp2.R;
 import com.example.novapp2.entity.post.Post;
-import com.example.novapp2.service.UserService;
-import com.example.novapp2.ui.home.HomeFragment;
+import com.example.novapp2.service.nativeapi.UserService;
 import com.example.novapp2.utils.Constants;
 import com.example.novapp2.utils.Utils;
 import com.google.android.material.button.MaterialButton;

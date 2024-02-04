@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.novapp2.R;
-import com.example.novapp2.service.MessageService;
-import com.example.novapp2.service.UserService;
-import com.example.novapp2.sources.UserLogged;
+import com.example.novapp2.service.nativeapi.MessageService;
+import com.example.novapp2.service.nativeapi.UserService;
+import com.example.novapp2.sources.UserSource;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -69,10 +69,10 @@ public class GroupChatAdapter extends RecyclerView.Adapter<GroupChatViewHolder> 
 
     private void removeGroup(GroupChat item, View v) {
         groupChats.remove(item);
-        UserLogged.getUser().getGroupChats().remove(item.getID());
-        UserService.updateUserById(UserLogged.getUser().getID(), UserLogged.getUser());
+        UserSource.getUser().getGroupChats().remove(item.getID());
+        UserService.updateUserById(UserSource.getUser().getID(), UserSource.getUser());
         Snackbar.make(v, R.string.removed_group_chat, Snackbar.LENGTH_SHORT).show();
-        MessageService.createMessage(UserLogged.getUser().getEmail() + " " + v.getContext().getString(R.string.left_group_chat_msg), UserLogged.getUser().getEmail(), item.getID());
+        MessageService.createMessage(UserSource.getUser().getEmail() + " " + v.getContext().getString(R.string.left_group_chat_msg), UserSource.getUser().getEmail(), item.getID());
         notifyDataSetChanged();
     }
 

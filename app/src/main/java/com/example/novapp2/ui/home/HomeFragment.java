@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -18,16 +17,10 @@ import android.view.ViewGroup;
 
 import com.example.novapp2.MainActivity;
 import com.example.novapp2.R;
-import com.example.novapp2.entity.User;
-import com.example.novapp2.entity.post.PostViewModel;
-import com.example.novapp2.service.UserService;
-import com.example.novapp2.ui.UserViewModel;
+import com.example.novapp2.entity.user.User;
+import com.example.novapp2.service.nativeapi.UserService;
+import com.example.novapp2.entity.user.UserViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.android.gms.tasks.Task;
-
-import java.util.ArrayList;
 
 
 public class HomeFragment extends Fragment {

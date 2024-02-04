@@ -3,7 +3,7 @@ package com.example.novapp2.ui.start;
 import static com.example.novapp2.utils.Constants.USER_LOCAL_MAIL;
 import static com.example.novapp2.utils.Constants.USER_LOCAL_PASSWORD;
 
-import com.example.novapp2.service.AuthService;
+import com.example.novapp2.service.nativeapi.AuthService;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -23,7 +23,6 @@ import com.example.novapp2.R;
 import com.google.android.material.snackbar.Snackbar;
 
 
-import java.io.File;
 import java.util.Map;
 
 public class StartScreenFragment extends Fragment {

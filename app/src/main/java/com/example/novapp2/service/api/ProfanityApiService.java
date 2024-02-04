@@ -1,4 +1,4 @@
-package com.example.novapp2.service;
+package com.example.novapp2.service.api;
 
 import static com.example.novapp2.utils.Constants.*;
 

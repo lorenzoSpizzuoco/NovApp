@@ -7,11 +7,8 @@ import android.net.Uri;
 import android.util.Log;
 
 
-import com.example.novapp2.service.PostService;
-import com.example.novapp2.service.UserService;
-import com.example.novapp2.ui.home.HomeFragment;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
+import com.example.novapp2.service.nativeapi.PostService;
+import com.example.novapp2.service.nativeapi.UserService;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;

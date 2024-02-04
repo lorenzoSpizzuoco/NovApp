@@ -1,6 +1,6 @@
 package com.example.novapp2.repository.user;
 
-import com.example.novapp2.entity.User;
+import com.example.novapp2.entity.user.User;
 import com.example.novapp2.entity.post.Post;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;

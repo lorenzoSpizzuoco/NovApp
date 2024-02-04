@@ -16,8 +16,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.novapp2.MainActivity;
 import com.example.novapp2.R;
-import com.example.novapp2.service.UserService;
-import com.example.novapp2.service.AuthService;
+import com.example.novapp2.service.nativeapi.UserService;
+import com.example.novapp2.service.nativeapi.AuthService;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;

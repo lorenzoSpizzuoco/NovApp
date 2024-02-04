@@ -1,7 +1,5 @@
 package com.example.novapp2.ui.home.chat;
 
-import static java.util.Collections.reverse;
-
 import android.app.Application;
 import android.util.Log;
 
@@ -9,15 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.novapp2.entity.chat.group.GroupChat;
 import com.example.novapp2.entity.chat.message.Message;
-import com.example.novapp2.entity.chat.message.MessageAdapter;
-import com.example.novapp2.entity.post.Post;
-import com.example.novapp2.service.GroupChatsService;
+import com.example.novapp2.service.nativeapi.GroupChatsService;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -25,10 +18,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class OpenChatViewModel extends AndroidViewModel {
 

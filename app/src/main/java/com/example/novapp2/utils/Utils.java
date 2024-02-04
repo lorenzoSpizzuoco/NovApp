@@ -11,11 +11,13 @@ import static com.example.novapp2.utils.Constants.USER_LOCAL_PASSWORD;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 
@@ -23,14 +25,20 @@ import androidx.annotation.NonNull;
 
 import com.example.novapp2.R;
 import com.example.novapp2.entity.post.Post;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
 
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -88,6 +96,27 @@ public class Utils {
             return null;
         };
         return filters;
+    }
+
+    // IMAGE UPLOAD
+    public static Task<Uri> uploadImage(Uri image, String child, String name) {
+
+        StorageReference ref = FirebaseStorage.getInstance().getReference();
+
+        StorageReference imRef = ref.child(child).child(name + image.getLastPathSegment());
+
+        return imRef.putFile(image).continueWithTask(
+                new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                    @Override
+                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                        if (!task.isSuccessful()) {
+                            throw Objects.requireNonNull(task.getException());
+                        }
+
+                        // Continue with the task to get the download URL
+                        return imRef.getDownloadUrl();
+                    }
+                });
     }
 
 }

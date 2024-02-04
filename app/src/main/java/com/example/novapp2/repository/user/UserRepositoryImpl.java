@@ -7,9 +7,9 @@ import static com.example.novapp2.utils.Utils.getChildCategory;
 
 import android.util.Log;
 
-import com.example.novapp2.entity.User;
+import com.example.novapp2.entity.user.User;
 import com.example.novapp2.entity.post.Post;
-import com.example.novapp2.sources.UserLogged;
+import com.example.novapp2.sources.UserSource;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.gms.tasks.Tasks;
@@ -238,28 +238,28 @@ public class UserRepositoryImpl implements IUserRepository{
     }
 
     public void setCurrentUser(User user) {
-        UserLogged.setUser(user);
+        UserSource.setUser(user);
     }
 
     public User getCurrentUser() {
-        return UserLogged.getUser();
+        return UserSource.getUser();
     }
 
     public void setLocalFavorite(Post post) {
-        UserLogged.getUser().favourites.add(post);
+        UserSource.getUser().favourites.add(post);
     }
 
     public List<Post> getLocalFavorite() {
-        return UserLogged.getUser().favourites;
+        return UserSource.getUser().favourites;
     }
 
     public void removeLocalFavorite(Post post) {
-        UserLogged.getUser().favourites.remove(post);
+        UserSource.getUser().favourites.remove(post);
     }
 
     public void setRemoveSaved() {
-        ArrayList<Post> posts = (ArrayList<Post>) UserLogged.getUser().getFavourites();
-        String userId = UserLogged.getUser().getID();
+        ArrayList<Post> posts = (ArrayList<Post>) UserSource.getUser().getFavourites();
+        String userId = UserSource.getUser().getID();
 
         mDatabase.child(DB_USERS).child(userId).child(DB_SAVEDPOSTS).removeValue();
 

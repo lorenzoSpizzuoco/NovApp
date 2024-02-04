@@ -1,15 +1,12 @@
-package com.example.novapp2.service;
+package com.example.novapp2.service.nativeapi;
 
-import com.example.novapp2.entity.User;
+import com.example.novapp2.entity.user.User;
 import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.repository.user.UserRepositoryImpl;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.database.DataSnapshot;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 
 public class UserService {

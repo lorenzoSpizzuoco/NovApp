@@ -1,4 +1,4 @@
-package com.example.novapp2.entity.add;
+package com.example.novapp2.ui.home.add;
 
 import android.os.Bundle;
 

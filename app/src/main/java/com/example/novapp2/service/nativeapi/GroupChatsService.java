@@ -1,4 +1,4 @@
-package com.example.novapp2.service;
+package com.example.novapp2.service.nativeapi;
 
 import com.example.novapp2.entity.chat.group.GroupChat;
 import com.example.novapp2.repository.groupchats.GroupChatsRepositoryImpl;

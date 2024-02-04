@@ -1,6 +1,5 @@
 package com.example.novapp2.entity.chat.message;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.novapp2.R;
-import com.example.novapp2.entity.User;
-import com.example.novapp2.entity.post.PostAdapter;
-import com.example.novapp2.service.UserService;
-import com.example.novapp2.ui.home.HomeFragment;
+import com.example.novapp2.service.nativeapi.UserService;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter {

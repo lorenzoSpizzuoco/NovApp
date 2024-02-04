@@ -19,17 +19,15 @@ import com.example.novapp2.R;
 import com.example.novapp2.entity.chat.group.GroupChat;
 import com.example.novapp2.entity.chat.message.Message;
 import com.example.novapp2.entity.chat.message.MessageAdapter;
-import com.example.novapp2.service.GroupChatsService;
-import com.example.novapp2.service.MessageService;
-import com.example.novapp2.service.UserService;
+import com.example.novapp2.service.nativeapi.GroupChatsService;
+import com.example.novapp2.service.nativeapi.MessageService;
+import com.example.novapp2.service.nativeapi.UserService;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 

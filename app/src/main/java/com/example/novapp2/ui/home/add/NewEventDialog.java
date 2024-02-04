@@ -1,4 +1,4 @@
-package com.example.novapp2.entity.add;
+package com.example.novapp2.ui.home.add;
 
 
 
@@ -29,7 +29,7 @@ import androidx.navigation.Navigation;
 
 import com.example.novapp2.R;
 import com.example.novapp2.entity.post.Post;
-import com.example.novapp2.service.UserService;
+import com.example.novapp2.service.nativeapi.UserService;
 import com.example.novapp2.utils.Constants;
 import com.example.novapp2.utils.Utils;
 import com.google.android.material.button.MaterialButton;

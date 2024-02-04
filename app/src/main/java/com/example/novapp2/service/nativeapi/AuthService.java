@@ -1,4 +1,4 @@
-package com.example.novapp2.service;
+package com.example.novapp2.service.nativeapi;
 
 import static com.example.novapp2.utils.Constants.USER_LOCAL_FILE;
 import static com.example.novapp2.utils.Constants.USER_LOCAL_MAIL;

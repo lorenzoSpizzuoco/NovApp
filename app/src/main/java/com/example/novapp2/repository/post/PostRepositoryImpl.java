@@ -1,11 +1,6 @@
 package com.example.novapp2.repository.post;
 
-import static com.example.novapp2.utils.Constants.DB_EVENTS;
-import static com.example.novapp2.utils.Constants.DB_GS;
-import static com.example.novapp2.utils.Constants.DB_INFOS;
 import static com.example.novapp2.utils.Constants.DB_POSTS;
-import static com.example.novapp2.utils.Constants.DB_RIPET;
-import static com.example.novapp2.utils.Constants.DB_SAVEDPOSTS;
 import static com.example.novapp2.utils.Constants.DB_USERS;
 import static com.example.novapp2.utils.Constants.DB_USER_POSTS;
 import static com.example.novapp2.utils.Utils.getChildCategory;
@@ -17,12 +12,10 @@ import androidx.annotation.NonNull;
 
 import com.example.novapp2.entity.post.GenericPost;
 import com.example.novapp2.entity.post.Post;
-import com.example.novapp2.repository.user.UserRepositoryImpl;
-import com.example.novapp2.service.GroupChatsService;
-import com.example.novapp2.service.UserService;
-import com.example.novapp2.sources.UserLogged;
-import com.example.novapp2.ui.home.HomeFragment;
-import com.example.novapp2.utils.UploadImage;
+import com.example.novapp2.service.nativeapi.GroupChatsService;
+import com.example.novapp2.service.nativeapi.UserService;
+import com.example.novapp2.sources.UserSource;
+import com.example.novapp2.utils.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -37,13 +30,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class PostRepository implements IPostRepository{
+public class PostRepositoryImpl implements IPostRepository{
 
     private final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
     private final FirebaseStorage mStorage = FirebaseStorage.getInstance();
 
-    private static final String TAG = PostRepository.class.getSimpleName();
+    private static final String TAG = PostRepositoryImpl.class.getSimpleName();
 
     public Task<Void> insert(Post post, Uri image) {
 
@@ -51,7 +44,7 @@ public class PostRepository implements IPostRepository{
 
         String id = mDatabase.child(DB_POSTS).push().getKey();
         StorageReference storageRef = mStorage.getReference();
-        String userId = UserLogged.getUser().getID();
+        String userId = UserSource.getUser().getID();
         post.setDbId(id);
 
         int category = post.getCategory();
@@ -65,7 +58,7 @@ public class PostRepository implements IPostRepository{
                 mainChild = "groupImages";
             }
 
-            UploadImage.uploadImage(image, mainChild, id).addOnCompleteListener(
+            Utils.uploadImage(image, mainChild, id).addOnCompleteListener(
                     new OnCompleteListener<Uri>() {
                         @Override
                         public void onComplete(@NonNull Task<Uri> task) {
@@ -96,8 +89,8 @@ public class PostRepository implements IPostRepository{
                                                                 );
 
                                                                 if(4 == post.getCategory()) {
-                                                                    UserLogged.getUser().groupChats.add(id);
-                                                                    UserService.updateUserById(UserLogged.getUser().userId, UserLogged.getUser());
+                                                                    UserSource.getUser().groupChats.add(id);
+                                                                    UserService.updateUserById(UserSource.getUser().userId, UserSource.getUser());
                                                                     GroupChatsService.createGroupChat(id);
                                                                 }
 
@@ -150,19 +143,6 @@ public class PostRepository implements IPostRepository{
         return taskCompletionSource.getTask();
     }
 
-
-    // TODO getPostById(category, Id)
-    /* TODO
-    getPostById(categoryId, postId).addOnCompleteListener(task -> {
-    if (task.isSuccessful()) {
-        Post post = task.getResult();
-        // Do something with the retrieved post
-    } else {
-        Exception exception = task.getException();
-        // Handle the exception
-    }
-    */
-
     @Override
     public Task<List<Post>> getAllPost() {
 
@@ -206,12 +186,4 @@ public class PostRepository implements IPostRepository{
 
         return taskCompletionSource.getTask();
     }
-
-
-    /*
-    public Task<DataSnapshot> getFavoritePosts(String user) {
-        return mDatabase.child(DB_USERS).child(user).child(DB_SAVEDPOSTS).get();
-    }
-     */
-
 }

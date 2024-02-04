@@ -1,4 +1,4 @@
-package com.example.novapp2.entity.add;
+package com.example.novapp2.ui.home.add;
 
 import android.app.Dialog;
 import android.graphics.Bitmap;
@@ -13,12 +13,10 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
 import android.text.InputFilter;
-import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,14 +25,10 @@ import androidx.navigation.Navigation;
 
 import com.example.novapp2.R;
 import com.example.novapp2.entity.post.Post;
-import com.example.novapp2.service.UserService;
-import com.example.novapp2.ui.home.HomeFragment;
-import com.example.novapp2.ui.home.HomeFragmentDirections;
+import com.example.novapp2.service.nativeapi.UserService;
 import com.example.novapp2.utils.Constants;
 import com.example.novapp2.utils.Utils;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -43,7 +37,6 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 
 public class NewGsDialog extends DialogFragment {

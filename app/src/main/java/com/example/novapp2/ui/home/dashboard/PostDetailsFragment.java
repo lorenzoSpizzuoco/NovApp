@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavBackStackEntry;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +19,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.novapp2.R;
-import com.example.novapp2.entity.User;
 import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.entity.post.PostViewModel;
-import com.example.novapp2.service.MessageService;
-import com.example.novapp2.service.UserService;
-import com.example.novapp2.ui.UserViewModel;
-import com.example.novapp2.ui.home.HomeFragment;
+import com.example.novapp2.service.nativeapi.MessageService;
+import com.example.novapp2.service.nativeapi.UserService;
+import com.example.novapp2.entity.user.UserViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;

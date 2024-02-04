@@ -1,8 +1,8 @@
 package com.example.novapp2.sources;
 
-import com.example.novapp2.entity.User;
+import com.example.novapp2.entity.user.User;
 
-public class UserLogged {
+public class UserSource {
 
     private static User user;
 

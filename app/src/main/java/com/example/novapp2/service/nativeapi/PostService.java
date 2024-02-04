@@ -1,4 +1,4 @@
-package com.example.novapp2.service;
+package com.example.novapp2.service.nativeapi;
 
 import static com.example.novapp2.utils.Constants.API_KEY;
 import static com.example.novapp2.utils.Constants.PROFANITY_API_BASE_URL;
@@ -9,10 +9,10 @@ import android.util.Log;
 
 import com.example.novapp2.entity.post.Post;
 import com.example.novapp2.repository.post.IPostRepository;
-import com.example.novapp2.repository.post.PostRepository;
+import com.example.novapp2.repository.post.PostRepositoryImpl;
+import com.example.novapp2.service.api.ProfanityApiService;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
-import com.google.firebase.database.DataSnapshot;
 
 import java.io.IOException;
 import java.util.List;
@@ -29,7 +29,7 @@ public class PostService {
     public static final String TAG = PostService.class.getSimpleName();
     private Retrofit retrofit;
 
-    private static IPostRepository postRepository = new PostRepository();
+    private static IPostRepository postRepository = new PostRepositoryImpl();
 
     public Task<Void> insert(Post post, Uri image) {
 

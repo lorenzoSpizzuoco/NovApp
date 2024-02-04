@@ -1,14 +1,13 @@
-package com.example.novapp2.ui;
+package com.example.novapp2.entity.user;
 
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import com.example.novapp2.entity.User;
+
 import com.example.novapp2.entity.post.Post;
-import com.example.novapp2.service.UserService;
-import com.example.novapp2.sources.UserLogged;
+import com.example.novapp2.service.nativeapi.UserService;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
