@@ -48,6 +48,7 @@ public class PostRepositoryImpl implements IPostRepository{
     private MutableLiveData<List<Post>> savedRoomPosts;
 
     public PostRepositoryImpl(Application application) {
+
         PostRoomDatabase db = PostRoomDatabase.getDatabase(application);
         postDao = db.postDao();
         userService = new UserService();

@@ -18,6 +18,7 @@ import java.util.List;
 
 public class PostViewModel extends AndroidViewModel {
 
+
     static final private String TAG = PostViewModel.class.getSimpleName();
 
     private final PostService postService;
@@ -186,4 +187,6 @@ public class PostViewModel extends AndroidViewModel {
     public MutableLiveData<List<Post>> getRoomSaved() {
         return savedPosts;
     }
+
+
 }

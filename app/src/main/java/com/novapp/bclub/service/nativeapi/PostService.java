@@ -36,7 +36,7 @@ public class PostService {
     public static final String TAG = PostService.class.getSimpleName();
     private Retrofit retrofit;
 
-    private IPostRepository postRepository;
+    private final IPostRepository postRepository;
 
     public PostService(Application application) {
         postRepository = new PostRepositoryImpl(application);

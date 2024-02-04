@@ -55,14 +55,14 @@ public class DashboardFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
-        postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
+
         postList = new ArrayList<>();
         selectedCategories = new HashSet<>();
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
+        //postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }

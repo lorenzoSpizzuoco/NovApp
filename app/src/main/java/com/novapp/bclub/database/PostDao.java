@@ -12,6 +12,7 @@ import java.util.List;
 
 @Dao
 public interface PostDao {
+
     @Query("SELECT * FROM post_table ORDER BY date DESC")
     LiveData<List<Post>> getAllPosts();
 
