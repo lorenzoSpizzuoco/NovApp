@@ -1,16 +1,19 @@
 package com.novapp.bclub.ui.home.user;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -18,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.novapp.bclub.MainActivity;
 import com.novapp.bclub.R;
 import com.novapp.bclub.databinding.FragmentUserBinding;
@@ -39,33 +43,25 @@ import java.util.List;
 
 public class UserFragment extends Fragment {
 
-
     private FragmentUserBinding binding;
-
-
     private TextView userMail;
     private TextView userHi;
-
     private SavedPostAdapter savedPostAdapter;
     private SavedPostAdapter userPostAdapter;
     private PostViewModel postViewModel;
     private BottomSheetBehavior bottomSheetBehavior;
     private ImageView userImage;
     private static final UserViewModel userViewModel = new UserViewModel();
-
     private List<Post> postList;
-
     private List<Post> userPosts;
-
     private RecyclerView mySavedPostsRecyclerView;
-
     private RecyclerView userPostsRecyclerView;
-
     private final UserService userService = new UserService();
     private FrameLayout bottomSheet;
     private User user;
     private FloatingActionButton settingsButton;
     private Button logoutButton;
+    private SwitchMaterial nightModeButton;
 
     public UserFragment() {
         // Required empty public constructor
@@ -99,8 +95,8 @@ public class UserFragment extends Fragment {
         userPostsRecyclerView = view.findViewById(R.id.myPosts);
         userImage = view.findViewById(R.id.userProfilePhoto);
         logoutButton = view.findViewById(R.id.logoutButton);
-
         settingsButton = view.findViewById(R.id.user_settings_button);
+        nightModeButton = view.findViewById(R.id.night_mode_switch);
 
         setupUserProfile();
         setupSavedPostsRecyclerView();
@@ -110,6 +106,27 @@ public class UserFragment extends Fragment {
         setupSettingsButton();
         setupLogoutButton();
         initializeBottomSheet();
+
+
+        setUpDarkModeButton();
+    }
+
+    private void setUpDarkModeButton() {
+        int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        boolean isNightModeEnabled = (nightModeFlags == Configuration.UI_MODE_NIGHT_YES);
+
+        nightModeButton.setChecked(isNightModeEnabled);
+
+        nightModeButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+            }
+        });
     }
 
 
@@ -200,12 +217,9 @@ public class UserFragment extends Fragment {
 
     private void setupSettingsButton() {
         settingsButton.setOnClickListener(v -> {
-            // Alterna tra mostrare e nascondere il Bottom Sheet
             if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
-                // Se il Bottom Sheet è già espanso, allora lo nasconde
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
             } else {
-                // Se il Bottom Sheet è nascosto o collassato, allora lo espande
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
             }
         });

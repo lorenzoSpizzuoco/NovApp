@@ -175,6 +175,7 @@
     <string name="tag" translatable="false">TAG</string>
     <string name="onboarding_image">Onboarding image</string>
     <string name="msg_hint">Type…</string>
-    <string name="ripet_imageview_cd">Repetition image</string>
+    <string name="night_mode">Night mode</string>
+    <string name="notification_toggle">Notification</string>
 
 </resources>

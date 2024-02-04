@@ -177,4 +177,6 @@
     <string name="event_data_pick">Seleziona la data dell\'evento</string>
     <string name="onboarding_image">Immagine del carosello</string>
     <string name="msg_hint">Scrivi…</string>
+    <string name="night_mode">Modalità notte</string>
+    <string name="notification_toggle">Notifiche</string>
 </resources>
