@@ -85,11 +85,18 @@ public class SavedPostAdapter extends  RecyclerView.Adapter{
         public void bindView(int position) {
             Log.d("EVENT VIEW HOLDER", "inside bindView");
             //imageView.setImageResource(postList.get(position).getImage());
-            Glide.with(context)
-                    .load(postList.get(position).getPostImage())
-                    .centerCrop()
-                    .placeholder(R.drawable.analisi)
-                    .into(imageView);
+            if(postList.get(position).getCategory() != 2) {
+                Glide.with(context)
+                        .load(postList.get(position).getPostImage())
+                        .centerCrop()
+                        .placeholder(R.drawable.analisi)
+                        .into(imageView);
+
+            }
+            else {
+                imageView.setVisibility(View.GONE);
+            }
+
             titleTextView.setText(postList.get(position).getTitle());
             descTextView.setText(postList.get(position).getContent());
             //subtitleTextView.setText(postList.get(position).getPlace());

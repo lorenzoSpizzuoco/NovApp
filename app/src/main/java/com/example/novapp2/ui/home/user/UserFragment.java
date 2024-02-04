@@ -133,6 +133,7 @@ public class UserFragment extends Fragment {
     }
 
     private void setupUserProfile() {
+
         // checking if user profile is null
         if (user != null) {
             String imageUrl = user.getProfileImg();
