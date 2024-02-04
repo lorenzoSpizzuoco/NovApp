@@ -124,8 +124,6 @@ public class PostViewModel extends AndroidViewModel {
     }
 
 
-
-
     public void insert(Post post, Uri image) {
 
         if (!calling) {

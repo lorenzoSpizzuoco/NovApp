@@ -55,6 +55,7 @@ public class UserViewModel extends ViewModel {
         return currentUser;
     }
 
+    /*
     public MutableLiveData<List<Post>> getSavedPosts() {
 
         // remote fetch
@@ -76,6 +77,10 @@ public class UserViewModel extends ViewModel {
 
 
         return savedPosts;
+
+    }
+    */
+    public MutableLiveData<List<Post>> getSavedPosts() {
 
     }
 
