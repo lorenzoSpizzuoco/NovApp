@@ -42,6 +42,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1098547570591:android:fc9b61a585eeb6e024bfaa",
+        "android_client_info": {
+          "package_name": "com.novapp.bclub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1098547570591-d19r5o6dgbh17h27vool1uurg9ikpumv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDNyrfhA1izNBfh82MRfAg6E8pzbij404"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1098547570591-d19r5o6dgbh17h27vool1uurg9ikpumv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

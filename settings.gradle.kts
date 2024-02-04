@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "NovApp2"
+rootProject.name = "NovApp"
 include(":app")
  

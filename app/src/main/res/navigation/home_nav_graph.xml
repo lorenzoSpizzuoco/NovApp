@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_chat"
-        android:name="com.example.novapp2.ui.home.chat.ChatFragment"
+        android:name="com.novapp.bclub.ui.home.chat.ChatFragment"
         android:label="fragment_chat"
         tools:layout="@layout/fragment_chat">
         <argument
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/navigation_add"
-        android:name="com.example.novapp2.ui.home.add.AddFragment"
+        android:name="com.novapp.bclub.ui.home.add.AddFragment"
         android:label="fragment_add"
         tools:layout="@layout/fragment_add" >
         <action
@@ -32,13 +32,13 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.novapp2.ui.home.notifications.NotificationsFragment"
+        android:name="com.novapp.bclub.ui.home.notifications.NotificationsFragment"
         android:label="fragment_notifications"
         tools:layout="@layout/fragment_notifications" />
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.novapp2.ui.home.user.UserFragment"
+        android:name="com.novapp.bclub.ui.home.user.UserFragment"
         android:label="fragment_user"
         tools:layout="@layout/fragment_user" >
         <action
@@ -49,7 +49,7 @@
 
     <fragment
         android:id="@+id/loadingFragment"
-        android:name="com.example.novapp2.ui.home.add.LoadingFragment"
+        android:name="com.novapp.bclub.ui.home.add.LoadingFragment"
         android:label="fragment_loading"
         tools:layout="@layout/fragment_loading" >
         <action
@@ -60,7 +60,7 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.novapp2.ui.home.dashboard.DashboardFragment"
+        android:name="com.novapp.bclub.ui.home.dashboard.DashboardFragment"
         android:label="fragment_dashboard"
         tools:layout="@layout/fragment_dashboard">
         <action
@@ -71,17 +71,17 @@
 
     <fragment
         android:id="@+id/postDetailsFragmentFragment"
-        android:name="com.example.novapp2.ui.home.dashboard.PostDetailsFragment"
+        android:name="com.novapp.bclub.ui.home.dashboard.PostDetailsFragment"
         android:label="fragment_post_details_fragment"
         tools:layout="@layout/fragment_post_details" >
         <argument
             android:name="post"
-            app:argType="com.example.novapp2.entity.post.Post" />
+            app:argType="com.novapp.bclub.entity.post.Post" />
     </fragment>
 
     <fragment
         android:id="@+id/openChatFragment"
-        android:name="com.example.novapp2.ui.home.chat.OpenChatFragment"
+        android:name="com.novapp.bclub.ui.home.chat.OpenChatFragment"
         android:label="fragment_open_chat"
         tools:layout="@layout/fragment_open_chat" >
         <action

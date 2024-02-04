@@ -9,7 +9,7 @@
     <!-- Start screen -->
     <fragment
         android:id="@+id/startScreenFragment"
-        android:name="com.example.novapp2.ui.start.StartScreenFragment"
+        android:name="com.novapp.bclub.ui.start.StartScreenFragment"
         android:label="fragment_start_screen"
         tools:layout="@layout/fragment_start_screen" >
         <action
@@ -37,7 +37,7 @@
     <!-- Login -->
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.novapp2.ui.login.LoginFragment"
+        android:name="com.novapp.bclub.ui.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -52,7 +52,7 @@
     <!-- Register -->
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.novapp2.ui.register.RegisterFragment"
+        android:name="com.novapp.bclub.ui.register.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -67,7 +67,7 @@
     <!-- Home -->
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.novapp2.ui.home.HomeFragment"
+        android:name="com.novapp.bclub.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -83,7 +83,7 @@
     <!-- Onboarding -->
     <fragment
         android:id="@+id/onboardingFragment"
-        android:name="com.example.novapp2.ui.onboarding.ViewPagerFragment"
+        android:name="com.novapp.bclub.ui.onboarding.ViewPagerFragment"
         android:label="fragment_view_pager"
         tools:layout="@layout/fragment_view_pager" >
         <action
@@ -95,7 +95,7 @@
     <!-- Full register -->
     <fragment
         android:id="@+id/fullRegisterFragment"
-        android:name="com.example.novapp2.ui.register.FullRegisterFragment"
+        android:name="com.novapp.bclub.ui.register.FullRegisterFragment"
         android:label="fragment_full_register"
         tools:layout="@layout/fragment_full_register" >
         <argument
