@@ -5,38 +5,27 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.novapp2.R;
-import com.example.novapp2.entity.User;
 import com.example.novapp2.entity.chat.group.GroupChat;
 import com.example.novapp2.entity.chat.message.Message;
 import com.example.novapp2.entity.chat.message.MessageAdapter;
 import com.example.novapp2.service.GroupChatsService;
 import com.example.novapp2.service.MessageService;
 import com.example.novapp2.service.UserService;
-import com.example.novapp2.sources.UserLogged;
-import com.example.novapp2.ui.home.HomeFragment;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -46,12 +35,14 @@ import java.util.Objects;
 
 public class OpenChatFragment extends Fragment {
 
-    private DatabaseReference mDatabase;
+
     private final UserService userService = new UserService();
+    private OpenChatViewModel openChatViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        openChatViewModel = new ViewModelProvider(this).get(OpenChatViewModel.class);
         return inflater.inflate(R.layout.fragment_open_chat, container, false);
     }
 
@@ -70,10 +61,10 @@ public class OpenChatFragment extends Fragment {
         Bundle args = getArguments();
         String groupId = args.getString("chatGroupId");
 
-        mDatabase = FirebaseDatabase.getInstance()
+        /*mDatabase = FirebaseDatabase.getInstance()
                 .getReference("groupChats")
                 .child(groupId)
-                .child("messages");
+                .child("messages");*/
 
 
         loadGroupChatMessages(groupName, recyclerView, groupId);
@@ -98,46 +89,18 @@ public class OpenChatFragment extends Fragment {
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(adapter);
 
-                setUpOnDataChangeListener(recyclerView, adapter);
-            }
-        });
-    }
-
-    private void setUpOnDataChangeListener(RecyclerView recyclerView, MessageAdapter adapter) {
-        mDatabase.orderByChild("timestamp").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String prevChildKey) {
-                Map<String, Object> value = (Map<String, Object>) dataSnapshot.getValue();
-                Message message = new Message(dataSnapshot.getKey(), (String) value.get("content"), (String) value.get("author"), (Long) value.get("timestamp"));
-                adapter.updateData(message);
-                recyclerView.scrollToPosition(adapter.getItemCount() - 1);
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("OpenChat", "Failed to read value.", error.toException());
+                // Observing viewModel
+                openChatViewModel.getLastMessage(groupId).observe(getViewLifecycleOwner(), lastMessage -> {
+                    adapter.updateData(lastMessage);
+                    recyclerView.scrollToPosition(adapter.getItemCount() - 1);
+                });
             }
         });
     }
 
     private void setUpSendButton(ExtendedFloatingActionButton sendButton, TextInputLayout messageContent, String groupId) {
         sendButton.setOnClickListener(v -> {
-            String content = Objects.requireNonNull(messageContent.getEditText()).getText().toString();
+            String content = Objects.requireNonNull(messageContent.getEditText()).getText().toString().trim();
             if (!content.equals("")) {
                 MessageService.createMessage(content, userService.getCurrentUser().getEmail(), groupId);
                 messageContent.getEditText().setText("");

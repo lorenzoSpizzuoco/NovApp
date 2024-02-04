@@ -16,6 +16,6 @@ public class SecondPageOnboarding extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_second_page_carousel, container, false);
+        return inflater.inflate(R.layout.fragment_second_page_onboarding, container, false);
     }
 }
