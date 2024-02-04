@@ -72,8 +72,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:elevation="10dp"
         app:tint="?attr/colorOnPrimary"
-        app:srcCompat="@drawable/arrow_back"
         app:backgroundTint="?attr/colorPrimary"
+        app:srcCompat="@drawable/arrow_back"
         style="?attr/floatingActionButtonSmallPrimaryStyle"
         android:contentDescription="@string/arrow_back_cd">
 
