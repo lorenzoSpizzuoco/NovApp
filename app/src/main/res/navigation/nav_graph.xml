@@ -85,7 +85,7 @@
         android:id="@+id/onboardingFragment"
         android:name="com.novapp.bclub.ui.onboarding.ViewPagerFragment"
         android:label="fragment_view_pager"
-        tools:layout="@layout/fragment_view_pager" >
+        tools:layout="@layout/fragment_onboarding" >
         <action
             android:id="@+id/action_onboarding_to_login"
             app:destination="@id/loginFragment"
