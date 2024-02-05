@@ -15,7 +15,7 @@ import java.util.List;
 @Dao
 public interface PostDao {
 
-    @Query("SELECT * FROM post_table ORDER BY date ASC")
+    @Query("SELECT * FROM post_table")
     LiveData<List<Post>> getAllPosts();
 
     @Query("SELECT * FROM post_table WHERE dbId = :id")
