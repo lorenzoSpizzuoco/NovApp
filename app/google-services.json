@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1098547570591:android:9f6792e7080c06ac24bfaa",
         "android_client_info": {
-          "package_name": "com.example.novapp2"
+          "package_name": "com.novapp.bclub2"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "1098547570591-fcvn5rjuf9kp910itn96t9e2dvfvsfr9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.novapp2",
+            "package_name": "com.novapp.bclub2",
             "certificate_hash": "fe5f9bb1250ad505097db2fefc659adaeb2d4f99"
           }
         },

@@ -4,17 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:scrollbars="vertical"
     android:layout_height="match_parent">
-    <LinearLayout
-        android:scrollbars="vertical"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-
-
+        android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.AppBarLayout
-
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -34,84 +30,75 @@
                     app:navigationIcon="@drawable/x_close"
                     app:title="@string/new_ripet_toolbar"
                     app:titleMarginStart="10dp" />
-
-                <TextView
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginRight="40dp"
-                    android:layout_centerVertical="true"
-                    android:id="@+id/save_button_ripet"
-                    android:gravity="center"
-                    android:layout_width="wrap_content"
-                    android:textSize="16sp"
-                    android:layout_alignEnd="@id/toolbar_ripet"
-                    android:layout_height="match_parent"
-                    android:text="@string/Save"
-                    />
             </RelativeLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <RelativeLayout
-
-            android:layout_gravity="center_horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="30dp"
+        android:layout_below="@+id/appBarLayout"
+        android:background="?attr/colorSurface">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/new_ripet_title"
-                android:layout_width="300dp"
-                android:layout_centerHorizontal="true"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:errorEnabled="true"
                 app:endIconMode="clear_text"
-                android:layout_marginTop="100dp"
                 android:hint="@string/ripet_title_hint"
-                android:inputType="textEmailAddress">
+                android:inputType="textEmailAddress"
+                app:counterEnabled="true"
+                app:counterMaxLength="25">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/new_ripet_title_inner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/new_ripet_place"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 app:errorEnabled="true"
-                android:layout_centerHorizontal="true"
                 app:endIconMode="clear_text"
-                android:layout_below="@id/new_ripet_title"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
                 android:hint="@string/ripet_place_text"
-                android:inputType="textEmailAddress">
+                android:inputType="textEmailAddress"
+                app:counterEnabled="true"
+                app:counterMaxLength="25">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/new_ripet_place_inner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/new_ripet_desc"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 app:errorEnabled="true"
-                android:layout_centerHorizontal="true"
                 app:endIconMode="clear_text"
-                android:layout_below="@id/new_ripet_place"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
                 android:hint="@string/ripet_desc"
-                android:inputType="textEmailAddress">
+                android:inputType="textEmailAddress"
+                app:counterEnabled="true"
+                app:counterMaxLength="250">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/new_ripet_desc_inner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/date_picker_input_text_ripet"
-                android:layout_width="300dp"
-                android:layout_below="@id/new_ripet_desc"
-                android:layout_centerHorizontal="true"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:errorEnabled="true"
                 app:startIconDrawable="@drawable/calendar"
@@ -124,49 +111,59 @@
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical|center_horizontal">
+
+            <!-- Bottone a sinistra -->
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:id="@+id/ripet_photo_button"
+                android:layout_width="wrap_content"
+                android:text="@string/event_photo_button"
+                android:layout_height="wrap_content"/>
+
+            <!-- RelativeLayout a destra -->
             <RelativeLayout
-                android:layout_below="@id/ripet_photo_button"
-                android:layout_centerHorizontal="true"
-                android:layout_width="300dp"
-                android:layout_marginTop="20sp"
-                android:layout_height="300dp">
+                android:layout_width="fill_parent"
+                android:layout_marginStart="15dp"
+                android:layout_height="150dp">
+
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:visibility="gone"
                     android:id="@+id/fab_delete_photo"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="20dp"
                     android:src="@drawable/x_close"
-
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    style="?attr/floatingActionButtonSmallPrimaryStyle"
+                    android:contentDescription="@string/chosen_image" />
 
                 <ImageView
-                    android:layout_marginTop="25dp"
                     android:layout_centerHorizontal="true"
+                    android:padding="10dp"
                     android:id="@+id/ripet_photo_view"
                     android:scaleType="centerCrop"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp" />
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border_group_chat_view"
+                    android:contentDescription="@string/chosen_image" />
             </RelativeLayout>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/ripet_photo_button"
-                android:layout_width="wrap_content"
-                android:layout_marginTop="20sp"
-                android:layout_centerHorizontal="true"
-                android:text="@string/ripet_photo"
-                android:layout_below="@id/date_picker_input_text_ripet"
-                android:layout_height="wrap_content">
-
-            </com.google.android.material.button.MaterialButton>
-
-
-
-
-
-
-
-        </RelativeLayout>
-
+        </LinearLayout>
+        <Button
+            android:layout_marginTop="15dp"
+            android:elevation="30dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:id="@+id/save_button_ripet"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:text="@string/Save"/>
     </LinearLayout>
+    </RelativeLayout>
 </ScrollView>

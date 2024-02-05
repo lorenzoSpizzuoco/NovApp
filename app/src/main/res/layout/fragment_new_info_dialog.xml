@@ -5,16 +5,13 @@
     android:scrollbars="vertical"
     android:layout_height="match_parent">
 
-<LinearLayout
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
+        android:layout_height="match_parent">
 
 
         <com.google.android.material.appbar.AppBarLayout
-
+            android:id="@+id/appBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -32,24 +29,19 @@
                     android:paddingEnd="16dp"
                     app:contentInsetStartWithNavigation="0dp"
                     app:navigationIcon="@drawable/x_close"
-
                     app:title="@string/new_info_toolbar"
                     app:titleMarginStart="10dp" />
 
-                <TextView
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginEnd="40dp"
-                    android:layout_centerVertical="true"
-                    android:id="@+id/save_button_info"
-                    android:gravity="center"
-                    android:layout_width="wrap_content"
-                    android:textSize="16sp"
-                    android:layout_alignEnd="@id/toolbar_info"
-                    android:layout_height="match_parent"
-                    android:text="@string/Save"
-                    />
             </RelativeLayout>
         </com.google.android.material.appbar.AppBarLayout>
+
+<LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="30dp"
+        android:layout_below="@+id/appBar"
+        android:background="?attr/colorSurface">
 
         <RelativeLayout
 
@@ -61,58 +53,66 @@
             <com.google.android.material.textfield.TextInputLayout
                 app:errorEnabled="true"
                 android:id="@+id/new_info_title"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_centerHorizontal="true"
                 app:endIconMode="clear_text"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
                 android:hint="@string/info_title_hint"
-                android:inputType="textEmailAddress">
+                android:inputType="textEmailAddress"
+                app:counterEnabled="true"
+                app:counterMaxLength="25">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/new_info_title_inner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/new_info_place"
                 app:errorEnabled="true"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/new_info_title"
                 app:endIconMode="clear_text"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
                 android:hint="@string/info_place_text"
-                android:inputType="textEmailAddress">
+                android:inputType="textEmailAddress"
+                app:counterEnabled="true"
+                app:counterMaxLength="25">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/new_info_place_inner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/new_info_desc"
                 app:errorEnabled="true"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_centerHorizontal="true"
                 app:endIconMode="clear_text"
                 android:layout_below="@id/new_info_place"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
                 android:hint="@string/info_desc"
-                android:inputType="textEmailAddress">
+                android:inputType="textEmailAddress"
+                app:counterEnabled="true"
+                app:counterMaxLength="250">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/new_info_desc_inner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
 
                 android:id="@+id/date_picker_input_text_info"
                 app:errorEnabled="true"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_below="@id/new_info_desc"
                 android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
@@ -129,6 +129,18 @@
 
         </RelativeLayout>
 
+    <Button
+        android:layout_marginTop="15dp"
+        android:elevation="30dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:id="@+id/save_button_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:text="@string/Save"/>
+
     </LinearLayout>
 
+    </RelativeLayout>
 </ScrollView>

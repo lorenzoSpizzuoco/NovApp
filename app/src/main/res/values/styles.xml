@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
     <style name="Theme.NovApp2.Slide">
         <item name="android:windowEnterAnimation">@anim/slide_up</item>
         <item name="android:windowExitAnimation">@anim/slide_down</item>
@@ -12,12 +11,14 @@
         <item name="android:textColorHint">@color/md_theme_light_tertiary</item>
         <item name="android:inputType">textCapSentences</item>
         <item name="android:background">@drawable/searchview_background</item>
-        <!-- Personalizza le icone qui se necessario -->
     </style>
 
     <style name="Theme" parent="AppTheme">
-        <!-- Configurazioni del tema vanno qui -->
     </style>
 
+    <style name="circleImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 
 </resources>

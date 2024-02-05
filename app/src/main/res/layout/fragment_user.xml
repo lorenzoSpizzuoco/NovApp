@@ -22,7 +22,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="440dp"
         android:text="@string/my_posts"
-        android:textSize="24sp"
+        android:textAppearance="?attr/textAppearanceHeadline5"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -45,7 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:contentDescription="bla bla"
+                    android:contentDescription="@string/user_profile_image"
                     android:src="@drawable/user_1" />
 
             </androidx.cardview.widget.CardView>
@@ -54,10 +54,10 @@
                 android:id="@+id/userHiTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="36dp"
                 android:text="@string/hello"
-                android:textSize="20sp"
+                android:textAppearance="?attr/textAppearanceHeadline6"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/userCardView"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -66,10 +66,9 @@
                 android:id="@+id/userMailTextVew"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="76dp"
-                android:text="test@gmail.com"
-                android:textSize="14sp"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
                 app:layout_constraintStart_toEndOf="@+id/userCardView"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -80,62 +79,47 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:text="@string/saved_elements"
-                android:textSize="24sp"
+                android:textAppearance="?attr/textAppearanceHeadline5"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/userCardView" />
 
-            <Button
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/user_settings_button"
-                style="@style/Widget.Material3.Button.IconButton"
+                style="?attr/floatingActionButtonSmallPrimaryStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:icon="@drawable/bottom_btn4"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:contentDescription="@string/settings"
+                app:backgroundTint="?attr/colorPrimary"
+                app:elevation="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/bottom_btn4"
+                app:tint="?attr/colorOnPrimary">
+            </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/mySavedPosts"
                 android:layout_width="0dp"
                 android:layout_height="250dp"
-                android:scrollbars="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/savedElementTextView"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="8dp"
+                android:scrollbars="none"
                 app:layout_constraintEnd_toEndOf="parent"
-                tools:layout_editor_absoluteX="0dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/savedElementTextView" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/myPosts"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:scrollbars="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                android:layout_marginTop="8dp"
+                android:scrollbars="none"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/myPostsTextView"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2" />
-
-                <TextView
-                    android:id="@+id/seeAllTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="148dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="Vedi tutti..."
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/seeAllTextView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="452dp"
-                    android:layout_marginEnd="12dp"
-                    android:text="Vedi tutti..."
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -174,11 +158,10 @@
 
             <!-- Primo switch -->
             <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/switch_1"
+                android:id="@+id/night_mode_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/info_place_text"
-                android:enabled="false"
+                android:text="@string/night_mode"
                 app:switchPadding="10dp"
                 android:layout_below="@+id/user_settings_text" />
 
@@ -187,10 +170,22 @@
                 android:id="@+id/switch_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_error"
+                android:text="@string/notification_toggle"
                 android:enabled="false"
                 app:switchPadding="10dp"
-                android:layout_below="@id/switch_1"/>
+                android:layout_below="@id/night_mode_switch"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/logoutButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/night_mode_switch"
+                android:layout_alignEnd="@+id/drag_handle"
+                android:layout_alignBottom="@+id/switch_2"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/logout" />
         </RelativeLayout>
     </FrameLayout>
 

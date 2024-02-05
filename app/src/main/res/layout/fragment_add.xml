@@ -19,7 +19,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:elevation="8dp"
-                    android:layout_marginTop="160dp"
+                    android:layout_marginTop="200dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -31,7 +31,7 @@
                         android:padding="20dp"
                         android:text="@string/share_something"
                         android:textColor="@color/md_theme_light_primary"
-                        android:textSize="30sp"
+                        android:textAppearance="?attr/textAppearanceHeadline4"
                         android:textStyle="bold"/>
 
                     <RelativeLayout
@@ -44,23 +44,23 @@
                         <Button
                             android:id="@+id/new_event_button"
                             style="@style/Widget.Material3.Button.ElevatedButton.Icon"
-                            android:layout_width="160dp"
+                            android:layout_width="170dp"
                             android:layout_height="70dp"
                             android:layout_marginEnd="8dp"
                             android:text="@string/button_event"
-                            android:textSize="16sp"
                             app:icon="@drawable/bottom_btn4"
+                            android:textAppearance="?attr/textAppearanceSubtitle1"
                             app:iconSize="25dp" />
 
                         <Button
                             android:id="@+id/new_info_button"
                             style="@style/Widget.Material3.Button.ElevatedButton"
-                            android:layout_width="160dp"
+                            android:layout_width="170dp"
                             android:layout_height="70dp"
                             android:layout_toEndOf="@+id/new_event_button"
                             android:text="@string/button_info"
-                            android:textSize="16sp"
                             app:icon="@drawable/ic_notifications_black_24dp"
+                            android:textAppearance="?attr/textAppearanceSubtitle1"
                             app:iconSize="25dp"/>
                     </RelativeLayout>
 
@@ -74,23 +74,23 @@
                         <Button
                             android:id="@+id/new_gs_button"
                             style="@style/Widget.Material3.Button.ElevatedButton"
-                            android:layout_width="160dp"
+                            android:layout_width="170dp"
                             android:layout_height="70dp"
                             android:layout_marginEnd="8dp"
                             android:text="@string/button_sg"
-                            android:textSize="16sp"
                             app:icon="@drawable/libri"
+                            android:textAppearance="?attr/textAppearanceSubtitle1"
                             app:iconSize="25dp"/>
 
                         <Button
                             android:id="@+id/new_ripetizioni_button"
                             style="@style/Widget.Material3.Button.ElevatedButton"
-                            android:layout_width="160dp"
+                            android:layout_width="170dp"
                             android:layout_height="70dp"
                             android:layout_toEndOf="@+id/new_gs_button"
                             android:text="@string/button_ripetizioni"
-                            android:textSize="16sp"
                             app:icon="@drawable/online_worlds"
+                            android:textAppearance="?attr/textAppearanceSubtitle1"
                             app:iconSize="25dp" />
 
                     </RelativeLayout>

@@ -9,24 +9,17 @@
     <!-- Start screen -->
     <fragment
         android:id="@+id/startScreenFragment"
-        android:name="com.example.novapp2.ui.start.StartScreenFragment"
+        android:name="com.novapp.bclub.ui.start.StartScreenFragment"
         android:label="fragment_start_screen"
         tools:layout="@layout/fragment_start_screen" >
         <action
             android:id="@+id/action_start_to_onboarding"
-            app:destination="@id/onboardingFragment" />
-        <argument
-            android:name="user_local_mail"
-            app:argType="string" />
-        <argument
-            android:name="user_local_password"
-            app:argType="string" />
-        <action
-            android:id="@+id/action_start_to_login"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/onboardingFragment"
+            app:enterAnim="@anim/fade_in" />
         <action
             android:id="@+id/action_start_to_home"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/fade_in" />
     </fragment>
 
     <!-- Starting carousel -->
@@ -34,7 +27,7 @@
     <!-- Login -->
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.novapp2.ui.login.LoginFragment"
+        android:name="com.novapp.bclub.ui.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -42,13 +35,14 @@
             app:destination="@id/registerFragment" />
         <action
             android:id="@+id/action_login_to_home"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/fade_in" />
     </fragment>
 
     <!-- Register -->
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.novapp2.ui.register.RegisterFragment"
+        android:name="com.novapp.bclub.ui.register.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -56,38 +50,42 @@
             app:destination="@id/loginFragment" />
         <action
             android:id="@+id/action_register_to_home"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/fade_in" />
     </fragment>
 
     <!-- Home -->
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.novapp2.ui.home.HomeFragment"
+        android:name="com.novapp.bclub.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_home_to_fullRegister"
-            app:destination="@id/fullRegisterFragment" />
+            app:destination="@id/fullRegisterFragment"
+            app:enterAnim="@anim/fade_in" />
         <action
             android:id="@+id/action_home_to_login"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/fade_in" />
     </fragment>
 
     <!-- Onboarding -->
     <fragment
         android:id="@+id/onboardingFragment"
-        android:name="com.example.novapp2.ui.onboarding.ViewPagerFragment"
+        android:name="com.novapp.bclub.ui.onboarding.ViewPagerFragment"
         android:label="fragment_view_pager"
-        tools:layout="@layout/fragment_view_pager" >
+        tools:layout="@layout/fragment_onboarding" >
         <action
             android:id="@+id/action_onboarding_to_login"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/fade_in" />
     </fragment>
 
     <!-- Full register -->
     <fragment
         android:id="@+id/fullRegisterFragment"
-        android:name="com.example.novapp2.ui.register.FullRegisterFragment"
+        android:name="com.novapp.bclub.ui.register.FullRegisterFragment"
         android:label="fragment_full_register"
         tools:layout="@layout/fragment_full_register" >
         <argument
@@ -98,7 +96,12 @@
             app:argType="string" />
         <action
             android:id="@+id/action_fullRegister_to_home"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/fade_in" />
     </fragment>
+    <action
+        android:id="@+id/action_to_login"
+        app:destination="@id/loginFragment"
+        app:enterAnim="@anim/fade_in" />
 
 </navigation>

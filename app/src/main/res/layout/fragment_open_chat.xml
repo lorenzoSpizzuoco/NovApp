@@ -22,7 +22,7 @@
         android:id="@+id/noChatText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
+        android:textAppearance="?attr/textAppearanceSubtitle1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,41 +43,45 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Inserisci qui il tuo messaggio"
-            android:textSize="12sp" />
+            android:hint="@string/msg_hint" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/send_button"
+        app:shapeAppearanceOverlay="@style/Circular"
+        app:iconTint="?attr/colorOnPrimary"
+        app:backgroundTint="?attr/colorPrimary"
         android:layout_width="0dp"
+        app:icon="@drawable/send_fill0_wght400_grad0_opsz24"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="14dp"
         android:padding="3dp"
-        android:text="Send"
-        android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="back"
-        android:textSize="14sp"
+        android:layout_margin="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:elevation="10dp"
+        app:tint="?attr/colorOnPrimary"
+        app:backgroundTint="?attr/colorPrimary"
+        app:srcCompat="@drawable/arrow_back"
+        style="?attr/floatingActionButtonSmallPrimaryStyle"
+        android:contentDescription="@string/arrow_back_cd">
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
     <TextView
         android:id="@+id/groupName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:text="TextView"
-        android:textStyle="italic"
 
         android:textColor="?attr/colorOnSurface"
         android:textAppearance="?attr/textAppearanceHeadline6"

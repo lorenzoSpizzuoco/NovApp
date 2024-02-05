@@ -30,7 +30,6 @@
                     android:id="@+id/savedCardImageView"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:contentDescription="@string/lorem"
                     android:scaleType="centerCrop"
                     app:srcCompat="@drawable/common_google_signin_btn_text_dark_normal" />
             </LinearLayout>
@@ -48,8 +47,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="TEST"
-                    android:textSize="16sp"
+                    android:text="@string/title_error"
                     android:textAppearance="?attr/textAppearanceTitleMedium"/>
 
                 <TextView
@@ -58,10 +56,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="10dp"
-                    android:text="testtest"
+                    android:text="@string/title_error"
                     android:maxLines="2"
                     android:ellipsize="end"
-                    android:textSize="14sp"
                     android:textAppearance="?attr/textAppearanceBodyMedium"/>
 
             </LinearLayout>

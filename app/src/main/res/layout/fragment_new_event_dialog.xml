@@ -1,59 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:scrollbars="vertical"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:paddingStart="6dp"
+                android:paddingEnd="16dp"
+                app:contentInsetStartWithNavigation="0dp"
+                app:navigationIcon="@drawable/x_close"
+
+                app:title="@string/new_event_toolbar"
+                app:titleMarginStart="10dp" />
+        </RelativeLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
         android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="30dp"
+        android:layout_below="@+id/appBarLayout"
         android:orientation="vertical">
 
-        <com.google.android.material.appbar.AppBarLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            app:elevation="0dp">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
-
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:paddingStart="6dp"
-                    android:paddingEnd="16dp"
-                    app:contentInsetStartWithNavigation="0dp"
-                    app:navigationIcon="@drawable/x_close"
-
-                    app:title="@string/new_event_toolbar"
-                    app:titleMarginStart="10dp" />
-
-                <TextView
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginRight="40dp"
-                    android:elevation="30dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:layout_centerVertical="true"
-                    android:id="@+id/save_button_event"
-                    android:gravity="center"
-                    android:layout_width="wrap_content"
-                    android:textSize="16sp"
-                    android:layout_alignEnd="@id/toolbar"
-                    android:layout_height="match_parent"
-                    android:text="@string/Save"/>
-            </RelativeLayout>
-        </com.google.android.material.appbar.AppBarLayout>
-
         <RelativeLayout
-
+            android:id="@+id/relativeLayout1"
             android:layout_gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -63,21 +55,25 @@
                 android:id="@+id/new_event_title"
                 app:errorEnabled="true"
                 app:endIconMode="clear_text"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
                 android:hint="@string/event_title_hint"
-                android:inputType="textEmailAddress">
+                android:inputType="textEmailAddress"
+                app:counterEnabled="true"
+                app:counterMaxLength="25"
+                >
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/event_title_inner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/new_event_place"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 app:errorEnabled="true"
                 app:endIconMode="clear_text"
                 android:layout_centerHorizontal="true"
@@ -85,16 +81,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
                 android:hint="@string/event_place_text"
-                android:inputType="textEmailAddress">
+                android:inputType="textEmailAddress"
+                app:counterEnabled="true"
+                app:counterMaxLength="25">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/event_place_inner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/new_event_desc"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 app:endIconMode="clear_text"
                 android:layout_centerHorizontal="true"
                 app:errorEnabled="true"
@@ -102,16 +102,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
                 android:hint="@string/event_desc"
-                android:inputType="textEmailAddress">
+                android:inputType="textEmailAddress"
+                app:counterEnabled="true"
+                app:counterMaxLength="250">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/event_desc_inner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/date_picker_input_text"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_below="@id/new_event_desc"
                 app:errorEnabled="true"
                 android:layout_centerHorizontal="true"
@@ -120,50 +123,70 @@
                 app:startIconDrawable="@drawable/calendar"
                 android:hint="@string/event_date_button"
                 android:inputType="textEmailAddress">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/date_input_text_inner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    tools:ignore="TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical|center_horizontal">
+
+            <!-- Bottone a sinistra -->
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:id="@+id/event_photo_button"
+                android:layout_width="wrap_content"
+                android:text="@string/event_photo_button"
+                android:layout_height="wrap_content"/>
+
+            <!-- RelativeLayout a destra -->
             <RelativeLayout
-                android:layout_below="@id/event_photo_button"
-                android:layout_centerHorizontal="true"
-                android:layout_width="300dp"
-                android:layout_marginTop="20sp"
-                android:layout_height="300dp">
+                android:layout_width="fill_parent"
+                android:layout_marginStart="15dp"
+                android:layout_height="150dp">
+
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:visibility="gone"
                     android:id="@+id/fab_delete_photo"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginEnd="20dp"
                     android:src="@drawable/x_close"
-
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    style="?attr/floatingActionButtonSmallPrimaryStyle"
+                    android:contentDescription="@string/chosen_image" />
+
                 <ImageView
-                    android:layout_marginTop="25dp"
                     android:layout_centerHorizontal="true"
+                    android:padding="10dp"
                     android:id="@+id/event_photo_view"
                     android:scaleType="centerCrop"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp" />
-
-
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border_group_chat_view"
+                    android:contentDescription="@string/chosen_image" />
             </RelativeLayout>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/event_photo_button"
-                android:layout_width="wrap_content"
-                android:layout_marginTop="20sp"
-                android:layout_centerHorizontal="true"
-                android:text="@string/event_photo_button"
-                android:layout_below="@id/date_picker_input_text"
-                android:layout_height="wrap_content">
-
-            </com.google.android.material.button.MaterialButton>
-
-        </RelativeLayout>
+        </LinearLayout>
+        <Button
+            android:layout_marginTop="15dp"
+            android:elevation="30dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:id="@+id/save_button_event"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:text="@string/Save"/>
 
     </LinearLayout>
+    </RelativeLayout>
 </ScrollView>

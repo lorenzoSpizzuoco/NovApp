@@ -13,7 +13,8 @@
         android:layout_margin="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:elevation="10dp"
+        app:elevation="0dp"
+        android:elevation="0dp"
         app:srcCompat="@drawable/arrow_back"
         app:backgroundTint="?attr/colorSurfaceContainer"
         style="?attr/floatingActionButtonSmallPrimaryStyle"
@@ -32,10 +33,11 @@
 
 
         app:layout_constraintTop_toBottomOf="@+id/backButton"
-        tools:context=".ui.dashboard.PostDetailsFragment">
+        tools:context=".ui.home.dashboard.PostDetailsFragment">
 
         <RelativeLayout
             android:layout_width="match_parent"
+            android:padding="10dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/floating_button">
 
@@ -46,7 +48,7 @@
                     android:clickable="false"
                     android:text="@string/infos_chip"
                     android:textAllCaps="true"
-                    android:textSize="16sp"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
                     android:textStyle="bold"
                     app:chipCornerRadius="3dp"
                     app:chipEndPadding="8dp"
@@ -140,7 +142,8 @@
                     android:layout_below="@id/post_divider"
                     android:layout_marginBottom="80dp"
                     android:layout_marginTop="10dp"
-                    android:padding="8dp"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="8dp"
                     android:text="@string/info_desc"
                     style="?attr/textAppearanceBody1"/>
 
