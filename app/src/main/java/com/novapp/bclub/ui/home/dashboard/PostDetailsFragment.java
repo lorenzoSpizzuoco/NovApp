@@ -73,8 +73,8 @@ public class PostDetailsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
-        savedPostsViewModel = new ViewModelProvider(this).get(SavedPostsViewModel.class);
+        //postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
+        //savedPostsViewModel = new ViewModelProvider(this).get(SavedPostsViewModel.class);
         userViewModel = new UserViewModel();
 
     }
@@ -126,7 +126,6 @@ public class PostDetailsFragment extends Fragment {
 
     }
 
-
     private void setupFavoriteButtonListener() {
 
         // click listener
@@ -134,13 +133,13 @@ public class PostDetailsFragment extends Fragment {
             if (p.getFavorite() == 1) {
                 p.setFavorite(0);
                 userViewModel.removeFavorite(p);
-                savedPostsViewModel.removeSaved(p);
+                //savedPostsViewModel.removeSaved(p);
                 favoriteIcon.setIconResource(R.drawable.baseline_favorite_border_24);
             }
             else {
                 p.setFavorite(1);
                 userViewModel.setFavorite(p);
-                savedPostsViewModel.savePost(p);
+                //savedPostsViewModel.savePost(p);
                 favoriteIcon.setIconResource(R.drawable.ic_favorite_24);
 
             }
@@ -213,12 +212,25 @@ public class PostDetailsFragment extends Fragment {
     }
 
     private void setUpAuthorImage(View view) {
-
+        /*
         postViewModel.getAuthorImage(p.getAuthor()).observe(getViewLifecycleOwner(), imageUrl ->
                 {
                     if (imageUrl != null) {
                         Glide.with(view)
                                 .load(imageUrl)
+                                .centerCrop()
+                                .placeholder(R.mipmap.ic_launcher)
+                                .into(authorProfileImage);
+                    }
+                }
+        );
+
+         */
+        UserService.getUserByEmail(p.getAuthor()).addOnCompleteListener(
+                task -> {
+                    if (task.isSuccessful()) {
+                        Glide.with(view)
+                                .load(task.getResult().getProfileImg())
                                 .centerCrop()
                                 .placeholder(R.mipmap.ic_launcher)
                                 .into(authorProfileImage);

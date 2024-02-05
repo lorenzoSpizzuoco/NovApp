@@ -29,13 +29,14 @@ public class PostViewModel extends AndroidViewModel {
     private final MutableLiveData<Boolean> doneLoading = new MutableLiveData<>();
     private final MutableLiveData<List<Post>> savedPosts = null;
     private MutableLiveData<List<Post>> userPosts;
-
+    private MutableLiveData<List<Post>> allPostRoom;
     private MutableLiveData<List<Post>> allPost;
     private boolean calling = false;
 
     public PostViewModel (Application application) {
         super(application);
         postService =  new PostService(application);
+        allPostRoom = postService.getAllPostRoom(false);
     }
 
     public MutableLiveData<Integer> getIsFavorite(String user, String id) {
@@ -95,13 +96,7 @@ public class PostViewModel extends AndroidViewModel {
 
     public void refresh() {
 
-        postService.getAllPost().addOnCompleteListener(task -> {
-           if (task.isSuccessful()) {
-               List<Post> p = task.getResult();
-               reverse(p);
-               allPost.postValue(task.getResult());
-           }
-        });
+        allPostRoom = postService.getAllPostRoom(true);
 
     }
 
@@ -180,6 +175,10 @@ public class PostViewModel extends AndroidViewModel {
             );
        // }
         return userPosts;
+    }
+
+    public MutableLiveData<List<Post>> getPostsRoom() {
+        return allPostRoom;
     }
 
     public MutableLiveData<List<Post>> getRoomSaved() {

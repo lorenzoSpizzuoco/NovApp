@@ -14,7 +14,7 @@ import java.util.List;
 @Dao
 public interface PostDao {
 
-    @Query("SELECT * FROM post_table ORDER BY date DESC")
+    @Query("SELECT * FROM post_table ORDER BY date ASC")
     LiveData<List<Post>> getAllPosts();
 
     @Query("SELECT * FROM post_table WHERE dbId = :id")
@@ -31,4 +31,7 @@ public interface PostDao {
 
     @Query("DELETE FROM post_table")
     void deleteAll();
+
+    @Query("SELECT * FROM post_table WHERE favorite = 1")
+    LiveData<List<Post>> getFavorites();
 }

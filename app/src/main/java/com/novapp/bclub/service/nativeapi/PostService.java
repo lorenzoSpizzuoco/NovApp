@@ -107,10 +107,16 @@ public class PostService {
         return postRepository.getAllPost();
     }
 
+    /*
     public MutableLiveData<List<Post>> getRoomSaved() {
         return postRepository.getRoomSaved();
     }
 
+     */
+
+    public MutableLiveData<List<Post>> getAllPostRoom(boolean refresh) {
+        return postRepository.getAllPostRoom(refresh);
+    }
 
     public void deleteAll() {
         postRepository.deleteAll();

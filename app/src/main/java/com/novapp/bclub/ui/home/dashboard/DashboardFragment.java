@@ -87,7 +87,7 @@ public class DashboardFragment extends Fragment {
         setupSearchView();
 
         // Observing viewModel
-        postViewModel.getAllPost().observe(getViewLifecycleOwner(), posts -> {
+        postViewModel.getPostsRoom().observe(getViewLifecycleOwner(), posts -> {
             postList.clear();
             postList.addAll(posts);
             postAdapter.notifyDataSetChanged();

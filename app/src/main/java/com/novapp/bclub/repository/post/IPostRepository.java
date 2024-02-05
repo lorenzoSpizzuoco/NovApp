@@ -16,12 +16,15 @@ public interface IPostRepository {
 
     Task<List<Post>> getAllPost();
 
-    public MutableLiveData<List<Post>> getRoomSaved();
+    //public MutableLiveData<List<Post>> getRoomSaved();
 
     public void insertLocal(Post post);
 
     public void removeSaved(Post post);
 
     public void deleteAll();
+
+    public MutableLiveData<List<Post>> getAllPostRoom(boolean refresh);
+
 
 }

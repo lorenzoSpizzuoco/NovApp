@@ -42,7 +42,7 @@ public class PostRepositoryImpl implements IPostRepository{
 
     private final UserService userService;
 
-    private MutableLiveData<List<Post>> savedRoomPosts;
+    private MutableLiveData<List<Post>> posts;
 
     public PostRepositoryImpl (Application application) {
         PostRoomDatabase db = PostRoomDatabase.getDatabase(application);
@@ -88,6 +88,10 @@ public class PostRepositoryImpl implements IPostRepository{
                                                                     taskUser -> {
                                                                           if (taskUser.isSuccessful()) {
                                                                               Log.d(TAG, "SUCCESS TASK");
+                                                                              // local insertion
+                                                                              PostRoomDatabase.databaseWriteExecutor.execute(() -> {
+                                                                                  postDao.insert(post);
+                                                                              });
                                                                               taskCompletionSource.setResult(null);
                                                                           }
                                                                           else {
@@ -155,46 +159,114 @@ public class PostRepositoryImpl implements IPostRepository{
     public Task<List<Post>> getAllPost() {
 
         TaskCompletionSource<List<Post>> taskCompletionSource = new TaskCompletionSource<>();
-        List<Task<DataSnapshot>> tasks = new ArrayList<>();
 
-        mDatabase.child(DB_POSTS)
-                .orderByChild("timestamp")
-                .get().addOnCompleteListener(task -> {
-                    if (!task.isSuccessful()) {
-                        Log.d(TAG, "fail");
-                        Log.e(TAG, Objects.requireNonNull(task.getException()).toString());
-                        taskCompletionSource.setException(task.getException());
+        if (posts == null) {
 
-                    } else {
+            List<Task<DataSnapshot>> tasks = new ArrayList<>();
 
-                        List<Post> postList = new ArrayList<>();
+            mDatabase.child(DB_POSTS)
+                    .orderByChild("timestamp")
+                    .get().addOnCompleteListener(task -> {
+                        if (!task.isSuccessful()) {
+                            Log.d(TAG, "fail");
+                            Log.e(TAG, Objects.requireNonNull(task.getException()).toString());
+                            taskCompletionSource.setException(task.getException());
 
-                        // genericPosts
-                        for (DataSnapshot ds : task.getResult().getChildren()) {
-                            GenericPost postInfos = ds.getValue(GenericPost.class);
-                            assert postInfos != null;
-                            String mainChild = getChildCategory(postInfos.getCategoria());
+                        } else {
 
-                            // fetching single post
-                            Task<DataSnapshot> innerTask = mDatabase.child(mainChild).child(postInfos.getId()).get();
-                            tasks.add(innerTask);
-                        }
+                            List<Post> postList = new ArrayList<>();
 
-                        // Wait for all inner tasks to complete
-                        Tasks.whenAllSuccess(tasks).addOnCompleteListener(innerTask -> {
-                            for (Task<DataSnapshot> taskInner : tasks) {
-                                if (taskInner.isSuccessful()) {
-                                    Post p = taskInner.getResult().getValue(Post.class);
-                                    postList.add(p);
-                                }
+                            // genericPosts
+                            for (DataSnapshot ds : task.getResult().getChildren()) {
+                                GenericPost postInfos = ds.getValue(GenericPost.class);
+                                assert postInfos != null;
+                                String mainChild = getChildCategory(postInfos.getCategoria());
+
+                                // fetching single post
+                                Task<DataSnapshot> innerTask = mDatabase.child(mainChild).child(postInfos.getId()).get();
+                                tasks.add(innerTask);
                             }
-                            taskCompletionSource.setResult(postList);
-                        });
-                    }
-                });
+
+                            // Wait for all inner tasks to complete
+                            Tasks.whenAllSuccess(tasks).addOnCompleteListener(innerTask -> {
+                                for (Task<DataSnapshot> taskInner : tasks) {
+                                    if (taskInner.isSuccessful()) {
+                                        Post p = taskInner.getResult().getValue(Post.class);
+                                        postList.add(p);
+                                    }
+                                }
+                                PostRoomDatabase.databaseWriteExecutor.execute(() -> {
+                                    for (Post post : postList) {
+                                        postDao.insert(post);
+                                    }
+                                });
+                                taskCompletionSource.setResult(postList);
+                            });
+                        }
+                    });
+        }
+        else {
+            postDao.getAllPosts();
+        }
 
         return taskCompletionSource.getTask();
     }
+
+    public MutableLiveData<List<Post>> getAllPostRoom(boolean refresh) {
+
+
+        if (posts == null || refresh) {
+            Log.d(TAG, "fetching data");
+            posts = new MutableLiveData<List<Post>>();
+            List<Task<DataSnapshot>> tasks = new ArrayList<>();
+
+            mDatabase.child(DB_POSTS)
+                    .orderByChild("timestamp")
+                    .get().addOnCompleteListener(task -> {
+                        if (!task.isSuccessful()) {
+                            Log.d(TAG, "fail");
+                            Log.e(TAG, Objects.requireNonNull(task.getException()).toString());
+                            posts.postValue(null);
+
+                        } else {
+
+                            List<Post> postList = new ArrayList<>();
+
+                            // genericPosts
+                            for (DataSnapshot ds : task.getResult().getChildren()) {
+                                GenericPost postInfos = ds.getValue(GenericPost.class);
+                                assert postInfos != null;
+                                String mainChild = getChildCategory(postInfos.getCategoria());
+
+                                // fetching single post
+                                Task<DataSnapshot> innerTask = mDatabase.child(mainChild).child(postInfos.getId()).get();
+                                tasks.add(innerTask);
+                            }
+
+                            // Wait for all inner tasks to complete
+                            Tasks.whenAllSuccess(tasks).addOnCompleteListener(innerTask -> {
+                                for (Task<DataSnapshot> taskInner : tasks) {
+                                    if (taskInner.isSuccessful()) {
+                                        Post p = taskInner.getResult().getValue(Post.class);
+                                        postList.add(p);
+                                    }
+                                }
+                                PostRoomDatabase.databaseWriteExecutor.execute(() -> {
+                                    for (Post post : postList) {
+
+                                        postDao.insert(post);
+                                    }
+                                });
+                                posts.postValue(postList);
+                            });
+                        }
+                    });
+        }
+
+        return posts;
+    }
+
+    /*
 
     public MutableLiveData<List<Post>> getRoomSaved() {
 
@@ -215,6 +287,8 @@ public class PostRepositoryImpl implements IPostRepository{
 
         return savedRoomPosts;
     }
+
+     */
 
     public void insertLocal(Post post) {
         PostRoomDatabase.databaseWriteExecutor.execute(() -> {

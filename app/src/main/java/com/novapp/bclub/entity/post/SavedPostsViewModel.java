@@ -20,7 +20,7 @@ public class SavedPostsViewModel extends AndroidViewModel {
     public SavedPostsViewModel(@NonNull Application application) {
         super(application);
         postService = new PostService(application);
-        savedPosts = postService.getRoomSaved();
+        savedPosts = postService.getAllPostRoom(false);
     }
 
     public MutableLiveData<List<Post>> getSavedPosts() {
