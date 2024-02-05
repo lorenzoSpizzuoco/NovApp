@@ -31,7 +31,8 @@ import com.novapp.bclub.databinding.FragmentUserBinding;
 import com.novapp.bclub.entity.post.Post;
 import com.novapp.bclub.entity.post.PostViewModel;
 import com.novapp.bclub.entity.post.SavedPostAdapter;
-import com.novapp.bclub.entity.post.SavedPostsViewModel;
+
+import com.novapp.bclub.entity.post.UserPostViewModel;
 import com.novapp.bclub.entity.user.User;
 import com.novapp.bclub.entity.user.UserViewModel;
 import com.novapp.bclub.service.nativeapi.AuthService;
@@ -63,6 +64,7 @@ public class UserFragment extends Fragment {
     private FloatingActionButton settingsButton;
     private Button logoutButton;
     private SwitchMaterial nightModeButton;
+    private UserPostViewModel userPostViewModel;
 
     public UserFragment() {
         // Required empty public constructor
@@ -71,8 +73,8 @@ public class UserFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
-        //savedPostsViewModel =  new ViewModelProvider(this).get(SavedPostsViewModel.class);
+
+        userPostViewModel = new ViewModelProvider(this).get(UserPostViewModel.class);
         postList = new ArrayList<>();
         userPosts = new ArrayList<>();
     }
@@ -197,7 +199,7 @@ public class UserFragment extends Fragment {
     }
 
     private void observeUserPosts() {
-        postViewModel.getUserPosts().observe(getViewLifecycleOwner(), posts -> {
+        userPostViewModel.getUserPosts().observe(getViewLifecycleOwner(), posts -> {
             userPosts.clear();
             userPosts.addAll(posts);
             userPostAdapter.notifyDataSetChanged();

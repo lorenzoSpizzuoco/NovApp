@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavBackStackEntry;
 import androidx.navigation.Navigation;
@@ -20,8 +21,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.novapp.bclub.R;
 import com.novapp.bclub.entity.post.Post;
+import com.novapp.bclub.entity.post.PostDetailViewModel;
 import com.novapp.bclub.entity.post.PostViewModel;
-import com.novapp.bclub.entity.post.SavedPostsViewModel;
+
 import com.novapp.bclub.service.nativeapi.MessageService;
 import com.novapp.bclub.service.nativeapi.UserService;
 import com.novapp.bclub.entity.user.UserViewModel;
@@ -45,7 +47,7 @@ public class PostDetailsFragment extends Fragment {
 
     private UserViewModel userViewModel;
 
-    private SavedPostsViewModel savedPostsViewModel;
+
 
     private TextView date;
 
@@ -64,6 +66,8 @@ public class PostDetailsFragment extends Fragment {
 
     private PostViewModel postViewModel;
 
+    private PostDetailViewModel postDetailViewModel;
+
     Post p;
 
     public PostDetailsFragment() {
@@ -74,6 +78,7 @@ public class PostDetailsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
+        postDetailViewModel = new ViewModelProvider(this).get(PostDetailViewModel.class);
         //savedPostsViewModel = new ViewModelProvider(this).get(SavedPostsViewModel.class);
         userViewModel = new UserViewModel();
 
@@ -147,6 +152,7 @@ public class PostDetailsFragment extends Fragment {
     }
 
     private void setupStudyGroupButton(View view) {
+
         if (p.getCategory() == 4) {
             gs_button.setVisibility(View.VISIBLE);
             gs_button.setOnClickListener(v ->{
@@ -212,8 +218,8 @@ public class PostDetailsFragment extends Fragment {
     }
 
     private void setUpAuthorImage(View view) {
-        /*
-        postViewModel.getAuthorImage(p.getAuthor()).observe(getViewLifecycleOwner(), imageUrl ->
+
+        postDetailViewModel.getAuthorImage(p.getAuthor()).observe(getViewLifecycleOwner(), imageUrl ->
                 {
                     if (imageUrl != null) {
                         Glide.with(view)
@@ -225,18 +231,6 @@ public class PostDetailsFragment extends Fragment {
                 }
         );
 
-         */
-        UserService.getUserByEmail(p.getAuthor()).addOnCompleteListener(
-                task -> {
-                    if (task.isSuccessful()) {
-                        Glide.with(view)
-                                .load(task.getResult().getProfileImg())
-                                .centerCrop()
-                                .placeholder(R.mipmap.ic_launcher)
-                                .into(authorProfileImage);
-                    }
-                }
-        );
     }
 
     private void setupChip() {

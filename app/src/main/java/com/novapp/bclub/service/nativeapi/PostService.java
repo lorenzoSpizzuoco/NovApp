@@ -10,6 +10,7 @@ import android.util.Log;
 
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.novapp.bclub.entity.post.Post;
@@ -103,18 +104,8 @@ public class PostService {
         return taskCompletionSource.getTask();
     }
 
-    public Task<List<Post>> getAllPost() {
-        return postRepository.getAllPost();
-    }
 
-    /*
-    public MutableLiveData<List<Post>> getRoomSaved() {
-        return postRepository.getRoomSaved();
-    }
-
-     */
-
-    public MutableLiveData<List<Post>> getAllPostRoom(boolean refresh) {
+    public LiveData<List<Post>> getAllPostRoom(boolean refresh) {
         return postRepository.getAllPostRoom(refresh);
     }
 
@@ -128,6 +119,10 @@ public class PostService {
 
     public void insertSaved(Post post) {
         postRepository.insertLocal(post);
+    }
+
+    public LiveData<List<Post>> getUserPosts(String user) {
+        return postRepository.getUserPost(user);
     }
 
 }

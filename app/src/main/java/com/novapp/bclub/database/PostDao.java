@@ -1,6 +1,7 @@
 package com.novapp.bclub.database;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -32,6 +33,8 @@ public interface PostDao {
     @Query("DELETE FROM post_table")
     void deleteAll();
 
-    @Query("SELECT * FROM post_table WHERE favorite = 1")
-    LiveData<List<Post>> getFavorites();
+
+    @Query("SELECT * FROM post_table WHERE author = :author")
+    LiveData<List<Post>> getUserPosts(String author);
+
 }

@@ -28,6 +28,7 @@ import com.google.android.material.search.SearchBar;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -88,6 +89,7 @@ public class DashboardFragment extends Fragment {
 
         // Observing viewModel
         postViewModel.getPostsRoom().observe(getViewLifecycleOwner(), posts -> {
+            Collections.reverse(posts);
             postList.clear();
             postList.addAll(posts);
             postAdapter.notifyDataSetChanged();
