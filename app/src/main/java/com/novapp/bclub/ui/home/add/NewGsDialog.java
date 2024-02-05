@@ -180,6 +180,11 @@ public class NewGsDialog extends DialogFragment {
             gsDesc.setError(null);
         }
 
+        if (imageUri == null) {
+            valid = false;
+            Snackbar.make(getView(), R.string.missing_image, Snackbar.LENGTH_SHORT).show();
+        }
+
         if (valid) {
             Date currentDate = new Date();
             SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.DATA_PATTERN);

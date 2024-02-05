@@ -8,6 +8,7 @@ import static com.novapp.bclub.utils.Utils.getChildCategory;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
 
 import com.novapp.bclub.entity.user.User;
 import com.novapp.bclub.entity.post.Post;
@@ -236,6 +237,8 @@ public class UserRepositoryImpl implements IUserRepository{
 
         return taskCompletionSource.getTask();
     }
+
+
 
     public void setCurrentUser(User user) {
         UserSource.setUser(user);

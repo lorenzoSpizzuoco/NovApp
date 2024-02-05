@@ -5,8 +5,6 @@ public class Constants {
 
     public static final String CHECK_PROFANITY_ENDPOINT = "v1alpha1/comments:analyze";
 
-    public static final String API_KEY = "AIzaSyAOsGrRsKeqkYvvV8TYQ-8xjf7eXU3Rqtg";
-
     public static final String DB_POSTS = "posts";
 
     public static final String POST_DATABASE_NAME = "post-table";

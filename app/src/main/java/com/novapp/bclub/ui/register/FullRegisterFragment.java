@@ -152,7 +152,7 @@ public class FullRegisterFragment extends Fragment {
     }
 
     private void createAlert(String name, String surname, String bio, String userId, String email) {
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireParentFragment().requireActivity()).setTitle(R.string.event_photo)
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireParentFragment().requireActivity()).setTitle(R.string.user_profile_image)
                 .setMessage(R.string.no_photo_reg)
                 .setPositiveButton(R.string.ok_button, (di, i) -> {
                     User updatedUser = new User(userId, name, email, surname, bio, null, null, isBicocca(email), "", null);

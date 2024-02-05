@@ -1,6 +1,4 @@
 package com.novapp.bclub.service.nativeapi;
-
-import static com.novapp.bclub.utils.Constants.API_KEY;
 import static com.novapp.bclub.utils.Constants.PROFANITY_API_BASE_URL;
 import static com.novapp.bclub.utils.Utils.checkResponse;
 
@@ -10,8 +8,10 @@ import android.util.Log;
 
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.novapp.bclub.R;
 import com.novapp.bclub.entity.post.Post;
 import com.novapp.bclub.repository.post.IPostRepository;
 import com.novapp.bclub.repository.post.PostRepositoryImpl;
@@ -36,9 +36,9 @@ public class PostService {
     public static final String TAG = PostService.class.getSimpleName();
 
     private static IPostRepository postRepository;
-
+    String api_key;
     public PostService(Application application) {
-        //postRepository = new PostRepositoryImpl(application);
+        api_key = application.getString(R.string.api_key);
         postRepository = new PostRepositoryImpl(application);
     }
 
@@ -58,7 +58,7 @@ public class PostService {
                 .build();
 
         ProfanityApiService service = retrofit.create(ProfanityApiService.class);
-        service.checkForPronfanity(API_KEY,
+        service.checkForPronfanity(api_key,
                         "{comment: {text: \"" + post.getTitle() + " " + post.getContent() + "\" }, requestedAttributes: {PROFANITY:{}, TOXICITY:{}} }")
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
@@ -103,14 +103,10 @@ public class PostService {
         return taskCompletionSource.getTask();
     }
 
-    public Task<List<Post>> getAllPost() {
-        return postRepository.getAllPost();
-    }
 
-    public MutableLiveData<List<Post>> getRoomSaved() {
-        return postRepository.getRoomSaved();
+    public LiveData<List<Post>> getAllPostRoom(boolean refresh) {
+        return postRepository.getAllPostRoom(refresh);
     }
-
 
     public void deleteAll() {
         postRepository.deleteAll();
@@ -122,6 +118,10 @@ public class PostService {
 
     public void insertSaved(Post post) {
         postRepository.insertLocal(post);
+    }
+
+    public LiveData<List<Post>> getUserPosts(String user) {
+        return postRepository.getUserPost(user);
     }
 
 }

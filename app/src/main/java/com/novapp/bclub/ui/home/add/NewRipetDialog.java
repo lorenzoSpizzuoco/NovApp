@@ -47,6 +47,9 @@ import java.util.Objects;
 
 public class NewRipetDialog extends DialogFragment {
 
+
+    private static final String TAG = NewRipetDialog.class.getSimpleName();
+
     private ImageView eventImage;
 
     private final UserService userService = new UserService();
@@ -136,7 +139,7 @@ public class NewRipetDialog extends DialogFragment {
 
         delPhoto.setOnClickListener(v -> {
             if (eventImage.getDrawable() != null) {
-                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireParentFragment().requireActivity()).setTitle(R.string.event_photo)
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireParentFragment().requireActivity()).setTitle(R.string.ripet_photo_del)
                         .setMessage(R.string.photo_delete)
                         .setPositiveButton(R.string.dialog_ok_event_photo_delete, (di, i) -> {
                             eventImage.setImageBitmap(null);
@@ -236,6 +239,7 @@ public class NewRipetDialog extends DialogFragment {
 
         if(eventPhoto == null) {
             valid = false;
+            Snackbar.make(getView(), R.string.missing_image, Snackbar.LENGTH_SHORT).show();
         }
 
         if (valid) {
@@ -253,6 +257,7 @@ public class NewRipetDialog extends DialogFragment {
                     0 ));
 
             b.putParcelable("image", imageUri);
+            Log.d(TAG, String.valueOf(imageUri == null));
             Navigation.findNavController(requireParentFragment().requireView()).navigate(R.id.action_navigation_add_to_loadingFragment, b);
         }
 

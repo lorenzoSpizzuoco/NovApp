@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class MessageRepositoryImpl implements IMessageRepository{
+public class MessageRepositoryImpl implements IMessageRepository {
 
     private final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
