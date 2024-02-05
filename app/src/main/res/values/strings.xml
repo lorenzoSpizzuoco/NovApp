@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">B-Club</string>
     <string name="email_error">"Email not valid "</string>
-    <string name="hello">" Hi"</string>
+    <string name="hello">"Hi"</string>
     <string name="esclamation">!</string>
     <string name="saved_elements"> Saved elements </string>
     <string name="button_event"> Events </string>

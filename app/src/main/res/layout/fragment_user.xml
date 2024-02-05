@@ -67,10 +67,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="76dp"
+                android:layout_marginTop="72dp"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
                 app:layout_constraintStart_toEndOf="@+id/userCardView"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="nome utente" />
 
             <TextView
                 android:id="@+id/savedElementTextView"
