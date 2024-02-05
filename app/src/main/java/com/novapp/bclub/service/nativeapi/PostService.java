@@ -4,11 +4,14 @@ import static com.novapp.bclub.utils.Constants.API_KEY;
 import static com.novapp.bclub.utils.Constants.PROFANITY_API_BASE_URL;
 import static com.novapp.bclub.utils.Utils.checkResponse;
 
+import android.app.Application;
 import android.net.Uri;
 import android.util.Log;
 
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
+
 import com.novapp.bclub.entity.post.Post;
 import com.novapp.bclub.repository.post.IPostRepository;
 import com.novapp.bclub.repository.post.PostRepositoryImpl;
@@ -31,9 +34,13 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class PostService {
 
     public static final String TAG = PostService.class.getSimpleName();
-    private Retrofit retrofit;
 
-    private static IPostRepository postRepository = new PostRepositoryImpl();
+    private static IPostRepository postRepository;
+
+    public PostService(Application application) {
+        //postRepository = new PostRepositoryImpl(application);
+        postRepository = new PostRepositoryImpl(application);
+    }
 
     public Task<Void> insert(Post post, Uri image) {
 
@@ -45,7 +52,7 @@ public class PostService {
                 .writeTimeout(10, TimeUnit.SECONDS)
                 .build();
 
-        retrofit = new Retrofit.Builder()
+        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(PROFANITY_API_BASE_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .build();
@@ -88,11 +95,11 @@ public class PostService {
                     }
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        // TODO Gestisci il fallimento della chiamata API
                         Log.e(TAG, "fail message: " + t.getMessage());
-
+                        taskCompletionSource.setException(new Exception("fail"));
                     }
                 });
+
         return taskCompletionSource.getTask();
     }
 
@@ -100,5 +107,21 @@ public class PostService {
         return postRepository.getAllPost();
     }
 
+    public MutableLiveData<List<Post>> getRoomSaved() {
+        return postRepository.getRoomSaved();
+    }
+
+
+    public void deleteAll() {
+        postRepository.deleteAll();
+    }
+
+    public void removeSaved(Post post) {
+        postRepository.removeSaved(post);
+    }
+
+    public void insertSaved(Post post) {
+        postRepository.insertLocal(post);
+    }
 
 }
