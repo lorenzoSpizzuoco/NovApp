@@ -7,8 +7,8 @@ import static com.novapp.bclub.utils.Utils.checkResponse;
 import android.net.Uri;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 
+import androidx.annotation.NonNull;
 import com.novapp.bclub.entity.post.Post;
 import com.novapp.bclub.repository.post.IPostRepository;
 import com.novapp.bclub.repository.post.PostRepositoryImpl;
@@ -71,6 +71,9 @@ public class PostService {
                                                 }
                                             }
                                     );
+                                }
+                                else {
+                                    taskCompletionSource.setException(new Exception("profanity"));
                                 }
 
                             } catch (IOException e) {
