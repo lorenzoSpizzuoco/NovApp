@@ -181,5 +181,9 @@
     <string name="notification_toggle">Notifiche</string>
 
     <string name="no_chat_available">Nessuna chat disponibile</string>
+    <string name="ripet_photo_del">foto ripetizioni</string>
+    <string name="missing_image">Inserire un\'immagine</string>
+
+
 
 </resources>

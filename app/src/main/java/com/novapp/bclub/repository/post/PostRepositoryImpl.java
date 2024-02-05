@@ -58,7 +58,7 @@ public class PostRepositoryImpl implements IPostRepository{
 
         int category = post.getCategory();
 
-        if (category == 1 || category == 4) {
+        if (category != 2) {
 
             String mainChild = "postImages";
 

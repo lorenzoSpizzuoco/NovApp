@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavBackStackEntry;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,8 @@ import java.util.List;
 
 public class PostDetailsFragment extends Fragment {
 
+    private static final String TAG = PostDetailsFragment.class.getSimpleName();
+
     private ImageView authorProfileImage;
 
     private TextView title;
@@ -46,8 +49,6 @@ public class PostDetailsFragment extends Fragment {
     private final UserService userService = new UserService();
 
     private UserViewModel userViewModel;
-
-
 
     private TextView date;
 
@@ -77,9 +78,7 @@ public class PostDetailsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
         postDetailViewModel = new ViewModelProvider(this).get(PostDetailViewModel.class);
-        //savedPostsViewModel = new ViewModelProvider(this).get(SavedPostsViewModel.class);
         userViewModel = new UserViewModel();
 
     }
@@ -201,6 +200,7 @@ public class PostDetailsFragment extends Fragment {
     }
 
     private void setupImage(View view) {
+
         if (p.getCategory() != 2) {
             ImageView image = view.findViewById(R.id.PostdetailsImageView);
 
