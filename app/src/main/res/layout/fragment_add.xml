@@ -48,7 +48,7 @@
                             android:layout_height="70dp"
                             android:layout_marginEnd="8dp"
                             android:text="@string/button_event"
-                            app:icon="@drawable/bottom_btn4"
+                            app:icon="@drawable/event"
                             android:textAppearance="?attr/textAppearanceSubtitle1"
                             app:iconSize="25dp" />
 
@@ -59,7 +59,7 @@
                             android:layout_height="70dp"
                             android:layout_toEndOf="@+id/new_event_button"
                             android:text="@string/button_info"
-                            app:icon="@drawable/ic_notifications_black_24dp"
+                            app:icon="@drawable/info"
                             android:textAppearance="?attr/textAppearanceSubtitle1"
                             app:iconSize="25dp"/>
                     </RelativeLayout>
@@ -78,7 +78,7 @@
                             android:layout_height="70dp"
                             android:layout_marginEnd="8dp"
                             android:text="@string/button_sg"
-                            app:icon="@drawable/libri"
+                            app:icon="@drawable/group_chat"
                             android:textAppearance="?attr/textAppearanceSubtitle1"
                             app:iconSize="25dp"/>
 
@@ -89,7 +89,7 @@
                             android:layout_height="70dp"
                             android:layout_toEndOf="@+id/new_gs_button"
                             android:text="@string/button_ripetizioni"
-                            app:icon="@drawable/online_worlds"
+                            app:icon="@drawable/repetitions"
                             android:textAppearance="?attr/textAppearanceSubtitle1"
                             app:iconSize="25dp" />
 
