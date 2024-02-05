@@ -158,6 +158,7 @@ public class PostRepositoryImpl implements IPostRepository{
     public LiveData<List<Post>> getAllPostRoom(boolean refresh) {
 
         if (posts == null || refresh) {
+
             Log.d(TAG, "fetching data");
             posts = new MutableLiveData<List<Post>>();
             List<Task<DataSnapshot>> tasks = new ArrayList<>();
@@ -196,6 +197,7 @@ public class PostRepositoryImpl implements IPostRepository{
                                 Collections.reverse(postList);
                                 posts.postValue(postList);
                                 PostRoomDatabase.databaseWriteExecutor.execute(() -> {
+                                    postDao.deleteAll();
                                     for (Post post : postList) {
                                         postDao.insert(post);
                                     }
