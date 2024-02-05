@@ -53,7 +53,7 @@ public class UserFragment extends Fragment {
     private BottomSheetBehavior bottomSheetBehavior;
     //private SavedPostsViewModel savedPostsViewModel;
     private ImageView userImage;
-    private static final UserViewModel userViewModel = new UserViewModel();
+    private UserViewModel userViewModel;
     private List<Post> postList;
     private List<Post> userPosts;
     private RecyclerView mySavedPostsRecyclerView;
@@ -73,7 +73,7 @@ public class UserFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userPostViewModel = new ViewModelProvider(this).get(UserPostViewModel.class);
         postList = new ArrayList<>();
         userPosts = new ArrayList<>();

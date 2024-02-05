@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.novapp.bclub.R;
 import com.novapp.bclub.entity.post.Post;
 import com.novapp.bclub.repository.post.IPostRepository;
 import com.novapp.bclub.repository.post.PostRepositoryImpl;
@@ -37,9 +38,9 @@ public class PostService {
     public static final String TAG = PostService.class.getSimpleName();
 
     private static IPostRepository postRepository;
-
+    String api_key;
     public PostService(Application application) {
-        //postRepository = new PostRepositoryImpl(application);
+        api_key = application.getString(R.string.api_key);
         postRepository = new PostRepositoryImpl(application);
     }
 
@@ -59,7 +60,7 @@ public class PostService {
                 .build();
 
         ProfanityApiService service = retrofit.create(ProfanityApiService.class);
-        service.checkForPronfanity(API_KEY,
+        service.checkForPronfanity(api_key,
                         "{comment: {text: \"" + post.getTitle() + " " + post.getContent() + "\" }, requestedAttributes: {PROFANITY:{}, TOXICITY:{}} }")
                 .enqueue(new Callback<ResponseBody>() {
                     @Override

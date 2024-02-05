@@ -17,7 +17,8 @@ public class UserPostViewModel extends AndroidViewModel {
 
     PostService postService;
     UserService userService;
-    private LiveData<List<Post>> userPosts;
+    private final LiveData<List<Post>> userPosts;
+
     public UserPostViewModel(@NonNull Application application) {
         super(application);
         userService = new UserService();

@@ -179,4 +179,7 @@
     <string name="msg_hint">Scrivi…</string>
     <string name="night_mode">Modalità notte</string>
     <string name="notification_toggle">Notifiche</string>
+
+    <string name="no_chat_available">Nessuna chat disponibile</string>
+
 </resources>
