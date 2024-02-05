@@ -8,10 +8,10 @@ import java.util.List;
 
 public class GroupChatsService {
 
-    private static GroupChatsRepositoryImpl groupChatsRepositoryImpl = new GroupChatsRepositoryImpl();
+    private static final GroupChatsRepositoryImpl groupChatsRepositoryImpl = new GroupChatsRepositoryImpl();
 
-    public static Task<Void> createGroupChat(String ID) {
-        return groupChatsRepositoryImpl.insertGroupChat(new GroupChat(ID));
+    public static void createGroupChat(String ID) {
+        groupChatsRepositoryImpl.insertGroupChat(new GroupChat(ID));
     }
 
     public static Task<List<GroupChat>> getGroupChats() {

@@ -30,7 +30,6 @@ public class ThirdPageOnboarding extends Fragment {
 
         ImageView imageView = view.findViewById(R.id.imageView7);
 
-        // Oppure, per caricare una GIF
         Glide.with(this)
                 .asGif()
                 .load(R.raw.test)

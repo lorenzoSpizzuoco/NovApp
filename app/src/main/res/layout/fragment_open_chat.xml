@@ -43,7 +43,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Inserisci qui il tuo messaggio"
+            android:hint="@string/msg_hint"
             android:textSize="12sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,8 +72,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:elevation="10dp"
         app:tint="?attr/colorOnPrimary"
-        app:srcCompat="@drawable/arrow_back"
         app:backgroundTint="?attr/colorPrimary"
+        app:srcCompat="@drawable/arrow_back"
         style="?attr/floatingActionButtonSmallPrimaryStyle"
         android:contentDescription="@string/arrow_back_cd">
 

@@ -1,5 +1,6 @@
 package com.novapp.bclub.ui.onboarding;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
@@ -16,6 +17,7 @@ public class ScreenSlidePagerAdapter extends FragmentStateAdapter {
     }
 
 
+    @NonNull
     @Override
     public Fragment createFragment(int position) {
         switch(position) {
@@ -26,7 +28,7 @@ public class ScreenSlidePagerAdapter extends FragmentStateAdapter {
             case 2:
                 return new ThirdPageOnboarding();
             default:
-                return null;
+                throw new IllegalArgumentException();
         }
     }
 

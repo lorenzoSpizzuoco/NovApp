@@ -2,6 +2,7 @@ package com.novapp.bclub.ui.login;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -29,10 +30,6 @@ public class LoginFragment extends Fragment {
     private TextInputLayout textInputLayoutEmail;
     private TextInputLayout textInputLayoutPassword;
 
-    public static LoginFragment newInstance() {
-        return new LoginFragment();
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +53,22 @@ public class LoginFragment extends Fragment {
 
         Animation animation = AnimationUtils.loadAnimation(requireContext(), R.anim.shake);
 
+        setUpLoginButton(view, buttonLogin, animation);
+        toRegisterPage.setOnClickListener(v -> MainActivity.getNavController().navigate(R.id.action_login_to_register));
+        disableBackButton();
+
+    }
+
+    private void disableBackButton() {
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                // Disable back button
+            }
+        });
+    }
+
+    private void setUpLoginButton(@NonNull View view, Button buttonLogin, Animation animation) {
         buttonLogin.setOnClickListener(v -> {
 
             String email = Objects.requireNonNull(textInputLayoutEmail.getEditText()).getText().toString();
@@ -81,11 +94,7 @@ public class LoginFragment extends Fragment {
                 textInputLayoutPassword.startAnimation(animation);
             }
         });
-
-        toRegisterPage.setOnClickListener(v -> MainActivity.getNavController().navigate(R.id.action_login_to_register));
-
     }
-
 
 
 }

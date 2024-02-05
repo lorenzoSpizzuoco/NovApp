@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">B-Club</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Avvisi</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="email_error"> Email not valid </string>
-    <string name="hello"> Ciao, </string>
+    <string name="email_error">Email non valida</string>
+    <string name="hello">Ciao</string>
     <string name="esclamation">!</string>
     <string name="saved_elements"> Elementi Salvati </string>
     <string name="button_event"> Eventi </string>
@@ -14,13 +10,10 @@
     <string name="button_info">Info Uni</string>
     <string name="button_other"> Altro </string>
     <string name="my_posts">I Miei Posts</string>
-    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</string>
     <string name="open">Apri</string>
     <string name="add_to_favourite">Aggiungi ai preferiti</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_register">RegisterActivity</string>
-    <string name="fab_content_desc">New Ad</string>
-    <string name="checking_content">We are checking you\'re new content</string>
+    <string name="fab_content_desc">Nuovo Ad</string>
+    <string name="checking_content">Stiamo controllando il tuo post...</string>
     <string name="button_ripetizioni">Ripetizioni</string>
     <string name="new_post">Che contenuto vuoi creare?</string>
     <string name="Save"> Salva </string>
@@ -37,7 +30,7 @@
     <string name="image_delete_snackbar">Immagine eliminata</string>
     <string name="new_event_toolbar"> Nuovo Evento </string>
     <string name="event"> Evento </string>
-    <string name="search_bar_hint">Cerca i post per Titolo...</string>
+    <string name="search_bar_hint">Cerca i post per titolo…</string>
     <!-- NEW GS STRINGS -->
 
     <string name="gs_title_hint">Nome Gruppo Studio</string>
@@ -112,27 +105,27 @@
     <string name="already_in"> Fai già parte di questo gruppo studio </string>
 
     <!-- POST DETAILS CHIP -->
-    <string name="gs_chip"> gruppo studio </string>
-    <string name="event_chip"> evento </string>
-    <string name="ripet_chip"> ripetizioni </string>
-    <string name="infos_chip"> info uni </string>
+    <string name="gs_chip">" Gruppo studio "</string>
+    <string name="event_chip">" Evento "</string>
+    <string name="ripet_chip">" Ripetizioni "</string>
+    <string name="infos_chip">" Info uni "</string>
 
     <!-- LOGIN -->
 
-    <string name="login_error"> credenziali errate </string>
-    <string name="invalid_input"> credenziali non valide </string>
-    <string name="login_fail"> fail task di login </string>
+    <string name="login_error">" Credenziali errate "</string>
+    <string name="invalid_input">" Credenziali non valide "</string>
+    <string name="login_fail">" Fail task di login "</string>
 
 
     <!-- REGISTER -->
-    <string name="wrong_email_format"> formato email non corretto </string>
-    <string name="wrong_pass_format"> formato password non corretto </string>
-    <string name="no_pw_match"> le password non sono uguali </string>
-    <string name="pw_pattern">clicca qui per vedere il formato corretto della password! </string>
+    <string name="wrong_email_format">"Formato email errato "</string>
+    <string name="wrong_pass_format">" Formato password errato"</string>
+    <string name="no_pw_match">" Le password non corrispondono "</string>
+    <string name="pw_pattern">"Clicca qui per vedere il formato corretto della password! "</string>
     <string name="okDialog"> Ok </string>
     <string name="password_dialog_title"> Vincoli password</string>
 
-    <string name="password_infos"> \n lunghezza minima di 4 caratteri \n\n deve contenere almeno una lettera maiuscola \n\n Deve contenere almeno un carattere speciale</string>
+    <string name="password_infos">"   Lunghezza minima di 4 caratteri    Deve contenere almeno una lettera maiuscola    Deve contenere almeno un carattere speciale"</string>
     <string name="empty_fields">Riempi ogni campo</string>
     <string name="group_cont_desc">Immagine gruppo studio</string>
     <string name="desc_logo_app">Logo applicazione B-Club</string>
@@ -154,7 +147,7 @@
     <string name="user_settings">Impostazioni Utente</string>
     <string name="ripet_imageview_cd">Image selezionata per le ripetizioni</string>
     <string name="ok_button">Ok</string>
-    <string name="no_photo_reg">Se non scegli un\'immagine profilo ne assegneremo una di default! Va bene?</string>
+    <string name="no_photo_reg">Se non scegli un\'immagine profilo ne assegneremo una di default! \\nVa bene?</string>
 
     <string name="in_group"> Ora fai parte del gruppo studio  </string>
 
@@ -165,6 +158,7 @@
     <string name="top_cloud_onboarding">Nuvola superiore</string>
     <string name="bottom_cloud_onboarding">Nuvola inferiore</string>
     <string name="next_button">Bottone per la prossima pagina</string>
+    <string name="previous_button">Bottone per la pagine precedente</string>
     <string name="page_number_indicator">Indicatore del numero di pagina</string>
     <string name="settings">Settings</string>
     <string name="group_is_bicocca">Accesso permesso solo a utenti Bicocca</string>
@@ -180,4 +174,9 @@
     <string name="event_logout">Vuoi disconnetterti?</string>
     <string name="message_logout">Stai per disconnetterti, sei sicuro?</string>
     <string name="error_fullregister">C\'è stato un errore nell\'aggiornare il tuo profilo, per favore riprova</string>
+    <string name="event_data_pick">Seleziona la data dell\'evento</string>
+    <string name="onboarding_image">Immagine del carosello</string>
+    <string name="msg_hint">Scrivi…</string>
+    <string name="night_mode">Modalità notte</string>
+    <string name="notification_toggle">Notifiche</string>
 </resources>

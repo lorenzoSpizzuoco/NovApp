@@ -1,11 +1,7 @@
 <resources>
     <string name="app_name">B-Club</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="email_error"> Email not valid </string>
-    <string name="hello"> Hi, </string>
+    <string name="email_error">"Email not valid "</string>
+    <string name="hello">" Hi"</string>
     <string name="esclamation">!</string>
     <string name="saved_elements"> Saved elements </string>
     <string name="button_event"> Events </string>
@@ -13,16 +9,13 @@
     <string name="new_post">Which content you want to create?</string>
     <string name="button_info">Info Uni</string>
     <string name="button_other"> Other </string>
-    <string name="search_bar_hint">Search posts by title...</string>
+    <string name="search_bar_hint">Search posts by title…</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_register">RegisterActivity</string>
     <string name="fab_content_desc">New Ad</string>
     <string name="checking_content">We are checking you\'re new content</string>
     <string name="button_ripetizioni">Repetitions</string>
     <string name="my_posts">My Posts</string>
-    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</string>
-    <string name="open">open</string>
+    <string name="open">Open</string>
     <string name="add_to_favourite">Add to favorites</string>
     <string name="Save"> Save </string>
     <string name="event"> Event </string>
@@ -38,7 +31,7 @@
     <string name="event_date_picker_hint"> Pick event date</string>
     <string name="event_photo_button">Pick a photo</string>
     <string name="dialog_close"> Close </string>
-    <string name="event_photo">event photo</string>
+    <string name="event_photo">Event photo</string>
     <string name="dialog_ok_event_photo_delete"> Delete </string>
     <string name="image_delete_snackbar">Photo deleted</string>
     <string name="new_event_toolbar"> New Event</string>
@@ -49,7 +42,7 @@
     <string name="gs_date_button">Pick a date</string>
     <string name="gs_desc">Describe your study group</string>
     <string name="gs_place_text"> Write event place</string>
-    <string name="gs_photo">study group photo</string>
+    <string name="gs_photo">Study group photo</string>
     <string name="new_gs_toolbar"> New Study Group</string>
 
     <!-- NEW RIPET STRINGS -->
@@ -58,7 +51,7 @@
     <string name="ripet_date_button">Pick a date</string>
     <string name="ripet_desc">Which is the topic?</string>
     <string name="ripet_place_text"> Write repetetions place</string>
-    <string name="ripet_photo">study group photo</string>
+    <string name="ripet_photo">Add a photo</string>
     <string name="new_ripet_toolbar"> New Repetitions</string>
 
     <!-- NEW INFOS STRINGS -->
@@ -67,7 +60,7 @@
     <string name="info_date_button">Pick a date</string>
     <string name="info_desc">Infos Descriptions</string>
     <string name="info_place_text"> Pick a place</string>
-    <string name="info_photo">infos photo </string>
+    <string name="info_photo">"Infos photo "</string>
     <string name="new_info_toolbar"> New Infos</string>
 
 
@@ -96,7 +89,7 @@
     <string name="full_register_title">Share about you!</string>
     <string name="full_register_bio_hint">What key details should we know about you?</string>
     <string name="full_register_end_flow">Finished!</string>
-    <string name="register_image"> load profile image </string>
+    <string name="register_image">" Load profile image "</string>
     <string name="image_error"> Error loading image </string>
 
 
@@ -105,7 +98,7 @@
     <string name="surname">Surname</string>
 
     <string name="icon_info_desc">Uni infos image</string>
-    <string name="calendar_icon_description">calendar icon</string>
+    <string name="calendar_icon_description">Calendar icon</string>
     <string name="ripetizioni_content_desc">Repetitions image</string>
     <string name="share_something">Share with the users</string>
 
@@ -113,27 +106,27 @@
     <string name="already_in"> Already in </string>
 
     <!-- POST DETAILS CHIP -->
-    <string name="gs_chip"> study group</string>
-    <string name="event_chip"> event </string>
-    <string name="ripet_chip"> repetitions </string>
-    <string name="infos_chip"> uni infos </string>
+    <string name="gs_chip">Study group</string>
+    <string name="event_chip">" Event "</string>
+    <string name="ripet_chip">" Repetitions "</string>
+    <string name="infos_chip">" Uni infos "</string>
 
     <!-- LOGIN -->
     <string name="login">Login</string>
     <string name="new_account">Don\'t have an account?</string>
     <string name="forgot_password">Forgot Password?</string>
-    <string name="login_error"> wrong email or password </string>
-    <string name="invalid_input"> credentials not valid </string>
-    <string name="login_fail"> fail login task </string>
+    <string name="login_error">" Wrong email or password "</string>
+    <string name="invalid_input">" Credentials not valid "</string>
+    <string name="login_fail">" Fail login task "</string>
 
     <!-- REGISTER -->
-    <string name="wrong_email_format"> wrong email format </string>
-    <string name="wrong_pass_format"> wrong password format </string>
-    <string name="no_pw_match">passwords not matching </string>
-    <string name="pw_pattern">Click here to see password format! </string>
+    <string name="wrong_email_format">" Wrong email format "</string>
+    <string name="wrong_pass_format">" Wrong password format "</string>
+    <string name="no_pw_match">"Passwords not matching "</string>
+    <string name="pw_pattern">"Click here to see the password format! "</string>
     <string name="okDialog"> Ok </string>
     <string name="password_dialog_title"> Password constraints</string>
-    <string name="password_infos"> \n at least 4 characters long \n\n must contain an uppercase character \n\n Must contain a special symbol</string>
+    <string name="password_infos">"   At least 4 characters long    Must contain an uppercase character    Must contain a special symbol"</string>
     <string name="empty_fields">Fill every field</string>
     <string name="group_cont_desc">Study Group Image</string>
     <string name="desc_logo_app">Logo applicazione B-Club</string>
@@ -149,11 +142,11 @@
     <string name="image_author_post_cd">Image showing post\'s author</string>
     <string name="user_name">Username</string>
     <string name="user_settings">User settings</string>
-    <string name="del_photo_fab_cd">button delete image</string>
-    <string name="ripet_imageview_cd">repetitions selected image</string>
+    <string name="del_photo_fab_cd">Button delete image</string>
+    <string name="ripet_imageview_cd">Repetitions selected image</string>
     <string name="user_profile_image">User profile image</string>
     <string name="ok_button">Ok</string>
-    <string name="no_photo_reg">If you don\'t pick a profile image, we\'ll asign you a default one! Is it ok?</string>
+    <string name="no_photo_reg">If you don\'t pick a profile image, we\'ll assign you a default one! Is it ok?</string>
 
     <string name="in_group">You joined </string>
 
@@ -162,6 +155,7 @@
     <string name="top_cloud_onboarding">Top cloud</string>
     <string name="bottom_cloud_onboarding">Bottom cloud</string>
     <string name="next_button">Next button</string>
+    <string name="previous_button">Previous button</string>
     <string name="page_number_indicator">Page number indicator</string>
     <string name="settings">Settings</string>
     <string name="group_is_bicocca">Access permitted only to Bicocca users</string>
@@ -171,11 +165,17 @@
     <string name="join_group_chat_msg">joined the chat</string>
     <string name="event_leave_group_chat">Leave the group</string>
     <string name="message_leave_group_chat">You are leaving this group, are you sure?</string>
-    <string name="chosen_image">Choosen image</string>
+    <string name="chosen_image">Chosen image</string>
     <string name="max_char_text">maximum characters allowed!</string>
     <string name="no_email_error">Email not avaible</string>
     <string name="event_logout">You want to logout?</string>
     <string name="message_logout">You are going to logout, are you sure?</string>
     <string name="error_fullregister">Error in uploading your credentials, please retry</string>
+    <string name="event_data_pick">Pick the date for the event</string>
+    <string name="tag" translatable="false">TAG</string>
+    <string name="onboarding_image">Onboarding image</string>
+    <string name="msg_hint">Type…</string>
+    <string name="night_mode">Night mode</string>
+    <string name="notification_toggle">Notification</string>
 
 </resources>

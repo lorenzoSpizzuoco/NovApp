@@ -2,9 +2,6 @@ package com.novapp.bclub.repository.groupchats;
 
 import androidx.annotation.NonNull;
 
-import com.novapp.bclub.entity.chat.group.GroupChat;
-import com.novapp.bclub.entity.chat.message.Message;
-import com.novapp.bclub.utils.Constants;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.database.DataSnapshot;
@@ -12,14 +9,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.novapp.bclub.entity.chat.group.GroupChat;
+import com.novapp.bclub.entity.chat.message.Message;
+import com.novapp.bclub.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class GroupChatsRepositoryImpl implements IGroupChatsRepository {
 
-    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
     // TODO Non serve
     @Override
@@ -34,7 +33,7 @@ public class GroupChatsRepositoryImpl implements IGroupChatsRepository {
 
         mDatabase.child("groupChats").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<GroupChat> groupChats = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     GroupChat groupChat = snapshot.getValue(GroupChat.class);
@@ -44,7 +43,7 @@ public class GroupChatsRepositoryImpl implements IGroupChatsRepository {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 taskCompletionSource.setException(databaseError.toException());
             }
         });
@@ -65,8 +64,6 @@ public class GroupChatsRepositoryImpl implements IGroupChatsRepository {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Map<String, Object> data = (Map<String, Object>) snapshot.getValue();
-
                     groupChat.setId(snapshot.child("dbId").getValue(String.class));
                     groupChat.setImage(snapshot.child("postImage").getValue(String.class));
                     groupChat.setAuthor(snapshot.child("author").getValue(String.class));
@@ -85,7 +82,6 @@ public class GroupChatsRepositoryImpl implements IGroupChatsRepository {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // Iterate over the children of the "messages" node
                 for (DataSnapshot messageSnapshot : dataSnapshot.child("messages").getChildren()) {
-                    Map<String, Object> messageData = (Map<String, Object>) messageSnapshot.getValue();
                     Message message = new Message();
                     message.setAuthor(messageSnapshot.child("author").getValue(String.class));
                     message.setContent(messageSnapshot.child("content").getValue(String.class));
@@ -111,7 +107,7 @@ public class GroupChatsRepositoryImpl implements IGroupChatsRepository {
 
         groupChatRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     groupChatRef.setValue(updatedGroupChat)
                             .addOnSuccessListener(aVoid -> taskCompletionSource.setResult(null))

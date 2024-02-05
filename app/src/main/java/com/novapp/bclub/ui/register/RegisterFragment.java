@@ -28,16 +28,11 @@ import java.util.Objects;
 
 public class RegisterFragment extends Fragment {
 
-    final private String TAG = RegisterFragment.class.getSimpleName();
     private TextInputLayout textInputLayoutEmail;
     private TextInputLayout textInputLayoutPassword;
     private TextInputLayout textInputLayoutPasswordConfirm;
 
     private FirebaseAuth mAuth;
-
-    public static RegisterFragment newInstance() {
-        return new RegisterFragment();
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -96,7 +91,7 @@ public class RegisterFragment extends Fragment {
         });
     }
 
-    private static void setUpButtonLogin(Button buttonLogin) {
+    private void setUpButtonLogin(Button buttonLogin) {
         buttonLogin.setOnClickListener(v ->
                 MainActivity.getNavController().navigate(R.id.action_register_to_login));
     }
@@ -142,7 +137,6 @@ public class RegisterFragment extends Fragment {
     }
 
 
-    // TODO: waiting screen, register requires time //
     public void registerUser(String email, String password, RegisterCallback callback) {
         mAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity(), task -> {

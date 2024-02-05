@@ -29,7 +29,7 @@ import java.util.List;
 public class ChatFragment extends Fragment {
 
     private List<GroupChat> groupChats;
-    private UserService userService = new UserService();
+    private final UserService userService = new UserService();
 
 
     @Override

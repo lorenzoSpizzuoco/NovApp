@@ -40,7 +40,7 @@ public class UserViewModel extends ViewModel {
                             user.groupChats = new ArrayList<>();
                         }
                         if(user.getFavourites() == null) {
-                            user.favourites = new ArrayList<Post>();
+                            user.favourites = new ArrayList<>();
                         }
                         userService.setCurrentUser(task.getResult());
                         currentUser.postValue(task.getResult());

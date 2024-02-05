@@ -15,6 +15,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
+import java.util.Objects;
 
 public class PostViewModel extends AndroidViewModel {
 
@@ -38,15 +39,15 @@ public class PostViewModel extends AndroidViewModel {
 
     public MutableLiveData<Integer> getIsFavorite(String user, String id) {
         
-        isFavorite = new MutableLiveData<Integer>();
+        isFavorite = new MutableLiveData<>();
 
         userService.getIsSaved(user, id).addOnCompleteListener(
 
                 task -> {
                     if (task.isSuccessful()){
-                        Log.d(TAG, "task success " + task.getResult().getKey().toString());
+                        Log.d(TAG, "task success " + task.getResult().getKey());
 
-                         if (task.getResult().getKey().equals(id)) {
+                         if (Objects.equals(task.getResult().getKey(), id)) {
                              isFavorite.postValue(1);
                          }
                          else {
@@ -55,7 +56,7 @@ public class PostViewModel extends AndroidViewModel {
 
                     }
                     else {
-                        Log.e(TAG, task.getException().toString());
+                        Log.e(TAG, Objects.requireNonNull(task.getException()).toString());
                     }
                 }
         );
@@ -167,7 +168,7 @@ public class PostViewModel extends AndroidViewModel {
     public MutableLiveData<List<Post>> getUserPosts() {
         String user = userService.getCurrentUser().getID();
         if (userPosts == null) {
-            userPosts = new MutableLiveData<List<Post>>();
+            userPosts = new MutableLiveData<>();
             userService.getUserPosts(user).addOnCompleteListener(
                     task -> {
                         if (task.isSuccessful()) {

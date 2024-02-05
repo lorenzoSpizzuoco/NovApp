@@ -28,10 +28,10 @@ public class PostAdapter extends  RecyclerView.Adapter{
 
     }
 
-    private Context context;
+    private final Context context;
     private List<Post> postList;
 
-    private OnItemClickListener onItemClickListener;
+    private final OnItemClickListener onItemClickListener;
 
     public PostAdapter(Context context, List<Post> postList, OnItemClickListener onItemClickListener){
 
@@ -144,7 +144,7 @@ public class PostAdapter extends  RecyclerView.Adapter{
                 Glide.with(context)
                         .load(postList.get(position).getPostImage())
                         .centerCrop()
-                        .placeholder(R.drawable.analisi)
+                        .placeholder(R.mipmap.ic_launcher)
                         .into(imageView);
             }
 
@@ -220,16 +220,6 @@ public class PostAdapter extends  RecyclerView.Adapter{
         }
 
         public void bindView(int position) {
-            /*
-            if (postList.get(position).getPostImage() == null) {
-                imageView.setImageResource(postList.get(position).getImage());
-            }
-            else {
-                String base64Econded = postList.get(position).getPostImage();
-                //imageView.setImageBitmap(base64ToBitmap(base64Econded));
-            }
-            */
-
             titleView.setText(postList.get(position).getTitle());
             descView.setText(postList.get(position).getContent());
             dateView.setText(postList.get(position).getDate());
@@ -276,7 +266,7 @@ public class PostAdapter extends  RecyclerView.Adapter{
                 Glide.with(context)
                         .load(postList.get(position).getPostImage())
                         .centerCrop()
-                        .placeholder(R.drawable.analisi)
+                        .placeholder(R.mipmap.ic_launcher)
                         .into(imageView);
             }
 

@@ -34,8 +34,6 @@ import java.util.List;
 
 public class PostDetailsFragment extends Fragment {
 
-    private static final String TAG = PostDetailsFragment.class.getSimpleName();
-
     private ImageView authorProfileImage;
 
     private TextView title;
@@ -69,10 +67,6 @@ public class PostDetailsFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static PostDetailsFragment newInstance(String param1, String param2) {
-        return new PostDetailsFragment();
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,7 +77,6 @@ public class PostDetailsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate right layout based on post category
         Post p = PostDetailsFragmentArgs.fromBundle(getArguments()).getPost();
         if (p.getCategory() == 2) {
             return inflater.inflate(R.layout.fragment_info_details, container, false);
@@ -117,23 +110,6 @@ public class PostDetailsFragment extends Fragment {
         fixBottomBar(view);
         setupFavoriteButtonListener();
 
-
-
-        // observing livedata
-        /*postViewModel.getIsFavorite(userService.getCurrentUser().getID(), p.getDbId()).observe(getViewLifecycleOwner(), favorite -> {
-
-            Log.d(TAG, String.valueOf(favorite));
-            if (favorite == 1) {
-                favoriteIcon.setIconResource(R.drawable.ic_favorite_24);
-            }
-            else {
-                favoriteIcon.setIconResource(R.drawable.baseline_favorite_border_24);
-            }
-            p.setFavorite(favorite);
-        });
-
-         */
-
         if (userViewModel.isSaved(p)) {
             favoriteIcon.setIconResource(R.drawable.ic_favorite_24);
             p.setFavorite(1);
@@ -152,13 +128,11 @@ public class PostDetailsFragment extends Fragment {
         favoriteIcon.setOnClickListener(v -> {
             if (p.getFavorite() == 1) {
                 p.setFavorite(0);
-                //postViewModel.setFavorite(p.getDbId(), 0, p.getCategory());
                 userViewModel.removeFavorite(p);
                 favoriteIcon.setIconResource(R.drawable.baseline_favorite_border_24);
             }
             else {
                 p.setFavorite(1);
-                //postViewModel.setFavorite(p.getDbId(), 1, p.getCategory());
                 userViewModel.setFavorite(p);
                 favoriteIcon.setIconResource(R.drawable.ic_favorite_24);
 
@@ -203,9 +177,7 @@ public class PostDetailsFragment extends Fragment {
         username.setText(p.getAuthor());
         backButton.setBackgroundTintMode(null);
 
-        backButton.setOnClickListener(v -> {
-            Navigation.findNavController(view).navigateUp();
-        });
+        backButton.setOnClickListener(v -> Navigation.findNavController(view).navigateUp());
 
         gs_button.setVisibility(View.GONE);
 
@@ -226,7 +198,7 @@ public class PostDetailsFragment extends Fragment {
                 Glide.with(view)
                         .load(p.getPostImage())
                         .centerCrop()
-                        .placeholder(R.drawable.analisi)
+                        .placeholder(R.mipmap.ic_launcher)
                         .into(image);
             }
         }
@@ -241,7 +213,7 @@ public class PostDetailsFragment extends Fragment {
                         Glide.with(view)
                                 .load(imageUrl)
                                 .centerCrop()
-                                .placeholder(R.drawable.analisi)
+                                .placeholder(R.mipmap.ic_launcher)
                                 .into(authorProfileImage);
                     }
                 }

@@ -1,7 +1,11 @@
 package com.novapp.bclub.ui.home;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -9,24 +13,16 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.novapp.bclub.MainActivity;
 import com.novapp.bclub.R;
 import com.novapp.bclub.entity.user.User;
-import com.novapp.bclub.service.nativeapi.UserService;
 import com.novapp.bclub.entity.user.UserViewModel;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.novapp.bclub.service.nativeapi.UserService;
 
 
 public class HomeFragment extends Fragment {
 
-    private static final String TAG = HomeFragment.class.getSimpleName();
-    //private static User activeUser;
     private UserViewModel userViewModel;
     private final UserService userService = new UserService();
 
@@ -39,7 +35,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
@@ -53,24 +48,28 @@ public class HomeFragment extends Fragment {
 
         userViewModel.getUser().observe(this.getViewLifecycleOwner(), activeUser -> {
 
-            userViewModel.getSavedPosts().observe(this.getViewLifecycleOwner(), savedPosts -> {
-                userService.getCurrentUser().setFavourites(savedPosts);
-            });
+            userViewModel.getSavedPosts().observe(this.getViewLifecycleOwner(), savedPosts -> userService.getCurrentUser().setFavourites(savedPosts));
 
-            Log.d(TAG, activeUser.getEmail());
             if (!userFullyRegistered(activeUser)) {
+                MainActivity mainActivity = new MainActivity();
                 Bundle args = new Bundle();
                 args.putString("userId", activeUser.getID());
                 args.putString("userEmail", activeUser.getEmail());
-                NavController mainNavController = MainActivity.getNavController();
+                NavController mainNavController = mainActivity.getNavController();
                 mainNavController.navigate(R.id.action_home_to_fullRegister, args);
-            }
-            else {
-                //MainActivity.getNavController().navigate();
-                //MainActivity.getNavController().navigate(R.id.action_home_to_login);
             }
         });
 
+        disableBackButton();
+    }
+
+    private void disableBackButton() {
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                // Disable back button
+            }
+        });
     }
 
     private boolean userFullyRegistered(User user) {

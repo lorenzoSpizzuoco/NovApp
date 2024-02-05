@@ -16,16 +16,6 @@
             android:id="@+id/action_start_to_onboarding"
             app:destination="@id/onboardingFragment"
             app:enterAnim="@anim/fade_in" />
-        <argument
-            android:name="user_local_mail"
-            app:argType="string" />
-        <argument
-            android:name="user_local_password"
-            app:argType="string" />
-        <action
-            android:id="@+id/action_start_to_login"
-            app:destination="@id/loginFragment"
-            app:enterAnim="@anim/fade_in" />
         <action
             android:id="@+id/action_start_to_home"
             app:destination="@id/homeFragment"
@@ -85,7 +75,7 @@
         android:id="@+id/onboardingFragment"
         android:name="com.novapp.bclub.ui.onboarding.ViewPagerFragment"
         android:label="fragment_view_pager"
-        tools:layout="@layout/fragment_view_pager" >
+        tools:layout="@layout/fragment_onboarding" >
         <action
             android:id="@+id/action_onboarding_to_login"
             app:destination="@id/loginFragment"

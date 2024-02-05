@@ -9,12 +9,7 @@ import java.util.List;
 
 public interface IPostRepository {
 
-    public Task<Void> insert(Post post, Uri image);
+    Task<Void> insert(Post post, Uri image);
 
-    public Task<List<Post>> getAllPost();
-
-    // TODO getPostById(category, Id)
-
-
-
+    Task<List<Post>> getAllPost();
 }

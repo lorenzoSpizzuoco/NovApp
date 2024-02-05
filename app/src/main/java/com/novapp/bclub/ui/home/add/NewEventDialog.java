@@ -1,63 +1,51 @@
 package com.novapp.bclub.ui.home.add;
 
 
-
 import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.PickVisualMediaRequest;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
-
 import android.text.InputFilter;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.navigation.Navigation;
 
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.DateValidatorPointForward;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 import com.novapp.bclub.R;
 import com.novapp.bclub.entity.post.Post;
 import com.novapp.bclub.service.nativeapi.UserService;
 import com.novapp.bclub.utils.Constants;
 import com.novapp.bclub.utils.Utils;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.datepicker.CalendarConstraints;
-import com.google.android.material.datepicker.DateValidatorPointForward;
-import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 
 public class NewEventDialog extends DialogFragment {
 
-    private static final String TAG = NewEventDialog.class.getSimpleName();
-
     private final UserService userService = new UserService();
-
-    private Toolbar toolbar;
-    private DatePicker eventDatePicker;
-
-    private TextInputLayout eventDateText;
 
     private ImageView eventImageView;
 
@@ -65,11 +53,7 @@ public class NewEventDialog extends DialogFragment {
 
     private TextInputEditText eventDateTextInner;
 
-    private MaterialButton photoButton;
-
     private FloatingActionButton delPhoto;
-
-    private Button saveEvent;
 
     private TextInputEditText eventTitle;
 
@@ -83,15 +67,6 @@ public class NewEventDialog extends DialogFragment {
 
     public NewEventDialog() {
         // Required empty public constructor
-    }
-
-
-
-    public static NewEventDialog newInstance(String param1, String param2) {
-        NewEventDialog fragment = new NewEventDialog();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -128,12 +103,11 @@ public class NewEventDialog extends DialogFragment {
         eventTitle = view.findViewById(R.id.event_title_inner);
         eventPlaceInner = view.findViewById(R.id.event_place_inner);
         eventDescInner = view.findViewById(R.id.event_desc_inner);
-        saveEvent = view.findViewById(R.id.save_button_event);
+        Button saveEvent = view.findViewById(R.id.save_button_event);
         delPhoto = view.findViewById(R.id.fab_delete_photo);
-        toolbar = view.findViewById(R.id.toolbar);
-        eventDateText = view.findViewById(R.id.date_picker_input_text);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
         eventDateTextInner = view.findViewById(R.id.date_input_text_inner);
-        photoButton = view.findViewById(R.id.event_photo_button);
+        MaterialButton photoButton = view.findViewById(R.id.event_photo_button);
         eventImageView = view.findViewById(R.id.event_photo_view);
         eventDateTextInner.setInputType(InputType.TYPE_NULL);
 
@@ -147,13 +121,11 @@ public class NewEventDialog extends DialogFragment {
                 .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
                 .build()));
 
-        saveEvent.setOnClickListener(v -> {
-            checkModal(view);
-        });
+        saveEvent.setOnClickListener(v -> checkModal());
 
         delPhoto.setOnClickListener(v -> {
             if (eventImageView.getDrawable() != null) {
-                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getParentFragment().getActivity()).setTitle(R.string.event_photo)
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireParentFragment().requireActivity()).setTitle(R.string.event_photo)
                         .setMessage(R.string.photo_delete)
                         .setPositiveButton(R.string.dialog_ok_event_photo_delete, (di, i) -> {
                             eventImageView.setImageBitmap(null);
@@ -170,31 +142,24 @@ public class NewEventDialog extends DialogFragment {
             }
         });
 
-        eventDateTextInner.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        eventDateTextInner.setOnFocusChangeListener((v, sel) -> {
+            if(v.getId() == R.id.date_input_text_inner  && sel) {
 
-            @Override
-            public void onFocusChange(View v, boolean sel) {
-                if(v.getId() == R.id.date_input_text_inner  && sel) {
+                CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder()
+                        .setValidator(DateValidatorPointForward.now());
 
-                    CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder()
-                            .setValidator(DateValidatorPointForward.now());
+                MaterialDatePicker<Long> dp = MaterialDatePicker.Builder.datePicker()
+                        .setTitleText(getString(R.string.event_data_pick))
+                        .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                        .setCalendarConstraints(constraintsBuilder.build())
+                        .build();
 
-                    MaterialDatePicker<Long> dp = MaterialDatePicker.Builder.datePicker()
-                            .setTitleText("Seleziona la data dell'evento")
-                            .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-                            .setCalendarConstraints(constraintsBuilder.build())
-                            .build();
+                dp.show(getChildFragmentManager(), getString(R.string.tag));
 
-                    dp.show(getChildFragmentManager(), "TAG");
-
-                    dp.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
-                        @Override
-                        public void onPositiveButtonClick(Long selection) {
-                            String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date(selection));
-                            eventDateTextInner.setText(date);
-                        }
-                    });
-                }
+                dp.addOnPositiveButtonClickListener(selection -> {
+                    String date = new SimpleDateFormat(Constants.DATA_PATTERN, Locale.getDefault()).format(new Date(selection));
+                    eventDateTextInner.setText(date);
+                });
             }
         });
 
@@ -213,41 +178,41 @@ public class NewEventDialog extends DialogFragment {
         super.onStart();
         Dialog dialog = getDialog();
         if (dialog != null) {
-            dialog.getWindow().setWindowAnimations(R.style.Theme_NovApp2_Slide);
+            Objects.requireNonNull(dialog.getWindow()).setWindowAnimations(R.style.Theme_NovApp2_Slide);
         }
     }
 
-    private void checkModal(View view) {
+    private void checkModal() {
         boolean valid = true;
 
         // checking event modal
-        if (eventDateTextInner.getText().toString().compareTo("") == 0) {
+        if (Objects.requireNonNull(eventDateTextInner.getText()).toString().compareTo("") == 0) {
             valid = false;
-            eventDateTextInner.setError(ContextCompat.getString(getContext(), R.string.date_error));
+            eventDateTextInner.setError(ContextCompat.getString(requireContext(), R.string.date_error));
         }
         else {
            eventDateTextInner.setError(null);
         }
 
-        if (eventTitle.getText().toString().compareTo("") == 0){
+        if (Objects.requireNonNull(eventTitle.getText()).toString().compareTo("") == 0){
             valid = false;
-            eventTitle.setError(ContextCompat.getString(getContext(), R.string.title_error));
+            eventTitle.setError(ContextCompat.getString(requireContext(), R.string.title_error));
         }
         else {
             eventTitle.setError(null);
         }
 
-        if(eventPlaceInner.getText().toString().compareTo("") == 0) {
+        if(Objects.requireNonNull(eventPlaceInner.getText()).toString().compareTo("") == 0) {
             valid = false;
-            eventPlaceInner.setError(ContextCompat.getString(getContext(), R.string.place_error));
+            eventPlaceInner.setError(ContextCompat.getString(requireContext(), R.string.place_error));
         }
         else {
             eventPlaceInner.setError(null);
         }
 
-        if(eventDescInner.getText().toString().compareTo("") == 0) {
+        if(Objects.requireNonNull(eventDescInner.getText()).toString().compareTo("") == 0) {
             valid = false;
-            eventDescInner.setError(ContextCompat.getString(getContext(), R.string.desc_error));
+            eventDescInner.setError(ContextCompat.getString(requireContext(), R.string.desc_error));
         }
         else {
             eventDescInner.setError(null);
@@ -263,7 +228,7 @@ public class NewEventDialog extends DialogFragment {
                     eventTitle.getText().toString(),
                     null,
                     userService.getCurrentUser().getEmail(),
-                    R.drawable.analisi,
+                    R.mipmap.ic_launcher,
                     null,
                     eventDescInner.getText().toString(),
                     1,
@@ -272,7 +237,7 @@ public class NewEventDialog extends DialogFragment {
                     0 ));
 
             b.putParcelable("image", imageUri);
-             Navigation.findNavController(getParentFragment().getView()).navigate(R.id.action_navigation_add_to_loadingFragment, b);
+             Navigation.findNavController(requireParentFragment().requireView()).navigate(R.id.action_navigation_add_to_loadingFragment, b);
         }
 
     }

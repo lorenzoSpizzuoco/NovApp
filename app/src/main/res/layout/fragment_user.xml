@@ -158,11 +158,10 @@
 
             <!-- Primo switch -->
             <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/switch_1"
+                android:id="@+id/night_mode_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/info_place_text"
-                android:enabled="false"
+                android:text="@string/night_mode"
                 app:switchPadding="10dp"
                 android:layout_below="@+id/user_settings_text" />
 
@@ -171,16 +170,16 @@
                 android:id="@+id/switch_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_error"
+                android:text="@string/notification_toggle"
                 android:enabled="false"
                 app:switchPadding="10dp"
-                android:layout_below="@id/switch_1"/>
+                android:layout_below="@id/night_mode_switch"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/logoutButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/switch_1"
+                android:layout_alignTop="@+id/night_mode_switch"
                 android:layout_alignEnd="@+id/drag_handle"
                 android:layout_alignBottom="@+id/switch_2"
                 android:layout_marginTop="20dp"

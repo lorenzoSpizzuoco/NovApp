@@ -45,7 +45,6 @@ public class FullRegisterFragment extends Fragment {
     private Bitmap eventPhoto = null;
     private ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
     private FloatingActionButton delPhoto;
-    private MaterialButton photoButton;
     private ImageView eventImageView;
 
 
@@ -82,7 +81,7 @@ public class FullRegisterFragment extends Fragment {
         final Button finishButton = view.findViewById(R.id.full_register_end_flow_button);
 
         delPhoto = view.findViewById(R.id.fab_delete_photo);
-        photoButton = view.findViewById(R.id.full_register_photo_button);
+        MaterialButton photoButton = view.findViewById(R.id.full_register_photo_button);
         eventImageView = view.findViewById(R.id.full_register_photo_view);
 
         InputFilter[] filters = Utils.setMaxCharFilter(Constants.MAX_NUM_CHAR_SMALL_TEXT, requireView(), requireContext());
@@ -99,7 +98,7 @@ public class FullRegisterFragment extends Fragment {
     private void setUpDelPhoto(@NonNull View view, FloatingActionButton delPhoto, ImageView eventImageView) {
         delPhoto.setOnClickListener(v -> {
             if (eventImageView.getDrawable() != null) {
-                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getParentFragment().getActivity()).setTitle(R.string.event_photo)
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity()).setTitle(R.string.event_photo)
                         .setMessage(R.string.photo_delete)
                         .setPositiveButton(R.string.dialog_ok_event_photo_delete, (di, i) -> {
                             eventImageView.setImageBitmap(null);
@@ -153,7 +152,7 @@ public class FullRegisterFragment extends Fragment {
     }
 
     private void createAlert(String name, String surname, String bio, String userId, String email) {
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getParentFragment().getActivity()).setTitle(R.string.event_photo)
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireParentFragment().requireActivity()).setTitle(R.string.event_photo)
                 .setMessage(R.string.no_photo_reg)
                 .setPositiveButton(R.string.ok_button, (di, i) -> {
                     User updatedUser = new User(userId, name, email, surname, bio, null, null, isBicocca(email), "", null);
@@ -166,16 +165,8 @@ public class FullRegisterFragment extends Fragment {
         builder.show();
     }
 
-    private void setUpImageButton(Button imageButton) {
-        imageButton.setOnClickListener(v -> {
-            pickMedia.launch(new PickVisualMediaRequest.Builder()
-                    .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
-                    .build());
-        });
-    }
-
     public static boolean isBicocca(String email) {
-        String regex = ".+@campus\\.unimib\\.it$";
+        String regex = Constants.BICOCCA_REGEX;
         Pattern pattern = Pattern.compile(regex);
         return pattern.matcher(email).matches();
     }
