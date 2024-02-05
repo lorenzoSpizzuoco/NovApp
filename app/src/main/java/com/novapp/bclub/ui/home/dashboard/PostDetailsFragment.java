@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.novapp.bclub.R;
 import com.novapp.bclub.entity.post.Post;
 import com.novapp.bclub.entity.post.PostViewModel;
+import com.novapp.bclub.entity.post.SavedPostsViewModel;
 import com.novapp.bclub.service.nativeapi.MessageService;
 import com.novapp.bclub.service.nativeapi.UserService;
 import com.novapp.bclub.entity.user.UserViewModel;
@@ -40,9 +41,11 @@ public class PostDetailsFragment extends Fragment {
 
     private TextView description;
 
-    private static final UserService userService = new UserService();
+    private final UserService userService = new UserService();
 
-    private static final UserViewModel userViewModel = new UserViewModel();
+    private UserViewModel userViewModel;
+
+    private SavedPostsViewModel savedPostsViewModel;
 
     private TextView date;
 
@@ -71,6 +74,8 @@ public class PostDetailsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
+        savedPostsViewModel = new ViewModelProvider(this).get(SavedPostsViewModel.class);
+        userViewModel = new UserViewModel();
 
     }
 
@@ -129,11 +134,13 @@ public class PostDetailsFragment extends Fragment {
             if (p.getFavorite() == 1) {
                 p.setFavorite(0);
                 userViewModel.removeFavorite(p);
+                savedPostsViewModel.removeSaved(p);
                 favoriteIcon.setIconResource(R.drawable.baseline_favorite_border_24);
             }
             else {
                 p.setFavorite(1);
                 userViewModel.setFavorite(p);
+                savedPostsViewModel.savePost(p);
                 favoriteIcon.setIconResource(R.drawable.ic_favorite_24);
 
             }

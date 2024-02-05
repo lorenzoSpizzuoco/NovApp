@@ -21,7 +21,7 @@ public class PostViewModel extends AndroidViewModel {
 
     static final private String TAG = PostViewModel.class.getSimpleName();
 
-    private static final PostService postService = new PostService();
+    private final PostService postService;
 
     private static final UserService userService = new UserService();
 
@@ -35,6 +35,7 @@ public class PostViewModel extends AndroidViewModel {
 
     public PostViewModel (Application application) {
         super(application);
+        postService =  new PostService(application);
     }
 
     public MutableLiveData<Integer> getIsFavorite(String user, String id) {
@@ -178,5 +179,9 @@ public class PostViewModel extends AndroidViewModel {
             );
         }
         return userPosts;
+    }
+
+    public MutableLiveData<List<Post>> getRoomSaved() {
+        return savedPosts;
     }
 }

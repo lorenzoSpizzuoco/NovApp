@@ -10,12 +10,13 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "post_table")
 public class Post implements Parcelable{
 
-    @PrimaryKey(autoGenerate = true)
     private long id;
     private String author;
     private String title;
 
-    private String dbId = null;
+    @PrimaryKey
+    @NonNull
+    private String dbId;
 
     private String date;
 

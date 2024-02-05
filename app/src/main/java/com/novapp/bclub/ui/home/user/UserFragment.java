@@ -31,6 +31,7 @@ import com.novapp.bclub.databinding.FragmentUserBinding;
 import com.novapp.bclub.entity.post.Post;
 import com.novapp.bclub.entity.post.PostViewModel;
 import com.novapp.bclub.entity.post.SavedPostAdapter;
+import com.novapp.bclub.entity.post.SavedPostsViewModel;
 import com.novapp.bclub.entity.user.User;
 import com.novapp.bclub.entity.user.UserViewModel;
 import com.novapp.bclub.service.nativeapi.AuthService;
@@ -49,6 +50,7 @@ public class UserFragment extends Fragment {
     private SavedPostAdapter userPostAdapter;
     private PostViewModel postViewModel;
     private BottomSheetBehavior bottomSheetBehavior;
+    //private SavedPostsViewModel savedPostsViewModel;
     private ImageView userImage;
     private static final UserViewModel userViewModel = new UserViewModel();
     private List<Post> postList;
@@ -70,6 +72,7 @@ public class UserFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
+        //savedPostsViewModel =  new ViewModelProvider(this).get(SavedPostsViewModel.class);
         postList = new ArrayList<>();
         userPosts = new ArrayList<>();
     }

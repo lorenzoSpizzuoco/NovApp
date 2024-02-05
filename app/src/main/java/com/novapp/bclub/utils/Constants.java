@@ -9,6 +9,10 @@ public class Constants {
 
     public static final String DB_POSTS = "posts";
 
+    public static final String POST_DATABASE_NAME = "post-table";
+
+    public static final int POST_DATABASE_VERSION = 5;
+
     public static final String DB_RIPET = "repetitions";
 
     public static final String DB_GS  = "studyGroups";
