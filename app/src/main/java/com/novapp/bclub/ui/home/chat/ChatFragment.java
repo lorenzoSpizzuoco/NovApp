@@ -67,15 +67,17 @@ public class ChatFragment extends Fragment {
     private void showChat(RecyclerView recyclerView, String id) {
         Task<GroupChat> groupChatTask = GroupChatsService.getGroupChatById(id);
         groupChatTask.addOnCompleteListener(t -> {
-            if (t.isSuccessful()) {
-                GroupChat groupChat = t.getResult();
-                groupChats.add(groupChat);
+            if (isAdded()) {
+                if (t.isSuccessful()) {
+                    GroupChat groupChat = t.getResult();
+                    groupChats.add(groupChat);
 
-                GroupChatAdapter adapter = new GroupChatAdapter(groupChats);
-                recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-                recyclerView.setAdapter(adapter);
-            } else {
-                Snackbar.make(requireView(), R.string.error_group_chat, Snackbar.LENGTH_SHORT).show();
+                    GroupChatAdapter adapter = new GroupChatAdapter(groupChats);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+                    recyclerView.setAdapter(adapter);
+                } else {
+                    Snackbar.make(requireView(), R.string.error_group_chat, Snackbar.LENGTH_SHORT).show();
+                }
             }
         });
     }
