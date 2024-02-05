@@ -44,23 +44,23 @@
                         <Button
                             android:id="@+id/new_event_button"
                             style="@style/Widget.Material3.Button.ElevatedButton.Icon"
-                            android:layout_width="160dp"
+                            android:layout_width="170dp"
                             android:layout_height="70dp"
                             android:layout_marginEnd="8dp"
                             android:text="@string/button_event"
                             app:icon="@drawable/bottom_btn4"
-                            android:textAppearance="?attr/textAppearanceButton"
+                            android:textAppearance="?attr/textAppearanceSubtitle1"
                             app:iconSize="25dp" />
 
                         <Button
                             android:id="@+id/new_info_button"
                             style="@style/Widget.Material3.Button.ElevatedButton"
-                            android:layout_width="160dp"
+                            android:layout_width="170dp"
                             android:layout_height="70dp"
                             android:layout_toEndOf="@+id/new_event_button"
                             android:text="@string/button_info"
                             app:icon="@drawable/ic_notifications_black_24dp"
-                            android:textAppearance="?attr/textAppearanceButton"
+                            android:textAppearance="?attr/textAppearanceSubtitle1"
                             app:iconSize="25dp"/>
                     </RelativeLayout>
 
@@ -74,23 +74,23 @@
                         <Button
                             android:id="@+id/new_gs_button"
                             style="@style/Widget.Material3.Button.ElevatedButton"
-                            android:layout_width="160dp"
+                            android:layout_width="170dp"
                             android:layout_height="70dp"
                             android:layout_marginEnd="8dp"
                             android:text="@string/button_sg"
                             app:icon="@drawable/libri"
-                            android:textAppearance="?attr/textAppearanceButton"
+                            android:textAppearance="?attr/textAppearanceSubtitle1"
                             app:iconSize="25dp"/>
 
                         <Button
                             android:id="@+id/new_ripetizioni_button"
                             style="@style/Widget.Material3.Button.ElevatedButton"
-                            android:layout_width="160dp"
+                            android:layout_width="170dp"
                             android:layout_height="70dp"
                             android:layout_toEndOf="@+id/new_gs_button"
                             android:text="@string/button_ripetizioni"
                             app:icon="@drawable/online_worlds"
-                            android:textAppearance="?attr/textAppearanceButton"
+                            android:textAppearance="?attr/textAppearanceSubtitle1"
                             app:iconSize="25dp" />
 
                     </RelativeLayout>
