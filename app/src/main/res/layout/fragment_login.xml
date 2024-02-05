@@ -39,7 +39,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:text="@string/login"
-            android:textSize="34sp"
+            android:textAppearance="?attr/textAppearanceHeadline4"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/logo" />
@@ -96,10 +96,8 @@
             style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_marginEnd="20dp"
             android:text="@string/forgot_password"
-            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password"
             app:textAllCaps="false" />
@@ -114,7 +112,6 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="24dp"
             android:text="@string/login"
-            android:textSize="14sp"
             app:defaultNavHost="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -141,7 +138,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/register"
-            android:textSize="14sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/textview_new_account"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="packed"

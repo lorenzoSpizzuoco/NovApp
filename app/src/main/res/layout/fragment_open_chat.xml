@@ -22,7 +22,7 @@
         android:id="@+id/noChatText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
+        android:textAppearance="?attr/textAppearanceSubtitle1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,8 +43,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/msg_hint"
-            android:textSize="12sp" />
+            android:hint="@string/msg_hint" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -58,7 +57,6 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="14dp"
         android:padding="3dp"
-        android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

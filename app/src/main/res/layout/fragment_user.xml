@@ -22,7 +22,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="440dp"
         android:text="@string/my_posts"
-        android:textSize="24sp"
+        android:textAppearance="?attr/textAppearanceHeadline5"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -57,7 +57,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="36dp"
                 android:text="@string/hello"
-                android:textSize="20sp"
+                android:textAppearance="?attr/textAppearanceHeadline6"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/userCardView"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="76dp"
-                android:textSize="14sp"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
                 app:layout_constraintStart_toEndOf="@+id/userCardView"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -79,7 +79,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:text="@string/saved_elements"
-                android:textSize="24sp"
+                android:textAppearance="?attr/textAppearanceHeadline5"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/userCardView" />

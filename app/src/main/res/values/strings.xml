@@ -177,5 +177,6 @@
     <string name="msg_hint">Type…</string>
     <string name="night_mode">Night mode</string>
     <string name="notification_toggle">Notification</string>
+    <string name="no_chat_available">No chat available</string>
 
 </resources>

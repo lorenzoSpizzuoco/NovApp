@@ -15,7 +15,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="72dp"
         android:text="@string/full_register_title"
-        android:textSize="34sp"
+        android:textAppearance="?attr/textAppearanceHeadline4"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -37,8 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/name"
-            android:inputType="textCapWords"
-            android:textSize="14sp" />
+            android:inputType="textCapWords" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Surname input field -->
@@ -58,8 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/surname"
-            android:inputType="textCapWords"
-            android:textSize="14sp" />
+            android:inputType="textCapWords"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Bio input field -->
@@ -84,8 +82,7 @@
 
             android:inputType="textMultiLine"
 
-            android:singleLine="false"
-            android:textSize="14sp" />
+            android:singleLine="false"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout

@@ -42,7 +42,7 @@
                 android:maxLines="2"
                 tools:text="Title"
                 android:textColor="?attr/colorOnSurface"
-                android:textAppearance="?attr/textAppearanceTitleMedium"
+                android:textAppearance="?attr/textAppearanceTitleLarge"
                 />
 
             <TextView
