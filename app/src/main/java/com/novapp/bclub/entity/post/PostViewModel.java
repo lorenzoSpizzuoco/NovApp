@@ -168,7 +168,8 @@ public class PostViewModel extends AndroidViewModel {
 
     public MutableLiveData<List<Post>> getUserPosts() {
         String user = userService.getCurrentUser().getID();
-        if (userPosts == null) {
+        //if (userPosts == null) {
+            Log.d(TAG, "BACKEND CALL");
             userPosts = new MutableLiveData<>();
             userService.getUserPosts(user).addOnCompleteListener(
                     task -> {
@@ -177,7 +178,7 @@ public class PostViewModel extends AndroidViewModel {
                         }
                     }
             );
-        }
+       // }
         return userPosts;
     }
 
