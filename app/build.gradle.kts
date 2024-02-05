@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -21,6 +23,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        resValue("string", "api_key", gradleLocalProperties(rootDir).getProperty("api_key"))
     }
 
     buildTypes {

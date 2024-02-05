@@ -6,10 +6,12 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavBackStackEntry;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +22,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.novapp.bclub.R;
 import com.novapp.bclub.entity.post.Post;
+import com.novapp.bclub.entity.post.PostDetailViewModel;
 import com.novapp.bclub.entity.post.PostViewModel;
-import com.novapp.bclub.entity.post.SavedPostsViewModel;
+
 import com.novapp.bclub.service.nativeapi.MessageService;
 import com.novapp.bclub.service.nativeapi.UserService;
 import com.novapp.bclub.entity.user.UserViewModel;
@@ -35,6 +38,8 @@ import java.util.List;
 
 public class PostDetailsFragment extends Fragment {
 
+    private static final String TAG = PostDetailsFragment.class.getSimpleName();
+
     private ImageView authorProfileImage;
 
     private TextView title;
@@ -44,8 +49,6 @@ public class PostDetailsFragment extends Fragment {
     private final UserService userService = new UserService();
 
     private UserViewModel userViewModel;
-
-    private SavedPostsViewModel savedPostsViewModel;
 
     private TextView date;
 
@@ -64,6 +67,8 @@ public class PostDetailsFragment extends Fragment {
 
     private PostViewModel postViewModel;
 
+    private PostDetailViewModel postDetailViewModel;
+
     Post p;
 
     public PostDetailsFragment() {
@@ -73,8 +78,7 @@ public class PostDetailsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
-        savedPostsViewModel = new ViewModelProvider(this).get(SavedPostsViewModel.class);
+        postDetailViewModel = new ViewModelProvider(this).get(PostDetailViewModel.class);
         userViewModel = new UserViewModel();
 
     }
@@ -126,7 +130,6 @@ public class PostDetailsFragment extends Fragment {
 
     }
 
-
     private void setupFavoriteButtonListener() {
 
         // click listener
@@ -134,13 +137,13 @@ public class PostDetailsFragment extends Fragment {
             if (p.getFavorite() == 1) {
                 p.setFavorite(0);
                 userViewModel.removeFavorite(p);
-                savedPostsViewModel.removeSaved(p);
+                //savedPostsViewModel.removeSaved(p);
                 favoriteIcon.setIconResource(R.drawable.baseline_favorite_border_24);
             }
             else {
                 p.setFavorite(1);
                 userViewModel.setFavorite(p);
-                savedPostsViewModel.savePost(p);
+                //savedPostsViewModel.savePost(p);
                 favoriteIcon.setIconResource(R.drawable.ic_favorite_24);
 
             }
@@ -148,6 +151,7 @@ public class PostDetailsFragment extends Fragment {
     }
 
     private void setupStudyGroupButton(View view) {
+
         if (p.getCategory() == 4) {
             gs_button.setVisibility(View.VISIBLE);
             gs_button.setOnClickListener(v ->{
@@ -196,6 +200,7 @@ public class PostDetailsFragment extends Fragment {
     }
 
     private void setupImage(View view) {
+
         if (p.getCategory() != 2) {
             ImageView image = view.findViewById(R.id.PostdetailsImageView);
 
@@ -214,7 +219,7 @@ public class PostDetailsFragment extends Fragment {
 
     private void setUpAuthorImage(View view) {
 
-        postViewModel.getAuthorImage(p.getAuthor()).observe(getViewLifecycleOwner(), imageUrl ->
+        postDetailViewModel.getAuthorImage(p.getAuthor()).observe(getViewLifecycleOwner(), imageUrl ->
                 {
                     if (imageUrl != null) {
                         Glide.with(view)
@@ -225,6 +230,7 @@ public class PostDetailsFragment extends Fragment {
                     }
                 }
         );
+
     }
 
     private void setupChip() {

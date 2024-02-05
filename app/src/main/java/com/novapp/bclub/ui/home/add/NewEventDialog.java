@@ -220,6 +220,7 @@ public class NewEventDialog extends DialogFragment {
 
         if(eventPhoto == null) {
             valid = false;
+            Snackbar.make(getView(), R.string.missing_image, Snackbar.LENGTH_SHORT).show();
         }
 
         if (valid) {
@@ -237,7 +238,7 @@ public class NewEventDialog extends DialogFragment {
                     0 ));
 
             b.putParcelable("image", imageUri);
-             Navigation.findNavController(requireParentFragment().requireView()).navigate(R.id.action_navigation_add_to_loadingFragment, b);
+            Navigation.findNavController(requireParentFragment().requireView()).navigate(R.id.action_navigation_add_to_loadingFragment, b);
         }
 
     }

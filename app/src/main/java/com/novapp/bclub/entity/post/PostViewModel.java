@@ -27,15 +27,16 @@ public class PostViewModel extends AndroidViewModel {
 
     private MutableLiveData<Integer> isFavorite = null;
     private final MutableLiveData<Boolean> doneLoading = new MutableLiveData<>();
-    private final MutableLiveData<List<Post>> savedPosts = null;
     private MutableLiveData<List<Post>> userPosts;
-
-    private MutableLiveData<List<Post>> allPost;
+    private LiveData<List<Post>> allPostRoom;
     private boolean calling = false;
+    private MutableLiveData<Boolean> refresh;
 
     public PostViewModel (Application application) {
         super(application);
+        refresh = new MutableLiveData<Boolean>(false);
         postService =  new PostService(application);
+        allPostRoom = postService.getAllPostRoom(false);
     }
 
     public MutableLiveData<Integer> getIsFavorite(String user, String id) {
@@ -90,43 +91,14 @@ public class PostViewModel extends AndroidViewModel {
     }
 
     public LiveData<Boolean> getDoneLoading() {
+
         return doneLoading;
+
     }
 
     public void refresh() {
-
-        postService.getAllPost().addOnCompleteListener(task -> {
-           if (task.isSuccessful()) {
-               List<Post> p = task.getResult();
-               reverse(p);
-               allPost.postValue(task.getResult());
-           }
-        });
-
+        refresh.setValue(true);
     }
-
-
-    public MutableLiveData<List<Post>> getAllPost() {
-
-        if (allPost == null) {
-
-            allPost = new MutableLiveData<>();
-            postService.getAllPost().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    List<Post> p = task.getResult();
-                    reverse(p);
-                    allPost.postValue(task.getResult());
-                }
-            });
-
-        }
-
-        return allPost;
-
-    }
-
-
-
 
     public void insert(Post post, Uri image) {
 
@@ -151,38 +123,12 @@ public class PostViewModel extends AndroidViewModel {
 
     }
 
-    public MutableLiveData<String> getAuthorImage(String email) {
-
-        MutableLiveData<String> authorImage = new MutableLiveData<>();
-
-        UserService.getUserByEmail(email).addOnCompleteListener(
-          task -> {
-              if (task.isSuccessful()) {
-                  authorImage.postValue(task.getResult().getProfileImg());
-              }
-          }
-        );
-
-        return authorImage;
+    public LiveData<List<Post>> getPostsRoom() {
+        boolean r = refresh.getValue();
+        Log.d(TAG, "valore refresh " + r);
+        refresh.setValue(false);
+        allPostRoom = postService.getAllPostRoom(r);
+        return allPostRoom;
     }
 
-    public MutableLiveData<List<Post>> getUserPosts() {
-        String user = userService.getCurrentUser().getID();
-        //if (userPosts == null) {
-            Log.d(TAG, "BACKEND CALL");
-            userPosts = new MutableLiveData<>();
-            userService.getUserPosts(user).addOnCompleteListener(
-                    task -> {
-                        if (task.isSuccessful()) {
-                            userPosts.postValue(task.getResult());
-                        }
-                    }
-            );
-       // }
-        return userPosts;
-    }
-
-    public MutableLiveData<List<Post>> getRoomSaved() {
-        return savedPosts;
-    }
 }
