@@ -28,6 +28,7 @@ import com.novapp.bclub.sources.UserSource;
 import com.novapp.bclub.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -192,6 +193,7 @@ public class PostRepositoryImpl implements IPostRepository{
                                         postList.add(p);
                                     }
                                 }
+                                Collections.reverse(postList);
                                 posts.postValue(postList);
                                 PostRoomDatabase.databaseWriteExecutor.execute(() -> {
                                     for (Post post : postList) {
@@ -230,9 +232,7 @@ public class PostRepositoryImpl implements IPostRepository{
     }
 
     public void deleteAll() {
-        PostRoomDatabase.databaseWriteExecutor.execute(() -> {
-            postDao.deleteAll();
-        });
+        PostRoomDatabase.databaseWriteExecutor.execute(postDao::deleteAll);
     }
 
 

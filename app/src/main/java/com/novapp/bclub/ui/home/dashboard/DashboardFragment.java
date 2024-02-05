@@ -89,7 +89,7 @@ public class DashboardFragment extends Fragment {
 
         // Observing viewModel
         postViewModel.getPostsRoom().observe(getViewLifecycleOwner(), posts -> {
-            Collections.reverse(posts);
+            //Collections.reverse(posts);
             postList.clear();
             postList.addAll(posts);
             postAdapter.notifyDataSetChanged();
@@ -130,6 +130,14 @@ public class DashboardFragment extends Fragment {
                 () -> {
                     swipeRefreshLayout.setRefreshing(false);
                     postViewModel.refresh();
+                    postViewModel.getPostsRoom().observe(getViewLifecycleOwner(), posts -> {
+                        //Collections.reverse(posts);
+                        postList.clear();
+                        postList.addAll(posts);
+                        postAdapter.notifyDataSetChanged();
+                        updateFilteredList();
+                    });
+
                 }
         );
     }

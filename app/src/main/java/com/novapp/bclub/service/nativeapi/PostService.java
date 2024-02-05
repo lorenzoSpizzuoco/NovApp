@@ -1,6 +1,4 @@
 package com.novapp.bclub.service.nativeapi;
-
-import static com.novapp.bclub.utils.Constants.API_KEY;
 import static com.novapp.bclub.utils.Constants.PROFANITY_API_BASE_URL;
 import static com.novapp.bclub.utils.Utils.checkResponse;
 

@@ -30,9 +30,11 @@ public class PostViewModel extends AndroidViewModel {
     private MutableLiveData<List<Post>> userPosts;
     private LiveData<List<Post>> allPostRoom;
     private boolean calling = false;
+    private MutableLiveData<Boolean> refresh;
 
     public PostViewModel (Application application) {
         super(application);
+        refresh = new MutableLiveData<Boolean>(false);
         postService =  new PostService(application);
         allPostRoom = postService.getAllPostRoom(false);
     }
@@ -95,9 +97,7 @@ public class PostViewModel extends AndroidViewModel {
     }
 
     public void refresh() {
-
-        allPostRoom = postService.getAllPostRoom(true);
-
+        refresh.setValue(true);
     }
 
     public void insert(Post post, Uri image) {
@@ -124,6 +124,10 @@ public class PostViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Post>> getPostsRoom() {
+        boolean r = refresh.getValue();
+        Log.d(TAG, "valore refresh " + r);
+        refresh.setValue(false);
+        allPostRoom = postService.getAllPostRoom(r);
         return allPostRoom;
     }
 
